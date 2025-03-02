@@ -22,7 +22,7 @@
                     </span>
                 </span>
             @else
-                <a wire:navigate href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="{{ __('pagination.previous') }}" class="grid transition-colors rounded-lg bg-blue-50 text-blue-950 hover:bg-blue-50/50 size-8 place-items-center">
+                <a wire:navigate href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="{{ __('pagination.previous') }}" class="grid transition-colors rounded-lg bg-blue-50 text-blue-950 hover:bg-blue-100 size-8 place-items-center">
                     ←
                 </a>
             @endif
@@ -42,7 +42,7 @@
                                 <span>{{ $page }}</span>
                             </span>
                         @else
-                            <a wire:navigate href="{{ $url }}" aria-label="{{ __('Go to page :page', compact('page')) }}" class="grid transition-colors rounded-lg bg-blue-50 text-blue-950 hover:bg-blue-50/50 size-8 place-items-center">
+                            <a wire:navigate href="{{ $url }}" aria-label="{{ __('Go to page :page', compact('page')) }}" class="grid transition-colors rounded-lg bg-blue-50 text-blue-950 hover:bg-blue-100 size-8 place-items-center">
                                 {{ $page }}
                             </a>
                         @endif
@@ -51,7 +51,7 @@
             @endforeach
 
             @if ($paginator->hasMorePages())
-                <a wire:navigate href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="{{ __('pagination.next') }}" class="grid transition-colors rounded-lg bg-blue-50 text-blue-950 hover:bg-blue-50/50 size-8 place-items-center">
+                <a wire:navigate href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="{{ __('pagination.next') }}" class="grid transition-colors rounded-lg bg-blue-50 text-blue-950 hover:bg-blue-100 size-8 place-items-center">
                     →
                 </a>
             @else

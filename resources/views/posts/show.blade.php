@@ -18,7 +18,7 @@
                 class="mx-auto mb-2 rounded-full ring-1 ring-black/5 size-10"
             />
 
-            <span class="font-medium underline decoration-black/30 decoration-1 underline-offset-4">Benjamin Crozat</span>
+            Benjamin Crozat
 
             <br />
 
