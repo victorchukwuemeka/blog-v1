@@ -36,16 +36,6 @@
         </h1>
 
         <x-prose class="container mt-8 md:mt-16">
-            @if (! empty($headings = extract_headings_from_markdown($post['content'])))
-                <div class="p-4 pt-6 mb-8 bg-gray-100 not-prose md:mb-16 md:p-8 md:pt-10 rounded-xl">
-                    <div class="text-sm font-bold tracking-widest text-center text-black uppercase">
-                        Table of contents
-                    </div>
-
-                    <x-table-of-contents :$headings class="grid mt-4" />
-                </div>
-            @endif
-
             {!! Str::markdown($post['content']) !!}
         </x-prose>
     </article>
