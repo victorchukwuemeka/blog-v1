@@ -36,6 +36,16 @@
         </h1>
 
         <x-prose class="container mt-8 md:mt-16">
+            <div class="not-prose">
+                <div class="px-4 py-6 bg-gray-100 rounded-lg">
+                    <div class="text-sm font-bold tracking-widest text-center text-black uppercase">
+                        Table of contents
+                    </div>
+
+                    <x-table-of-contents :headings="extract_headings_from_markdown($post['content'])" class="mt-4 ml-0" />
+                </div>
+            </div>
+
             {!! Str::markdown($post['content']) !!}
         </x-prose>
     </article>
