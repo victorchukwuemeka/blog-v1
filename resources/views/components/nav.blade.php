@@ -56,4 +56,37 @@
         <x-heroicon-o-user class="mx-auto size-7" />
         About
     </a>
+
+    <div x-data="{ open: false }">
+        <button @click="open = !open">
+            <x-heroicon-o-ellipsis-horizontal class="mx-auto size-7" />
+            More
+        </button>
+
+        <div
+            class="py-2 text-base bg-white rounded-lg shadow-lg ring-1 ring-black/10"
+            x-anchor.bottom="$el.previousElementSibling"
+            x-show="open"
+            x-transition
+            @click.away="open = false"
+        >
+            <a href="https://github.com/benjamincrozat/blog-v5" target="_blank" class="block px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+                Fork the source code
+            </a>
+
+            <div class="h-px my-2 bg-black/10"></div>
+
+            <a href="https://github.com/benjamincrozat" target="_blank" class="block px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+                Follow me on GitHub
+            </a>
+
+            <a href="https://www.linkedin.com/in/benjamincrozat" target="_blank" class="block px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+                Follow me on LinkedIn
+            </a>
+
+            <a href="https://x.com/benjamincrozat" target="_blank" class="block px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+                Follow me on X
+            </a>
+        </div>
+    </div>
 </nav>
