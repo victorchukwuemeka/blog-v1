@@ -64,7 +64,7 @@
         </button>
 
         <div
-            class="py-2 text-base bg-white rounded-lg shadow-lg ring-1 ring-black/10"
+            class="z-10 py-2 text-base bg-white rounded-lg shadow-lg ring-1 ring-black/10"
             x-anchor.bottom="$el.previousElementSibling"
             x-show="open"
             x-transition
@@ -76,16 +76,18 @@
 
             <div class="h-px my-2 bg-black/10"></div>
 
+            <div class="px-4 py-2 text-xs uppercase">Follow me</div>
+
             <a href="https://github.com/benjamincrozat" target="_blank" class="block px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
-                Follow me on GitHub
+                GitHub
             </a>
 
             <a href="https://www.linkedin.com/in/benjamincrozat" target="_blank" class="block px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
-                Follow me on LinkedIn
+                LinkedIn
             </a>
 
             <a href="https://x.com/benjamincrozat" target="_blank" class="block px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
-                Follow me on X
+                X
             </a>
         </div>
     </div>
