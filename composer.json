@@ -2,11 +2,12 @@
     "$schema": "https://getcomposer.org/schema.json",
     "require": {
         "php": "^8.3",
+        "andreiio/blade-iconoir": "^4.6",
         "blade-ui-kit/blade-heroicons": "^2.6",
-        "laravel/fortify": "^1.25",
         "laravel/framework": "^12.0",
         "laravel/horizon": "^5.30",
         "laravel/sanctum": "^4.0",
+        "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.10",
         "livewire/livewire": "^3.5",
         "spatie/laravel-collection-macros": "^8.0",

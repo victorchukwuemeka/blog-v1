@@ -16,25 +16,8 @@ class User extends Authenticatable
     /**
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * @var array<int, string>
-     */
     protected $hidden = [
-        'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
-    ];
-
-    /**
-     * @var array<int, string>
-     */
-    protected $appends = [
-        'profile_photo_url',
     ];
 
     /**
@@ -43,8 +26,7 @@ class User extends Authenticatable
     protected function casts() : array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'github_data' => 'array',
         ];
     }
 }
