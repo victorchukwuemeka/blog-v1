@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ShowPostController;
-use App\Http\Controllers\ListPostsController;
+use App\Http\Controllers\Posts\ShowPostController;
+use App\Http\Controllers\Posts\ListPostsController;
 
 Route::get('/', HomeController::class)->name('home');
 

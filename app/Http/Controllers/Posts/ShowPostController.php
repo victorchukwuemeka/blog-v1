@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Posts;
 
 use Illuminate\View\View;
 use App\Actions\Posts\ParsePost;
+use App\Http\Controllers\Controller;
 
 class ShowPostController extends Controller
 {

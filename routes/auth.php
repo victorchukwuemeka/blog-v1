@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\GithubAuthCallbackController;
-use App\Http\Controllers\GithubAuthRedirectController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\GithubAuthCallbackController;
+use App\Http\Controllers\Auth\GithubAuthRedirectController;
 
 Route::prefix('/auth')->name('auth.')->group(function () {
     Route::get('/redirect', GithubAuthRedirectController::class)->name('redirect');
