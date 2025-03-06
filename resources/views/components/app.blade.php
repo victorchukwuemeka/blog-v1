@@ -59,11 +59,7 @@
             </footer>
         </div>
 
-        @session('status')
-            <div class="fixed bottom-4 left-1/2 z-10 -translate-x-1/2 bg-blue-600 text-white w-max min-w-[160px] px-4 py-3 font-medium rounded-lg">
-                {{ $value }}
-            </div>
-        @endsession
+        <x-status />
 
         @livewireScriptConfig
 
