@@ -64,18 +64,26 @@
                 x-transition
                 @click.away="open = false"
             >
-                <div class="px-4 py-2 text-center">Hello, Benjamin Crozat!</div>
+                <div class="flex items-center gap-3 px-4 py-2">
+                    <img
+                        src="{{ auth()->user()->github_data['avatar'] }}"
+                        alt="{{ auth()->user()->name }}'s GitHub avatar"
+                        class="rounded-full size-6 md:size-8"
+                    />
+
+                    {{ auth()->user()->name }}
+                </div>
 
                 <div class="h-px my-2 bg-black/10"></div>
 
-                <a href="#" target="_blank" class="flex items-center gap-2 px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+                <a href="#" target="_blank" class="flex items-center gap-2 px-4 py-2 transition-colors hover:bg-blue-600 hover:text-white">
                     <x-heroicon-o-arrow-top-right-on-square class="size-4" />
                     Manage on GitHub
                 </a>
 
                 <button
                     form="logout-form"
-                    class="flex items-center w-full gap-2 px-4 py-2 font-medium transition-colors hover:bg-red-600 hover:text-white"
+                    class="flex items-center w-full gap-2 px-4 py-2 transition-colors hover:bg-red-600 hover:text-white"
                 >
                     <x-heroicon-o-arrow-right-end-on-rectangle class="size-4" />
                     Log out
