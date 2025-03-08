@@ -76,7 +76,7 @@
 
                 <div class="h-px my-2 bg-black/10"></div>
 
-                <a href="#" target="_blank" class="flex items-center gap-2 px-4 py-2 transition-colors hover:bg-blue-600 hover:text-white">
+                <a href="https://github.com/settings" target="_blank" class="flex items-center gap-2 px-4 py-2 transition-colors hover:bg-blue-600 hover:text-white">
                     <x-heroicon-o-arrow-top-right-on-square class="size-4" />
                     Manage on GitHub
                 </a>
