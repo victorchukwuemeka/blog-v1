@@ -11,6 +11,7 @@ class FetchPosts
     {
         return collect(
             iterator_to_array(
+                // This is a simple way to fetch all the posts from the markdown folder.
                 app(Finder::class)
                     ->files()
                     ->in(resource_path('markdown/posts'))

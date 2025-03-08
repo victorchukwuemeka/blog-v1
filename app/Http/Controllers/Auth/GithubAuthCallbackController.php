@@ -13,8 +13,7 @@ class GithubAuthCallbackController extends Controller
     {
         $githubUser = Socialite::driver('github')->user();
 
-        // Make sure the user's data is always up to date.
-        // Either create a brand new one or update it.
+        // Either create a brand new user or update their information.
         $user = User::query()->updateOrCreate(['email' => $githubUser->getEmail()], [
             'name' => $githubUser->getName() ?? $githubUser->getNickname(),
             'github_login' => $githubUser->getNickname(),
@@ -24,6 +23,6 @@ class GithubAuthCallbackController extends Controller
 
         auth()->login($user, true);
 
-        return to_route('home')->with('status', 'You have been logged in.');
+        return redirect()->intended()->with('status', 'You have been logged in.');
     }
 }

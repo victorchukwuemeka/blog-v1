@@ -10,8 +10,6 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
     protected function gate() : void
     {
         Gate::define('viewHorizon', function ($user) {
-            // It's super important to check for a verified email address first. Otherwise,
-            // anyone can register with one of my email addresses and mess everything up.
             return in_array($user->email, [
                 'hello@benjamincrozat.com',
             ]);

@@ -2,7 +2,6 @@
 
 use App\Models\User;
 
-use function Pest\Laravel\get;
 use function Pest\Laravel\assertGuest;
 
 use Laravel\Socialite\Facades\Socialite;
@@ -11,7 +10,7 @@ use Laravel\Socialite\Two\GithubProvider;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertAuthenticated;
 
-it('creates a new user and redirects to home', function () {
+it('creates a new user and redirects to intended URL', function () {
     $provider = Mockery::mock(GithubProvider::class);
     $provider->shouldReceive('user')->andReturn(new class
     {
@@ -35,10 +34,12 @@ it('creates a new user and redirects to home', function () {
         ->with('github')
         ->andReturn($provider);
 
-    assertGuest();
+    // Set the intended URL this way to make the test pass. Using from() doesn't work.
+    session()->put('url.intended', route('posts.index'));
 
-    get(route('auth.callback'))
-        ->assertRedirect(route('home'))
+    assertGuest()
+        ->get(route('auth.callback'))
+        ->assertRedirect(route('posts.index'))
         ->assertSessionHas('status', 'You have been logged in.');
 
     assertAuthenticated();
@@ -50,7 +51,7 @@ it('creates a new user and redirects to home', function () {
     ]);
 });
 
-it('updates an existing user and redirects to home', function () {
+it('updates an existing user and redirects to intended URL', function () {
     $provider = Mockery::mock(GithubProvider::class);
     $provider->shouldReceive('user')->andReturn(new class
     {
@@ -78,10 +79,12 @@ it('updates an existing user and redirects to home', function () {
         'email' => 'test@example.com',
     ]);
 
-    assertGuest();
+    // Set the intended URL this way to
+    session()->put('url.intended', route('posts.index'));
 
-    get(route('auth.callback'))
-        ->assertRedirect(route('home'))
+    assertGuest()
+        ->get(route('auth.callback'))
+        ->assertRedirect(route('posts.index'))
         ->assertSessionHas('status', 'You have been logged in.');
 
     assertAuthenticated();

@@ -4,7 +4,7 @@
     :image="$post['image']"
     :title="$post['title']"
 >
-    <article class="mt-16">
+    <article>
         <div class="container break-all lg:max-w-screen-md">
             @if ($post['image'])
                 <img src="{{ $post['image'] }}" alt="{{ $post['title']  }}" class="object-cover w-full shadow-xl ring-1 ring-black/5 rounded-xl aspect-video" />

@@ -21,15 +21,18 @@ class Str extends \Illuminate\Support\Str
     {
         $options = array_merge([
             'default_attributes' => [
+                // Add an ID to all headings to help with the table of contents.
                 Heading::class => [
                     'id' => fn (Heading $heading) : string => Str::slug(
                         static::childrenToText($heading)
                     ),
                 ],
             ],
+            // Basic security measure.
             'disallowed_raw_html' => [
                 'disallowed_tags' => ['noembed', 'noframes', 'plaintext', 'script', 'style', 'textarea', 'title', 'xmp'],
             ],
+            // Open external links in a new window.
             'external_link' => [
                 'internal_hosts' => [
                     preg_replace('/https?:\/\//', '', config('app.url')),

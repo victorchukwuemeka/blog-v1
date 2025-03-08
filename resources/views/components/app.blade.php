@@ -39,24 +39,16 @@
         <link rel="canonical" href="{{ $canonical }}">
     </head>
     <body {{ $attributes->class('font-light text-gray-600') }}>
-        <header class="container mt-4 xl:max-w-screen-lg">
-            <x-nav />
-        </header>
+        <div class="flex flex-col min-h-screen">
+            <header class="container mt-4 xl:max-w-screen-lg">
+                <x-nav />
+            </header>
 
-        <main class="mt-8">
-            {{ $slot }}
-        </main>
+            <main class="flex-grow mt-8">
+                {{ $slot }}
+            </main>
 
-        <div class="mt-8 bg-gray-100 md:mt-16">
-            <footer class="container py-8">
-                <nav class="flex items-center justify-center gap-8">
-                    <a wire:navigate href="{{ route('home') }}" class="font-medium">Home</a>
-                    <a wire:navigate href="{{ route('posts.index') }}" class="font-medium">Latest</a>
-                    <a href="{{ route('home') }}#about" class="font-medium">About</a>
-                </nav>
-
-                <p class="mt-6 text-center text-gray-400">Please don't steal my content. © {{ date('Y') }} blah blah blah.</p>
-            </footer>
+            <x-footer class="mt-8 md:mt-16" />
         </div>
 
         <x-status />

@@ -1,5 +1,5 @@
 <x-app>
-    <div class="container mt-16 text-center">
+    <div class="container mt-8 text-center">
         <div class="font-bold text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
             <span class="text-blue-600">{{ Number::format(cache('visitors') ?? 0) }}</span> monthly visitors read my blog
         </div>

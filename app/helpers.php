@@ -3,6 +3,23 @@
 use App\Str;
 
 if (! function_exists('extract_headings_from_markdown')) {
+    /**
+     * This handy helper was written by ChatGPT and helps
+     * me display the table of contents in articles.
+     *
+     * @param  string  $markdown
+     * @return array<int, array{
+     *     level: int,
+     *     text: string,
+     *     slug: string,
+     *     children: array<int, array{
+     *         level: int,
+     *         text: string,
+     *         slug: string,
+     *         children: array
+     *     }>
+     * }>
+     */
     function extract_headings_from_markdown($markdown)
     {
         // Split the markdown into lines (supports various newline types).

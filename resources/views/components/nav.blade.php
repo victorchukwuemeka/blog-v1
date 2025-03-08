@@ -49,6 +49,23 @@
         Latest
     </a>
 
+    <a
+        wire:navigate
+        href="{{ route('links.index') }}"
+        @class([
+            'transition-colors hover:text-blue-600',
+            'text-blue-600' => request()->routeIs('links.index'),
+        ])"
+    >
+        @if (request()->routeIs('links.index'))
+            <x-heroicon-s-link class="mx-auto size-6 md:size-7" />
+        @else
+            <x-heroicon-o-link class="mx-auto size-6 md:size-7" />
+        @endif
+
+        Links
+    </a>
+
     @auth
         <div x-data="{ open: false }">
             <button @click="open = !open">
@@ -108,7 +125,7 @@
         <button @click="open = !open">
             <x-heroicon-o-ellipsis-horizontal
                 class="mx-auto transition-transform size-6 md:size-7"
-                x-bind:class="open ? 'rotate-90' : 'rotate-0'"
+                x-bind:class="{ 'rotate-90': open }"
             />
 
             More
