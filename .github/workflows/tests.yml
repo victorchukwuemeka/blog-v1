@@ -42,9 +42,6 @@ jobs:
       - name: Create .env file
         run: cp .env.example .env
 
-      - name: Authenticate private Composer packages
-        run: composer config http-basic.spark.laravel.com ${{ secrets.SPARK_USERNAME }} ${{ secrets.SPARK_PASSWORD }}
-
       - name: Install back-end dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
