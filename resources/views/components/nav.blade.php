@@ -67,20 +67,13 @@
     </a>
 
     @auth
-        <div x-data="{ open: false }">
-            <button @click="open = !open">
+        <x-dropdown>
+            <x-slot:btn>
                 <x-heroicon-o-user class="mx-auto size-6 md:size-7" />
                 Account
-            </button>
+            </x-slot>
 
-            <div
-                class="z-10 py-2 text-base bg-white rounded-lg shadow-lg ring-1 ring-black/10 min-w-[240px]"
-                x-anchor.bottom="$el.previousElementSibling"
-                x-cloak
-                x-show="open"
-                x-transition
-                @click.away="open = false"
-            >
+            <x-slot:items>
                 <div class="flex items-center gap-3 px-4 py-2">
                     <img
                         src="{{ auth()->user()->github_data['avatar'] }}"
@@ -91,26 +84,23 @@
                     {{ auth()->user()->name }}
                 </div>
 
-                <div class="h-px my-2 bg-black/10"></div>
+                <x-dropdown.divider />
 
-                <a href="https://github.com/settings" target="_blank" class="flex items-center gap-2 px-4 py-2 transition-colors hover:bg-blue-600 hover:text-white">
+                <x-dropdown.item href="https://github.com/settings" target="_blank">
                     <x-heroicon-o-arrow-top-right-on-square class="size-4" />
                     Manage on GitHub
-                </a>
+                </x-dropdown.item>
 
-                <button
-                    form="logout-form"
-                    class="flex items-center w-full gap-2 px-4 py-2 transition-colors hover:bg-red-600 hover:text-white"
-                >
+                <x-dropdown.item destructive form="logout-form">
                     <x-heroicon-o-arrow-right-end-on-rectangle class="size-4" />
                     Log out
-                </button>
+                </x-dropdown.item>
 
                 <form method="POST" action="{{ route('auth.logout') }}" id="logout-form" class="hidden">
                     @csrf
                 </form>
-            </div>
-        </div>
+            </x-slot>
+        </x-dropdown>
     @else
         <a
             href="{{ route('auth.redirect') }}"
@@ -121,52 +111,44 @@
         </a>
     @endauth
 
-    <div x-data="{ open: false }">
-        <button @click="open = !open">
+    <x-dropdown>
+        <x-slot:btn>
             <x-heroicon-o-ellipsis-horizontal
                 class="mx-auto transition-transform size-6 md:size-7"
                 x-bind:class="{ 'rotate-90': open }"
             />
-
             More
-        </button>
+        </x-slot>
 
-        <div
-            class="z-10 py-2 text-base bg-white rounded-lg shadow-lg ring-1 ring-black/10 min-w-[240px]"
-            x-anchor.bottom="$el.previousElementSibling"
-            x-cloak
-            x-show="open"
-            x-transition
-            @click.away="open = false"
-        >
-            <a href="{{ route('home') }}#about" class="flex items-center gap-2 px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+        <x-slot:items>
+            <x-dropdown.item href="{{ route('home') }}#about">
                 <x-heroicon-o-question-mark-circle class="size-4" />
                 About me
-            </a>
+            </x-dropdown.item>
 
-            <a href="https://github.com/benjamincrozat/blog-v5" target="_blank" class="flex items-center gap-2 px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+            <x-dropdown.item href="https://github.com/benjamincrozat/blog-v5" target="_blank">
                 <x-iconoir-git-fork class="size-4" />
                 Fork the source code
-            </a>
+            </x-dropdown.item>
 
-            <div class="h-px my-2 bg-black/10"></div>
+            <x-dropdown.divider>
+                Follow me
+            </x-dropdown.divider>
 
-            <div class="px-4 py-2 text-xs font-bold tracking-widest uppercase">Follow me</div>
-
-            <a href="https://github.com/benjamincrozat" target="_blank" class="flex items-center gap-2 px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+            <x-dropdown.item href="https://github.com/benjamincrozat" target="_blank">
                 <x-iconoir-github class="size-4" />
                 GitHub
-            </a>
+            </x-dropdown.item>
 
-            <a href="https://www.linkedin.com/in/benjamincrozat" target="_blank" class="flex items-center gap-2 px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+            <x-dropdown.item href="https://www.linkedin.com/in/benjamincrozat" target="_blank">
                 <x-iconoir-linkedin class="size-4" />
                 LinkedIn
-            </a>
+            </x-dropdown.item>
 
-            <a href="https://x.com/benjamincrozat" target="_blank" class="flex items-center gap-2 px-4 py-2 font-medium transition-colors hover:bg-blue-600 hover:text-white">
+            <x-dropdown.item href="https://x.com/benjamincrozat" target="_blank">
                 <x-iconoir-x class="size-4" />
                 X
-            </a>
-        </div>
-    </div>
+            </x-dropdown.item>
+        </x-slot>
+    </x-dropdown>
 </nav>
