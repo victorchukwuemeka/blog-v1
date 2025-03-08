@@ -106,7 +106,11 @@
 
     <div x-data="{ open: false }">
         <button @click="open = !open">
-            <x-heroicon-o-ellipsis-horizontal class="mx-auto size-6 md:size-7" />
+            <x-heroicon-o-ellipsis-horizontal
+                class="mx-auto transition-transform size-6 md:size-7"
+                x-bind:class="open ? 'rotate-90' : 'rotate-0'"
+            />
+
             More
         </button>
 
