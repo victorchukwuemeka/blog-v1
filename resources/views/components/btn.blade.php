@@ -6,7 +6,7 @@
     {{
         $attributes
             ->class([
-                'font-medium rounded-xl transition-colors',
+                'inline-block font-medium rounded-xl transition-colors',
                 'bg-gray-200 hover:bg-gray-100' => ! $attributes->has('primary'),
                 'bg-blue-600 hover:bg-blue-500 text-white' => $attributes->has('primary'),
                 'px-4 py-3' => ! $attributes->has('size'),

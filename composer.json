@@ -4,6 +4,7 @@
         "php": "^8.3",
         "andreiio/blade-iconoir": "^4.6",
         "blade-ui-kit/blade-heroicons": "^2.6",
+        "embed/embed": "^4.4",
         "laravel/framework": "^12.0",
         "laravel/horizon": "^5.30",
         "laravel/socialite": "^5.18",

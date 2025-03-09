@@ -1,6 +1,6 @@
 <x-app>
     <div class="container mt-8 text-center">
-        <div class="font-bold text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
+        <div class="font-bold tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
             <span class="text-blue-600">{{ Number::format(cache('visitors') ?? 0) }}</span> monthly visitors read my blog
         </div>
 
@@ -57,7 +57,7 @@
 
     <x-section title="Latest posts" id="latest" class="mt-24 md:mt-32">
         @if ($latest->isNotEmpty())
-            <ul class="grid gap-16 mt-8 md:grid-cols-2 lg:grid-cols-3">
+            <ul class="grid gap-10 mt-8 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($latest as $post)
                     <li>
                         <x-post :$post />

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -29,5 +30,10 @@ class User extends Authenticatable
             'github_data' => 'array',
             'password' => 'hashed',
         ];
+    }
+
+    public function links() : HasMany
+    {
+        return $this->hasMany(Link::class);
     }
 }

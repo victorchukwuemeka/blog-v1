@@ -14,6 +14,11 @@ it('creates a new user and redirects to intended URL', function () {
     $provider = Mockery::mock(GithubProvider::class);
     $provider->shouldReceive('user')->andReturn(new class
     {
+        public function getAvatar()
+        {
+            return 'https://example.com/avatar.png';
+        }
+
         public function getEmail()
         {
             return 'test@example.com';
@@ -55,6 +60,11 @@ it('updates an existing user and redirects to intended URL', function () {
     $provider = Mockery::mock(GithubProvider::class);
     $provider->shouldReceive('user')->andReturn(new class
     {
+        public function getAvatar()
+        {
+            return 'https://example.com/avatar.png';
+        }
+
         public function getEmail()
         {
             return 'test@example.com';

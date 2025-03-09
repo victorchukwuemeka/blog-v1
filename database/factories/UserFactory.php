@@ -22,6 +22,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'github_login' => fake()->userName(),
+            'avatar' => fake()->imageUrl(),
             'github_data' => [
                 'id' => fake()->unique()->randomNumber(),
                 'name' => fake()->name(),

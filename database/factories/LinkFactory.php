@@ -18,8 +18,8 @@ class LinkFactory extends Factory
         return [
             'user_id' => User::factory(),
             'url' => fake()->url(),
+            'image_url' => fake()->imageUrl(),
             'title' => fake()->sentence(),
-            'slug' => fake()->slug(),
             'description' => fake()->paragraph(),
         ];
     }

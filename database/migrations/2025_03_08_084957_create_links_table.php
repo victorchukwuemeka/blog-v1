@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('url');
+            $table->string('url')->unique();
+            $table->string('image_url')->nullable();
             $table->string('title');
-            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->timestamp('is_approved')->nullable();
             $table->timestamp('is_declined')->nullable();
