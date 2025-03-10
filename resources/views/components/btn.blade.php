@@ -11,6 +11,7 @@
                 'bg-blue-600 hover:bg-blue-500 text-white' => $attributes->has('primary'),
                 'px-4 py-3' => ! $attributes->has('size'),
                 'px-5 py-3 text-lg' => 'md' === $attributes->get('size'),
+                'px-[.65rem] py-[.35rem] text-sm rounded-md' => 'sm' === $attributes->get('size'),
             ])
             ->merge([
                 'href' => route('posts.index'),
