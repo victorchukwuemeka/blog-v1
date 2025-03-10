@@ -34,6 +34,8 @@ class ShowPostController extends Controller
             }
         );
 
-        return view('posts.show', compact('post'));
+        $readTime = ceil(str_word_count($post['content']) / 200);
+
+        return view('posts.show', compact('post', 'readTime'));
     }
 }

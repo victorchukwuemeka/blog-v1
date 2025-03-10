@@ -28,25 +28,9 @@
                 class="mx-auto mb-2 rounded-full ring-1 ring-black/5 size-10"
             />
 
-            Benjamin Crozat
-
-            <br />
-
-            <div>
-                <time datetime="{{ $post['published_at']->toIso8601String() }}">
-                    @if ($post['modified_at'])
-                        Updated on {{ $post['modified_at']->isoFormat('LL') }}
-                    @else
-                        Published on {{ $post['published_at']->isoFormat('LL') }}
-                    @endif
-                </time>
-
-                <span class="inline-block mx-2 text-xs -translate-y-px opacity-50">•</span>
-
-                <a href="#comments" class="text-black underline underline-offset-4 decoration-black/30">
-                    {{ trans_choice(':count comment|:count comments', $post['comments_count']) }}
-                </a>
-            </div>
+            <span class="text-black underline underline-offset-4 decoration-black/30">
+                Benjamin Crozat
+            </span>
         </div>
 
         <h1 class="container mt-4 font-medium tracking-tight text-center text-black text-balance text-3xl/none sm:text-4xl/none md:text-5xl/none lg:text-6xl/none">
@@ -55,7 +39,27 @@
 
         <x-prose class="container mt-8 md:mt-16">
             <div class="not-prose">
-                <div class="px-4 py-6 bg-gray-100 rounded-lg">
+                <div class="grid grid-cols-2 gap-4 mb-4 sm:grid-cols-3">
+                    <div class="flex-1 px-4 py-6 text-center rounded-lg text-sm/tight md:text-base/tight bg-gray-50">
+                        <x-heroicon-o-calendar class="mx-auto mb-2 size-8" />
+                        Published<br />
+                        {{ $post['published_at']->isoFormat('LL') }}
+                    </div>
+
+                    <div class="flex-1 px-4 py-6 text-center rounded-lg text-sm/tight md:text-base/tight bg-gray-50">
+                        <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-2 size-8" />
+                        {{ $post['comments_count'] }}<br />
+                        {{ trans_choice('comment|comments', $post['comments_count']) }}
+                    </div>
+
+                    <div class="flex-1 px-4 py-6 text-center rounded-lg text-sm/tight md:text-base/tight bg-gray-50">
+                        <x-heroicon-o-clock class="mx-auto mb-2 size-8" />
+                        {{ $readTime }} min<br />
+                        read
+                    </div>
+                </div>
+
+                <div class="px-4 py-6 rounded-lg bg-gray-50">
                     <div class="text-sm font-bold tracking-widest text-center text-black uppercase">
                         Table of contents
                     </div>
