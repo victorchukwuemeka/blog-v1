@@ -7,33 +7,7 @@
         </a>
     @endif
 
-    <div class="flex items-center gap-3 mt-4">
-        <div>
-            @if ($post['modified_at'])
-                Updated on
-
-                <time datetime="{{ $post['modified_at'] }}">
-                    {{ $post['modified_at']->isoFormat('LL') }}
-                </time>
-            @else
-                <time datetime="{{ $post['published_at'] }}">
-                    {{ $post['published_at']->isoFormat('LL') }}
-                </time>
-            @endif
-        </div>
-
-        <div class="text-xs translate-y-px opacity-50">•</div>
-
-        <a
-            wire:navigate
-            href="{{ route('posts.show', $post['slug']) }}#comments"
-            class="text-black underline underline-offset-4 decoration-black/30"
-        >
-            {{ trans_choice(':count comment|:count comments', $post['comments_count']) }}
-        </a>
-    </div>
-
-    <div class="flex items-center justify-between gap-6 mt-2">
+    <div class="flex items-center justify-between gap-6 mt-6">
         <a wire:navigate href="{{ route('posts.show', $post['slug']) }}" class="font-bold transition-colors text-xl/tight hover:text-blue-600">
             {{ $post['title'] }}
         </a>
@@ -45,7 +19,24 @@
         />
     </div>
 
-    <div class="mt-2">
+    <div class="mt-4">
         {!! Str::markdown($post['description']) !!}
+    </div>
+
+    <div class="grid grid-cols-3 gap-4 mt-6 text-sm/tight">
+        <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
+            <x-heroicon-o-calendar class="mx-auto mb-1 opacity-75 size-5" />
+            {{ ($post['modified_at'] ?? $post['published_at'])->isoFormat('ll') }}
+        </div>
+
+        <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
+            <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-1 opacity-75 size-5" />
+            {{ $post['comments_count'] }} {{ trans_choice('comment|comments', $post['comments_count']) }}
+        </div>
+
+        <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
+            <x-heroicon-o-clock class="mx-auto mb-1 opacity-75 size-5" />
+            {{ $readTime ?? 0 }} minutes
+        </div>
     </div>
 </div>

@@ -39,23 +39,38 @@
 
         <x-prose class="container mt-8 md:mt-16">
             <div class="not-prose">
-                <div class="grid grid-cols-2 gap-4 mb-4 sm:grid-cols-3">
-                    <div class="flex-1 px-4 py-6 text-center rounded-lg text-sm/tight md:text-base/tight bg-gray-50">
-                        <x-heroicon-o-calendar class="mx-auto mb-2 size-8" />
-                        Published<br />
-                        {{ $post['published_at']->isoFormat('LL') }}
+                <div class="grid grid-cols-2 gap-4 mb-4 sm:grid-cols-3 text-sm/tight">
+                    <div class="flex-1 p-4 text-center rounded-lg bg-gray-50">
+                        <x-heroicon-o-calendar
+                            class="mx-auto mb-2 opacity-75 size-8"
+                        />
+
+                        <span>
+                            Published<br />
+                            {{ $post['published_at']->isoFormat('LL') }}
+                        </span>
                     </div>
 
-                    <div class="flex-1 px-4 py-6 text-center rounded-lg text-sm/tight md:text-base/tight bg-gray-50">
-                        <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-2 size-8" />
-                        {{ $post['comments_count'] }}<br />
-                        {{ trans_choice('comment|comments', $post['comments_count']) }}
+                    <div class="flex-1 p-4 text-center rounded-lg bg-gray-50">
+                        <x-heroicon-o-chat-bubble-oval-left-ellipsis
+                            class="mx-auto mb-2 opacity-75 size-8"
+                        />
+
+                        <span>
+                            {{ $post['comments_count'] }}<br />
+                            {{ trans_choice('comment|comments', $post['comments_count']) }}
+                        </span>
                     </div>
 
-                    <div class="flex-1 px-4 py-6 text-center rounded-lg text-sm/tight md:text-base/tight bg-gray-50">
-                        <x-heroicon-o-clock class="mx-auto mb-2 size-8" />
-                        {{ $readTime }} min<br />
-                        read
+                    <div class="flex-1 p-4 text-center rounded-lg bg-gray-50">
+                        <x-heroicon-o-clock
+                            class="mx-auto mb-2 opacity-75 size-8"
+                        />
+
+                        <span>
+                            {{ $readTime }} min<br />
+                            read
+                        </span>
                     </div>
                 </div>
 
