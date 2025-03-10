@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Posts;
 
+use App\Models\Comment;
 use Illuminate\View\View;
 use App\Actions\Posts\ParsePost;
 use App\Actions\Posts\FetchPosts;
@@ -25,6 +26,13 @@ class ListPostsController extends Controller
             fn () => app(FetchPosts::class)
                 ->fetch()
                 ->map(app(ParsePost::class)->parse(...))
+                ->map(function (array $post) {
+                    $post['comments_count'] = Comment::query()
+                        ->where('post_slug', $post['slug'])
+                        ->count();
+
+                    return $post;
+                })
                 ->sortByDesc('published_at')
         )
             ->paginate(24);

@@ -32,13 +32,21 @@
 
             <br />
 
-            <time datetime="{{ $post['published_at']->toIso8601String() }}">
-                @if ($post['modified_at'])
-                    Updated on {{ $post['modified_at']->isoFormat('LL') }}
-                @else
-                    Published on {{ $post['published_at']->isoFormat('LL') }}
-                @endif
-            </time>
+            <div>
+                <time datetime="{{ $post['published_at']->toIso8601String() }}">
+                    @if ($post['modified_at'])
+                        Updated on {{ $post['modified_at']->isoFormat('LL') }}
+                    @else
+                        Published on {{ $post['published_at']->isoFormat('LL') }}
+                    @endif
+                </time>
+
+                <span class="inline-block mx-2 text-xs -translate-y-px opacity-50">•</span>
+
+                <a href="#comments" class="text-black underline underline-offset-4 decoration-black/30">
+                    {{ trans_choice(':count comment|:count comments', $post['comments_count']) }}
+                </a>
+            </div>
         </div>
 
         <h1 class="container mt-4 font-medium tracking-tight text-center text-black text-balance text-3xl/none sm:text-4xl/none md:text-5xl/none lg:text-6xl/none">

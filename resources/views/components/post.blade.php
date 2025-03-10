@@ -7,17 +7,30 @@
         </a>
     @endif
 
-    <div class="mt-4">
-        @if ($post['modified_at'])
-            Updated on
-            <time datetime="{{ $post['modified_at'] }}">
-                {{ $post['modified_at']->isoFormat('LL') }}
-            </time>
-        @else
-            <time datetime="{{ $post['published_at'] }}">
-                {{ $post['published_at']->isoFormat('LL') }}
-            </time>
-        @endif
+    <div class="flex items-center gap-3 mt-4">
+        <div>
+            @if ($post['modified_at'])
+                Updated on
+
+                <time datetime="{{ $post['modified_at'] }}">
+                    {{ $post['modified_at']->isoFormat('LL') }}
+                </time>
+            @else
+                <time datetime="{{ $post['published_at'] }}">
+                    {{ $post['published_at']->isoFormat('LL') }}
+                </time>
+            @endif
+        </div>
+
+        <div class="text-xs translate-y-px opacity-50">•</div>
+
+        <a
+            wire:navigate
+            href="{{ route('posts.show', $post['slug']) }}#comments"
+            class="text-black underline underline-offset-4 decoration-black/30"
+        >
+            {{ trans_choice(':count comment|:count comments', $post['comments_count']) }}
+        </a>
     </div>
 
     <div class="flex items-center justify-between gap-6 mt-2">

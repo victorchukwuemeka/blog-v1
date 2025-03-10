@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Posts;
 
+use App\Models\Comment;
 use Illuminate\View\View;
 use App\Actions\Posts\ParsePost;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,16 @@ class ShowPostController extends Controller
         $cacheKey = "post_{$slug}_$timestamp";
 
         $post = cache()->rememberForever(
-            $cacheKey, fn () => app(ParsePost::class)->parse($filepath)
+            $cacheKey,
+            function () use ($filepath) {
+                $post = app(ParsePost::class)->parse($filepath);
+
+                $post['comments_count'] = Comment::query()
+                    ->where('post_slug', $post['slug'])
+                    ->count();
+
+                return $post;
+            }
         );
 
         return view('posts.show', compact('post'));

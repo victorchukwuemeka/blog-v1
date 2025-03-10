@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\View\View;
 use App\Actions\Posts\ParsePost;
 use App\Actions\Posts\FetchPosts;
@@ -25,7 +26,14 @@ class HomeController extends Controller
                 ->fetch()
                 ->map(app(ParsePost::class)->parse(...))
                 ->sortByDesc('published_at')
-                ->take(12);
+                ->take(12)
+                ->map(function (array $post) {
+                    $post['comments_count'] = Comment::query()
+                        ->where('post_slug', $post['slug'])
+                        ->count();
+
+                    return $post;
+                });
         });
 
         return view('home', compact('latest'));
