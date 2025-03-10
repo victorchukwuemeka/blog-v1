@@ -1,6 +1,6 @@
 @props(['post'])
 
-<div {{ $attributes }}>
+<div {{ $attributes->class('flex flex-col h-full') }}>
     @if ($post['image'])
         <a wire:navigate href="{{ route('posts.show', $post['slug']) }}">
             <img src="{{ $post['image'] }}" alt="{{ $post['title']  }}" class="object-cover transition-opacity shadow-md shadow-black/5 rounded-xl aspect-video hover:opacity-50 ring-1 ring-black/5" />
@@ -19,7 +19,7 @@
         />
     </div>
 
-    <div class="mt-4">
+    <div class="flex-grow mt-4">
         {!! Str::markdown($post['description']) !!}
     </div>
 
@@ -29,10 +29,12 @@
             {{ ($post['modified_at'] ?? $post['published_at'])->isoFormat('ll') }}
         </div>
 
-        <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
-            <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-1 opacity-75 size-5" />
-            {{ $post['comments_count'] }} {{ trans_choice('comment|comments', $post['comments_count']) }}
-        </div>
+        <a href="{{ route('posts.show', $post['slug']) }}#comments" class="group">
+            <div class="flex-1 p-3 text-center transition-colors rounded-lg bg-gray-50 hover:bg-blue-50 group-hover:text-blue-900">
+                <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-1 opacity-75 size-5" />
+                {{ $post['comments_count'] }} {{ trans_choice('comment|comments', $post['comments_count']) }}
+            </div>
+        </a>
 
         <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
             <x-heroicon-o-clock class="mx-auto mb-1 opacity-75 size-5" />
