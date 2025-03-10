@@ -7,6 +7,8 @@ use App\Models\Link;
 use Illuminate\Console\Command;
 use Embed\Http\NetworkException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\RequestException;
 
 // This is a temporary command that I'll remove once I'm in production.
 class SyncLinksCommand extends Command
@@ -24,8 +26,10 @@ class SyncLinksCommand extends Command
             ->get()
             ->each(function (object $legacyLink) {
                 try {
-                    $imageUrl = (new Embed)->get($legacyLink->url)->image;
-                } catch (NetworkException $e) {
+                    if ($imageUrl = (new Embed)->get($legacyLink->url)->image) {
+                        Http::get($imageUrl)->throw();
+                    }
+                } catch (NetworkException|RequestException $e) {
                     $imageUrl = null;
                 }
 
