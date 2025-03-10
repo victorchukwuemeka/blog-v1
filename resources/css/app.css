@@ -9,8 +9,8 @@ input[type="search"]::-webkit-search-results-decoration {
     @apply appearance-none;
 }
 
-pre,
-code {
+.prose pre,
+.prose code {
     color: #24292e !important;
     background-color: white !important;
 }
