@@ -8,7 +8,7 @@ This is the source code for the new version of my 25K/month visitors blog.
 
 - [ ] **Community links**: People can send content they created.
 - [x] **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
-- [ ] **Affiliate links management**: This is how I make money from this blog.
+- [x] **Affiliate links management**: This is how I make money from this blog.
 - [x] **Automatic table of contents**
 - [x] **User accounts tied to GitHub**
 - [ ] **Livewire-based comments system**

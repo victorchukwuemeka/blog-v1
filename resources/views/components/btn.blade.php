@@ -12,6 +12,7 @@
                 'px-4 py-3' => ! $attributes->has('size'),
                 'px-5 py-3 text-lg' => 'md' === $attributes->get('size'),
                 'px-[.65rem] py-[.35rem] text-sm rounded-md' => 'sm' === $attributes->get('size'),
+                'px-[.65rem] py-[.35rem] text-xs rounded' => 'xs' === $attributes->get('size'),
             ])
             ->merge([
                 'href' => route('posts.index'),
