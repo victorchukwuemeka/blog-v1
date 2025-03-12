@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="mt-2 text-gray-600 text-balance sm:text-lg md:text-xl">
-                    By signing in, you will be able to use the comments section and share links with my {{ Number::format(cache('visitors')) }} monthly visitors.
+                    By signing in, you will be able to use the comments section and share links with my {{ Number::format(cache('visitors', 0)) }} monthly visitors.
                 </div>
 
                 <x-btn href="{{ route('auth.redirect') }}" primary class="mt-8">
