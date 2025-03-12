@@ -64,7 +64,7 @@
             <x-slot:items>
                 <div class="flex items-center gap-3 px-4 py-2">
                     <img
-                        src="{{ auth()->user()->github_data['avatar'] }}"
+                        src="{{ auth()->user()->avatar }}"
                         alt="{{ auth()->user()->name }}'s GitHub avatar"
                         class="rounded-full size-6 md:size-8"
                     />
