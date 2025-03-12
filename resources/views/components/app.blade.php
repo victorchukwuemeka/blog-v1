@@ -40,15 +40,22 @@
     </head>
     <body {{ $attributes->class('font-light text-gray-600') }}>
         <div class="flex flex-col min-h-screen">
-            <header class="container mt-4 xl:max-w-screen-lg">
-                <x-nav />
-            </header>
+            @empty($hideNavigation)
+                <header class="container mt-4 xl:max-w-screen-lg">
+                    <x-nav />
+                </header>
+            @endempty
 
-            <main class="flex-grow mt-8">
+            <main @class([
+                'flex-grow',
+                'mt-8' => empty($hideNavigation),
+            ])>
                 {{ $slot }}
             </main>
 
-            <x-footer class="mt-8 md:mt-16" />
+            @empty($hideFooter)
+                <x-footer class="mt-8 md:mt-16" />
+            @endempty
         </div>
 
         <x-status />

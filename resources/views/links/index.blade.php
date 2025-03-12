@@ -30,7 +30,7 @@
                 <x-btn
                     primary
                     size="md"
-                    wire:navigate
+                    :wire:navigate="auth()->check()"
                     href="{{ route('links.create') }}"
                     class="mt-8"
                 >

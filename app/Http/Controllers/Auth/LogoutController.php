@@ -16,9 +16,6 @@ class LogoutController extends Controller
 
         auth()->logout();
 
-        return redirect()
-            // This helps the user not lose their current page.
-            ->back()
-            ->with('status', 'You have been successfully logged out.');
+        return redirect()->with('status', 'You have been successfully logged out.');
     }
 }
