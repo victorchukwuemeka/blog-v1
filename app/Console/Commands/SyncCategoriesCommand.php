@@ -41,7 +41,9 @@ class SyncCategoriesCommand extends Command
                     ->first();
 
                 if ($post) {
-                    DB::table('category_post')->insert([
+                    DB::table('category_post')->updateOrInsert([
+                        'id' => $categoryPost->id,
+                    ], [
                         'category_id' => $categoryPost->category_id,
                         'post_slug' => $post->slug,
                     ]);
