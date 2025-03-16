@@ -17,6 +17,9 @@ class Comments extends Component
                 ->where('post_slug', $this->postSlug)
                 ->whereNull('parent_id')
                 ->paginate(30),
+            'commentsCount' => Comment::query()
+                ->where('post_slug', $this->postSlug)
+                ->count(),
         ]);
     }
 }
