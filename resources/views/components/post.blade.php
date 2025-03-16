@@ -7,6 +7,16 @@
         </a>
     @endif
 
+    @if (! empty($post['categories']))
+        <div class="flex gap-2 mt-6">
+            @foreach ($post['categories'] as $category)
+                <div class="px-2 py-1 text-xs font-medium uppercase border rounded">
+                    {{ $category->name }}
+                </div>
+            @endforeach
+        </div>
+    @endif
+
     <div class="flex items-center justify-between gap-6 mt-6">
         <a wire:navigate href="{{ route('posts.show', $post['slug']) }}" class="font-bold transition-colors text-xl/tight hover:text-blue-600">
             {{ $post['title'] }}

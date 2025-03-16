@@ -27,7 +27,17 @@
             @endif
         </div>
 
-        <h1 class="container mt-12 font-medium tracking-tight text-center text-black md:mt-16 text-balance text-3xl/none sm:text-4xl/none md:text-5xl/none lg:text-6xl/none">
+        @if (! empty($post['categories']))
+            <div class="flex justify-center gap-2 mt-12 md:mt-16">
+                @foreach ($post['categories'] as $category)
+                    <div class="px-2 py-1 text-xs font-medium uppercase border rounded">
+                        {{ $category->name }}
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+        <h1 class="container mt-4 font-medium tracking-tight text-center text-black md:mt-8 text-balance text-3xl/none sm:text-4xl/none md:text-5xl/none lg:text-6xl/none">
             {{ $post['title'] }}
         </h1>
 

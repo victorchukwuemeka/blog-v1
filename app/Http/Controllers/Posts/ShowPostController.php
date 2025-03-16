@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Posts;
 
 use App\Models\Comment;
+use App\Models\Category;
 use Illuminate\View\View;
 use App\Actions\Posts\ParsePost;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class ShowPostController extends Controller
@@ -25,6 +27,13 @@ class ShowPostController extends Controller
             $cacheKey,
             function () use ($filepath) {
                 $post = app(ParsePost::class)->parse($filepath);
+
+                $post['categories'] = DB::table('category_post')
+                    ->where('post_slug', $post['slug'])
+                    ->pluck('category_id')
+                    ->map(fn (int $id) => Category::query()->find($id))
+                    ->filter()
+                    ->values();
 
                 $post['comments_count'] = Comment::query()
                     ->where('post_slug', $post['slug'])
