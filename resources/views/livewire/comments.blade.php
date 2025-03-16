@@ -3,7 +3,7 @@
         {{ trans_choice(':count comment|:count comments', $comments->count()) }}
     </h1>
 
-    <div class="container grid gap-8 mt-8 md:max-w-screen-sm">
+    <div class="grid gap-8 mt-8">
         @foreach ($comments as $comment)
             <x-comment :$comment />
         @endforeach

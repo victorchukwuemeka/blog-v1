@@ -1,6 +1,6 @@
 @props(['headings'])
 
-<ul {{ $attributes->class('ml-4') }}>
+<ul {{ $attributes->class('ml-4 grid gap-1') }}>
     @foreach ($headings as $heading)
         <li>
             <a href="#{{ $heading['slug'] }}" class="font-medium group line-clamp-1">
@@ -9,7 +9,7 @@
             </a>
 
             @if (! empty($heading['children']))
-                <x-table-of-contents :headings="$heading['children']" />
+                <x-table-of-contents.items :headings="$heading['children']" />
             @endif
         </li>
     @endforeach

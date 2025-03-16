@@ -9,16 +9,12 @@
         </div>
 
         <div class="flex items-center justify-center gap-2 text-center mt-7 md:mt-11">
-            <x-btn
-                size="md"
-                href="#about"
-            >
+            <x-btn href="#about">
                 Who the F are you?
             </x-btn>
 
             <x-btn
                 primary
-                size="md"
                 href="#latest"
             >
                 Start reading

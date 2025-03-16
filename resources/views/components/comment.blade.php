@@ -5,7 +5,7 @@
         <img
             src="{{ $comment->user->avatar }}"
             alt="{{ $comment->user->name }}"
-            class="flex-none mt-1 rounded-full shadow-md ring-1 ring-black/10 size-7 md:size-8"
+            class="flex-none mt-1 rounded-full shadow shadow-black/5 ring-1 ring-black/10 size-7 md:size-8"
         />
 
         <div class="flex-grow">
