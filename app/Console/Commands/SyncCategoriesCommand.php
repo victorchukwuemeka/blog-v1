@@ -5,12 +5,12 @@ namespace App\Console\Commands;
 use App\Models\Category;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
+#[AsCommand(name: 'app:sync-categories')]
 class SyncCategoriesCommand extends Command
 {
-    protected $signature = 'app:sync-categories';
-
     protected $description = 'Fetch categories from the legacy database';
 
     public function handle() : void

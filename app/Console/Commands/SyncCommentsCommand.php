@@ -5,12 +5,12 @@ namespace App\Console\Commands;
 use App\Models\Comment;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
+#[AsCommand(name: 'app:sync-comments')]
 class SyncCommentsCommand extends Command
 {
-    protected $signature = 'app:sync-comments';
-
     protected $description = 'Fetch comments from the legacy database';
 
     public function handle() : void

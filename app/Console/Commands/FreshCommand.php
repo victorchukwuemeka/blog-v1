@@ -4,13 +4,13 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
+#[AsCommand(name: 'app:fresh')]
 class FreshCommand extends Command
 {
-    protected $signature = 'app:fresh';
-
-    protected $description = "Reset the application's database with fresh data";
+    protected $description = "Reset the application's state and fetch fresh data";
 
     public function handle() : void
     {

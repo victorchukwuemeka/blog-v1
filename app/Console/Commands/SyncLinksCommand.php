@@ -9,12 +9,12 @@ use Embed\Http\NetworkException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
+#[AsCommand(name: 'app:sync-links')]
 class SyncLinksCommand extends Command
 {
-    protected $signature = 'app:sync-links';
-
     protected $description = 'Fetch links from the legacy database';
 
     public function handle() : void

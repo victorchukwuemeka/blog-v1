@@ -4,12 +4,12 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 // This command uses Pirsch Analytics' API (https://benjamincrozat.com/recommends/pirsch-analytics) to fetch fresh numbers about my visitors.
+#[AsCommand(name: 'app:sync-analytics')]
 class SyncAnalyticsCommand extends Command
 {
-    protected $signature = 'app:sync-analytics';
-
     protected $description = 'Fetch fresh numbers from the analytics provider';
 
     public function handle() : void
