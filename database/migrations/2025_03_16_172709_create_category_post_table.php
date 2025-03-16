@@ -8,17 +8,15 @@ return new class extends Migration
 {
     public function up() : void
     {
-        Schema::create('reactions', function (Blueprint $table) {
+        Schema::create('category_post', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->index();
-            $table->foreignId('comment_id')->index();
-            $table->string('emoji');
-            $table->timestamps();
+            $table->foreignId('category_id')->index();
+            $table->string('post_slug')->index();
         });
     }
 
     public function down() : void
     {
-        Schema::dropIfExists('reactions');
+        Schema::dropIfExists('category_post');
     }
 };

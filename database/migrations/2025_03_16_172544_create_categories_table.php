@@ -8,17 +8,16 @@ return new class extends Migration
 {
     public function up() : void
     {
-        Schema::create('reactions', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->index();
-            $table->foreignId('comment_id')->index();
-            $table->string('emoji');
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
 
     public function down() : void
     {
-        Schema::dropIfExists('reactions');
+        Schema::dropIfExists('categories');
     }
 };
