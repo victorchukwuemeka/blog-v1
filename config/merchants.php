@@ -45,6 +45,11 @@ return [
             'image' => 'resources/img/books/vue-design-patterns.jpg',
         ],
     ],
+
+    'courses' => [
+        'serverless-laravel' => 'https://jackellis.gumroad.com/l/serverlesslaravel?a=266251475',
+    ],
+
     'services' => [
         'cloudways-php' => 'https://www.cloudways.com/en/php-hosting.php?id=1242932',
         'cloudways' => 'https://www.cloudways.com/en/laravel-hosting?id=1242932',
@@ -64,14 +69,12 @@ return [
         'ploi' => 'https://ploi.io/register?referrer=eJAat2H4YE45BjmIwzBl',
         'savvycal' => 'https://savvycal.com/?via=benjamincrozat',
         'semrush' => 'https://semrush.sjv.io/benjamincrozat',
-        'serverless-laravel' => 'https://jackellis.gumroad.com/l/serverlesslaravel?a=266251475',
         'setapp' => 'https://setapp.sjv.io/c/3801334/344537/5114',
         'simple-analytics' => 'https://simpleanalytics.com/?referral=benjamincrozat',
         'skillshare' => 'https://skillshare.eqcm.net/rQWAbD',
         'tinkerwell' => 'https://tinkerwell.app/?ref=benjamincrozat',
         'tower' => 'https://www.git-tower.com/?via=benjamincrozat',
         'untitled-ui' => 'https://store.untitledui.com?aff=WJ9DG',
-        'vue-design-patterns' => 'https://lachlanmiller.gumroad.com/l/vuejs-design-patterns?a=266251475',
         'vultr' => 'https://www.vultr.com/products/cloud-compute/?ref=9270910-8H',
         'webshare' => 'https://www.webshare.io/?referral_code=dt6d6ofk1rzp',
         'wincher' => 'https://www.wincher.com/rank-tracker?via=benjamincrozat',

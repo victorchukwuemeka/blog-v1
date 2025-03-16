@@ -11,7 +11,9 @@ class ShowMerchantController extends Controller
     public function __invoke(string $slug) : RedirectResponse
     {
         abort_if(
-            empty($link = config("merchants.services.$slug") ?? config("merchants.books.$slug")),
+            ! $link = collect(config('merchants'))
+                ->flatMap(fn (array $items) => $items)
+                ->get($slug),
             404
         );
 
