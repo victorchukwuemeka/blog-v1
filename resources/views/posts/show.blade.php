@@ -4,9 +4,9 @@
     :image="$post['image']"
     :title="$post['title']"
 >
-    <div class="flex items-center gap-8 px-4 mt-4 overflow-x-scroll lg:justify-center snap-mandatory snap-x md:mt-8">
-        @foreach (range(1, 6) as $i)
-            <x-book class="snap-start scroll-ml-4" />
+    <div class="flex items-center gap-8 px-4 mt-4 overflow-x-scroll md:px-8 snap-mandatory snap-x md:mt-8">
+        @foreach (collect(config('merchants.books'))->shuffle() as $book)
+            <x-book :$book class="flex-1 snap-start scroll-ml-4 md:scroll-ml-8 min-w-[150px]" />
         @endforeach
     </div>
 
@@ -47,7 +47,10 @@
                     </div>
 
                     <a href="#comments" class="group">
-                        <div class="flex-1 p-3 text-center transition-colors rounded-lg bg-gray-50 hover:bg-blue-50 group-hover:text-blue-900">
+                        <div @class([
+                            'flex-1 p-3 text-center transition-colors rounded-lg bg-gray-50 hover:bg-blue-50 group-hover:text-blue-900',
+                            'text-blue-600' => $post['comments_count'] > 0,
+                        ])>
                             <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-1 opacity-75 size-6" />
                             {{ $post['comments_count'] }}<br />
                             {{ trans_choice('comment|comments', $post['comments_count']) }}
