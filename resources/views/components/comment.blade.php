@@ -1,4 +1,6 @@
-<div>
+@props(['comment'])
+
+<div {{ $attributes }}>
     <div class="flex gap-4">
         <img
             src="{{ $comment->user->avatar }}"
@@ -8,9 +10,9 @@
 
         <div class="flex-grow">
             <div>
-                <span class="font-medium">
+                <a href="{{ $comment->user->github_data['user']['html_url'] }}" target="_blank" class="font-medium">
                     {{ $comment->user->name }}
-                </span>
+                </a>
 
                 <span class="ml-1 text-gray-500">
                     {{ $comment->created_at->diffForHumans() }}
@@ -24,7 +26,7 @@
     </div>
 
     @if ($comment->children->isNotEmpty())
-        <div class="mt-8 ml-11 md:ml-12">
+        <div class="grid gap-8 mt-8 ml-11 md:ml-12">
             @foreach ($comment->children as $child)
                 <x-comment :comment="$child" />
             @endforeach

@@ -14,7 +14,6 @@ class Comments extends Component
     {
         return view('livewire.comments', [
             'comments' => Comment::query()
-                ->with('user')
                 ->where('post_slug', $this->postSlug)
                 ->whereNull('parent_id')
                 ->paginate(30),
