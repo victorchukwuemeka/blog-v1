@@ -74,6 +74,10 @@
         </x-prose>
     </article>
 
+    <div class="mt-12 md:mt-16">
+        <livewire:comments :post-slug="$post['slug']" />
+    </div>
+
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",

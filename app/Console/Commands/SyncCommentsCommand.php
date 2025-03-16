@@ -22,12 +22,14 @@ class SyncCommentsCommand extends Command
             ->get()
             ->each(function (object $legacyComment) {
                 Comment::query()->updateOrCreate([
+                    'id' => $legacyComment->id,
+                ], [
                     'user_id' => $legacyComment->user_id,
                     'post_slug' => $legacyComment->post_slug,
                     'parent_id' => $legacyComment->parent_id,
                     'content' => $legacyComment->content,
-                ], [
                     'modified_at' => $legacyComment->modified_at,
+                    'created_at' => $legacyComment->created_at,
                 ]);
 
                 $this->info("Synced comment \"{$legacyComment->content}\"");
