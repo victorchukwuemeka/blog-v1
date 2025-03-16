@@ -29,7 +29,6 @@
 
                 <x-btn
                     primary
-                    size="md"
                     :wire:navigate="auth()->check()"
                     href="{{ route('links.create') }}"
                     class="mt-8"

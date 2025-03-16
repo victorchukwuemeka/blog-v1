@@ -65,7 +65,6 @@
         <div class="mt-16 text-center">
             <x-btn
                 primary
-                size="md"
                 wire:navigate
                 href="{{ route('posts.index') }}"
             >

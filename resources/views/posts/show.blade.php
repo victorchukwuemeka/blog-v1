@@ -74,9 +74,12 @@
         </div>
     </article>
 
-    <div class="container mt-12 md:mt-16 lg:max-w-screen-md">
+    <x-section
+        id="comments"
+        class="mt-12 md:mt-16 lg:max-w-screen-md"
+    >
         <livewire:comments :post-slug="$post['slug']" />
-    </div>
+    </x-section>
 
     <script type="application/ld+json">
         {
