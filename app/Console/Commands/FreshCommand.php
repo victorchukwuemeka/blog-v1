@@ -40,6 +40,12 @@ class FreshCommand extends Command
 
         $this->info('Users data synced successfully.');
 
+        $this->info('Syncing categories data…');
+
+        Artisan::call('app:sync-categories');
+
+        $this->info('Categories data synced successfully.');
+
         $this->info('Syncing comments data…');
 
         Artisan::call('app:sync-comments');
