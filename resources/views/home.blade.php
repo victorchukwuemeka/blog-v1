@@ -78,7 +78,7 @@
             <img
                 src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
                 alt="Benjamin Crozat"
-                class="float-right mt-4 ml-4 rounded-full ring-1 ring-black/5 size-28 md:size-32"
+                class="float-right mt-4 ml-4 !rounded-full size-28 md:size-32"
             />
 
             {!! Str::markdown(<<<MARKDOWN
