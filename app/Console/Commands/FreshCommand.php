@@ -64,6 +64,10 @@ class FreshCommand extends Command
 
         $this->info('Links data synced successfully.');
 
+        Artisan::call('cache:clear');
+
+        $this->info('Cache cleared successfully.');
+
         return Command::SUCCESS;
     }
 }
