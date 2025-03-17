@@ -7,7 +7,6 @@ if (! function_exists('extract_headings_from_markdown')) {
      * This handy helper was written by ChatGPT and helps
      * me display the table of contents in articles.
      *
-     * @param  string  $markdown
      * @return array<int, array{
      *     level: int,
      *     text: string,
@@ -20,7 +19,7 @@ if (! function_exists('extract_headings_from_markdown')) {
      *     }>
      * }>
      */
-    function extract_headings_from_markdown($markdown)
+    function extract_headings_from_markdown(string $markdown) : array
     {
         // Split the markdown into lines (supports various newline types).
         $lines = preg_split('/\R/', $markdown);
