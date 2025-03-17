@@ -13,7 +13,7 @@ class ExpandPost
         $post['categories'] = DB::table('category_post')
             ->where('post_slug', $post['slug'])
             ->pluck('category_id')
-            ->map(fn (int $id) => Category::query()->find($id))
+            ->map(Category::query()->find(...))
             ->filter()
             ->values();
 

@@ -23,7 +23,7 @@ class Str extends \Illuminate\Support\Str
             'default_attributes' => [
                 // Add an ID to all headings to help with the table of contents.
                 Heading::class => [
-                    'id' => fn (Heading $heading) : string => Str::slug(
+                    'id' => fn (Heading $heading) => Str::slug(
                         static::childrenToText($heading)
                     ),
                 ],
