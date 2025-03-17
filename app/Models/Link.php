@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,17 +37,5 @@ class Link extends Model
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    // Clear cache when the model is saved, created, updated, or deleted
-    protected static function booted()
-    {
-        static::saved(function () {
-            Cache::forget('distinct-users-count');
-        });
-
-        static::deleted(function () {
-            Cache::forget('distinct-users-count');
-        });
     }
 }
