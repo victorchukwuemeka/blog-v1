@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Posts;
 
-use App\Models\Comment;
-use App\Models\Category;
 use Illuminate\View\View;
 use App\Actions\Posts\ParsePost;
+use App\Actions\Posts\ExpandPost;
 use App\Actions\Posts\FetchPosts;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Symfony\Component\Finder\SplFileInfo;
 
 class ListPostsController extends Controller
 {
@@ -27,20 +26,10 @@ class ListPostsController extends Controller
             $key,
             fn () => app(FetchPosts::class)
                 ->fetch()
-                ->map(app(ParsePost::class)->parse(...))
-                ->map(function (array $post) {
-                    $post['categories'] = DB::table('category_post')
-                        ->where('post_slug', $post['slug'])
-                        ->pluck('category_id')
-                        ->map(fn (int $id) => Category::query()->find($id))
-                        ->filter()
-                        ->values();
-
-                    $post['comments_count'] = Comment::query()
-                        ->where('post_slug', $post['slug'])
-                        ->count();
-
-                    return $post;
+                ->map(function (SplFileInfo $file) {
+                    return app(ExpandPost::class)->enrich(
+                        app(ParsePost::class)->parse($file)
+                    );
                 })
                 ->sortByDesc('published_at')
         )
