@@ -27,7 +27,7 @@ class ListPostsController extends Controller
             fn () => app(FetchPosts::class)
                 ->fetch()
                 ->map(function (SplFileInfo $file) {
-                    return app(ExpandPost::class)->enrich(
+                    return app(ExpandPost::class)->expand(
                         app(ParsePost::class)->parse($file)
                     );
                 })

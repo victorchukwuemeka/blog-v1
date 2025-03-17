@@ -24,7 +24,7 @@ class ShowPostController extends Controller
         $post = cache()->rememberForever(
             $cacheKey,
             function () use ($filepath) {
-                return app(ExpandPost::class)->enrich(
+                return app(ExpandPost::class)->expand(
                     app(ParsePost::class)->parse($filepath)
                 );
             }

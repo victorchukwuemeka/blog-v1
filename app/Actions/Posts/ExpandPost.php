@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class ExpandPost
 {
-    public function enrich(array $post) : array
+    public function expand(array $post) : array
     {
         $post['categories'] = DB::table('category_post')
             ->where('post_slug', $post['slug'])
