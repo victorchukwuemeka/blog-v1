@@ -7,6 +7,7 @@ This is the source code for the new version of my 25K/month visitors blog.
 ## Features (in progress)
 
 - [ ] **Community links**: People can send content they created.
+- [x] **100% not vibe coded**
 - [x] **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
 - [x] **Affiliate links management**: This is how I make money from this blog.
 - [x] **Automatic table of contents**
