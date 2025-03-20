@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('*', fn (\Illuminate\View\View $view) => $view->with(
             'visitors',
-            Metric::query()->where('key', 'visitors')->value('value') ?? 0
+            $this->visitors ??= Metric::query()->where('key', 'visitors')->value('value') ?? 0
         ));
     }
 }
