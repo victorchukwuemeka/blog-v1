@@ -52,17 +52,17 @@ class FreshCommand extends Command
 
         $this->info('Comments data synced successfully.');
 
-        $this->info('Syncing reactions data…');
-
-        Artisan::call('app:sync-reactions');
-
-        $this->info('Reactions data synced successfully.');
-
         $this->info('Syncing links data…');
 
         Artisan::call('app:sync-links');
 
         $this->info('Links data synced successfully.');
+
+        $this->info('Syncing reactions data…');
+
+        Artisan::call('app:sync-reactions');
+
+        $this->info('Reactions data synced successfully.');
 
         Artisan::call('cache:clear');
 
