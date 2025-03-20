@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Metric;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,5 +23,10 @@ class AppServiceProvider extends ServiceProvider
         // Be careful with unguarded models! But
         // this trick removes a lot of friction.
         Model::unguard();
+
+        View::composer('*', fn (\Illuminate\View\View $view) => $view->with(
+            'visitors',
+            Metric::query()->where('key', 'visitors')->value('value') ?? 0
+        ));
     }
 }

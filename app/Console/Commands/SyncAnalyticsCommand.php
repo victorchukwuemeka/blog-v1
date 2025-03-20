@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Metric;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -18,17 +19,25 @@ class SyncAnalyticsCommand extends Command
 
         $data = $this->fetch();
 
-        // The percentage of users on desktop. A metric advertisers love.
-        cache()->put('platform_desktop', ($data['relative_platform_desktop'] ?? 0) * 100);
+        Metric::query()->create([
+            'key' => 'platform_desktop',
+            'value' => ($data['relative_platform_desktop'] ?? 0) * 100,
+        ]);
 
-        // The number of sessions in the last 30 days.
-        cache()->put('sessions', $data['sessions'] ?? 0);
+        Metric::query()->create([
+            'key' => 'sessions',
+            'value' => $data['sessions'] ?? 0,
+        ]);
 
-        // The number of views in the last 30 days.
-        cache()->put('views', $data['views'] ?? 0);
+        Metric::query()->create([
+            'key' => 'views',
+            'value' => $data['views'] ?? 0,
+        ]);
 
-        // The number of visitors in the last 30 days.
-        cache()->put('visitors', $data['visitors'] ?? 0);
+        Metric::query()->create([
+            'key' => 'visitors',
+            'value' => $data['visitors'] ?? 0,
+        ]);
 
         $this->info('Fresh analytics data has been fetched.');
     }
