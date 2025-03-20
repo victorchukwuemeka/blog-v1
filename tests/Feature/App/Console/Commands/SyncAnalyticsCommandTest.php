@@ -1,8 +1,13 @@
 <?php
 
+use App\Models\Metric;
+
 use function Pest\Laravel\artisan;
 
 use Illuminate\Support\Facades\Http;
+
+use function Pest\Laravel\assertDatabaseHas;
+
 use App\Console\Commands\SyncAnalyticsCommand;
 
 it('fetches analytics data', function () {
@@ -21,8 +26,8 @@ it('fetches analytics data', function () {
     artisan(SyncAnalyticsCommand::class)
         ->assertSuccessful();
 
-    expect(cache()->has('platform_desktop'))->toBeTrue();
-    expect(cache()->has('sessions'))->toBeTrue();
-    expect(cache()->has('views'))->toBeTrue();
-    expect(cache()->has('visitors'))->toBeTrue();
+    assertDatabaseHas(Metric::class, ['key' => 'platform_desktop']);
+    assertDatabaseHas(Metric::class, ['key' => 'sessions']);
+    assertDatabaseHas(Metric::class, ['key' => 'views']);
+    assertDatabaseHas(Metric::class, ['key' => 'visitors']);
 });
