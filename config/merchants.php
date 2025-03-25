@@ -22,7 +22,7 @@ return [
         ],
         [
             'name' => 'Level up with Tailwind CSS',
-            'author' => 'Shrutibalasa',
+            'author' => 'Shruti Balasa',
             'link' => 'https://shrutibalasa.gumroad.com/l/level-up-with-tailwind-css?a=266251475',
             'image' => 'resources/img/books/level-up-tailwind-css.jpg',
         ],
