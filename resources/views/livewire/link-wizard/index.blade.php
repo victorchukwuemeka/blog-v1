@@ -1,4 +1,4 @@
-<x-app title="Send a link">
+<div>
     <x-breadcrumbs class="container xl:max-w-screen-lg">
         <x-breadcrumbs.item href="{{ route('links.index') }}">
             Links
@@ -8,4 +8,7 @@
             Send a link
         </x-breadcrumbs.item>
     </x-breadcrumbs>
-</x-app>
+
+    <div class="container lg:max-w-screen-md">
+    </div>
+</div>

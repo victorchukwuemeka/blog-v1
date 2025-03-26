@@ -1,11 +1,11 @@
 <?php
 
+use App\Livewire\LinkWizard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
-use App\Http\Controllers\Links\CreateLinkController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 
 Route::get('/', HomeController::class)
@@ -18,7 +18,7 @@ Route::get('/links', ListLinksController::class)
     ->name('links.index');
 
 // This route needs to be above the links.show route to take precedence.
-Route::get('/links/create', CreateLinkController::class)
+Route::get('/links/create', LinkWizard::class)
     ->middleware('auth')
     ->name('links.create');
 
