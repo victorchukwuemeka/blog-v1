@@ -10,9 +10,6 @@ class GithubAuthRedirectController extends Controller
 {
     public function __invoke() : RedirectResponse
     {
-        // This helps the user not lose their current page.
-        redirect()->setIntendedUrl(url()->previous());
-
         /** @var \Laravel\Socialite\Two\GithubProvider */
         $github = Socialite::driver('github');
 

@@ -19,7 +19,6 @@ Route::get('/links', ListLinksController::class)
 
 // This route needs to be above the links.show route to take precedence.
 Route::get('/links/create', LinkWizard::class)
-    ->middleware('auth')
     ->name('links.create');
 
 Route::get('/merchants/{slug}', ShowMerchantController::class)
