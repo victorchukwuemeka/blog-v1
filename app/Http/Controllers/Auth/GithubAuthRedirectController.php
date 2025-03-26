@@ -10,6 +10,13 @@ class GithubAuthRedirectController extends Controller
 {
     public function __invoke() : RedirectResponse
     {
+        // This helps the user not lose their current page.
+        // We only do it if no intended URL is set like
+        // in the LinkWizard component for instance.
+        if (! redirect()->getIntendedUrl()) {
+            redirect()->setIntendedUrl(url()->previous());
+        }
+
         /** @var \Laravel\Socialite\Two\GithubProvider */
         $github = Socialite::driver('github');
 
