@@ -33,17 +33,6 @@
                 <x-icon-nobinge class="h-6 md:h-7" />
                 <span class="sr-only">Nobinge</span>
             </a>
-
-            <a href="https://redirect.pizza?utm_source=benjamincrozat.com&utm_medium=logo&utm_campaign=sponsorship" target="_blank">
-                <img
-                    loading="lazy"
-                    src="{{ Vite::asset('resources/img/redirect-pizza.png') }}"
-                    width="400"
-                    height="124"
-                    alt="redirect.pizza"
-                    class="flex-shrink-0 w-auto h-9 snap-start scroll-ml-4"
-                />
-            </a>
         </div>
 
         <div class="text-center sm:text-xl mt-7">
