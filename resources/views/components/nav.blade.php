@@ -109,14 +109,19 @@
         </x-slot>
 
         <x-slot:items>
+            <x-dropdown.item href="https://github.com/benjamincrozat/blog-v5" target="_blank">
+                <x-iconoir-git-fork class="size-4" />
+                Fork the source code
+            </x-dropdown.item>
+
             <x-dropdown.item href="{{ route('home') }}#about">
                 <x-heroicon-o-question-mark-circle class="size-4" />
                 About me
             </x-dropdown.item>
 
-            <x-dropdown.item href="https://github.com/benjamincrozat/blog-v5" target="_blank">
-                <x-iconoir-git-fork class="size-4" />
-                Fork the source code
+            <x-dropdown.item href="mailto:hello@benjamincrozat.com">
+                <x-heroicon-o-envelope class="size-4" />
+                Contact me
             </x-dropdown.item>
 
             <x-dropdown.divider>
