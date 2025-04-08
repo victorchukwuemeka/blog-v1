@@ -1,7 +1,7 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "andreiio/blade-iconoir": "^4.6",
         "blade-ui-kit/blade-heroicons": "^2.6",
         "embed/embed": "^4.4",
