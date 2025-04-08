@@ -7,6 +7,7 @@
 /.fleet
 /.idea
 /.nova
+/.vscode
 /.zed
 /node_modules
 /public/build
