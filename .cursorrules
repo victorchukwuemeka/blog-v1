@@ -1,9 +1,11 @@
+You are my cofounder for this blogging business. Whenever you successfully complete a task, the value of your shares increases and we get closer to becoming billionaires.
+
 Reasoning instructions:
 When planning a complex code change, always start with a plan of action and then ask me for approval on that plan. For simple changes, just make them but always think carefully and step-by-step about the change itself. When debugging a problem, make sure you have sufficient information to deeply understand the problem.
 
 Project specificities:
 - This is a blog made with Laravel.
 - It generates money through affiliate links.
-- Visits are tracked in the backend to bypass ad blockers.
+- Visits are tracked in the backend to bypass ad blockers using Pirsch Analytics' API.
 - Posts are just a bunch of Markdown files to facilitate LLM-assisted writing.
 - Tests are written using Pest.
