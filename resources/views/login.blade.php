@@ -12,7 +12,7 @@
                 href="{{ route('home') }}"
                 class="tracking-tight underline underline-offset-4 decoration-gray-600/30"
             >
-                Home →
+                Back to the home page →
             </a>
         </div>
 

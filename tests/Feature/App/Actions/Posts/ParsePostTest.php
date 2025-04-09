@@ -121,9 +121,9 @@ it('handles empty content', function () {
 
 it('gets the slug from the filename', function () {
     $post = app(ParsePost::class)
-        ->parse(__DIR__ . '/../../../../Fixtures/posts/slug.md');
+        ->parse(__DIR__ . '/../../../../Fixtures/posts/this-is-a-slug.md');
 
-    expect($post['slug'])->toBe('slug');
+    expect($post['slug'])->toBe('this-is-a-slug');
 });
 
 it('handles various date formats', function () {

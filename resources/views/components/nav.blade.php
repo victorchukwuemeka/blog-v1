@@ -1,5 +1,10 @@
 <nav {{ $attributes->class('flex items-center gap-6 md:gap-8 font-normal text-xs') }}>
-    <x-logo />
+    <a
+        wire:navigate
+        href="{{ route('home') }}"
+    >
+        <x-logo />
+    </a>
 
     <div class="flex-grow"></div>
 
