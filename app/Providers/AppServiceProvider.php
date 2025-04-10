@@ -11,6 +11,11 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Cached visitors count.
+     */
+    protected ?int $visitors = null;
+
     public function boot() : void
     {
         // Not necessary, but why not?
