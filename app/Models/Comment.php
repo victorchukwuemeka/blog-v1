@@ -13,12 +13,6 @@ class Comment extends Model
     /** @use HasFactory<\Database\Factories\CommentFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $with = [
-        'user',
-        'children',
-        'children.user',
-    ];
-
     protected function casts() : array
     {
         return [

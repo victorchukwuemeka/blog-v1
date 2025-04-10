@@ -16,6 +16,9 @@ class AppServiceProvider extends ServiceProvider
         // Not necessary, but why not?
         Date::use(CarbonImmutable::class);
 
+
+        Model::automaticallyEagerLoadRelationships();
+
         // This one helps you catch lots of issues. Check
         // the source code to see what it does.
         Model::shouldBeStrict(! app()->isProduction());
