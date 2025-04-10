@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\View\View;
-use App\Actions\Posts\ParsePost;
-use App\Actions\Posts\FetchPosts;
+use App\Actions\Posts\ListMarkdownFiles;
+use App\Actions\Posts\ParseMarkdownFile;
 
 class HomeController extends Controller
 {
@@ -22,9 +22,9 @@ class HomeController extends Controller
         $key = "latest_posts_$timestamp";
 
         $latest = cache()->rememberForever($key, function () {
-            return app(FetchPosts::class)
+            return app(ListMarkdownFiles::class)
                 ->fetch()
-                ->map(app(ParsePost::class)->parse(...))
+                ->map(app(ParseMarkdownFile::class)->parse(...))
                 ->sortByDesc('published_at')
                 ->take(12)
                 ->map(function (array $post) {

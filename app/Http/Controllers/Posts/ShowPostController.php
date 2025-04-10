@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Posts;
 
 use Illuminate\View\View;
-use App\Actions\Posts\ParsePost;
 use App\Actions\Posts\ExpandPost;
 use App\Http\Controllers\Controller;
+use App\Actions\Posts\ParseMarkdownFile;
 
 class ShowPostController extends Controller
 {
@@ -25,7 +25,7 @@ class ShowPostController extends Controller
             $cacheKey,
             function () use ($filepath) {
                 return app(ExpandPost::class)->expand(
-                    app(ParsePost::class)->parse($filepath)
+                    app(ParseMarkdownFile::class)->parse($filepath)
                 );
             }
         );

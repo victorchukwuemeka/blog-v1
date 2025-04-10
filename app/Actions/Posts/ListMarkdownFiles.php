@@ -5,7 +5,7 @@ namespace App\Actions\Posts;
 use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
 
-class FetchPosts
+class ListMarkdownFiles
 {
     public function fetch() : Collection
     {

@@ -1,11 +1,11 @@
 <?php
 
 use Carbon\CarbonImmutable;
-use App\Actions\Posts\ParsePost;
+use App\Actions\Posts\ParseMarkdownFile;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 it('parses a post', function () {
-    $post = app(ParsePost::class)
+    $post = app(ParseMarkdownFile::class)
         ->parse(__DIR__ . '/../../../../Fixtures/posts/test-post.md');
 
     expect($post)
@@ -37,7 +37,7 @@ it('parses a post', function () {
 });
 
 it('still parses the post even if the front matter is missing', function () {
-    $post = app(ParsePost::class)
+    $post = app(ParseMarkdownFile::class)
         ->parse(__DIR__ . '/../../../../Fixtures/posts/missing-front-matter.md');
 
     expect($post)
@@ -69,7 +69,7 @@ it('still parses the post even if the front matter is missing', function () {
 });
 
 it('handles incomplete front matter', function () {
-    $post = app(ParsePost::class)
+    $post = app(ParseMarkdownFile::class)
         ->parse(__DIR__ . '/../../../../Fixtures/posts/incomplete-front-matter.md');
 
     expect($post)
@@ -99,14 +99,14 @@ it('handles incomplete front matter', function () {
 
 it('throws an exception on malformed front matter', function () {
     expect(
-        fn () => app(ParsePost::class)
+        fn () => app(ParseMarkdownFile::class)
             ->parse(__DIR__ . '/../../../../Fixtures/posts/malformed-front-matter.md')
     )
         ->toThrow(ParseException::class);
 });
 
 it('handles empty content', function () {
-    $post = app(ParsePost::class)
+    $post = app(ParseMarkdownFile::class)
         ->parse(__DIR__ . '/../../../../Fixtures/posts/empty-content.md');
 
     expect($post)
@@ -120,14 +120,14 @@ it('handles empty content', function () {
 });
 
 it('gets the slug from the filename', function () {
-    $post = app(ParsePost::class)
+    $post = app(ParseMarkdownFile::class)
         ->parse(__DIR__ . '/../../../../Fixtures/posts/this-is-a-slug.md');
 
     expect($post['slug'])->toBe('this-is-a-slug');
 });
 
 it('handles various date formats', function () {
-    $post = app(ParsePost::class)
+    $post = app(ParseMarkdownFile::class)
         ->parse(__DIR__ . '/../../../../Fixtures/posts/various-date-formats.md');
 
     expect($post['published_at'])

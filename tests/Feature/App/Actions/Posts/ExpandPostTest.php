@@ -1,11 +1,11 @@
 <?php
 
-use App\Actions\Posts\ParsePost;
 use App\Actions\Posts\ExpandPost;
 use Illuminate\Support\Collection;
+use App\Actions\Posts\ParseMarkdownFile;
 
 it('adds categories to a post', function () {
-    $post = app(ParsePost::class)->parse(resource_path('markdown/posts/laravel-best-practices.md'));
+    $post = app(ParseMarkdownFile::class)->parse(resource_path('markdown/posts/laravel-best-practices.md'));
 
     $post = app(ExpandPost::class)->expand($post);
 
@@ -13,7 +13,7 @@ it('adds categories to a post', function () {
 });
 
 it('adds comments count to a post', function () {
-    $post = app(ParsePost::class)->parse(resource_path('markdown/posts/laravel-best-practices.md'));
+    $post = app(ParseMarkdownFile::class)->parse(resource_path('markdown/posts/laravel-best-practices.md'));
 
     $post = app(ExpandPost::class)->expand($post);
 

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Date;
 use Symfony\Component\Finder\SplFileInfo;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
-class ParsePost
+class ParseMarkdownFile
 {
     /**
      * @return array{

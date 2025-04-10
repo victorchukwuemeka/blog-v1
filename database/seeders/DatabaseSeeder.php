@@ -7,7 +7,7 @@ use App\Models\Link;
 use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Database\Seeder;
-use App\Actions\Posts\FetchPosts;
+use App\Actions\Posts\ListMarkdownFiles;
 use Symfony\Component\Finder\SplFileInfo;
 
 class DatabaseSeeder extends Seeder
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             ->recycle($users)
             ->create();
 
-        $slugs = app(FetchPosts::class)
+        $slugs = app(ListMarkdownFiles::class)
             ->fetch()
             ->map(fn (SplFileInfo $file) => Str::slug(
                 basename($file->getFilename(), '.md')
