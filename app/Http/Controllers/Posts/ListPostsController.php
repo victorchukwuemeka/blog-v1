@@ -20,7 +20,9 @@ class ListPostsController extends Controller
         $key = "posts_$timestamp";
 
         $posts = cache()->rememberForever(
-            $key, fn () => app(ListPosts::class)->list()
+            $key, fn () => app(ListPosts::class)
+                ->list()
+                ->paginate(24)
         );
 
         return view('posts.index', compact('posts'));

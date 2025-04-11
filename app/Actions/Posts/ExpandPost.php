@@ -10,6 +10,8 @@ class ExpandPost
 {
     public function expand(array $post) : array
     {
+        $post['read_time'] = ceil(str_word_count($post['content']) / 200);
+
         $post['categories'] = DB::table('category_post')
             ->where('post_slug', $post['slug'])
             ->pluck('category_id')

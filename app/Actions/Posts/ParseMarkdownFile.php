@@ -13,10 +13,12 @@ class ParseMarkdownFile
      * @return array{
      *     image: ?string,
      *     title: string,
+     *     slug: string,
+     *     content: string,
      *     description: string,
      *     published_at: \Illuminate\Support\Carbon,
      *     modified_at: \Illuminate\Support\Carbon,
-     *     slug: string
+     *     canonical: string,
      * }
      */
     public function parse(SplFileInfo|string $file) : array

@@ -23,15 +23,11 @@ class ShowPostController extends Controller
 
         $post = cache()->rememberForever(
             $cacheKey,
-            function () use ($filepath) {
-                return app(ExpandPost::class)->expand(
-                    app(ParseMarkdownFile::class)->parse($filepath)
-                );
-            }
+            fn () => app(ExpandPost::class)->expand(
+                app(ParseMarkdownFile::class)->parse($filepath)
+            )
         );
 
-        $readTime = ceil(str_word_count($post['content']) / 200);
-
-        return view('posts.show', compact('post', 'readTime'));
+        return view('posts.show', compact('post'));
     }
 }

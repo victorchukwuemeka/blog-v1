@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use Illuminate\View\View;
-use App\Actions\Posts\ListMarkdownFiles;
-use App\Actions\Posts\ParseMarkdownFile;
+use App\Actions\Posts\ListPosts;
 
 class HomeController extends Controller
 {
@@ -21,20 +19,11 @@ class HomeController extends Controller
 
         $key = "latest_posts_$timestamp";
 
-        $latest = cache()->rememberForever($key, function () {
-            return app(ListMarkdownFiles::class)
-                ->fetch()
-                ->map(app(ParseMarkdownFile::class)->parse(...))
-                ->sortByDesc('published_at')
+        $latest = cache()->rememberForever(
+            $key, fn () => app(ListPosts::class)
+                ->list()
                 ->take(12)
-                ->map(function (array $post) {
-                    $post['comments_count'] = Comment::query()
-                        ->where('post_slug', $post['slug'])
-                        ->count();
-
-                    return $post;
-                });
-        });
+        );
 
         return view('home', compact('latest'));
     }
