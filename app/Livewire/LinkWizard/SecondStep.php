@@ -3,6 +3,7 @@
 namespace App\Livewire\LinkWizard;
 
 use Embed\Embed;
+use App\Models\Link;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
@@ -13,7 +14,7 @@ use Spatie\LivewireWizard\Components\StepComponent;
 class SecondStep extends StepComponent
 {
     #[Locked]
-    #[Url(history: true, keep: true)]
+    #[Url(history: true)]
     public string $url;
 
     #[Locked]
@@ -54,5 +55,20 @@ class SecondStep extends StepComponent
         $this->imageUrl = $embed->image;
         $this->title = $embed->title;
         $this->description = $embed->description;
+    }
+
+    public function submit() : void
+    {
+        $this->validate();
+
+        Link::query()->create([
+            'user_id' => auth()->id(),
+            'url' => $this->url,
+            'image_url' => $this->imageUrl,
+            'title' => $this->title,
+            'description' => $this->description,
+        ]);
+
+        $this->redirect(route('links.index', ['submitted' => true]), true);
     }
 }

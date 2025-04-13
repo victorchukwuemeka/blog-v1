@@ -1,29 +1,8 @@
 <div>
-    <x-breadcrumbs class="container xl:max-w-screen-lg">
-        <x-breadcrumbs.item href="{{ route('links.index') }}">
-            Links
-        </x-breadcrumbs.item>
+    <x-link-wizard.breadcrumbs class="container xl:max-w-screen-lg" />
 
-        <x-breadcrumbs.item>
-            Send a link
-        </x-breadcrumbs.item>
-    </x-breadcrumbs>
-
-    <x-section :title="$this->stepInfo()['label']" class="container mt-16 md:max-w-screen-sm">
-        <x-slot:title>
-            @foreach ($steps as $step)
-                <span @class([
-                    'text-blue-600' => $step->isCurrent(),
-                    'text-gray-500' => ! $step->isCurrent(),
-                ])>
-                    {{ $step->label }}
-                </span>
-
-                @if (! $loop->last)
-                    <span class="mx-2 text-gray-400">→</span>
-                @endif
-            @endforeach
-        </x-slot>
+    <x-section class="mt-16 md:max-w-screen-sm">
+        <x-link-wizard.steps :$steps />
 
         @if ($title)
             <x-form wire:submit="submit" class="grid gap-4 mt-8">

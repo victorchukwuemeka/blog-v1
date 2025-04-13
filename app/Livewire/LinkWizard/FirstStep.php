@@ -2,18 +2,21 @@
 
 namespace App\Livewire\LinkWizard;
 
-use Throwable;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Client\ConnectionException;
 use Spatie\LivewireWizard\Components\StepComponent;
 
 class FirstStep extends StepComponent
 {
-    #[Validate('required|url')]
-    #[Url(history: true, keep: true)]
+    #[Validate('required|url|unique:links,url', message: [
+        'unique' => 'This URL was already shared.',
+    ])]
+    #[Url(history: true)]
     public string $url = '';
 
     public function stepInfo() : array
@@ -37,21 +40,22 @@ class FirstStep extends StepComponent
 
     public function submit() : void
     {
-        try {
-            $this->prepareForNextStep();
-        } catch (Throwable $e) {
-            throw ValidationException::withMessages([
-                'url' => 'Your URL is invalid.',
-            ]);
-        }
+        $this->prepareForNextStep();
     }
 
     protected function prepareForNextStep() : void
     {
-        $this->validate();
+        try {
+            $this->validate();
 
-        Http::head($this->url)->throw();
+            Http::head($this->url)->throw();
 
-        $this->nextStep();
+            $this->nextStep();
+
+        } catch (ConnectionException|RequestException $e) {
+            throw ValidationException::withMessages([
+                'url' => 'Your URL is invalid.',
+            ]);
+        }
     }
 }
