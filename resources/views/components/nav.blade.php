@@ -6,7 +6,7 @@
         <x-logo />
     </a>
 
-    <div class="flex-grow"></div>
+    <div class="grow"></div>
 
     <a
         wire:navigate

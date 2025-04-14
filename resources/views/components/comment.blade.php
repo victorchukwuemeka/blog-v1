@@ -5,10 +5,10 @@
         <img
             src="{{ $comment->user->avatar }}"
             alt="{{ $comment->user->name }}"
-            class="flex-none mt-1 rounded-full shadow shadow-black/5 ring-1 ring-black/10 size-7 md:size-8"
+            class="flex-none mt-1 rounded-full shadow-sm shadow-black/5 ring-1 ring-black/10 size-7 md:size-8"
         />
 
-        <div class="flex-grow">
+        <div class="grow">
             <div>
                 <a href="{{ $comment->user->github_data['user']['html_url'] }}" target="_blank" class="font-medium">
                     {{ $comment->user->name }}

@@ -10,7 +10,7 @@
         @endforeach
     </div>
 
-    <x-breadcrumbs class="container mt-12 md:mt-16 xl:max-w-screen-lg">
+    <x-breadcrumbs class="container mt-12 md:mt-16 xl:max-w-(--breakpoint-lg)">
         <x-breadcrumbs.item href="{{ route('posts.index') }}">
             Posts
         </x-breadcrumbs.item>
@@ -21,7 +21,7 @@
     </x-breadcrumbs>
 
     <article class="mt-12 md:mt-16">
-        <div class="container break-all lg:max-w-screen-md">
+        <div class="container break-all lg:max-w-(--breakpoint-md)">
             @if ($post['image'])
                 <img src="{{ $post['image'] }}" alt="{{ $post['title']  }}" class="object-cover w-full shadow-xl ring-1 ring-black/5 rounded-xl aspect-video" />
             @endif
@@ -30,7 +30,7 @@
         @if (! empty($post['categories']))
             <div class="flex justify-center gap-2 mt-12 md:mt-16">
                 @foreach ($post['categories'] as $category)
-                    <div class="px-2 py-1 text-xs font-medium uppercase border rounded">
+                    <div class="px-2 py-1 text-xs font-medium uppercase border border-gray-200 rounded-sm">
                         {{ $category->name }}
                     </div>
                 @endforeach
@@ -41,7 +41,7 @@
             {{ $post['title'] }}
         </h1>
 
-        <div class="container mt-12 md:mt-16 lg:max-w-screen-md">
+        <div class="container mt-12 md:mt-16 lg:max-w-(--breakpoint-md)">
             <div class="grid grid-cols-2 gap-4 leading-tight md:grid-cols-4">
                 <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
                     <x-heroicon-o-calendar class="mx-auto mb-1 opacity-75 size-6" />
@@ -86,7 +86,7 @@
 
     <x-section
         id="comments"
-        class="mt-12 md:mt-16 lg:max-w-screen-md"
+        class="mt-12 md:mt-16 lg:max-w-(--breakpoint-md)"
     >
         <livewire:comments :post-slug="$post['slug']" />
     </x-section>

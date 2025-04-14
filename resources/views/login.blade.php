@@ -16,8 +16,8 @@
             </a>
         </div>
 
-        <div class="grid flex-grow place-items-center">
-            <div class="container text-center lg:max-w-screen-md">
+        <div class="grid grow place-items-center">
+            <div class="container text-center lg:max-w-(--breakpoint-md)">
                 <div class="text-lg font-bold text-black sm:text-2xl md:text-3xl">
                     To continue, please sign in
                 </div>

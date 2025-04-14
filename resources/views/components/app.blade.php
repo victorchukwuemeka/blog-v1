@@ -41,13 +41,13 @@
     <body {{ $attributes->class('font-light text-gray-600') }}>
         <div class="flex flex-col min-h-screen">
             @empty($hideNavigation)
-                <header class="container mt-4 xl:max-w-screen-lg">
+                <header class="container mt-4 xl:max-w-(--breakpoint-lg)">
                     <x-nav />
                 </header>
             @endempty
 
             <main @class([
-                'flex-grow',
+                'grow',
                 'mt-8' => empty($hideNavigation),
             ])>
                 {{ $slot }}

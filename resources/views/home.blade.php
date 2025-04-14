@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <x-section title="They support the blog" class="mt-24 md:mt-32 lg:max-w-screen-md">
+    <x-section title="They support the blog" class="mt-24 md:mt-32 lg:max-w-(--breakpoint-md)">
         <div class="flex flex-wrap justify-center mt-8 gap-y-4 gap-x-12">
             <a href="https://beyondco.de/?utm_source=benjamincrozat&utm_medium=logo&utm_campaign=benjamincrozat" target="_blank">
                 <x-icon-beyond-code class="h-7 md:h-8" />
@@ -62,12 +62,12 @@
         </div>
     </x-section>
 
-    <x-section title="About Benjamin Crozat" id="about" class="mt-24 lg:max-w-screen-md md:mt-32">
+    <x-section title="About Benjamin Crozat" id="about" class="mt-24 lg:max-w-(--breakpoint-md) md:mt-32">
         <x-prose class="mt-8">
             <img
                 src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
                 alt="Benjamin Crozat"
-                class="float-right mt-4 ml-4 !rounded-full size-28 md:size-32"
+                class="float-right mt-4 ml-4 rounded-full! size-28 md:size-32"
             />
 
             {!! Str::markdown(<<<MARKDOWN

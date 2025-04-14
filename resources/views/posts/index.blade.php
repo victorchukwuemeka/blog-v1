@@ -1,5 +1,5 @@
 <x-app>
-    <x-breadcrumbs class="container xl:max-w-screen-lg">
+    <x-breadcrumbs class="container xl:max-w-(--breakpoint-lg)">
         <x-breadcrumbs.item>
             Posts
         </x-breadcrumbs.item>

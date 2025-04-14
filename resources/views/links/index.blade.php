@@ -2,7 +2,7 @@
     title="Community links"
     description="A collection of content created and shared by other web developers."
 >
-    <x-breadcrumbs class="container xl:max-w-screen-lg">
+    <x-breadcrumbs class="container xl:max-w-(--breakpoint-lg)">
         <x-breadcrumbs.item>
             Links
         </x-breadcrumbs.item>
