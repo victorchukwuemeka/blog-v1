@@ -7,7 +7,7 @@
         @if ($title)
             <x-form wire:submit="submit" class="grid gap-4 mt-8">
                 @if ($imageUrl)
-                    <img src="{{ $imageUrl }}" class="object-cover shadow-md shadow-black/5 rounded-xl aspect-video ring-1 ring-black/5" />
+                    <img src="{{ $imageUrl }}" class="object-cover w-full shadow-md shadow-black/5 rounded-xl aspect-video ring-1 ring-black/5" />
                 @endif
 
                 <x-form.input
