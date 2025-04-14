@@ -1,4 +1,4 @@
-@session('status')
+@if (session('status') || ! empty(request()->submitted))
     <div
         class="fixed bottom-4 left-1/2 text-center cursor-default shadow-lg shadow-blue-600/50 z-10 -translate-x-1/2 bg-blue-600/85 backdrop-blur-md text-white w-max min-w-[240px] px-4 py-3 font-medium rounded-lg"
         x-data="{ show: false }"
@@ -16,6 +16,10 @@
         x-transition:leave="transition ease-in duration-300"
         @click="show = false"
     >
-        {{ $value }}
+        @if (! empty(request()->submitted))
+            Your link has been submitted for validation.
+        @else
+            {{ $value }}
+        @endif
     </div>
 @endsession
