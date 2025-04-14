@@ -5,6 +5,7 @@ namespace App\Livewire\LinkWizard;
 use Embed\Embed;
 use App\Models\Link;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Locked;
@@ -50,11 +51,30 @@ class SecondStep extends StepComponent
     #[On('fetch')]
     public function fetch() : void
     {
-        $embed = (new Embed)->get($this->url);
+        /**
+         * @var array{
+         *     image_url: string,
+         *     title: string,
+         *     description: string,
+         * }
+         */
+        $embed = cache()->remember(
+            key: 'embed_' . Str::slug($this->url, '_'),
+            ttl: now()->addHour(),
+            callback: function () {
+                $embed = app(Embed::class)->get($this->url);
 
-        $this->imageUrl = $embed->image;
-        $this->title = $embed->title;
-        $this->description = $embed->description;
+                return [
+                    'image_url' => $embed->image,
+                    'title' => $embed->title,
+                    'description' => $embed->description,
+                ];
+            }
+        );
+
+        $this->imageUrl = $embed['image_url'];
+        $this->title = $embed['title'];
+        $this->description = $embed['description'];
     }
 
     public function submit() : void
