@@ -21,7 +21,7 @@ Route::get('/links', ListLinksController::class)
 Route::get('/links/create', LinkWizard::class)
     ->name('links.create');
 
-Route::get('/merchants/{slug}', ShowMerchantController::class)
+Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
 
 // This route needs to be the last one so all others take precedence.
