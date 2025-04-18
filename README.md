@@ -10,6 +10,11 @@ This is the source code for the new version of my 25K/month visitors blog. **100
 
 - [ ] **Filament admin panel**
 - [ ] **Livewire-based comments system**
+  - [x] Listing comments
+  - [ ] Adding comments
+  - [ ] Deleting comments
+  - [ ] Editing comments
+  - [ ] Replying to other comments
 
 ### Done
 
