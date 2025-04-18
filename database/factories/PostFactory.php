@@ -20,9 +20,9 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'image_url' => fake()->imageUrl(),
+            'image_url' => 'https://picsum.photos/' . random_int(1024, 1280) . '/' . random_int(640, 720),
             'title' => fake()->sentence(),
-            'content' => fake()->paragraphs(random_int(1, 10), true),
+            'content' => fake()->paragraphs(random_int(3, 10), true),
             'description' => fake()->sentences(random_int(1, 2), true),
             'canonical_url' => fake()->url(),
             'published_at' => fake()->dateTimeBetween('-1 year', 'now'),

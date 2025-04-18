@@ -23,7 +23,7 @@
         </a>
 
         <img
-            src="{{ $post->user->gravatar_url }}"
+            src="{{ $post->user->avatar }}"
             alt="{{ $post->user->name }}"
             class="rounded-full ring-1 ring-black/5 size-10"
         />

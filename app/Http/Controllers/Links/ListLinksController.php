@@ -27,10 +27,10 @@ class ListLinksController extends Controller
 
         return view('links.index', [
             'distinctUserAvatars' => $distinctUsersQuery
+                ->approved()
                 ->with('user')
                 ->inRandomOrder()
                 ->limit(10)
-                ->approved()
                 ->get()
                 ->map(fn (Link $link) => $link->user->avatar),
 

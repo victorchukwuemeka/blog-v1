@@ -22,7 +22,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'github_login' => fake()->userName(),
-            'avatar' => fake()->imageUrl(),
+            'avatar' => 'https://i.pravatar.cc/150?u=' . $email,
             'github_data' => [
                 'id' => fake()->unique()->randomNumber(),
                 'name' => fake()->name(),
