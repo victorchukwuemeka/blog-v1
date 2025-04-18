@@ -1,9 +1,8 @@
 {
     "preset": "laravel",
     "exclude": [
-        "storage",
         "bootstrap/cache",
-        "spark-stripe"
+        "storage"
     ],
     "rules": {
         "concat_space": {
