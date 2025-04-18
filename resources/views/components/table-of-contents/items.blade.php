@@ -9,7 +9,7 @@
             </a>
 
             @if (! empty($heading['children']))
-                <x-table-of-contents.items :headings="$heading['children']" />
+                <x-table-of-contents.items :headings="$heading['children']" class="mt-1" />
             @endif
         </li>
     @endforeach
