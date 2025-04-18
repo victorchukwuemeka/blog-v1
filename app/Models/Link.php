@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -20,14 +21,16 @@ class Link extends Model
         ];
     }
 
-    public function scopeApproved(Builder $query) : void
+    #[Scope]
+    public function approved(Builder $query) : void
     {
         $query
             ->whereNotNull('is_approved')
             ->whereNull('is_declined');
     }
 
-    public function scopeDeclined(Builder $query) : void
+    #[Scope]
+    public function declined(Builder $query) : void
     {
         $query
             ->whereNotNull('is_declined')

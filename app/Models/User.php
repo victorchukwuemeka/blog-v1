@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -32,8 +33,20 @@ class User extends Authenticatable
         ];
     }
 
+    public function posts() : HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function links() : HasMany
     {
         return $this->hasMany(Link::class);
+    }
+
+    public function gravatarUrl() : Attribute
+    {
+        return Attribute::make(
+            fn () => 'https://www.gravatar.com/avatar/' . hash('sha256', $this->email) . '?d=mp&s=256'
+        );
     }
 }

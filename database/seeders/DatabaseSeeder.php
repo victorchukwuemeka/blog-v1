@@ -2,13 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Str;
 use App\Models\Link;
+use App\Models\Post;
 use App\Models\User;
-use App\Models\Comment;
 use Illuminate\Database\Seeder;
-use App\Actions\Posts\ListMarkdownFiles;
-use Symfony\Component\Finder\SplFileInfo;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,22 +18,15 @@ class DatabaseSeeder extends Seeder
 
         $users = User::factory(10)->create();
 
-        Link::factory(30)
+        Post::factory(30)
             ->recycle($users)
+            ->withCategories()
+            ->withComments()
             ->create();
 
-        $slugs = app(ListMarkdownFiles::class)
-            ->fetch()
-            ->map(fn (SplFileInfo $file) => Str::slug(
-                basename($file->getFilename(), '.md')
-            ));
-
-        Comment::factory(30)
+        Link::factory(30)
             ->recycle($users)
-            ->make()
-            ->each(function (Comment $comment) use ($slugs) {
-                $comment->post_slug = $slugs->random();
-                $comment->save();
-            });
+            ->approved()
+            ->create();
     }
 }

@@ -25,5 +25,5 @@ Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
 
 // This route needs to be the last one so all others take precedence.
-Route::get('/{slug}', ShowPostController::class)
+Route::get('/{post:slug}', ShowPostController::class)
     ->name('posts.show');

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('category_post', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->index();
-            $table->string('post_slug')->index();
+            $table->foreignId('post_id')->index();
         });
     }
 

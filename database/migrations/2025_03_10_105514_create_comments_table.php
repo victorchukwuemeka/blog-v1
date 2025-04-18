@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->index();
-            $table->string('post_slug')->index();
+            $table->foreignId('post_id')->index();
             $table->foreignId('parent_id')->nullable()->index();
             $table->text('content');
             $table->datetime('modified_at')->nullable();
