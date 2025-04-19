@@ -8,7 +8,7 @@ use function Pest\Laravel\actingAs;
 it('allows access to authorized users', function () {
     $user = User::factory()->create([
         'name' => 'Benjamin Crozat',
-        'email' => 'hello@benjamincrozat.com',
+        'email' => 'benjamincrozat@me.com',
     ]);
 
     actingAs($user)
