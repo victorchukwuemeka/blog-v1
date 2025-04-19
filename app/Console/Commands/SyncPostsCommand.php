@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Console\Command;
 use App\Jobs\SaveLegacyPostImage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
@@ -17,6 +18,8 @@ class SyncPostsCommand extends Command
     public function handle() : void
     {
         $this->info('Syncing posts…');
+
+        Storage::disk('public')->deleteDirectory('images/posts');
 
         DB::connection('legacy')
             ->table('posts')
