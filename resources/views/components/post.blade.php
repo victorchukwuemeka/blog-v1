@@ -1,7 +1,7 @@
 @props(['post'])
 
 <div {{ $attributes->class('flex flex-col h-full') }}>
-    @if ($post->image_url)
+    @if ($post->hasImage())
         <a wire:navigate href="{{ route('posts.show', $post->slug) }}">
             <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover transition-opacity shadow-md shadow-black/5 rounded-xl aspect-video hover:opacity-50 ring-1 ring-black/5" />
         </a>

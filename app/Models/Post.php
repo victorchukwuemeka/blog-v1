@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -53,11 +54,23 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function imageUrl() : Attribute
+    {
+        return Attribute::make(
+            fn () => $this->hasImage() ? Storage::disk($this->image_disk)->url($this->image_path) : null,
+        );
+    }
+
     public function readTime() : Attribute
     {
         return Attribute::make(
             fn () => ceil(str_word_count($this->content) / 200),
         );
+    }
+
+    public function hasImage() : bool
+    {
+        return $this->image_path && $this->image_disk;
     }
 
     public function resolveRouteBindingQuery($query, $value, $field = null)

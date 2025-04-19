@@ -22,7 +22,7 @@
 
     <article class="mt-12 md:mt-16">
         <div class="container break-all lg:max-w-(--breakpoint-md)">
-            @if ($post->image_url)
+            @if ($post->hasImage())
                 <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover w-full shadow-xl ring-1 ring-black/5 rounded-xl aspect-video" />
             @endif
         </div>
