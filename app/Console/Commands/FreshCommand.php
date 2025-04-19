@@ -3,25 +3,17 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\Prohibitable;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Console\ConfirmableTrait;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
 #[AsCommand(name: 'app:fresh')]
 class FreshCommand extends Command
 {
-    use ConfirmableTrait, Prohibitable;
-
     protected $description = "Reset the application's state and fetch fresh data";
 
     public function handle() : int
     {
-        if ($this->isProhibited() || ! $this->confirmToProceed()) {
-            return Command::FAILURE;
-        }
-
         $this->info('Migrating the database…');
 
         Artisan::call('migrate:fresh');
