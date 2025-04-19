@@ -30,37 +30,43 @@ class FreshCommand extends Command
 
         $this->info('Syncing analytics data…');
 
-        Artisan::call('app:sync-analytics');
+        Artisan::call(SyncAnalyticsCommand::class);
 
         $this->info('Analytics data synced successfully.');
 
         $this->info('Syncing users data…');
 
-        Artisan::call('app:sync-users');
+        Artisan::call(SyncUsersCommand::class);
 
         $this->info('Users data synced successfully.');
 
+        $this->info('Syncing posts data…');
+
+        Artisan::call(SyncPostsCommand::class);
+
+        $this->info('Posts data synced successfully.');
+
         $this->info('Syncing categories data…');
 
-        Artisan::call('app:sync-categories');
+        Artisan::call(SyncCategoriesCommand::class);
 
         $this->info('Categories data synced successfully.');
 
         $this->info('Syncing comments data…');
 
-        Artisan::call('app:sync-comments');
+        Artisan::call(SyncCommentsCommand::class);
 
         $this->info('Comments data synced successfully.');
 
         $this->info('Syncing links data…');
 
-        Artisan::call('app:sync-links');
+        Artisan::call(SyncLinksCommand::class);
 
         $this->info('Links data synced successfully.');
 
         $this->info('Syncing reactions data…');
 
-        Artisan::call('app:sync-reactions');
+        Artisan::call(SyncReactionsCommand::class);
 
         $this->info('Reactions data synced successfully.');
 

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -21,11 +22,15 @@ class SyncCommentsCommand extends Command
             ->table('comments')
             ->get()
             ->each(function (object $legacyComment) {
+                if (! $postId = Post::query()->where('slug', $legacyComment->post_slug)->value('id')) {
+                    return;
+                }
+
                 Comment::query()->updateOrCreate([
                     'id' => $legacyComment->id,
                 ], [
                     'user_id' => $legacyComment->user_id,
-                    'post_slug' => $legacyComment->post_slug,
+                    'post_id' => $postId,
                     'parent_id' => $legacyComment->parent_id,
                     'content' => $legacyComment->content,
                     'modified_at' => $legacyComment->modified_at,

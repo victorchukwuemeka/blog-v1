@@ -35,21 +35,14 @@ class SyncCategoriesCommand extends Command
             ->table('category_post')
             ->get()
             ->each(function (object $categoryPost) {
-                $post = DB::connection('legacy')
-                    ->table('posts')
-                    ->where('id', $categoryPost->post_id)
-                    ->first();
+                DB::table('category_post')->updateOrInsert([
+                    'id' => $categoryPost->id,
+                ], [
+                    'category_id' => $categoryPost->category_id,
+                    'post_id' => $categoryPost->post_id,
+                ]);
 
-                if ($post) {
-                    DB::table('category_post')->updateOrInsert([
-                        'id' => $categoryPost->id,
-                    ], [
-                        'category_id' => $categoryPost->category_id,
-                        'post_slug' => $post->slug,
-                    ]);
-
-                    $this->info("Associated category ID $categoryPost->category_id with post slug $post->slug");
-                }
+                $this->info("Associated category ID $categoryPost->category_id with post ID $categoryPost->post_id.");
             });
 
         $this->info('All categories have been synced and associated with posts.');
