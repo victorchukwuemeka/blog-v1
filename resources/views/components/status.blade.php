@@ -19,7 +19,7 @@
         @if (! empty(request()->submitted))
             Your link has been submitted for validation.
         @else
-            {{ $value }}
+            {{ session('status') }}
         @endif
     </div>
 @endsession
