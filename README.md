@@ -8,7 +8,7 @@ This is the source code for the new version of my 25K/month visitors blog. **100
 
 ### Left to do
 
-- [ ] **Filament admin panel**
+- [x] **Filament admin panel**
 - [ ] **Livewire-based comments system**
   - [x] Listing comments
   - [ ] Adding comments

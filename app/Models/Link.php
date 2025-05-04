@@ -22,6 +22,14 @@ class Link extends Model
     }
 
     #[Scope]
+    public function pending(Builder $query) : void
+    {
+        $query
+            ->whereNull('is_declined')
+            ->whereNull('is_approved');
+    }
+
+    #[Scope]
     public function approved(Builder $query) : void
     {
         $query
@@ -40,5 +48,15 @@ class Link extends Model
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function isApproved() : bool
+    {
+        return null !== $this->is_approved && null === $this->is_declined;
+    }
+
+    public function isDeclined() : bool
+    {
+        return null !== $this->is_declined && null === $this->is_approved;
     }
 }

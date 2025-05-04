@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamp('is_approved')->nullable();
             $table->timestamp('is_declined')->nullable();
             $table->timestamps();
