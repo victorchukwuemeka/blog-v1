@@ -79,6 +79,13 @@
 
                 <x-dropdown.divider />
 
+                <x-dropdown.item href="{{ route('filament.admin.pages.dashboard') }}">
+                    <x-heroicon-o-adjustments-horizontal class="size-4" />
+                    Admin
+                </x-dropdown.item>
+
+                <x-dropdown.divider />
+
                 <x-dropdown.item href="https://github.com/settings" target="_blank">
                     <x-heroicon-o-arrow-top-right-on-square class="size-4" />
                     Manage on GitHub
