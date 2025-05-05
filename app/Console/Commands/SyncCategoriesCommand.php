@@ -46,5 +46,23 @@ class SyncCategoriesCommand extends Command
             });
 
         $this->info('All categories have been synced and associated with posts.');
+
+        $this->info('Checking for categories without posts…');
+
+        $withoutPosts = Category::query()
+            ->whereDoesntHave('posts')
+            ->get();
+
+        if ($withoutPosts->count()) {
+            $this->info('Found ' . $withoutPosts->count() . ' categories without posts. Removing them…');
+
+            $withoutPosts->each(function (Category $category) {
+                $this->info("Removing category \"{$category->name}\"");
+
+                $category->delete();
+            });
+        } else {
+            $this->info('No categories without posts found.');
+        }
     }
 }
