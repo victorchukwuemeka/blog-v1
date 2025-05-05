@@ -8,7 +8,6 @@ This is the source code for the new version of my 25K/month visitors blog. **100
 
 ### Left to do
 
-- [x] **Filament admin panel**
 - [ ] **Livewire-based comments system**
   - [x] Listing comments
   - [ ] Adding comments
@@ -19,7 +18,9 @@ This is the source code for the new version of my 25K/month visitors blog. **100
 ### Done
 
 - [x] **Community links**: People can send content they created.
+- [ ] **Email notifications**
 - [x] **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
+- [x] **Filament admin panel**
 - [x] **Affiliate links management**: This is how I make money from this blog.
 - [x] **Automatic table of contents**
 - [x] **User accounts tied to GitHub**
