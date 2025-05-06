@@ -1,5 +1,5 @@
 <x-app
-    title="Community links"
+    title="The best community-written articles about web development in {{ date('Y') }}"
     description="A collection of content created and shared by other web developers."
 >
     <x-breadcrumbs class="container xl:max-w-(--breakpoint-lg)">

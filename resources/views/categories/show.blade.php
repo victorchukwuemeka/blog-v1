@@ -1,6 +1,4 @@
-<x-app
-    title='The best articles about {{ $category->name }}'
->
+<x-app title="The best articles about {{ $category->name }} in {{ date('Y') }}">
     <x-breadcrumbs class="container xl:max-w-(--breakpoint-lg)">
         <x-breadcrumbs.item href="{{ route('categories.index') }}">
             Categories

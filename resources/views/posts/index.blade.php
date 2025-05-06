@@ -1,4 +1,4 @@
-<x-app>
+<x-app title="The best articles about web development in {{ date('Y') }}">
     <x-breadcrumbs class="container xl:max-w-(--breakpoint-lg)">
         <x-breadcrumbs.item>
             Posts
