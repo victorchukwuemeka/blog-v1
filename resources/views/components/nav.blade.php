@@ -123,9 +123,13 @@
         </x-slot>
 
         <x-slot:items>
-            <x-dropdown.item href="https://github.com/benjamincrozat/blog-v5" target="_blank">
-                <x-iconoir-git-fork class="size-4" />
-                Fork the source code
+            <x-dropdown.divider>
+                More
+            </x-dropdown.divider>
+
+            <x-dropdown.item wire:navigate href="{{ route('categories.index') }}">
+                <x-heroicon-o-tag class="size-4" />
+                Categories
             </x-dropdown.item>
 
             <x-dropdown.item href="{{ route('home') }}#about">
@@ -136,6 +140,15 @@
             <x-dropdown.item href="mailto:hello@benjamincrozat.com">
                 <x-heroicon-o-envelope class="size-4" />
                 Contact me
+            </x-dropdown.item>
+
+            <x-dropdown.divider>
+                Code and free tools
+            </x-dropdown.divider>
+
+            <x-dropdown.item href="https://github.com/benjamincrozat/blog-v5" target="_blank">
+                <x-iconoir-git-fork class="size-4" />
+                Fork the source code
             </x-dropdown.item>
 
             <x-dropdown.divider>
