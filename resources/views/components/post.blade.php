@@ -10,9 +10,9 @@
     @if (! empty($post->categories))
         <div class="flex gap-2 mt-6">
             @foreach ($post->categories as $category)
-                <div class="px-2 py-1 text-xs font-medium uppercase border border-gray-200 rounded-sm">
+                <a wire:navigate href="{{ route('categories.show', $category->slug) }}" class="px-2 py-1 text-xs font-medium uppercase border border-gray-200 rounded-sm">
                     {{ $category->name }}
-                </div>
+                </a>
             @endforeach
         </div>
     @endif

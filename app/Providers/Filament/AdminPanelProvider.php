@@ -6,6 +6,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Navigation\NavigationItem;
 use Filament\Http\Middleware\Authenticate;
@@ -72,6 +73,12 @@ class AdminPanelProvider extends PanelProvider
                     ->url('/')
                     ->icon('heroicon-o-arrow-right-circle')
                     ->sort(0),
+            ])
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Go to site')
+                    ->url('/')
+                    ->icon('heroicon-o-arrow-right-circle'),
             ]);
     }
 }
