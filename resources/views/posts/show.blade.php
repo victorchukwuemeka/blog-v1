@@ -81,7 +81,7 @@
             @endif
 
             <x-prose class="mt-12 md:mt-16">
-                {!! Str::markdown($post->content) !!}
+                {!! $post->formatted_content !!}
             </x-prose>
         </div>
     </article>

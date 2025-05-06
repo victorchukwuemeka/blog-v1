@@ -54,18 +54,25 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function formattedContent() : Attribute
+    {
+        return Attribute::make(
+            fn () => Str::markdown($this->content),
+        )->shouldCache();
+    }
+
     public function imageUrl() : Attribute
     {
         return Attribute::make(
             fn () => $this->hasImage() ? Storage::disk($this->image_disk)->url($this->image_path) : null,
-        );
+        )->shouldCache();
     }
 
     public function readTime() : Attribute
     {
         return Attribute::make(
             fn () => ceil(str_word_count($this->content) / 200),
-        );
+        )->shouldCache();
     }
 
     public function hasImage() : bool
