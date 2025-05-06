@@ -20,8 +20,8 @@ class Category extends Model
     {
         return $this
             ->belongsToMany(Post::class)
+            ->withCount('comments')
             ->published()
-            ->select('title', 'slug', 'published_at')
             ->latest('published_at')
             ->limit(10);
     }

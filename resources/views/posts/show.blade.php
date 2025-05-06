@@ -4,40 +4,14 @@
     :image="$post->image_url"
     :title="$post->title"
 >
-    <div class="flex items-center gap-8 px-4 mt-4 overflow-x-scroll md:px-8 snap-mandatory snap-x md:mt-8">
-        @foreach (collect(config('merchants.books'))->shuffle() as $book)
-            <x-book :$book class="flex-1 snap-start scroll-ml-4 md:scroll-ml-8 min-w-[150px]" />
-        @endforeach
-    </div>
-
-    <x-breadcrumbs class="container mt-12 md:mt-16 xl:max-w-(--breakpoint-lg)">
-        <x-breadcrumbs.item href="{{ route('posts.index') }}">
-            Posts
-        </x-breadcrumbs.item>
-
-        <x-breadcrumbs.item class="line-clamp-1">
-            {{ $post->title }}
-        </x-breadcrumbs.item>
-    </x-breadcrumbs>
-
-    <article class="mt-12 md:mt-16">
+    <article class="mt-0 md:mt-8">
         <div class="container break-all lg:max-w-(--breakpoint-md)">
             @if ($post->hasImage())
                 <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover w-full shadow-xl ring-1 ring-black/5 rounded-xl aspect-video" />
             @endif
         </div>
 
-        @if (! empty($post->categories))
-            <div class="flex justify-center gap-2 mt-12 md:mt-16">
-                @foreach ($post->categories as $category)
-                    <div class="px-2 py-1 text-xs font-medium uppercase border border-gray-200 rounded-sm">
-                        {{ $category->name }}
-                    </div>
-                @endforeach
-            </div>
-        @endif
-
-        <h1 class="container mt-4 font-medium tracking-tight text-center text-black md:mt-8 text-balance text-3xl/none sm:text-4xl/none md:text-5xl/none lg:text-6xl/none">
+        <h1 class="container mt-12 font-medium tracking-tight text-center text-black md:mt-16 text-balance text-3xl/none sm:text-4xl/none md:text-5xl/none lg:text-6xl/none">
             {{ $post->title }}
         </h1>
 

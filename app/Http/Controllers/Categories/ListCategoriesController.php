@@ -12,6 +12,7 @@ class ListCategoriesController extends Controller
     {
         return view('categories.index', [
             'categories' => Category::query()
+                ->withCount('posts')
                 ->orderBy('name')
                 ->get(),
         ]);

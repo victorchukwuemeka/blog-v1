@@ -2,9 +2,9 @@
     <footer class="container py-8 lg:max-w-(--breakpoint-md)">
         <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2">
             <a wire:navigate href="{{ route('home') }}" class="font-medium">Home</a>
-            <a wire:navigate href="{{ route('posts.index') }}" class="font-medium">Latest</a>
-            <a wire:navigate href="{{ route('links.index') }}" class="font-medium">Links</a>
+            <a wire:navigate href="{{ route('posts.index') }}" class="font-medium">Articles</a>
             <a wire:navigate href="{{ route('categories.index') }}" class="font-medium">Categories</a>
+            <a wire:navigate href="{{ route('links.index') }}" class="font-medium">Links</a>
             <a href="{{ route('home') }}#about" class="font-medium">About</a>
             <a href="mailto:hello@benjamincrozat.com" class="font-medium">Contact</a>
         </nav>
