@@ -7,7 +7,7 @@ use App\Models\Category;
 use Spatie\Sitemap\Sitemap;
 use Illuminate\Console\Command;
 
-class GenerateSitemap extends Command
+class GenerateSitemapCommand extends Command
 {
     /**
      * @var string
@@ -31,6 +31,8 @@ class GenerateSitemap extends Command
             ->published()
             ->cursor()
             ->each(fn (Post $post) => $sitemap->add(route('posts.show', $post)));
+
+        $sitemap->add(route('categories.index'));
 
         Category::query()
             ->cursor()
