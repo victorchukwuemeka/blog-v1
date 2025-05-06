@@ -2,7 +2,7 @@
     title='The best articles about {{ $category->name }}'
 >
     <x-breadcrumbs class="container xl:max-w-(--breakpoint-lg)">
-        <x-breadcrumbs.item>
+        <x-breadcrumbs.item href="{{ route('categories.index') }}">
             Categories
         </x-breadcrumbs.item>
 

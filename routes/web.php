@@ -8,12 +8,16 @@ use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
+use App\Http\Controllers\Categories\ListCategoriesController;
 
 Route::get('/', HomeController::class)
     ->name('home');
 
 Route::get('/blog', ListPostsController::class)
     ->name('posts.index');
+
+Route::get('/categories', ListCategoriesController::class)
+    ->name('categories.index');
 
 Route::get('/categories/{category:slug}', ShowCategoryController::class)
     ->name('categories.show');

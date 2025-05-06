@@ -15,4 +15,14 @@ class Category extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+    public function activity() : BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Post::class)
+            ->published()
+            ->select('title', 'slug', 'published_at')
+            ->latest('published_at')
+            ->limit(10);
+    }
 }
