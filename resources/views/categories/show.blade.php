@@ -15,7 +15,7 @@
         :title="$posts->currentPage() > 1
             ? 'Page ' . $posts->currentPage()
             : 'The best articles about ' . $category->name"
-        class="mt-8"
+        class="mt-8 md:mt-12"
     >
         @if ($posts->isNotEmpty())
             <div class="grid gap-10 mt-8 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
