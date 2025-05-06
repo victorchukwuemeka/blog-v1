@@ -44,8 +44,13 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Link::class);
     }
 
-    public function canAccessPanel(Panel $panel) : bool
+    public function isAdmin() : bool
     {
         return 'benjamincrozat@me.com' === $this->email;
+    }
+
+    public function canAccessPanel(Panel $panel) : bool
+    {
+        return $this->isAdmin();
     }
 }
