@@ -1,6 +1,4 @@
 <div>
-    <x-link-wizard.breadcrumbs class="container xl:max-w-(--breakpoint-lg)" />
-
     <x-section class="mt-16 md:max-w-(--breakpoint-sm)">
         <x-link-wizard.steps :$steps />
 

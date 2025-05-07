@@ -15,15 +15,14 @@
         @endif
     </a>
 
-    <div class="mt-4">
+    <div class="flex items-center gap-2 mt-4">
         <time datetime="{{ $link->is_approved }}">
             {{ $link->is_approved->isoFormat('LL') }}
         </time>
 
-        <span class="inline-block mx-2 text-xs -translate-y-px opacity-50">•</span>
-
-        <a href="{{ $link->user->github_data['user']['html_url'] }}" target="_blank" class="text-black underline underline-offset-4 decoration-black/30">
-            {{ $link->user->name }}
+        <a href="{{ $link->user->github_data['user']['html_url'] }}" target="_blank" class="flex items-center">
+            <span class="mr-2 text-xs opacity-50">/</span>
+            <span class="text-black underline underline-offset-4 decoration-black/30">{{ $link->user->name }}</span>
         </a>
     </div>
 

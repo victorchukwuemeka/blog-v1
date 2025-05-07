@@ -1,11 +1,12 @@
 <x-app>
     <div class="container mt-8 text-center">
-        <div class="font-bold tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
+        <div class="text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
             <span class="text-blue-600">{{ Number::format($visitors) }}</span> monthly visitors read my blog
         </div>
 
-        <div class="mt-5 leading-tight text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight md:mt-8 lg:text-3xl text-balance">
-            No matter how senior you are, I have something for you. Ready?
+        <div class="mt-5 text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight md:mt-8">
+            No matter how senior,<br />
+            I have something for you. Ready?
         </div>
 
         <div class="flex items-center justify-center gap-2 text-center mt-7 md:mt-11">

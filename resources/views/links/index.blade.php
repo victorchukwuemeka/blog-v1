@@ -2,15 +2,9 @@
     title="The best community-written articles about web development in {{ date('Y') }}"
     description="A collection of content created and shared by other web developers."
 >
-    <x-section
-        :title="$links->currentPage() > 1
-            ? 'Page ' . $links->currentPage()
-            : 'Latest links'"
-        :big-title="$links->currentPage() === 1"
-        class="mt-0 md:mt-8"
-    >
+    <x-section class="mt-0 md:mt-8">
         @if ($links->isNotEmpty())
-            <ul class="grid gap-10 mt-8 md:mt-16 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
+            <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($links as $link)
                     <li>
                         <x-link :$link />
