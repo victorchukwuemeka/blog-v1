@@ -31,5 +31,5 @@ This is the source code for the new version of thousands of visitors blog. **100
 - **User accounts tied to GitHub**
 - **Incredible speed thanks to `wire:navigate` from Livewire v3**
 - **Visits tracking on the backend to bypass adblockers thanks to [Pirsch's API](https://benjamincrozat.com/recommends/pirsch-analytics)**
-
-![](https://github.com/user-attachments/assets/676f837c-1514-41ab-bfa6-c79fe69eb7b7)
+  
+![](https://github.com/user-attachments/assets/36a6b0ce-ba06-46ce-a26f-6fd4e4122156)
