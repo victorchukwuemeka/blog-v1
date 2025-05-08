@@ -23,7 +23,7 @@ This is the source code for the new version of my 25K/month visitors blog. **100
   - [ ] To users for replies to comments
   - [ ] To the admin when a new link is submitted
   - [ ] To users when one of their links is approved
-- [ ] **Custom theme for emails**
+- [x] **Custom theme for emails**
 - [x] **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
 - [x] **Filament admin panel**
 - [x] **Affiliate links management**: This is how I make money from this blog.
