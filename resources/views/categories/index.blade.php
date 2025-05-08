@@ -1,9 +1,9 @@
 <x-app
-    title="The best web development articles in {{ date('Y') }}"
+    title="The best web development articles I wrote in {{ date('Y') }}"
     description="Level up as a web developer in {{ date('Y') }} with this collection of articles I wrote."
 >
     <x-section
-        title="The best articles for web developers in {{ date('Y') }}"
+        title="The best web development articles I wrote in {{ date('Y') }}"
         :big-title="true"
         class="xl:max-w-(--breakpoint-lg) mt-0 md:mt-8"
     >

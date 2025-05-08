@@ -1,6 +1,6 @@
 <div {{ $attributes->class('bg-gray-100') }}>
     <footer class="container py-8 lg:max-w-(--breakpoint-md)">
-        <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2">
+        <nav class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-8 gap-y-2">
             <a wire:navigate href="{{ route('home') }}" class="font-medium">Home</a>
             <a wire:navigate href="{{ route('posts.index') }}" class="font-medium">Articles</a>
             <a wire:navigate href="{{ route('categories.index') }}" class="font-medium">Categories</a>

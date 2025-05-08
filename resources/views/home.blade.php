@@ -1,6 +1,6 @@
 <x-app>
     <div class="container mt-8 text-center">
-        <div class="text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
+        <div class="font-medium text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
             <span class="text-blue-600">{{ Number::format($visitors) }}</span> monthly visitors read my blog
         </div>
 
