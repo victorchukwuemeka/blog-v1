@@ -21,6 +21,7 @@ This is the source code for the new version of my 25K/month visitors blog. **100
 - [ ] **Email notifications**
   - [ ] To the admin for new comments
   - [ ] To users for replies to comments
+- [ ] **Custom theme for emails**
 - [x] **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
 - [x] **Filament admin panel**
 - [x] **Affiliate links management**: This is how I make money from this blog.
