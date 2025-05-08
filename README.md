@@ -8,28 +8,28 @@ This is the source code for the new version of my 25K/month visitors blog. **100
 
 ### Left to do
 
-- [ ] **Livewire-based comments system**
-  - [x] Listing comments
-  - [ ] Adding comments
-  - [ ] Deleting comments
-  - [ ] Editing comments
-  - [ ] Replying to other comments
+- **Livewire-based comments system**
+  - Listing comments
+  - Adding comments
+  - Deleting comments
+  - Editing comments
+  - Replying to other comments
+- **Email notifications**
+  - To the admin for new comments
+  - To users for replies to comments
+  - To the admin when a new link is submitted
+  - To users when one of their links is approved
 
 ### Done
 
-- [x] **Community links**: People can send content they created.
-- [ ] **Email notifications**
-  - [ ] To the admin for new comments
-  - [ ] To users for replies to comments
-  - [ ] To the admin when a new link is submitted
-  - [ ] To users when one of their links is approved
-- [x] **Custom theme for emails**
-- [x] **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
-- [x] **Filament admin panel**
-- [x] **Affiliate links management**: This is how I make money from this blog.
-- [x] **Automatic table of contents**
-- [x] **User accounts tied to GitHub**
-- [x] **Incredible speed thanks to `wire:navigate` from Livewire v3**
-- [x] **Visits tracking on the backend to bypass adblockers thanks to [Pirsch's API](https://benjamincrozat.com/recommends/pirsch-analytics)**
+- **Community links**: People can send content they created.
+- **Custom theme for emails**
+- **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
+- **Filament admin panel**
+- **Affiliate links management**: This is how I make money from this blog.
+- **Automatic table of contents**
+- **User accounts tied to GitHub**
+- **Incredible speed thanks to `wire:navigate` from Livewire v3**
+- **Visits tracking on the backend to bypass adblockers thanks to [Pirsch's API](https://benjamincrozat.com/recommends/pirsch-analytics)**
 
 ![](https://github.com/user-attachments/assets/e63510de-bb76-4959-95a5-76015f6ab555)
