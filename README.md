@@ -4,32 +4,8 @@ This is the source code for the new version of thousands of visitors blog. **100
 
 **You can do whatever you want with the code.**
 
-## Roadmap
+Progress can be seen in the [projects section](https://github.com/users/benjamincrozat/projects).
 
-### Left to do
+This blog is hosted on [DigitalOcean](https://benjamincrozat.com/recommends/digitalocean), managed by [Ploi](https://benjamincrozat.com/recommends/ploi), and analytics are provided by [Pirsch](https://benjamincrozat.com/recommends/pirsch-analytics).
 
-- **Livewire-based comments system**
-  - Listing comments
-  - Adding comments
-  - Deleting comments
-  - Editing comments
-  - Replying to other comments
-- **Email notifications**
-  - To the admin for new comments
-  - To users for replies to comments
-  - To the admin when a new link is submitted
-  - To users when one of their links is approved
-
-### Done
-
-- **Community links**: People can send content they created.
-- **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
-- **Filament admin panel**
-- **Custom theme for emails**
-- **Affiliate links management**: This is how I make money from this blog.
-- **Automatic table of contents**
-- **User accounts tied to GitHub**
-- **Incredible speed thanks to `wire:navigate` from Livewire v3**
-- **Visits tracking on the backend to bypass adblockers thanks to [Pirsch's API](https://benjamincrozat.com/recommends/pirsch-analytics)**
-  
 ![](https://github.com/user-attachments/assets/36a6b0ce-ba06-46ce-a26f-6fd4e4122156)
