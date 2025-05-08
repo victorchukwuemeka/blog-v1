@@ -23,9 +23,9 @@ This is the source code for the new version of thousands of visitors blog. **100
 ### Done
 
 - **Community links**: People can send content they created.
-- **Custom theme for emails**
 - **SEO optimizations**: This is only 10% of the work as you still have to write good content people search for on Google.
 - **Filament admin panel**
+- **Custom theme for emails**
 - **Affiliate links management**: This is how I make money from this blog.
 - **Automatic table of contents**
 - **User accounts tied to GitHub**
