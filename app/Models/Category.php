@@ -23,6 +23,6 @@ class Category extends Model
             ->withCount('comments')
             ->published()
             ->latest('published_at')
-            ->limit(10);
+            ->limit(5);
     }
 }
