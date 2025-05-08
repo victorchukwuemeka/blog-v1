@@ -1,6 +1,6 @@
 # preview.benjamincrozat.com
 
-This is the source code for the new version of my 25K/month visitors blog. **100% not vibe coded.**
+This is the source code for the new version of thousands of visitors blog. **100% not vibe coded.**
 
 **You can do whatever you want with the code.**
 
@@ -31,5 +31,3 @@ This is the source code for the new version of my 25K/month visitors blog. **100
 - **User accounts tied to GitHub**
 - **Incredible speed thanks to `wire:navigate` from Livewire v3**
 - **Visits tracking on the backend to bypass adblockers thanks to [Pirsch's API](https://benjamincrozat.com/recommends/pirsch-analytics)**
-
-![](https://github.com/user-attachments/assets/e63510de-bb76-4959-95a5-76015f6ab555)
