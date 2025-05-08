@@ -2,7 +2,7 @@
 
 This is the source code for the new version of my 25K/month visitors blog. **100% not vibe coded.**
 
-**You can do whatever you want with the code. (Blog posts are mine, though!)**
+**You can do whatever you want with the code.**
 
 ## Roadmap
 
