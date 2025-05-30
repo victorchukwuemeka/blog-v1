@@ -54,9 +54,24 @@
                 />
             @endif
 
-            <x-prose class="mt-12 md:mt-16">
+            <x-prose class="mt-16 md:mt-24">
                 {!! $post->formatted_content !!}
             </x-prose>
+
+            @if ($post->user->biography)
+                <div class="h-px mt-16 md:mt-24 bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
+
+                <footer class="mt-16 md:mt-24">
+                    <div class="font-bold tracking-widest text-center text-black uppercase text-balance">
+                        About {{ $post->user->name }}
+                    </div>
+
+                    <x-prose class="mt-4">
+                        <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-full! float-right ml-4 md:ml-6 mt-2 size-20 md:size-24">
+                        {!! Str::markdown($post->user->biography) !!}
+                    </x-prose>
+                </footer>
+            @endif
         </div>
     </article>
 
@@ -64,6 +79,8 @@
         id="comments"
         class="mt-12 md:mt-16 lg:max-w-(--breakpoint-md)"
     >
+        <div class="h-px mb-16 md:mb-24 bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
+
         <livewire:comments :post-id="$post->id" />
     </x-section>
 

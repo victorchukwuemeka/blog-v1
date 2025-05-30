@@ -17,7 +17,7 @@
                             </a>
                         </h2>
 
-                        <ul class="grid gap-4 mt-6 md:gap-6">
+                        <ul class="grid gap-8 mt-6 md:gap-6">
                             @foreach ($category->activity as $post)
                                 <li>
                                     <div class="flex items-start gap-4 md:gap-6">
@@ -29,7 +29,7 @@
                                         </a>
 
                                         <div class="leading-normal">
-                                            <a wire:navigate href="{{ route('posts.show', $post) }}" class="block font-medium text-balance">
+                                            <a wire:navigate href="{{ route('posts.show', $post) }}" class="font-medium text-balance">
                                                 {{ $post->title }}
                                             </a>
 

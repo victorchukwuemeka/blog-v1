@@ -36,6 +36,7 @@ class UserFactory extends Factory
                 'email' => $email,
             ],
             'email' => $email,
+            'biography' => fake()->paragraph(),
             'remember_token' => Str::random(10),
         ];
     }

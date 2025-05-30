@@ -16,6 +16,7 @@ return new class extends Migration
             $table->json('github_data');
             $table->string('email')->unique();
             $table->string('password')->nullable();
+            $table->text('biography')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
