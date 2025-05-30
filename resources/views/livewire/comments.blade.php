@@ -8,4 +8,17 @@
             <x-comment :$comment />
         @endforeach
     </div>
+
+    @auth
+    @else
+        <div class="text-center">
+            <div class="text-gray-500">
+                You need to be signed in to comment this post.
+            </div>
+
+            <x-btn href="{{ route('auth.redirect') }}" primary class="mt-4">
+                Sign in with GitHub
+            </x-btn>
+        </div>
+    @endauth
 </div>
