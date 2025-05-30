@@ -9,7 +9,7 @@
             </h1>
 
             <div class="mt-5 text-balance text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight md:mt-8">
-                Find tons of resources written and shared by {{ $distinctUsersCount }} web developers.
+                Find tons of resources written and shared by <span class="font-medium">{{ $distinctUsersCount }} web developers</span>.
             </div>
 
             <div class="flex items-center justify-center mt-4 md:mt-6">

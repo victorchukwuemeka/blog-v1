@@ -1,12 +1,12 @@
 <div {{ $attributes->class('bg-gray-100') }}>
     <footer class="container py-8 lg:max-w-(--breakpoint-md)">
-        <nav class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-8 gap-y-2">
-            <a wire:navigate href="{{ route('home') }}" class="font-medium">Home</a>
-            <a wire:navigate href="{{ route('posts.index') }}" class="font-medium">Articles</a>
-            <a wire:navigate href="{{ route('categories.index') }}" class="font-medium">Categories</a>
-            <a wire:navigate href="{{ route('links.index') }}" class="font-medium">Links</a>
-            <a href="{{ route('home') }}#about" class="font-medium">About</a>
-            <a href="mailto:hello@benjamincrozat.com" class="font-medium">Contact</a>
+        <nav class="grid grid-cols-2 sm:grid-cols-6 sm:place-items-center *:font-medium gap-x-8 gap-y-2">
+            <a wire:navigate href="{{ route('home') }}">Home</a>
+            <a wire:navigate href="{{ route('posts.index') }}">Articles</a>
+            <a wire:navigate href="{{ route('categories.index') }}">Categories</a>
+            <a wire:navigate href="{{ route('links.index') }}">Links</a>
+            <a href="{{ route('home') }}#about">About</a>
+            <a href="mailto:hello@benjamincrozat.com">Contact</a>
         </nav>
 
         <p class="mt-8 text-center">Hosted on <a href="{{ route('merchants.show', 'digitalocean') }}" target="_blank" class="font-medium underline decoration-1 decoration-black/30 underline-offset-4">DigitalOcean</a>, managed by <a href="{{ route('merchants.show', 'ploi') }}" target="_blank" class="font-medium underline decoration-1 decoration-black/30 underline-offset-4">Ploi</a>, and analytics provided by <a href="{{ route('merchants.show', 'pirsch-analytics') }}" target="_blank" class="font-medium underline decoration-1 decoration-black/30 underline-offset-4">Pirsch</a>.</p>
