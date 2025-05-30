@@ -12,12 +12,12 @@
                 @foreach ($categories as $category)
                     <div>
                         <h2 class="font-bold tracking-widest text-black uppercase text-balance">
-                            <a wire:navigate href="{{ route('categories.show', $category) }}">
-                                About {{ $category->name }} <span class="ml-1">→</span>
+                            <a wire:navigate href="{{ route('categories.show', $category) }}" class="underline decoration-1 underline-offset-8 decoration-black/30">
+                                About {{ $category->name }} →
                             </a>
                         </h2>
 
-                        <ul class="grid gap-4 gap-6 mt-4 md:mt-6">
+                        <ul class="grid gap-4 mt-6 md:gap-6">
                             @foreach ($category->activity as $post)
                                 <li>
                                     <div class="flex items-start gap-4 md:gap-6">

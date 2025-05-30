@@ -4,11 +4,11 @@
 >
     @if ($links->currentPage() === 1)
         <div class="container mt-4 text-center md:mt-8">
-            <h1 class="font-medium text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
+            <h1 class="font-medium tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
                 <span class="text-blue-600">Keep learning</span> with the community
             </h1>
 
-            <div class="mt-5 text-balance text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight md:mt-8">
+            <div class="mt-5 tracking-tight text-balance text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight md:mt-8">
                 Find tons of resources written and shared by <span class="font-medium">{{ $distinctUsersCount }} web developers</span>.
             </div>
 

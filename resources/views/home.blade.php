@@ -1,10 +1,10 @@
 <x-app>
     <div class="container mt-8 text-center">
-        <div class="font-medium text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
+        <div class="font-medium tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
             <span class="text-blue-600">{{ Number::format($visitors) }}</span> monthly visitors read my blog
         </div>
 
-        <div class="mt-5 text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight md:mt-8">
+        <div class="mt-5 tracking-tight text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight md:mt-8">
             No matter how senior,<br />
             I have something for you. Ready?
         </div>
