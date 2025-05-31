@@ -10,6 +10,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Client\RequestException;
 
+// This job doesn't have tests as it will be removed once in production.
 class ImportLegacyLink implements ShouldQueue
 {
     use Queueable;

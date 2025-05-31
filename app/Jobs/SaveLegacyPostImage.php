@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+// This job doesn't have tests as it will be removed once in production.
 class SaveLegacyPostImage implements ShouldQueue
 {
     use Queueable;
@@ -21,10 +22,12 @@ class SaveLegacyPostImage implements ShouldQueue
 
     public function handle() : void
     {
-        if ($imageUrl = str_replace([
-            'https://res.cloudinary.com/benjamincrozat-com/image/fetch/c_scale,f_webp,q_auto,w_1200/',
-            'https://res.cloudinary.com/benjamincrozat-com/image/fetch/',
-        ], '', $this->legacyPost->image)) {
+        if ($legacyImageUrl = $this->legacyPost->image) {
+            $imageUrl = str_replace([
+                'https://res.cloudinary.com/benjamincrozat-com/image/fetch/c_scale,f_webp,q_auto,w_1200/',
+                'https://res.cloudinary.com/benjamincrozat-com/image/fetch/',
+            ], '', $legacyImageUrl);
+
             $response = Http::get($imageUrl)->throw();
 
             $extension = match ($response->header('Content-Type')) {
