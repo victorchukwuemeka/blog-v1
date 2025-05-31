@@ -10,36 +10,22 @@
         </div>
 
         <div class="flex items-center justify-center gap-2 text-center mt-7 md:mt-11">
-            <x-btn href="#about">
+            <x-btn
+                size="md"
+                href="#about"
+            >
                 Who the F are you?
             </x-btn>
 
             <x-btn
                 primary
+                size="md"
                 href="#latest"
             >
                 Start reading
             </x-btn>
         </div>
     </div>
-
-    <x-section title="They support the blog" class="mt-24 md:mt-32 lg:max-w-(--breakpoint-md)">
-        <div class="flex flex-wrap justify-center mt-8 gap-y-4 gap-x-12">
-            <a href="https://beyondco.de/?utm_source=benjamincrozat&utm_medium=logo&utm_campaign=benjamincrozat" target="_blank">
-                <x-icon-beyond-code class="h-7 md:h-8" />
-                <span class="sr-only">Beyond Code</span>
-            </a>
-
-            <a href="https://nobinge.ai" target="_blank">
-                <x-icon-nobinge class="h-6 md:h-7" />
-                <span class="sr-only">Nobinge</span>
-            </a>
-        </div>
-
-        <div class="text-center sm:text-xl mt-7">
-            If you like my blog, please check out these development/education-centric products that will help you as a developer without a doubt.
-        </div>
-    </x-section>
 
     <x-section title="Latest posts" id="latest" class="mt-24 md:mt-32">
         @if ($latest->isNotEmpty())
@@ -63,15 +49,17 @@
         </div>
     </x-section>
 
-    <x-section title="About Benjamin Crozat" id="about" class="mt-24 lg:max-w-(--breakpoint-md) md:mt-32">
-        <x-prose class="mt-8">
-            <img
-                src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
-                alt="Benjamin Crozat"
-                class="float-right mt-4 ml-4 rounded-full! size-28 md:size-32"
-            />
+    @if ($about)
+        <x-section title="About Benjamin Crozat" id="about" class="mt-24 lg:max-w-(--breakpoint-md) md:mt-32">
+            <x-prose class="mt-8">
+                <img
+                    src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
+                    alt="Benjamin Crozat"
+                    class="float-right mt-4 ml-4 rounded-full! size-28 md:size-32"
+                />
 
-            {!! Str::markdown($about) !!}
-        </x-prose>
-    </x-section>
+                {!! Str::markdown($about) !!}
+            </x-prose>
+        </x-section>
+    @endif
 </x-app>
