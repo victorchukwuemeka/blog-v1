@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Schedule;
-use App\Console\Commands\SyncAnalyticsCommand;
+use App\Console\Commands\SyncVisitorsCommand;
 
-Schedule::command(SyncAnalyticsCommand::class)
+Schedule::command(SyncVisitorsCommand::class)
     ->dailyAt('01:00')
     ->timezone('Europe/Paris');

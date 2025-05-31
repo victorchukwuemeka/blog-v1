@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 use function Pest\Laravel\assertDatabaseHas;
 
-use App\Console\Commands\SyncAnalyticsCommand;
+use App\Console\Commands\SyncVisitorsCommand;
 
 it('fetches analytics data', function () {
     Http::fake([
@@ -23,7 +23,7 @@ it('fetches analytics data', function () {
         ]),
     ]);
 
-    artisan(SyncAnalyticsCommand::class)
+    artisan(SyncVisitorsCommand::class)
         ->assertSuccessful();
 
     assertDatabaseHas(Metric::class, ['key' => 'platform_desktop']);

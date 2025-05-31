@@ -22,7 +22,7 @@ class FreshCommand extends Command
 
         $this->info('Syncing analytics data…');
 
-        Artisan::call(SyncAnalyticsCommand::class);
+        Artisan::call(SyncVisitorsCommand::class);
 
         $this->info('Analytics data synced successfully.');
 
