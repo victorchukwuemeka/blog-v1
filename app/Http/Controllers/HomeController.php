@@ -18,7 +18,7 @@ class HomeController extends Controller
                 ->limit(12)
                 ->get(),
 
-            'about' => User::findOrFail(1)->biography,
+            'about' => User::first()?->biography,
         ]);
     }
 }
