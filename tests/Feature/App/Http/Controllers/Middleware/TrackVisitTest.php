@@ -2,10 +2,11 @@
 
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
-use function Pest\Laravel\withServerVariables;
 
 use Facades\App\Actions\TrackVisit;
 use Illuminate\Support\Facades\Route;
+
+use function Pest\Laravel\withServerVariables;
 
 beforeEach(function () {
     config(['app.env' => 'production']);

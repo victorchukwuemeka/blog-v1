@@ -20,6 +20,10 @@ return [
         'redirect' => env('GITHUB_REDIRECT'),
     ],
 
+    'horizon' => [
+        'token' => env('HORIZON_TOKEN'),
+    ],
+
     'pirsch' => [
         'access_key' => env('PIRSCH_ACCESS_KEY'),
         'client_id' => env('PIRSCH_CLIENT_ID'),
