@@ -61,10 +61,6 @@ jobs:
           PIRSCH_CLIENT_ID: ${{ secrets.PIRSCH_CLIENT_ID }}
           PIRSCH_CLIENT_SECRET: ${{ secrets.PIRSCH_CLIENT_SECRET }}
 
-      - name: Output log
-        if: failure()
-        run: cat storage/logs/laravel.log
-
       - name: Upload logs
         if: failure()
         uses: actions/upload-artifact@v4
