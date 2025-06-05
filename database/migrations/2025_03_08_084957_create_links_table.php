@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('url')->unique();
-            $table->string('image_url')->nullable();
+            $table->text('image_url')->nullable();
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
