@@ -11,33 +11,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Client\RequestException;
 
 // This job doesn't have tests as it will be removed once in production.
-class ImportLegacyLink implements ShouldQueue
+class ValidateLinkImage implements ShouldQueue
 {
     use Queueable;
 
     public function __construct(
-        protected object $legacyLink,
+        protected Link $link,
     ) {}
 
     public function handle() : void
     {
         try {
-            if ($imageUrl = app(Embed::class)->get($this->legacyLink->url)->image) {
+            if ($imageUrl = app(Embed::class)->get($this->link->url)->image) {
                 Http::get($imageUrl)->throw();
             }
         } catch (NetworkException|RequestException $e) {
             $imageUrl = null;
         }
 
-        Link::query()->updateOrCreate([
-            'url' => $this->legacyLink->url,
-        ], [
-            'user_id' => $this->legacyLink->user_id,
-            'image_url' => $imageUrl,
-            'title' => $this->legacyLink->title,
-            'description' => $this->legacyLink->description,
-            'is_approved' => $this->legacyLink->is_approved,
-            'is_declined' => $this->legacyLink->is_declined,
-        ]);
+        $this->link->update(['image_url' => $imageUrl]);
     }
 }

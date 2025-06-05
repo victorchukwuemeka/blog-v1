@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ImportLegacyLink;
+use App\Models\Link;
+use App\Jobs\ValidateLinkImage;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -21,7 +22,17 @@ class SyncLinksCommand extends Command
             ->table('links')
             ->get()
             ->each(function (object $legacyLink) {
-                dispatch(new ImportLegacyLink($legacyLink));
+                $link = Link::query()->updateOrCreate([
+                    'url' => $legacyLink->url,
+                ], [
+                    'user_id' => $legacyLink->user_id,
+                    'title' => $legacyLink->title,
+                    'description' => $legacyLink->description,
+                    'is_approved' => $legacyLink->is_approved,
+                    'is_declined' => $legacyLink->is_declined,
+                ]);
+
+                dispatch(new ValidateLinkImage($link));
 
                 $this->info("Synced link {$legacyLink->url}");
             });
