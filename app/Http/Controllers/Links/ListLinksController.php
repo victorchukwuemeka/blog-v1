@@ -14,20 +14,12 @@ class ListLinksController extends Controller
         $distinctUsersQuery = Link::query()
             ->select('user_id')
             ->distinct('user_id')
-            ->whereRelation('user', function (Builder $query) {
-                $query
-                    ->whereNotIn('email', [
-                        'benjamincrozat@gmail.com',
-                        'benjamincrozat@icloud.com',
-                        'benjamincrozat@me.com',
-                        'hello@benjamincrozat.com',
-                    ])
-                    ->whereNotNull('avatar');
-            });
+            ->whereRelation('user', fn (Builder $query) => $query->whereNotIn('email', ['benjamincrozat@me.com']))
+            ->approved();
 
         return view('links.index', [
             'distinctUserAvatars' => $distinctUsersQuery
-                ->with('user')
+                ->whereRelation('user', fn (Builder $query) => $query->whereNotNull('avatar'))
                 ->inRandomOrder()
                 ->limit(10)
                 ->get()
@@ -36,7 +28,7 @@ class ListLinksController extends Controller
             'distinctUsersCount' => $distinctUsersQuery->count(),
 
             'links' => Link::query()
-                ->with('user')
+                ->approved()
                 ->latest('is_approved')
                 ->paginate(12),
         ]);
