@@ -28,7 +28,6 @@ class ListLinksController extends Controller
         return view('links.index', [
             'distinctUserAvatars' => $distinctUsersQuery
                 ->with('user')
-                ->approved()
                 ->inRandomOrder()
                 ->limit(10)
                 ->get()
@@ -38,7 +37,6 @@ class ListLinksController extends Controller
 
             'links' => Link::query()
                 ->with('user')
-                ->approved()
                 ->latest('is_approved')
                 ->paginate(12),
         ]);
