@@ -14,6 +14,9 @@
                 'px-[.65rem] py-[.35rem] text-sm rounded-md' => 'sm' === $attributes->get('size'),
                 'px-[.65rem] py-[.35rem] text-xs rounded-sm' => 'xs' === $attributes->get('size'),
             ])
+            ->merge([
+                'data-pirsch-event' => 'Clicked “' . strip_tags($slot) . '”',
+            ])
     }}
 >
     {{ $slot }}
