@@ -100,7 +100,7 @@
                         href="{{ route('horizon.index') }}"
                         data-pirsch-event='Clicked "Horizon"'
                     >
-                        <x-heroicon-o-bolt class="size-4" />
+                        <x-icon-horizon class="size-[.95rem] translate-y-[.5px]" />
                         Horizon
                     </x-dropdown.item>
                 @endcan
