@@ -9,7 +9,7 @@ class LinkWizard extends WizardComponent
     public function mount()
     {
         if (! auth()->check()) {
-            return redirect()->guest(route('login'));
+            return redirect()->guest(route('auth.login'));
         }
     }
 

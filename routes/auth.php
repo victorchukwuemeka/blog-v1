@@ -7,11 +7,11 @@ use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Auth\GithubAuthCallbackController;
 use App\Http\Controllers\Auth\GithubAuthRedirectController;
 
-Route::view('/login', 'login')
-    ->middleware(RedirectIfAuthenticated::class)
-    ->name('login');
-
 Route::prefix('/auth')->name('auth.')->group(function () {
+    Route::view('/login', 'login')
+        ->middleware(RedirectIfAuthenticated::class)
+        ->name('login');
+
     Route::middleware(RedirectIfAuthenticated::class)->group(function () {
         Route::get('/redirect', GithubAuthRedirectController::class)
             ->name('redirect');
