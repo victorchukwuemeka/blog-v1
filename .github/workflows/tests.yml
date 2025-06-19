@@ -7,7 +7,11 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-
+    env:
+      DB_PORT: ${{ job.services.mysql.ports[3306] }}
+      PIRSCH_ACCESS_KEY: ${{ secrets.PIRSCH_ACCESS_KEY }}
+      PIRSCH_CLIENT_ID: ${{ secrets.PIRSCH_CLIENT_ID }}
+      PIRSCH_CLIENT_SECRET: ${{ secrets.PIRSCH_CLIENT_SECRET }}
     services:
       mysql:
         image: mysql:latest
@@ -20,7 +24,6 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -48,18 +51,28 @@ jobs:
       - name: Generate encryption key
         run: php artisan key:generate
 
-      - name: Install front-end dependencies and build CSS and JavaScript
-        run: |
-          npm i --no-fund
-          npm run build
+      - name: Install front-end dependencies
+        run: npm ci --no-fund
+
+      - name: Cache PHP dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-
+
+      - name: Build CSS and JavaScript
+        run: npm run build
 
       - name: Run tests
         run: php artisan test
-        env:
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
-          PIRSCH_ACCESS_KEY: ${{ secrets.PIRSCH_ACCESS_KEY }}
-          PIRSCH_CLIENT_ID: ${{ secrets.PIRSCH_CLIENT_ID }}
-          PIRSCH_CLIENT_SECRET: ${{ secrets.PIRSCH_CLIENT_SECRET }}
 
       - name: Upload logs
         if: failure()
@@ -70,3 +83,7 @@ jobs:
       # - name: Deploy on production
       #   if: github.ref == 'refs/heads/main' && success()
       #   run: curl -X POST ${{ secrets.DEPLOYMENT_URL }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
