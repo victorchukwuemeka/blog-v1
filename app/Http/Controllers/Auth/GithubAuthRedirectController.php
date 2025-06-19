@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\GithubProvider;
 
 class GithubAuthRedirectController extends Controller
 {
@@ -17,7 +18,7 @@ class GithubAuthRedirectController extends Controller
             redirect()->setIntendedUrl(url()->previous());
         }
 
-        /** @var \Laravel\Socialite\Two\GithubProvider */
+        /** @var GithubProvider */
         $github = Socialite::driver('github');
 
         return $github

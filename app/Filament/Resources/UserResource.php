@@ -2,42 +2,50 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use App\Models\User;
-use Filament\Tables;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\FontWeight;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use App\Filament\Resources\UserResource\Pages;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use App\Filament\Resources\UserResource\Pages\EditUser;
+use App\Filament\Resources\UserResource\Pages\ViewUser;
+use App\Filament\Resources\UserResource\Pages\ListUsers;
+use App\Filament\Resources\UserResource\Pages\CreateUser;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationGroup = 'Community';
+    protected static string|\UnitEnum|null $navigationGroup = 'Community';
 
-    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-user';
 
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?int $navigationSort = 3;
 
-    public static function form(Form $form) : Form
+    public static function form(Schema $schema) : Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('github_login')
+                TextInput::make('github_login')
                     ->required()
                     ->maxLength(255)
                     ->label('GitHub'),
 
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
@@ -50,57 +58,51 @@ class UserResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                TextColumn::make('id')
                     ->sortable()
                     ->label('ID')
                     ->weight(FontWeight::Bold),
 
-                Tables\Columns\ImageColumn::make('gravatar')
+                ImageColumn::make('gravatar')
                     ->circular()
                     ->getStateUsing(fn (User $record) => $record->avatar),
 
-                Tables\Columns\TextColumn::make('name'),
+                TextColumn::make('name'),
 
-                Tables\Columns\TextColumn::make('github_login')
+                TextColumn::make('github_login')
                     ->searchable()
                     ->label('GitHub'),
 
-                Tables\Columns\TextColumn::make('email')
+                TextColumn::make('email')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->date()
                     ->sortable()
                     ->label('Registration Date'),
 
-                Tables\Columns\TextColumn::make('last_login_at')
+                TextColumn::make('last_login_at')
                     ->date()
                     ->sortable()
                     ->label('Last Login Date')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
+            ->recordActions([
+                EditAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
 
-                Tables\Actions\DeleteAction::make()
+                DeleteAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
-
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('activities')
-                        ->url(fn (Model $record) => self::getUrl('activities', compact('record')))
-                        ->icon('heroicon-o-list-bullet'),
-                ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -108,11 +110,10 @@ class UserResource extends Resource
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'activities' => Pages\ListUserActivities::route('/{record}/activities'),
-            'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => ListUsers::route('/'),
+            'create' => CreateUser::route('/create'),
+            'view' => ViewUser::route('/{record}'),
+            'edit' => EditUser::route('/{record}/edit'),
         ];
     }
 

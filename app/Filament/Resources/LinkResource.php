@@ -2,71 +2,84 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use App\Models\Link;
-use Filament\Tables;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Forms\Components\Select;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\FontWeight;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\LinkResource\Pages;
+use Filament\Forms\Components\DateTimePicker;
+use App\Filament\Resources\LinkResource\Pages\EditLink;
+use App\Filament\Resources\LinkResource\Pages\ListLinks;
+use App\Filament\Resources\LinkResource\Pages\CreateLink;
 
 class LinkResource extends Resource
 {
     protected static ?string $model = Link::class;
 
-    protected static ?string $navigationGroup = 'Community';
+    protected static string|\UnitEnum|null $navigationGroup = 'Community';
 
-    protected static ?string $navigationIcon = 'heroicon-o-link';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-link';
 
     protected static ?string $recordTitleAttribute = 'title';
 
     protected static ?int $navigationSort = 3;
 
-    public static function form(Form $form) : Form
+    public static function form(Schema $schema) : Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('user_id')
+        return $schema
+            ->components([
+                Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required()
                     ->searchable()
                     ->columnSpanFull()
                     ->label('Sender'),
 
-                Forms\Components\TextInput::make('url')
+                TextInput::make('url')
                     ->required()
                     ->url()
                     ->maxLength(255)
                     ->label('URL')
                     ->columnSpanFull(),
 
-                Forms\Components\TextInput::make('image_url')
+                TextInput::make('image_url')
                     ->url()
                     ->columnSpanFull(),
 
-                Forms\Components\TextInput::make('title')
+                TextInput::make('title')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
 
-                Forms\Components\Textarea::make('description')
+                Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),
 
-                Forms\Components\Textarea::make('notes')
+                Textarea::make('notes')
                     ->maxLength(65535)
                     ->columnSpanFull(),
 
-                Forms\Components\DateTimePicker::make('is_approved')
+                DateTimePicker::make('is_approved')
                     ->timezone('Europe/Paris')
                     ->native(false)
                     ->label('Approved At'),
 
-                Forms\Components\DateTimePicker::make('is_declined')
+                DateTimePicker::make('is_declined')
                     ->timezone('Europe/Paris')
                     ->native(false)
                     ->label('Declined At'),
@@ -78,31 +91,31 @@ class LinkResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                TextColumn::make('id')
                     ->sortable()
                     ->label('ID')
                     ->weight(FontWeight::Bold),
 
-                Tables\Columns\ImageColumn::make('image_url')
+                ImageColumn::make('image_url')
                     ->defaultImageUrl(secure_asset('img/placeholder.svg'))
                     ->width(107)
                     ->height(80)
                     ->label('Image'),
 
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable()
                     ->limit(50),
 
-                Tables\Columns\TextColumn::make('url')
+                TextColumn::make('url')
                     ->searchable()
                     ->limit(30)
                     ->label('URL'),
 
-                Tables\Columns\TextColumn::make('user.name')
+                TextColumn::make('user.name')
                     ->searchable()
                     ->label('Sender'),
 
-                Tables\Columns\TextColumn::make('status')
+                TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state) : string => match ($state) {
                         'Approved' => 'success',
@@ -122,13 +135,13 @@ class LinkResource extends Resource
                     })
                     ->label('Status'),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->date()
                     ->sortable()
                     ->label('Submitted Date'),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('status')
+                SelectFilter::make('status')
                     ->options([
                         'approved' => 'Approved',
                         'declined' => 'Declined',
@@ -142,8 +155,8 @@ class LinkResource extends Resource
                     })
                     ->default('pending'),
             ])
-            ->actions([
-                Tables\Actions\Action::make('approve')
+            ->recordActions([
+                Action::make('approve')
                     ->action(function (Link $record, array $data) {
                         $record->approve($data['notes']);
 
@@ -160,7 +173,7 @@ class LinkResource extends Resource
                     ->outlined()
                     ->size('xs'),
 
-                Tables\Actions\Action::make('decline')
+                Action::make('decline')
                     ->action(fn (Link $record) => $record->decline())
                     ->hidden(fn (Link $record) => $record->isDeclined())
                     ->color('danger')
@@ -168,8 +181,8 @@ class LinkResource extends Resource
                     ->outlined()
                     ->size('xs'),
 
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('Put back in pending')
+                ActionGroup::make([
+                    Action::make('Put back in pending')
                         ->action(fn (Link $record) => $record->update([
                             'is_approved' => null,
                             'is_declined' => null,
@@ -177,20 +190,16 @@ class LinkResource extends Resource
                         ->icon('heroicon-o-queue-list')
                         ->hidden(fn (Link $record) => is_null($record->is_approved) && is_null($record->is_declined)),
 
-                    Tables\Actions\Action::make('activities')
-                        ->url(fn (Model $record) => self::getUrl('activities', compact('record')))
-                        ->icon('heroicon-o-list-bullet'),
-
-                    Tables\Actions\EditAction::make()
+                    EditAction::make()
                         ->icon('heroicon-o-pencil'),
 
-                    Tables\Actions\DeleteAction::make()
+                    DeleteAction::make()
                         ->icon('heroicon-o-trash'),
                 ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -198,10 +207,9 @@ class LinkResource extends Resource
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListLinks::route('/'),
-            'activities' => Pages\ListLinkActivities::route('/{record}/activities'),
-            'create' => Pages\CreateLink::route('/create'),
-            'edit' => Pages\EditLink::route('/{record}/edit'),
+            'index' => ListLinks::route('/'),
+            'create' => CreateLink::route('/create'),
+            'edit' => EditLink::route('/{record}/edit'),
         ];
     }
 

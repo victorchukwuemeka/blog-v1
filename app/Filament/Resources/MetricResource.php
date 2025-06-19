@@ -2,43 +2,51 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
 use App\Models\Metric;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\FontWeight;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Contracts\Support\Htmlable;
-use App\Filament\Resources\MetricResource\Pages;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Forms\Components\DateTimePicker;
+use App\Filament\Resources\MetricResource\Pages\ViewMetric;
+use App\Filament\Resources\MetricResource\Pages\ListMetrics;
 
 class MetricResource extends Resource
 {
     protected static ?string $model = Metric::class;
 
-    protected static ?string $navigationGroup = 'Others';
+    protected static string|\UnitEnum|null $navigationGroup = 'Others';
 
-    protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-chart-bar';
 
     protected static ?int $navigationSort = 4;
 
     protected static ?string $recordTitleAttribute = 'key';
 
-    public static function form(Form $form) : Form
+    public static function form(Schema $schema) : Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('key')
+        return $schema
+            ->components([
+                TextInput::make('key')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
 
-                Forms\Components\Textarea::make('value')
+                Textarea::make('value')
                     ->required()
                     ->columnSpanFull(),
 
-                Forms\Components\DateTimePicker::make('created_at')
+                DateTimePicker::make('created_at')
                     ->timezone('Europe/Paris')
                     ->native(false)
                     ->columnSpanFull(),
@@ -50,47 +58,47 @@ class MetricResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                TextColumn::make('id')
                     ->sortable()
                     ->label('ID')
                     ->weight(FontWeight::Bold),
 
-                Tables\Columns\TextColumn::make('key')
+                TextColumn::make('key')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('value')
+                TextColumn::make('value')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->date()
                     ->sortable()
                     ->label('Creation Date'),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
+            ->recordActions([
+                EditAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
 
-                Tables\Actions\DeleteAction::make()
+                DeleteAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                DeleteBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+                RestoreBulkAction::make(),
             ]);
     }
 
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListMetrics::route('/'),
-            'view' => Pages\ViewMetric::route('/{record}'),
+            'index' => ListMetrics::route('/'),
+            'view' => ViewMetric::route('/{record}'),
         ];
     }
 

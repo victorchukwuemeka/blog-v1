@@ -3,21 +3,34 @@
 namespace App\Filament\Resources;
 
 use App\Str;
-use Filament\Forms;
 use App\Models\Post;
-use Filament\Tables;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Spatie\Image\Image;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Spatie\Image\Enums\Fit;
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Actions\DeleteAction;
+use Filament\Forms\Components\Select;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\FontWeight;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\PostResource\Pages;
+use Filament\Tables\Filters\TernaryFilter;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use App\Filament\Forms\Components\MarkdownEditor;
+use App\Filament\Resources\PostResource\Pages\EditPost;
+use App\Filament\Resources\PostResource\Pages\ListPosts;
+use App\Filament\Resources\PostResource\Pages\CreatePost;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use App\Filament\Resources\PostResource\RelationManagers\CategoriesRelationManager;
 
@@ -25,19 +38,19 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationGroup = 'Blog';
+    protected static string|\UnitEnum|null $navigationGroup = 'Blog';
 
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-newspaper';
 
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    public static function form(Form $form) : Form
+    public static function form(Schema $schema) : Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\FileUpload::make('image_path')
+        return $schema
+            ->components([
+                FileUpload::make('image_path')
                     ->image()
                     ->disk(fn (Post $record) : string => $record->image_disk ?? 'public')
                     ->directory('posts')
@@ -60,13 +73,13 @@ class PostResource extends Resource
                     ->columnSpanFull()
                     ->label('Image'),
 
-                Forms\Components\Select::make('image_disk')
+                Select::make('image_disk')
                     ->options(['public' => 'Public'])
                     ->default('public')
                     ->columnSpanFull()
                     ->label('Image Disk'),
 
-                Forms\Components\TextInput::make('title')
+                TextInput::make('title')
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -80,7 +93,7 @@ class PostResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
 
-                Forms\Components\TextInput::make('slug')
+                TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
 
@@ -90,26 +103,26 @@ class PostResource extends Resource
                     ->fileAttachmentsDirectory('posts')
                     ->columnSpanFull(),
 
-                Forms\Components\Textarea::make('description')
+                Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),
 
-                Forms\Components\TextInput::make('canonical_url')
+                TextInput::make('canonical_url')
                     ->nullable()
                     ->maxLength(255)
                     ->rules('url')
                     ->columnSpanFull(),
 
-                Forms\Components\Select::make('user_id')
+                Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required()
                     ->label('Author'),
 
-                Forms\Components\DateTimePicker::make('published_at')
+                DateTimePicker::make('published_at')
                     ->timezone('Europe/Paris')
                     ->native(false),
 
-                Forms\Components\DateTimePicker::make('modified_at')
+                DateTimePicker::make('modified_at')
                     ->timezone('Europe/Paris')
                     ->native(false),
             ]);
@@ -120,49 +133,49 @@ class PostResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                TextColumn::make('id')
                     ->sortable()
                     ->label('ID')
                     ->weight(FontWeight::Bold),
 
-                Tables\Columns\ImageColumn::make('image_path')
+                ImageColumn::make('image_path')
                     ->disk(fn (Post $record) => $record->image_disk ?? config('filesystems.default'))
                     ->defaultImageUrl(secure_asset('img/placeholder.svg'))
                     ->width(107)
                     ->height(80)
                     ->label('Image'),
 
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable()
                     ->limit(50),
 
-                Tables\Columns\TextColumn::make('user.name')
+                TextColumn::make('user.name')
                     ->searchable()
                     ->label('Author'),
 
-                Tables\Columns\TextColumn::make('canonical_url')
+                TextColumn::make('canonical_url')
                     ->default('-')
                     ->label('Canonical URL')
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('categories')
+                TextColumn::make('categories')
                     ->getStateUsing(fn (Post $record) => $record->categories->pluck('name')->join(','))
                     ->badge()
                     ->separator(','),
 
-                Tables\Columns\TextColumn::make('published_at')
+                TextColumn::make('published_at')
                     ->date()
                     ->sortable()
                     ->label('Publication Date'),
 
-                Tables\Columns\TextColumn::make('modified_at')
+                TextColumn::make('modified_at')
                     ->date()
                     ->sortable()
                     ->label('Modification Date')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TernaryFilter::make('published_at')
+                TernaryFilter::make('published_at')
                     ->nullable()
                     ->label('Published Status')
                     ->placeholder('Both')
@@ -174,39 +187,32 @@ class PostResource extends Resource
                         false: fn (Builder $query) => $query->whereNull('published_at'),
                     ),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
+            ->recordActions([
+                EditAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
 
-                Tables\Actions\DeleteAction::make()
+                DeleteAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
-
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('activities')
-                        ->url(fn (Model $record) => self::getUrl('activities', compact('record')))
-                        ->icon('heroicon-o-list-bullet'),
-                ]),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                DeleteBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+                RestoreBulkAction::make(),
             ]);
     }
 
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListPosts::route('/'),
-            'activities' => Pages\ListPostActivities::route('/{record}/activities'),
-            'create' => Pages\CreatePost::route('/create'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            'index' => ListPosts::route('/'),
+            'create' => CreatePost::route('/create'),
+            'edit' => EditPost::route('/{record}/edit'),
         ];
     }
 

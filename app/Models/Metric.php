@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\MetricFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Metric extends Model
 {
-    /** @use HasFactory<\Database\Factories\MetricFactory> */
+    /** @use HasFactory<MetricFactory> */
     use HasFactory;
 
     protected static function booted() : void

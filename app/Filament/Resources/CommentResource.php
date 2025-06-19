@@ -2,51 +2,60 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
 use App\Models\Comment;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Forms\Components\Select;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\FontWeight;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use App\Filament\Resources\CommentResource\Pages;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\MarkdownEditor;
+use App\Filament\Resources\CommentResource\Pages\EditComment;
+use App\Filament\Resources\CommentResource\Pages\ListComments;
+use App\Filament\Resources\CommentResource\Pages\CreateComment;
 
 class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
 
-    protected static ?string $navigationGroup = 'Blog';
+    protected static string|\UnitEnum|null $navigationGroup = 'Blog';
 
-    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-oval-left';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-oval-left';
 
     protected static ?int $navigationSort = 1;
 
-    public static function form(Form $form) : Form
+    public static function form(Schema $schema) : Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\MarkdownEditor::make('content')
+        return $schema
+            ->components([
+                MarkdownEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
 
-                Forms\Components\Section::make('Metadata')
+                Section::make('Metadata')
                     ->schema([
-                        Forms\Components\Select::make('user_id')
+                        Select::make('user_id')
                             ->relationship('user', 'name')
                             ->required()
                             ->label('Author'),
 
-                        Forms\Components\Select::make('post_id')
+                        Select::make('post_id')
                             ->relationship('post', 'title')
                             ->required()
                             ->label('Attached To Post'),
 
-                        Forms\Components\Select::make('parent_id')
+                        Select::make('parent_id')
                             ->relationship('parent', 'content')
                             ->label('In Reply To'),
 
-                        Forms\Components\DateTimePicker::make('modified_at')
+                        DateTimePicker::make('modified_at')
                             ->timezone('Europe/Paris')
                             ->native(false)
                             ->label('Modification Date')
@@ -61,56 +70,50 @@ class CommentResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                TextColumn::make('id')
                     ->sortable()
                     ->label('ID')
                     ->weight(FontWeight::Bold),
 
-                Tables\Columns\TextColumn::make('user.name')
+                TextColumn::make('user.name')
                     ->searchable()
                     ->label('Author'),
 
-                Tables\Columns\TextColumn::make('post.title')
+                TextColumn::make('post.title')
                     ->searchable()
                     ->label('Post'),
 
-                Tables\Columns\TextColumn::make('content')
+                TextColumn::make('content')
                     ->searchable()
                     ->limit(50),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->date()
                     ->sortable()
                     ->label('Creation Date'),
 
-                Tables\Columns\TextColumn::make('modified_at')
+                TextColumn::make('modified_at')
                     ->date()
                     ->sortable()
                     ->label('Modification Date')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
+            ->recordActions([
+                EditAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
 
-                Tables\Actions\DeleteAction::make()
+                DeleteAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
-
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('activities')
-                        ->url(fn (Model $record) => self::getUrl('activities', compact('record')))
-                        ->icon('heroicon-o-list-bullet'),
-                ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -125,10 +128,9 @@ class CommentResource extends Resource
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListComments::route('/'),
-            'activities' => Pages\ListCommentActivities::route('/{record}/activities'),
-            'create' => Pages\CreateComment::route('/create'),
-            'edit' => Pages\EditComment::route('/{record}/edit'),
+            'index' => ListComments::route('/'),
+            'create' => CreateComment::route('/create'),
+            'edit' => EditComment::route('/{record}/edit'),
         ];
     }
 

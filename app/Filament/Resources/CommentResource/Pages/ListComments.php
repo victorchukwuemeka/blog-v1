@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\CommentResource\Pages;
 
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\CommentResource;
 
@@ -13,7 +13,7 @@ class ListComments extends ListRecords
     protected function getHeaderActions() : array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

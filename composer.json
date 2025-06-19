@@ -5,19 +5,16 @@
         "andreiio/blade-iconoir": "^4.6",
         "blade-ui-kit/blade-heroicons": "^2.6",
         "embed/embed": "^4.4",
-        "filament/filament": "^3.3",
+        "filament/filament": "^4.0",
         "laravel/framework": "^12.0",
         "laravel/horizon": "^5.30",
         "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.10",
         "livewire/livewire": "^3.5",
-        "pxlrbt/filament-activity-log": "^1.1",
         "spatie/image": "*",
         "spatie/laravel-activitylog": "^4.10",
-        "spatie/laravel-collection-macros": "^8.0",
         "spatie/laravel-livewire-wizard": "^2.4",
         "spatie/laravel-sitemap": "^7.3",
-        "spatie/yaml-front-matter": "^2.1",
         "tempest/highlight": "^2.11"
     },
     "require-dev": {
@@ -84,6 +81,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "prefer-stable": true
 }

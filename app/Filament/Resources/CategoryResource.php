@@ -3,46 +3,52 @@
 namespace App\Filament\Resources;
 
 use App\Str;
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Set;
 use App\Models\Category;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Support\Enums\FontWeight;
-use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\CategoryResource\Pages;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Schemas\Components\Utilities\Set;
+use App\Filament\Resources\CategoryResource\Pages\EditCategory;
+use App\Filament\Resources\CategoryResource\Pages\CreateCategory;
+use App\Filament\Resources\CategoryResource\Pages\ListCategories;
 use App\Filament\Resources\CategoryResource\RelationManagers\PostsRelationManager;
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationGroup = 'Blog';
+    protected static string|\UnitEnum|null $navigationGroup = 'Blog';
 
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-tag';
 
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function form(Form $form) : Form
+    public static function form(Schema $schema) : Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
 
-                Forms\Components\TextInput::make('slug')
+                TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
 
-                Forms\Components\MarkdownEditor::make('content')
+                MarkdownEditor::make('content')
                     ->columnSpanFull(),
             ]);
     }
@@ -52,44 +58,38 @@ class CategoryResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                TextColumn::make('id')
                     ->sortable()
                     ->label('ID')
                     ->weight(FontWeight::Bold),
 
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('posts_count')
+                TextColumn::make('posts_count')
                     ->label('Posts')
                     ->counts('posts')
                     ->sortable(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
+            ->recordActions([
+                EditAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
 
-                Tables\Actions\DeleteAction::make()
+                DeleteAction::make()
                     ->icon('')
                     ->button()
                     ->outlined()
                     ->size('xs'),
-
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('activities')
-                        ->url(fn (Model $record) => self::getUrl('activities', compact('record')))
-                        ->icon('heroicon-o-list-bullet'),
-                ]),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -97,10 +97,9 @@ class CategoryResource extends Resource
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'activities' => Pages\ListCategoryActivities::route('/{record}/activities'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => ListCategories::route('/'),
+            'create' => CreateCategory::route('/create'),
+            'edit' => EditCategory::route('/{record}/edit'),
         ];
     }
 
