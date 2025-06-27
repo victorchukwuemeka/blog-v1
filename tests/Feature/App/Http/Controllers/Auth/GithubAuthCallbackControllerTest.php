@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Notifications\Welcome;
 
 use function Pest\Laravel\assertGuest;
 
@@ -8,9 +9,14 @@ use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GithubProvider;
 
 use function Pest\Laravel\assertDatabaseHas;
+
+use Illuminate\Support\Facades\Notification;
+
 use function Pest\Laravel\assertAuthenticated;
 
-it('creates a new user and redirects to intended URL', function () {
+it('creates a new user, sends a welcome notification, and redirects to intended URL', function () {
+    Notification::fake();
+
     $provider = Mockery::mock(GithubProvider::class);
     $provider->shouldReceive('user')->andReturn(new class
     {
@@ -54,9 +60,16 @@ it('creates a new user and redirects to intended URL', function () {
         'name' => 'Test User',
         'github_login' => 'testuser',
     ]);
+
+    Notification::assertSentTo(
+        User::query()->where('email', 'test@example.com')->first(),
+        Welcome::class
+    );
 });
 
 it('updates an existing user and redirects to intended URL', function () {
+    Notification::fake();
+
     $provider = Mockery::mock(GithubProvider::class);
     $provider->shouldReceive('user')->andReturn(new class
     {
@@ -104,4 +117,6 @@ it('updates an existing user and redirects to intended URL', function () {
     expect($user->email)->toBe('test@example.com');
     expect($user->name)->toBe('New Name');
     expect($user->github_login)->toBe('newusername');
+
+    Notification::assertNothingSentTo($user);
 });

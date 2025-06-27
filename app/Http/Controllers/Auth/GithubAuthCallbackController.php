@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Notifications\Welcome;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
@@ -23,6 +24,10 @@ class GithubAuthCallbackController extends Controller
         ]);
 
         auth()->login($user, true);
+
+        if ($user->wasRecentlyCreated) {
+            $user->notify(new Welcome);
+        }
 
         return redirect()->intended()->with('status', 'You have been logged in.');
     }
