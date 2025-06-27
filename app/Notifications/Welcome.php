@@ -19,7 +19,7 @@ class Welcome extends Notification
     public function toMail(object $notifiable) : MailMessage
     {
         $mailMessage = (new MailMessage)
-            ->subject('Your welcome gift')
+            ->subject('Your welcome gifts')
             ->greeting('Thank you for signing up!')
             ->line('You can now post comments or [submit links](' . route('links.index') . ') to content you find useful or wrote.')
             ->line('If you want to keep reading, here are some popular articles:');
