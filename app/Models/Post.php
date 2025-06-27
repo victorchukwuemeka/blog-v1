@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Str;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
+use Illuminate\Support\Collection;
 use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -91,7 +92,7 @@ class Post extends Model implements Feedable
         return $query;
     }
 
-    public static function getFeedItems()
+    public static function getFeedItems() : Collection
     {
         return static::query()
             ->with('user')
