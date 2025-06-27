@@ -83,7 +83,7 @@ class Post extends Model implements Feedable
     public function recommendedPosts() : Attribute
     {
         return Attribute::make(
-            fn () => Post::query()
+            fn () => empty($this->recommended) ? null : Post::query()
                 ->withCount('comments')
                 ->whereIn('id', $this->recommended)
                 ->get(),

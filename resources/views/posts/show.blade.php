@@ -80,6 +80,8 @@
             title="Recommended"
             class="mt-12 md:mt-16"
         >
+            <div class="mb-16 h-px bg-gradient-to-r from-transparent to-transparent md:mb-24 via-black/10"></div>
+
             <ul class="grid gap-10 gap-y-16 mt-8 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($post->recommended_posts as $recommended)
                     <li>
