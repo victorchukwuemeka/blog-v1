@@ -73,7 +73,7 @@
             </x-slot>
 
             <x-slot:items>
-                <div class="flex items-center gap-3 px-4 py-2">
+                <div class="flex gap-3 items-center px-4 py-2">
                     <img
                         src="{{ auth()->user()->avatar }}"
                         alt="{{ auth()->user()->name }}'s GitHub avatar"
@@ -198,6 +198,14 @@
             <x-dropdown.divider>
                 Follow me
             </x-dropdown.divider>
+
+            <x-dropdown.item
+                href="#"
+                data-pirsch-event='Clicked "Atom feed"'
+            >
+                <x-heroicon-o-rss class="size-4" />
+                Atom feed
+            </x-dropdown.item>
 
             <x-dropdown.item
                 href="https://github.com/benjamincrozat"
