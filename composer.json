@@ -12,6 +12,7 @@
         "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.10",
         "livewire/livewire": "^3.5",
+        "openai-php/laravel": "^0.14.0",
         "spatie/image": "*",
         "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-feed": "^4.4",

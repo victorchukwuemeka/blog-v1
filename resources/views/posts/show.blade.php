@@ -7,7 +7,7 @@
     <article class="mt-0 md:mt-8">
         <div class="container break-all lg:max-w-(--breakpoint-md)">
             @if ($post->hasImage())
-                <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover w-full shadow-xl ring-1 ring-black/5 rounded-xl aspect-video" />
+                <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover w-full rounded-xl ring-1 shadow-xl ring-black/5 aspect-video" />
             @endif
         </div>
 
@@ -17,13 +17,13 @@
 
         <div class="container mt-12 md:mt-16 lg:max-w-(--breakpoint-md)">
             <div class="grid grid-cols-2 gap-4 text-sm leading-tight md:grid-cols-4">
-                <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
+                <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
                     <x-heroicon-o-calendar class="mx-auto mb-2 opacity-75 size-6" />
                     {{ $post->modified_at ? 'Modified' : 'Published' }}<br />
                     {{ ($post->modified_at ?? $post->published_at)->isoFormat('ll') }}
                 </div>
 
-                <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
+                <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
                     <x-heroicon-o-user class="mx-auto mb-2 opacity-75 size-6" />
                     Written by<br />
                     {{ $post->user->name }}
@@ -40,7 +40,7 @@
                     </div>
                 </a>
 
-                <div class="flex-1 p-3 text-center rounded-lg bg-gray-50">
+                <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
                     <x-heroicon-o-clock class="mx-auto mb-2 opacity-75 size-6" />
                     {{ $post->read_time }} minutes<br />
                     read
@@ -59,7 +59,7 @@
             </x-prose>
 
             @if ($post->user->biography)
-                <div class="h-px mt-16 md:mt-24 bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
+                <div class="mt-16 h-px bg-gradient-to-r from-transparent to-transparent md:mt-24 via-black/10"></div>
 
                 <footer class="mt-16 md:mt-24">
                     <div class="font-bold tracking-widest text-center text-black uppercase text-balance">
@@ -75,11 +75,26 @@
         </div>
     </article>
 
+    @if (! empty($post->recommended_posts))
+        <x-section
+            title="Recommended"
+            class="mt-12 md:mt-16"
+        >
+            <ul class="grid gap-10 gap-y-16 mt-8 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
+                @foreach ($post->recommended_posts as $recommended)
+                    <li>
+                        <x-post :post="$recommended" />
+                    </li>
+                @endforeach
+            </ul>
+        </x-section>
+    @endif
+
     <x-section
         id="comments"
         class="mt-12 md:mt-16 lg:max-w-(--breakpoint-md)"
     >
-        <div class="h-px mb-16 md:mb-24 bg-gradient-to-r from-transparent via-black/10 to-transparent"></div>
+        <div class="mb-16 h-px bg-gradient-to-r from-transparent to-transparent md:mb-24 via-black/10"></div>
 
         <livewire:comments :post-id="$post->id" />
     </x-section>

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PostResource\Pages;
 
+use App\Jobs\RecommendPosts;
 use Filament\Actions\DeleteAction;
 use App\Filament\Resources\PostResource;
 use Filament\Resources\Pages\EditRecord;
@@ -15,5 +16,12 @@ class EditPost extends EditRecord
         return [
             DeleteAction::make(),
         ];
+    }
+
+    protected function afterSave() : void
+    {
+        if (! $this->record->recommended) {
+            RecommendPosts::dispatch($this->record);
+        }
     }
 }

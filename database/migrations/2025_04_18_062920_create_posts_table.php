@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('canonical_url')->nullable();
             $table->dateTime('published_at')->nullable();
             $table->dateTime('modified_at')->nullable();
+            $table->json('recommended')->nullable();
             $table->timestamps();
         });
     }

@@ -34,6 +34,7 @@ class Post extends Model implements Feedable
         return [
             'published_at' => 'datetime',
             'modified_at' => 'datetime',
+            'recommended' => 'array',
         ];
     }
 
@@ -76,6 +77,16 @@ class Post extends Model implements Feedable
     {
         return Attribute::make(
             fn () => ceil(str_word_count($this->content) / 200),
+        )->shouldCache();
+    }
+
+    public function recommendedPosts() : Attribute
+    {
+        return Attribute::make(
+            fn () => Post::query()
+                ->withCount('comments')
+                ->whereIn('id', $this->recommended)
+                ->get(),
         )->shouldCache();
     }
 
