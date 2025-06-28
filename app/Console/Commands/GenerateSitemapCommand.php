@@ -29,7 +29,6 @@ class GenerateSitemapCommand extends Command
             ->each(fn (Post $post) => $sitemap->add(route('posts.show', $post)));
 
         User::query()
-            ->whereHas('posts')
             ->cursor()
             ->each(fn (User $user) => $sitemap->add(route('authors.show', $user)));
 
