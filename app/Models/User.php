@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Str;
 use Filament\Panel;
 use Database\Factories\UserFactory;
 use Illuminate\Auth\MustVerifyEmail;
@@ -23,6 +24,13 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'remember_token',
     ];
+
+    protected static function booted() : void
+    {
+        static::creating(function (User $user) {
+            $user->slug = Str::slug($user->name);
+        });
+    }
 
     /**
      * @return array<string, string>

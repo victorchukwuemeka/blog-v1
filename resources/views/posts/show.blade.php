@@ -23,11 +23,16 @@
                     {{ ($post->modified_at ?? $post->published_at)->isoFormat('ll') }}
                 </div>
 
-                <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
-                    <x-heroicon-o-user class="mx-auto mb-2 opacity-75 size-6" />
-                    Written by<br />
-                    {{ $post->user->name }}
-                </div>
+                <a
+                    wire:navigate
+                    href="{{ route('authors.show', $post->user) }}"
+                >
+                    <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900">
+                        <x-heroicon-o-user class="mx-auto mb-2 opacity-75 size-6" />
+                        Written by<br />
+                        {{ $post->user->name }}
+                    </div>
+                </a>
 
                 <a href="#comments" class="group">
                     <div @class([
@@ -57,21 +62,6 @@
             <x-prose class="mt-16 md:mt-24">
                 {!! $post->formatted_content !!}
             </x-prose>
-
-            @if ($post->user->biography)
-                <div class="mt-16 h-px bg-gradient-to-r from-transparent to-transparent md:mt-24 via-black/10"></div>
-
-                <footer class="mt-16 md:mt-24">
-                    <div class="font-bold tracking-widest text-center text-black uppercase text-balance">
-                        About {{ $post->user->name }}
-                    </div>
-
-                    <x-prose class="mt-4">
-                        <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-full! float-right ml-4 md:ml-6 mt-2 size-20 md:size-24">
-                        {!! Str::markdown($post->user->biography) !!}
-                    </x-prose>
-                </footer>
-            @endif
         </div>
     </article>
 

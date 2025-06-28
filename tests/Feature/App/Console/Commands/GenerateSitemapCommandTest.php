@@ -30,6 +30,11 @@ it('generates a sitemap with the most important pages', function () {
         ->cursor()
         ->each(fn (Post $post) => expect($content)->toContain(route('posts.show', $post)));
 
+    User::query()
+        ->whereHas('posts')
+        ->cursor()
+        ->each(fn (User $user) => expect($content)->toContain(route('authors.show', $user)));
+
     expect($content)->toContain(route('categories.index'));
 
     Category::query()

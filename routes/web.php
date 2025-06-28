@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
+use App\Http\Controllers\Authors\ShowAuthorController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
@@ -15,6 +16,9 @@ Route::get('/', HomeController::class)
 
 Route::get('/blog', ListPostsController::class)
     ->name('posts.index');
+
+Route::get('/author/{user:slug}', ShowAuthorController::class)
+    ->name('authors.show');
 
 Route::get('/categories', ListCategoriesController::class)
     ->name('categories.index');

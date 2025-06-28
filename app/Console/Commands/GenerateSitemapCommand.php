@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Spatie\Sitemap\Sitemap;
 use Illuminate\Console\Command;
@@ -26,6 +27,11 @@ class GenerateSitemapCommand extends Command
             ->published()
             ->cursor()
             ->each(fn (Post $post) => $sitemap->add(route('posts.show', $post)));
+
+        User::query()
+            ->whereHas('posts')
+            ->cursor()
+            ->each(fn (User $user) => $sitemap->add(route('authors.show', $user)));
 
         $sitemap->add(route('categories.index'));
 
