@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Legacy;
 
 use App\Models\Category;
 use Illuminate\Console\Command;
@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
-#[AsCommand(name: 'app:sync-categories')]
+#[AsCommand(
+    name: 'app:sync-categories',
+    description: 'Fetch categories from the legacy database'
+)]
 class SyncCategoriesCommand extends Command
 {
-    protected $description = 'Fetch categories from the legacy database';
-
     public function handle() : void
     {
         $this->info('Syncing categories…');

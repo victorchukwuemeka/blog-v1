@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Legacy;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use App\Console\Commands\SyncVisitorsCommand;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
-#[AsCommand(name: 'app:fresh')]
+#[AsCommand(
+    name: 'app:fresh',
+    description: "Reset the application's state and fetch fresh data"
+)]
 class FreshCommand extends Command
 {
-    protected $description = "Reset the application's state and fetch fresh data";
-
     public function handle() : int
     {
         $this->info('Migrating the database…');

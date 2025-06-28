@@ -6,19 +6,14 @@ use App\Models\Post;
 use App\Models\Category;
 use Spatie\Sitemap\Sitemap;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(
+    name: 'app:generate-sitemap',
+    description: 'Generate the sitemap.'
+)]
 class GenerateSitemapCommand extends Command
 {
-    /**
-     * @var string
-     */
-    protected $signature = 'app:generate-sitemap';
-
-    /**
-     * @var string
-     */
-    protected $description = 'Generate the sitemap.';
-
     public function handle() : void
     {
         $sitemap = Sitemap::create(config('app.url'));

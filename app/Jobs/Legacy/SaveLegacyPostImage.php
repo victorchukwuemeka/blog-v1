@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Legacy;
 
 use App\Str;
 use Exception;

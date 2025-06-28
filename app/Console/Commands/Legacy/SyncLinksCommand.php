@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Legacy;
 
 use App\Models\Link;
-use App\Jobs\ValidateLinkImage;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use App\Jobs\Legacy\ValidateLinkImage;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
-#[AsCommand(name: 'app:sync-links')]
+#[AsCommand(
+    name: 'app:sync-links',
+    description: 'Fetch links from the legacy database'
+)]
 class SyncLinksCommand extends Command
 {
-    protected $description = 'Fetch links from the legacy database';
-
     public function handle() : void
     {
         $this->info('Syncing links…');

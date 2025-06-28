@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Legacy;
 
 use App\Models\Post;
 use App\Models\Comment;
@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
-#[AsCommand(name: 'app:sync-comments')]
+#[AsCommand(
+    name: 'app:sync-comments',
+    description: 'Fetch comments from the legacy database'
+)]
 class SyncCommentsCommand extends Command
 {
-    protected $description = 'Fetch comments from the legacy database';
-
     public function handle() : void
     {
         $this->info('Syncing comments…');

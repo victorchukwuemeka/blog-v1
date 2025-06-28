@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Legacy;
 
 use App\Models\Reaction;
 use Illuminate\Console\Command;
@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
-#[AsCommand(name: 'app:sync-reactions')]
+#[AsCommand(
+    name: 'app:sync-reactions',
+    description: 'Fetch reactions from the legacy database'
+)]
 class SyncReactionsCommand extends Command
 {
-    protected $description = 'Fetch reactions from the legacy database';
-
     public function handle() : void
     {
         $this->info('Syncing reactions…');
