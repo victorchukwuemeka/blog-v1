@@ -5,9 +5,8 @@ namespace App\Jobs;
 use App\Models\Post;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class RecommendPosts implements ShouldBeUnique, ShouldQueue
+class RecommendPosts implements ShouldQueue
 {
     use Queueable;
 
