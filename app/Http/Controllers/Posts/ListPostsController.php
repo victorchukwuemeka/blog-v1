@@ -12,7 +12,6 @@ class ListPostsController extends Controller
     {
         return view('posts.index', [
             'posts' => Post::query()
-                ->withCount('comments')
                 ->latest('published_at')
                 ->published()
                 ->paginate(24),

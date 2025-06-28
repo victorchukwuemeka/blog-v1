@@ -13,7 +13,6 @@ class ShowCategoryController extends Controller
         return view('categories.show', compact('category') + [
             'posts' => $category
                 ->posts()
-                ->withCount('comments')
                 ->latest('published_at')
                 ->published()
                 ->paginate(24),

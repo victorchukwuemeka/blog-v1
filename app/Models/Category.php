@@ -21,7 +21,6 @@ class Category extends Model
     {
         return $this
             ->belongsToMany(Post::class)
-            ->withCount('comments')
             ->published()
             ->latest('published_at')
             ->limit(5);

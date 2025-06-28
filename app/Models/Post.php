@@ -22,6 +22,8 @@ class Post extends Model implements Feedable
     /** @use HasFactory<PostFactory> */
     use HasFactory;
 
+    protected $withCount = ['comments'];
+
     public static function booted() : void
     {
         static::creating(
@@ -84,7 +86,6 @@ class Post extends Model implements Feedable
     {
         return Attribute::make(
             fn () => empty($this->recommended) ? null : Post::query()
-                ->withCount('comments')
                 ->whereIn('id', $this->recommended)
                 ->get(),
         )->shouldCache();
@@ -93,14 +94,6 @@ class Post extends Model implements Feedable
     public function hasImage() : bool
     {
         return $this->image_path && $this->image_disk;
-    }
-
-    public function resolveRouteBindingQuery($query, $value, $field = null)
-    {
-        $query = parent::resolveRouteBindingQuery($query, $value, $field)
-            ->withCount('comments');
-
-        return $query;
     }
 
     public static function getFeedItems() : Collection

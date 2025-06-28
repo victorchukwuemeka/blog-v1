@@ -12,10 +12,3 @@ it('shows a given author', function () {
     get(route('authors.show', $user))
         ->assertOk();
 });
-
-it('throws a 404 if the author has no posts', function () {
-    $user = User::factory()->create();
-
-    get(route('authors.show', $user))
-        ->assertNotFound();
-});

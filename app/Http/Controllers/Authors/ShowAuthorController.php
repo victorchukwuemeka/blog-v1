@@ -10,10 +10,6 @@ class ShowAuthorController extends Controller
 {
     public function __invoke(User $user) : View
     {
-        if ($user->posts->isEmpty()) {
-            abort(404);
-        }
-
         return view('authors.show', [
             'author' => $user,
         ]);

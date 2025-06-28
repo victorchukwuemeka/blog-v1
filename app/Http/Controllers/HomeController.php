@@ -12,7 +12,6 @@ class HomeController extends Controller
     {
         return view('home', [
             'latest' => Post::query()
-                ->withCount('comments')
                 ->latest('published_at')
                 ->published()
                 ->limit(12)
