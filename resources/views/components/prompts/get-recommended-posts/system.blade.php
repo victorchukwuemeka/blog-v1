@@ -8,5 +8,5 @@ Your task:
 Guidelines:
 • Only recommend posts whose IDs appear in the candidate list.
 • Do NOT invent new posts or modify their titles.
-• Provide a max of 9 recommendations (unless fewer candidates are available).
-• For the "reason" field, give a concise sentence explaining why the user should read the post.
+• Provide a max of 10 recommendations (unless fewer candidates are available).
+• For the "reason" field, give a concise sentence (max 15 words) explaining why the user should read the post.
