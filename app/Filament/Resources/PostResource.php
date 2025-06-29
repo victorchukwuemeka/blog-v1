@@ -25,9 +25,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
-use App\Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\PostResource\Pages\EditPost;
 use App\Filament\Resources\PostResource\Pages\ListPosts;
 use App\Filament\Resources\PostResource\Pages\CreatePost;
@@ -55,18 +55,18 @@ class PostResource extends Resource
                     ->disk(fn (Post $record) : string => $record->image_disk ?? 'public')
                     ->directory('posts')
                     ->saveUploadedFileUsing(function (TemporaryUploadedFile $file) {
-                        if (str_contains($file->getMimeType(), 'image/')) {
-                            $image = Image::load($file->path());
+                        // if (str_contains($file->getMimeType(), 'image/')) {
+                        //     $image = Image::load($file->path());
 
-                            if ($image->getWidth() > 1500 || $image->getHeight() > 1500) {
-                                $image->fit(Fit::Contain, 1500, 1500);
-                            }
+                        //     if ($image->getWidth() > 1500 || $image->getHeight() > 1500) {
+                        //         $image->fit(Fit::Contain, 1500, 1500);
+                        //     }
 
-                            $image
-                                ->quality(70)
-                                ->optimize()
-                                ->save($file->path());
-                        }
+                        //     $image
+                        //         ->quality(70)
+                        //         ->optimize()
+                        //         ->save($file->path());
+                        // }
 
                         return $file->storePubliclyAs('posts', Str::ulid() . '.' . $file->getClientOriginalExtension(), ['disk' => 'public']);
                     })
