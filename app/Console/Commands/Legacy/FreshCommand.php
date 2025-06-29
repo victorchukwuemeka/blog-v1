@@ -5,6 +5,7 @@ namespace App\Console\Commands\Legacy;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use App\Console\Commands\SyncVisitorsCommand;
+use App\Console\Commands\SyncPostSessionsCommand;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 // This is a temporary command that I'll remove once I'm in production.
@@ -37,6 +38,10 @@ class FreshCommand extends Command
         $this->info('Syncing posts data…');
 
         Artisan::call(SyncPostsCommand::class);
+
+        $this->info('Syncing post sessions data…');
+
+        Artisan::call(SyncPostSessionsCommand::class);
 
         $this->info('Posts data synced successfully.');
 

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
     name: 'app:sync-post-sessions',
     description: 'Fetch fresh numbers about sessions for each post'
 )]
-class SyncVisitorsCommand extends Command
+class SyncPostSessionsCommand extends Command
 {
     public function handle() : void
     {
