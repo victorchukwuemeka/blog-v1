@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Container\Attributes\Config;
 
-class FetchPostsSessions
+class FetchPostSessions
 {
     public function __construct(
         protected Factory $http,
