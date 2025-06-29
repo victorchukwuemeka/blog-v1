@@ -6,7 +6,7 @@ use App\Models\Category;
 
 use function Pest\Laravel\artisan;
 
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Console\Commands\GenerateSitemapCommand;
 
 it('generates a sitemap with the most important pages', function () {
@@ -16,11 +16,9 @@ it('generates a sitemap with the most important pages', function () {
 
     artisan(GenerateSitemapCommand::class);
 
-    $path = public_path('sitemap.xml');
+    expect(Storage::disk('public')->exists('sitemap.xml'))->toBeTrue();
 
-    expect(File::exists($path))->toBeTrue();
-
-    $content = File::get($path);
+    $content = Storage::disk('public')->get('sitemap.xml');
 
     expect($content)->toContain(route('home'));
 
