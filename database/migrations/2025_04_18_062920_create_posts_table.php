@@ -21,7 +21,7 @@ return new class extends Migration
             $table->dateTime('published_at')->nullable();
             $table->dateTime('modified_at')->nullable();
             $table->json('recommendations')->nullable();
-            $table->integer('sessions_count')->default(0);
+            $table->unsignedBigInteger('sessions_count')->default(0);
             $table->timestamps();
         });
     }
