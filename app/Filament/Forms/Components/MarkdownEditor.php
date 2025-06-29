@@ -10,7 +10,7 @@ class MarkdownEditor extends \Filament\Forms\Components\MarkdownEditor
 {
     public function saveUploadedFileAttachment(TemporaryUploadedFile $attachment) : ?string
     {
-        $image = Image::load($attachment->path());
+        $image = Image::load($attachment->temporaryUrl());
 
         if ($image->getWidth() > 1500 || $image->getHeight() > 1500) {
             $image->fit(Fit::Contain, 1500, 1500);
