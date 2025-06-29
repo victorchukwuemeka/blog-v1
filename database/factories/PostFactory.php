@@ -27,6 +27,7 @@ class PostFactory extends Factory
             'description' => fake()->sentences(random_int(1, 2), true),
             'canonical_url' => fake()->url(),
             'published_at' => fake()->dateTimeBetween('-1 year', 'now'),
+            'sessions_count' => fake()->numberBetween(0, 1000),
         ];
     }
 
