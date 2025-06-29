@@ -36,16 +36,6 @@
                     </li>
                 @endforeach
             </ul>
-
-            <div class="mt-16 text-center">
-                <x-btn
-                    primary
-                    wire:navigate
-                    href="{{ route('posts.index') }}"
-                >
-                    Browse all articles
-                </x-btn>
-            </div>
         </x-section>
     @endif
 
