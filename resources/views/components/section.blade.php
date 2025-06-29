@@ -4,7 +4,7 @@
             'font-bold tracking-widest text-center text-black uppercase text-balance',
             'text-2xl/tight' => ! empty($bigTitle),
         ])>
-            {{ $title }}
+            {!! $title !!}
         </h1>
     @endif
 
