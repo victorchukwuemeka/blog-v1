@@ -36,7 +36,13 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" />
 
+        <link rel="icon" type="image/png" href="{{ Vite::asset('resources/img/favicon-96x96.png') }}" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="{{ Vite::asset('resources/img/favicon.svg') }}" />
+        <link rel="shortcut icon" href="{{ Vite::asset('resources/img/favicon.ico') }}" />
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ Vite::asset('resources/img/apple-touch-icon.png') }}" />
+
         <link rel="canonical" href="{{ $canonical }}" />
+
         <x-feed-links />
     </head>
     <body {{ $attributes->class('font-light text-gray-600') }}>

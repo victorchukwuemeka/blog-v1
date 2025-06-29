@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="336px" height="336px"><svg width="336px" height="336px" viewBox="0 0 336 336" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Frame</title>
+    <defs>
+        <path d="M0,0 L336,0 L336,336 L0,336 L0,0 Z" id="SvgjsPath1007"></path>
+    </defs>
+    <g id="SvgjsG1006" stroke="none" fill="none" xlink:href="#path-1">
+        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+        <rect id="SvgjsRect1005" fill="#030712" fill-rule="evenodd" x="-11" y="0" width="347" height="336"></rect>
+        <path d="M121.6264,96 L115,96 L115,168 L177.7,168 C197.747936,168 214,151.882251 214,132 C214,112.117749 197.747936,96 177.7,96 L121.6264,96 L121.6264,96 Z M121.5,95.79 L121.5,99.21 M121.651223,240 L181.24724,240 C203.202083,240 221,222.315248 221,200.5 C221,178.684752 203.202083,161 181.24724,161 L115,161 L115,239.991223 L121.651223,239.991223 L121.651223,240 Z M121.5,240.165 L121.5,236.835 M122,100 L174.923077,100 C193.190957,100 208,114.550746 208,132.5 C208,150.449254 193.190957,165 174.923077,165 L122,165 M121.5,100 L121.5,165 M121.5,165 L121.5,237 M122,165 L178.464286,165 C198.642404,165 215,181.117749 215,201 C215,220.882251 198.642404,237 178.464286,237 L122,237 M128,103 L171.136364,103 C187.629595,103 201,116.2076 201,132.5 C201,148.7924 187.629595,162 171.136364,162 L128,162 L128,103 Z M128,168 L174.083334,168 C192.262707,168 207,182.550746 207,200.5 C207,218.449254 192.262707,233 174.083334,233 L128,233 L128,168 L128,168 Z" id="SvgjsPath1004" stroke="#FFFFFF" stroke-width="15.2708763" stroke-linejoin="round"></path>
+    </g>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
