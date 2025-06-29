@@ -2,7 +2,7 @@
     <x-section
         :title="$posts->currentPage() > 1
             ? 'Page ' . $posts->currentPage()
-            : 'The latest articles I wrote'"
+            : 'The best articles about<br /> web development in ' . date('Y')"
         :big-title="$posts->currentPage() === 1"
         class="mt-0 md:mt-8"
     >
