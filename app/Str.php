@@ -9,6 +9,7 @@ use League\CommonMark\GithubFlavoredMarkdownConverter;
 use Tempest\Highlight\CommonMark\InlineCodeBlockRenderer;
 use League\CommonMark\Node\Inline\AbstractStringContainer;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Extension\SmartPunct\SmartPunctExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -68,7 +69,7 @@ class Str extends \Illuminate\Support\Str
     protected static function childrenToText(Node $node) : string
     {
         return implode('', array_map(function (AbstractStringContainer|Text $child) {
-            if ($child instanceof AbstractStringContainer || $child instanceof Text) {
+            if ($child instanceof AbstractStringContainer || $child instanceof Link || $child instanceof Text) {
                 return $child->getLiteral();
             }
 
