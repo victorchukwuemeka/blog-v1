@@ -11,6 +11,13 @@ class HomeController extends Controller
     public function __invoke() : View
     {
         return view('home', [
+            'popular' => Post::query()
+                ->published()
+                ->where('sessions_count', '>', 0)
+                ->orderBy('sessions_count', 'desc')
+                ->limit(12)
+                ->get(),
+
             'latest' => Post::query()
                 ->latest('published_at')
                 ->published()
