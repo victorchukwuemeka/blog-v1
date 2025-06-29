@@ -1,3 +1,5 @@
+<img src="https://github.com/user-attachments/assets/45c65ced-ba72-4de1-a047-7f2aa85f8e4a" width="100" />
+
 # benjamincrozat.com
 
 This is the source code for the new version of my 1000s monthly visitors blog. It's **100% not vibe coded.**
@@ -6,4 +8,4 @@ This is the source code for the new version of my 1000s monthly visitors blog. I
 
 Remaining tasks can be seen in the [projects section](https://github.com/users/benjamincrozat/projects).
 
-![](https://github.com/user-attachments/assets/36a6b0ce-ba06-46ce-a26f-6fd4e4122156)
+<img src="https://github.com/user-attachments/assets/a45b650d-38b7-47c5-885b-7aaf50bcb2f9" />
