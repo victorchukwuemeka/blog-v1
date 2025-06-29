@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0eecd5fc78cac5f8442a71cc72b3826e",
+    "content-hash": "d31f4bbbce1eec385a0e10b4e8e55f0a",
     "packages": [
         {
             "name": "andreiio/blade-iconoir",
@@ -2772,16 +2772,16 @@
         },
         {
             "name": "laravel/nightwatch",
-            "version": "v1.7.4",
+            "version": "v1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/nightwatch.git",
-                "reference": "87dae579f05c7910c7861acbb1f02dc7ed8589b3"
+                "reference": "589ae6a0dca1de5ede0c37a3b6d15de7ecc93c48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/nightwatch/zipball/87dae579f05c7910c7861acbb1f02dc7ed8589b3",
-                "reference": "87dae579f05c7910c7861acbb1f02dc7ed8589b3",
+                "url": "https://api.github.com/repos/laravel/nightwatch/zipball/589ae6a0dca1de5ede0c37a3b6d15de7ecc93c48",
+                "reference": "589ae6a0dca1de5ede0c37a3b6d15de7ecc93c48",
                 "shasum": ""
             },
             "require": {
@@ -2849,7 +2849,7 @@
                 "issues": "https://github.com/laravel/nightwatch/issues",
                 "source": "https://github.com/laravel/nightwatch"
             },
-            "time": "2025-06-19T03:39:39+00:00"
+            "time": "2025-06-27T08:04:05+00:00"
         },
         {
             "name": "laravel/prompts",
