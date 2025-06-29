@@ -81,12 +81,14 @@
         </div>
     </article>
 
-    <x-section
-        id="comments"
-        class="mt-24 lg:max-w-(--breakpoint-md)"
-    >
-        <livewire:comments :post-id="$post->id" />
-    </x-section>
+    @if ($post->comments_count)
+        <x-section
+            id="comments"
+            class="mt-24 lg:max-w-(--breakpoint-md)"
+        >
+            <livewire:comments :post-id="$post->id" />
+        </x-section>
+    @endif
 
     <script type="application/ld+json">
         {
