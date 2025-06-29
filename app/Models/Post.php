@@ -109,7 +109,6 @@ class Post extends Model implements Feedable
     public static function getFeedItems() : Collection
     {
         return static::query()
-            ->with('user')
             ->published()
             ->latest('published_at')
             ->limit(50)
