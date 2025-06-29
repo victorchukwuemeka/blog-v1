@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\LinkWizard\LinkWizard;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
@@ -37,8 +36,6 @@ Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
 
 Route::feeds();
-
-Route::get('/sitemap', SitemapController::class)->name('sitemap');
 
 // This route needs to be the last one so all others take precedence.
 Route::get('/{post:slug}', ShowPostController::class)
