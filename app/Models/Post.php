@@ -36,7 +36,7 @@ class Post extends Model implements Feedable
         return [
             'published_at' => 'datetime',
             'modified_at' => 'datetime',
-            'recommended' => 'array',
+            'recommendations' => 'collection',
         ];
     }
 
@@ -85,9 +85,19 @@ class Post extends Model implements Feedable
     public function recommendedPosts() : Attribute
     {
         return Attribute::make(
-            fn () => empty($this->recommended) ? null : Post::query()
-                ->whereIn('id', $this->recommended)
-                ->get(),
+            fn () => empty($this->recommendations) ? null : Post::query()
+                ->whereIn('id', $this->recommendations->pluck('id'))
+                ->get()
+                ->map(function (self $post) {
+                    $recommendation = collect($this->recommendations)
+                        ->firstWhere('id', $post->id);
+
+                    if (! empty($recommendation['reason'])) {
+                        $post->reason = $recommendation['reason'];
+                    }
+
+                    return $post;
+                }),
         )->shouldCache();
     }
 

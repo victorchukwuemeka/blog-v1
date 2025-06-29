@@ -68,8 +68,8 @@ class RecommendPosts
             ],
         ]);
 
-        $recommended = json_decode($response->choices[0]->message->content)->recommendations;
-
-        $post->update(['recommended' => collect($recommended)->pluck('id')->toArray()]);
+        $post->update([
+            'recommendations' => json_decode($response->choices[0]->message->content)->recommendations,
+        ]);
     }
 }

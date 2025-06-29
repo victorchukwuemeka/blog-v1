@@ -54,7 +54,7 @@
 
         <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
             <x-heroicon-o-clock class="mx-auto mb-1 opacity-75 size-5" />
-            {{ $readTime ?? 0 }} minutes
+            {{ trans_choice(':count minute|:count minutes', $post->read_time) }}
         </div>
     </div>
 </div>

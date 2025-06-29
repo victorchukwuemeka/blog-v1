@@ -9,14 +9,14 @@ return new class extends Migration
     public function up() : void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->json('recommended')->nullable()->after('modified_at');
+            $table->json('recommendations')->nullable()->after('modified_at');
         });
     }
 
     public function down() : void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('recommended');
+            $table->dropColumn('recommendations');
         });
     }
 };

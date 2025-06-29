@@ -59,23 +59,60 @@
                 />
             @endif
 
-            <x-prose class="mt-16 md:mt-24">
+            <x-prose class="mt-24">
                 {!! $post->formatted_content !!}
             </x-prose>
         </div>
     </article>
 
     @if (! empty($post->recommended_posts))
-        <div class="my-12 h-px bg-gradient-to-r from-transparent to-transparent md:my-16 via-black/10"></div>
-
         <x-section
-            title="Recommended"
-            class="mt-12 md:mt-16"
+            title="Keep reading"
+            class="mt-24 xl:max-w-(--breakpoint-lg)"
         >
-            <ul class="grid gap-10 gap-y-16 mt-8 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
-                @foreach ($post->recommended_posts as $recommended)
-                    <li>
-                        <x-post :post="$recommended" />
+            <ul class="grid gap-10 gap-y-16 mt-8 xl:gap-x-16 md:grid-cols-2">
+                @foreach ($post->recommendedPosts as $post)
+                    <li class="flex flex-col">
+                        <p class="p-4 text-sm italic text-gray-500 rounded-xl border-2 border-gray-200 border-dashed">
+                            {{ $post->reason }}
+                        </p>
+
+                        <div class="flex flex-grow gap-4 items-start mt-4 md:gap-6 md:mt-6">
+                            @if ($post->hasImage())
+                                <a wire:navigate href="{{ route('posts.show', $post->slug) }}" class="flex-none mt-1">
+                                    <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover rounded ring-1 shadow-md transition-opacity aspect-square shadow-black/5 hover:opacity-50 size-16 ring-black/5" />
+                                </a>
+                            @endif
+
+                            <div>
+                                <a wire:navigate href="{{ route('posts.show', $post->slug) }}" class="font-bold leading-none transition-colors hover:text-blue-600">
+                                    {{ $post->title }}
+                                </a>
+
+                                <p class="mt-2">
+                                    {!! Str::markdown($post->description) !!}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 mt-6 text-sm/tight">
+                            <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
+                                <x-heroicon-o-calendar class="mx-auto mb-1 opacity-75 size-5" />
+                                {{ ($post->modified_at ?? $post->published_at)->isoFormat('ll') }}
+                            </div>
+
+                            <a href="{{ route('posts.show', $post->slug) }}#comments" class="group">
+                                <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900">
+                                    <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-1 opacity-75 size-5" />
+                                    {{ $post->comments_count }} {{ trans_choice('comment|comments', $post->comments_count) }}
+                                </div>
+                            </a>
+
+                            <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
+                                <x-heroicon-o-clock class="mx-auto mb-1 opacity-75 size-5" />
+                                {{ trans_choice(':count minute|:count minutes', $post->read_time) }}
+                            </div>
+                        </div>
                     </li>
                 @endforeach
             </ul>
@@ -84,10 +121,8 @@
 
     <x-section
         id="comments"
-        class="mt-12 md:mt-16 lg:max-w-(--breakpoint-md)"
+        class="mt-24 lg:max-w-(--breakpoint-md)"
     >
-        <div class="mb-12 h-px bg-gradient-to-r from-transparent to-transparent md:mb-16 via-black/10"></div>
-
         <livewire:comments :post-id="$post->id" />
     </x-section>
 
