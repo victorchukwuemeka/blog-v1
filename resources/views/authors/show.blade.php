@@ -10,7 +10,7 @@ $description = Str::limit(
     :image="$author->avatar"
     title="About {{ $author->name }}"
 >
-    <x-section class="mt-0 md:mt-8">
+    <article class="container lg:max-w-(--breakpoint-md)">
         <header>
             <img
                 src="{{ $author->avatar }}"
@@ -30,21 +30,15 @@ $description = Str::limit(
         </header>
 
         @if ($author->biography)
-            <x-prose class="lg:max-w-(--breakpoint-md) lg:mx-auto">
+            <x-prose class="mt-6 md:mt-8">
                 {!! Str::markdown($author->about) !!}
             </x-prose>
         @endif
-    </x-section>
+    </article>
 
     <x-section title="Articles by {{ $author->name }}" class="mt-12 md:mt-16">
         @if ($posts->isNotEmpty())
-            <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
-                @foreach ($posts as $post)
-                    <li>
-                        <x-post :$post />
-                    </li>
-                @endforeach
-            </ul>
+            <x-posts-grid :$posts />
         @else
             <p class="-mt-4 text-center text-gray-500">
                 So far, {{ $author->name }} didn't write any article.

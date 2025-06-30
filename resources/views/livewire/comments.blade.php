@@ -7,7 +7,7 @@
     </h1>
 
     @if ($comments->isNotEmpty())
-        <div class="grid gap-8 mt-8 mb-12 md:mb-16">
+        <div class="grid gap-8 mt-8">
             @foreach ($comments as $comment)
                 <x-comment :$comment />
             @endforeach

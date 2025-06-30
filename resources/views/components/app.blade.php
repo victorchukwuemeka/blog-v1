@@ -55,13 +55,13 @@
 
             <main @class([
                 'grow',
-                'mt-8' => empty($hideNavigation),
+                'py-12 md:py-16' => empty($hideNavigation),
             ])>
                 {{ $slot }}
             </main>
 
             @empty($hideFooter)
-                <x-footer class="mt-8 md:mt-16" />
+                <x-footer />
             @endempty
         </div>
 

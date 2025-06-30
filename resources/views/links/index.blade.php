@@ -3,7 +3,7 @@
     description="A collection of content created and shared by other web developers."
 >
     @if ($links->currentPage() === 1)
-        <div class="container mt-4 text-center md:mt-8">
+        <div class="container text-center">
             <h1 class="font-medium tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
                 <span class="text-blue-600">Keep learning</span> with the community
             </h1>
