@@ -5,7 +5,7 @@
     <x-section
         title="The best web development articles<br /> I wrote in {{ date('Y') }}"
         :big-title="true"
-        class="xl:max-w-(--breakpoint-lg) mt-0 md:mt-8"
+        class="xl:max-w-(--breakpoint-lg)"
     >
         @if ($categories->isNotEmpty())
             <div class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2">

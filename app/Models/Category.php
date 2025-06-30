@@ -22,7 +22,7 @@ class Category extends Model
         return $this
             ->belongsToMany(Post::class)
             ->published()
-            ->latest('published_at')
+            ->orderBy('sessions_count', 'desc')
             ->limit(5);
     }
 }
