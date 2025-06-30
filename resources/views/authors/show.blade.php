@@ -36,9 +36,9 @@ $description = Str::limit(
 
     <x-section title="Articles by {{ $author->name }}" class="mt-8">
         <div class="mt-8">
-            @if ($author->posts->isNotEmpty())
+            @if ($posts->isNotEmpty())
                 <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
-                    @foreach ($author->posts as $post)
+                    @foreach ($posts as $post)
                         <li>
                             <x-post :$post />
                         </li>
@@ -50,6 +50,12 @@ $description = Str::limit(
                 </p>
             @endif
         </div>
+
+        @if ($posts->hasPages())
+            <div class="mt-16">
+                {{ $posts->links() }}
+            </div>
+        @endif
     </x-section>
 
     <script type="application/ld+json">

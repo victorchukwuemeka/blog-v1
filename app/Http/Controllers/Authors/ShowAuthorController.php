@@ -12,6 +12,10 @@ class ShowAuthorController extends Controller
     {
         return view('authors.show', [
             'author' => $user,
+            'posts' => $user->posts()
+                ->latest('published_at')
+                ->published()
+                ->paginate(12),
         ]);
     }
 }
