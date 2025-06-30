@@ -11,15 +11,19 @@ class ShowMerchantController extends Controller
     public function __invoke(string $slug) : RedirectResponse
     {
         abort_if(
-            ! $link = collect(config('merchants'))
-                ->flatMap(fn (array $items) => $items)
+            ! $merchantLink = collect(config('merchants'))
+                ->flatMap(function (array $items) {
+                    return collect($items)->map(
+                        fn (mixed $item) => $item['link'] ?? $item
+                    );
+                })
                 ->get($slug),
             404
         );
 
-        $link = Uri::of($link)
+        $urlToRedirectTo = Uri::of($merchantLink)
             ->withQuery(request()->all());
 
-        return redirect()->away($link);
+        return redirect()->away($urlToRedirectTo);
     }
 }

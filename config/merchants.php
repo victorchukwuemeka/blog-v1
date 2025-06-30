@@ -2,43 +2,43 @@
 
 return [
     'books' => [
-        [
+        'battle-ready-laravel' => [
             'name' => 'Battle Ready Laravel',
             'author' => 'Ash Allen',
             'link' => 'https://battle-ready-laravel.com/?aff=WJ9DG',
             'image' => 'resources/img/books/battle-ready-laravel.jpg',
         ],
-        [
+        'consuming-apis-laravel' => [
             'name' => 'Consuming APIs in Laravel',
             'author' => 'Ash Allen',
             'link' => 'https://consuming-apis-in-laravel.com/?aff=WJ9DG',
             'image' => 'resources/img/books/consuming-apis-laravel.jpg',
         ],
-        [
+        'domain-driven-laravel' => [
             'name' => 'Domain-Driven Laravel',
             'author' => 'Martin Joo',
             'link' => 'https://martinjoo.gumroad.com/l/ddd-laravel-premium?a=266251475',
             'image' => 'resources/img/books/domain-driven-laravel.jpg',
         ],
-        [
+        'level-up-tailwind-css' => [
             'name' => 'Level up with Tailwind CSS',
             'author' => 'Shruti Balasa',
             'link' => 'https://shrutibalasa.gumroad.com/l/level-up-with-tailwind-css?a=266251475',
             'image' => 'resources/img/books/level-up-tailwind-css.jpg',
         ],
-        [
+        'mastering-laravel-validation-rules' => [
             'name' => 'Mastering Laravel Validation Rules',
             'author' => 'Aaron Saray / Joel Clermont',
             'link' => 'https://nocompromises.gumroad.com/l/laravel-validation?a=266251475',
             'image' => 'resources/img/books/mastering-laravel-validation.jpg',
         ],
-        [
+        'microservices-laravel' => [
             'name' => 'Microservices with Laravel',
             'author' => 'Martin Joo',
             'link' => 'https://martinjoo.gumroad.com/l/microservices-with-laravel-premium?a=266251475',
             'image' => 'resources/img/books/microservices-laravel.jpg',
         ],
-        [
+        'vue-design-patterns' => [
             'name' => 'Vue.js Design Patterns',
             'author' => 'Lachlan Miller',
             'link' => 'https://lachlanmiller.gumroad.com/l/vuejs-design-patterns?a=266251475',
