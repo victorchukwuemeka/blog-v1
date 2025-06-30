@@ -97,9 +97,8 @@ class LinkResource extends Resource
                     ->weight(FontWeight::Bold),
 
                 ImageColumn::make('image_url')
-                    ->defaultImageUrl(secure_asset('img/placeholder.svg'))
-                    ->width(107)
-                    ->height(80)
+                    ->imageWidth(107)
+                    ->imageHeight(80)
                     ->label('Image'),
 
                 TextColumn::make('title')

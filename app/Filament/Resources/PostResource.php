@@ -139,10 +139,9 @@ class PostResource extends Resource
                     ->weight(FontWeight::Bold),
 
                 ImageColumn::make('image_path')
-                    ->disk(fn (Post $record) => $record->image_disk ?? config('filesystems.default'))
-                    ->defaultImageUrl(secure_asset('img/placeholder.svg'))
-                    ->width(107)
-                    ->height(80)
+                    ->disk(fn (Post $record) => $record->image_disk ?? 'public')
+                    ->imageWidth(107)
+                    ->imageHeight(80)
                     ->label('Image'),
 
                 TextColumn::make('title')
