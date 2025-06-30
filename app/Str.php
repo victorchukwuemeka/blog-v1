@@ -68,7 +68,7 @@ class Str extends \Illuminate\Support\Str
      */
     protected static function childrenToText(Node $node) : string
     {
-        return implode('', array_map(function (AbstractStringContainer|Text $child) {
+        return implode('', array_map(function ($child) {
             if ($child instanceof AbstractStringContainer || $child instanceof Link || $child instanceof Text) {
                 return $child->getLiteral();
             }
