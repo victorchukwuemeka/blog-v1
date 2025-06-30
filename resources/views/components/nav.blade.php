@@ -95,16 +95,6 @@
                     </x-dropdown.item>
                 @endif
 
-                @can('viewHorizon')
-                    <x-dropdown.item
-                        href="{{ route('horizon.index') }}"
-                        data-pirsch-event='Clicked "Horizon"'
-                    >
-                        <x-icon-horizon class="size-[.95rem] translate-y-[.5px]" />
-                        Horizon
-                    </x-dropdown.item>
-                @endcan
-
                 <x-dropdown.divider />
 
                 <x-dropdown.item
