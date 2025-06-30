@@ -25,8 +25,10 @@ class Welcome extends Notification
             ->line('If you want to keep reading, here are some popular articles:');
 
         Post::query()
-            ->inRandomOrder()
             ->published()
+            ->where('sessions_count', '>', 0)
+            ->orderBy('sessions_count', 'desc')
+            ->inRandomOrder()
             ->limit(5)
             ->get()
             ->each(fn (Post $post) => $mailMessage->line(
