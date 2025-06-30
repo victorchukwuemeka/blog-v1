@@ -71,7 +71,7 @@
                                 @foreach ($post->recommendedPosts as $post)
                                     <li>
                                         <a href="{{ route('posts.show', $post) }}">
-                                            {{ $post->reason }}&nbsp;→
+                                            {{ trim($post->reason, '.') }}
                                         </a>
                                     </li>
                                 @endforeach
