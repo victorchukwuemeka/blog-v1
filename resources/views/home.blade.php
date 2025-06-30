@@ -12,7 +12,8 @@
         <div class="flex gap-2 justify-center items-center mt-7 text-center md:mt-11">
             <x-btn
                 size="md"
-                href="#about"
+                wire:navigate
+                href="{{ route('authors.show', 'benjamin-crozat') }}"
             >
                 Who the F are you?
             </x-btn>
