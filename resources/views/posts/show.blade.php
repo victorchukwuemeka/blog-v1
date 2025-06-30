@@ -18,8 +18,18 @@
                 <div class="grid grid-cols-2 gap-4 text-sm leading-tight md:grid-cols-4">
                     <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
                         <x-heroicon-o-calendar class="mx-auto mb-2 opacity-75 size-6" />
-                        {{ $post->modified_at ? 'Modified' : 'Published' }}<br />
-                        {{ ($post->modified_at ?? $post->published_at)->isoFormat('ll') }}
+
+                        @if ($post->modified_at)
+                            Modified
+                        @elseif ($post->published_at)
+                            Published
+                        @else
+                            Drafted
+                        @endif
+
+                        <br />
+
+                        {{ ($post->modified_at ?? $post->published_at ?? $post->created_at)->isoFormat('ll') }}
                     </div>
 
                     <a
@@ -87,20 +97,23 @@
         @endif
     </div>
 
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "author": {
-                "@type": "Person",
-                "name": "{{ $post->user->name }}",
-                "url": "{{ route('home') }}#about"
-            },
-            "headline": "{{ $post->title }}",
-            "description": "{{ $post->description }}",
-            "image": "{{ $post->image_url }}",
-            "datePublished": "{{ $post->published_at->toIso8601String() }}",
-            "dateModified": "{{ $post->modified_at?->toIso8601String() ?? $post->published_at->toIso8601String() }}"
-        }
-    </script>
+    {{-- This kind of information is only relevant for published posts. --}}
+    @if ($post->published_at)
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "author": {
+                    "@type": "Person",
+                    "name": "{{ $post->user->name }}",
+                    "url": "{{ route('home') }}#about"
+                },
+                "headline": "{{ $post->title }}",
+                "description": "{{ $post->description }}",
+                "image": "{{ $post->image_url }}",
+                "datePublished": "{{ $post->published_at->toIso8601String() }}",
+                "dateModified": "{{ $post->modified_at?->toIso8601String() ?? $post->published_at->toIso8601String() }}"
+            }
+        </script>
+    @endif
 </x-app>
