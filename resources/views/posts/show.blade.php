@@ -82,12 +82,9 @@
             </article>
 
             @if ($post->comments_count)
-                <section
-                    id="comments"
-                    class="mt-24 scroll-mt-4"
-                >
+                <div class="mt-24">
                     <livewire:comments :post-id="$post->id" />
-                </section>
+                </div>
             @endif
         </div>
 

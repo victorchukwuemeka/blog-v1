@@ -12,15 +12,15 @@
                 Find tons of resources written and shared by <span class="font-medium">{{ $distinctUsersCount }} web developers</span>.
             </div>
 
-            <div class="flex items-center justify-center mt-4 md:mt-6">
+            <div class="flex justify-center items-center mt-4 md:mt-6">
                 @foreach ($distinctUserAvatars as $avatar)
-                    <div class="-ml-2 overflow-hidden bg-white rounded-full">
+                    <div class="overflow-hidden -ml-2 bg-white rounded-full">
                         <img src="{{ $avatar }}" class="size-8 md:size-10" />
                     </div>
                 @endforeach
             </div>
 
-            <div class="flex items-center justify-center gap-2 mt-8 text-center md:mt-12">
+            <div class="flex gap-2 justify-center items-center mt-8 text-center md:mt-12">
                 <x-btn href="#links">
                     Browse
                 </x-btn>
@@ -42,7 +42,7 @@
         'mt-16 md:mt-24' => $links->currentPage() === 1,
     ])>
         @if ($links->isNotEmpty())
-            <ul class="grid gap-10 mt-8 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
+            <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($links as $link)
                     <li>
                         <x-link :$link />

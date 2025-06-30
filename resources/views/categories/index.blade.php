@@ -8,7 +8,7 @@
         class="xl:max-w-(--breakpoint-lg) mt-0 md:mt-8"
     >
         @if ($categories->isNotEmpty())
-            <div class="grid gap-10 gap-y-16 mt-8 md:mt-16 xl:gap-x-16 md:grid-cols-2">
+            <div class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2">
                 @foreach ($categories as $category)
                     <div>
                         <h2 class="font-bold tracking-widest text-black uppercase text-balance">

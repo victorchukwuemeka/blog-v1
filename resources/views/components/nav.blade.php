@@ -5,6 +5,7 @@
         data-pirsch-event='Clicked the logo'
     >
         <x-logo />
+        <span class="sr-only">{{ config('app.name') }}</span>
     </a>
 
     <div class="grow"></div>

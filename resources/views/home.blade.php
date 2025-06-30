@@ -30,7 +30,7 @@
 
     @if ($popular->isNotEmpty())
         <x-section title="Popular posts" id="popular" class="mt-24 md:mt-32">
-            <ul class="grid gap-10 gap-y-16 mt-8 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
+            <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($popular as $post)
                     <li>
                         <x-post :$post />
@@ -52,7 +52,7 @@
 
     <x-section title="Latest posts" id="latest" class="mt-24 md:mt-32">
         @if ($latest->isNotEmpty())
-            <ul class="grid gap-10 gap-y-16 mt-8 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
+            <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($latest as $post)
                     <li>
                         <x-post :$post />
@@ -74,7 +74,7 @@
 
     @if ($about)
         <x-section title="About Benjamin Crozat" id="about" class="mt-24 lg:max-w-(--breakpoint-md) md:mt-32">
-            <x-prose class="mt-8">
+            <x-prose>
                 <img
                     src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
                     alt="Benjamin Crozat"
