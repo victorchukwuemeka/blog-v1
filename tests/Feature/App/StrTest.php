@@ -61,13 +61,14 @@ it('renders inline code', function () {
     expect($html)->toContain('<code>some inline code</code>');
 });
 
-it('manages link without errors', function () {
-    $markdown = '## [Foo](https://example.com)';
+it('gets text content from nested nodes', function () {
+    $markdown = '## [*Foo*](https://example.com)';
 
     $html = Str::markdown($markdown);
 
     expect($html)->toContain(
         '<h2',
         'href="https://example.com"',
+        'Foo',
     );
 });

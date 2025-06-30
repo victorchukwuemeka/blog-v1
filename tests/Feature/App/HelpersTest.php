@@ -46,3 +46,13 @@ MARKDOWN;
     expect($headings[0]['children'][0]['children'][0]['children'][4]['text'])->toBe('Amet');
     expect($headings[0]['children'][0]['children'][0]['children'][4]['slug'])->toBe('amet');
 });
+
+it('extracts headings from titles with links inside', function () {
+    $markdown = <<<'MARKDOWN'
+# [*Foo*](https://example.com)
+MARKDOWN;
+
+    $headings = extract_headings_from_markdown($markdown);
+
+    expect($headings[0]['text'])->toBe('Foo');
+});
