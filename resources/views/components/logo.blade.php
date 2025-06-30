@@ -1,5 +1,2 @@
-<div class="flex gap-4 items-center">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 336 336" class="size-9 md:size-10 rounded-[.65rem]"><defs><path id="a" d="M0 0h336v336H0V0Z"/></defs><g fill="none"><use xlink:href="#a" fill="#FFF" fill-rule="evenodd"/><path fill="#030712" fill-rule="evenodd" d="M-11 0h347v336H-11z"/><path stroke="#FFF" stroke-linejoin="round" stroke-width="15.2708763" d="M121.6264 96H115v72h62.7c20.047936 0 36.3-16.117749 36.3-36s-16.252064-36-36.3-36h-56.0736Zm-.1264-.21v3.42m.151223 140.79h59.596017C203.202083 240 221 222.315248 221 200.5S203.202083 161 181.24724 161H115v78.991223h6.651223V240Zm-.151223.165v-3.33M122 100h52.923077C193.190957 100 208 114.550746 208 132.5S193.190957 165 174.923077 165H122m-.5-65v65m0 0v72m.5-72h56.464286C198.642404 165 215 181.117749 215 201s-16.357596 36-36.535714 36H122m6-134h43.136364C187.629595 103 201 116.2076 201 132.5S187.629595 162 171.136364 162H128v-59Zm0 65h46.083334C192.262707 168 207 182.550746 207 200.5S192.262707 233 174.083334 233H128v-65Z"/></g></svg>
-
-    <div class="hidden text-base font-bold tracking-widest text-black uppercase md:block">benjamincrozat.com</div>
-</div>
+<x-icon-logo class="hidden h-9 md:block" />
+<x-icon-icon class="h-9 md:hidden" />
