@@ -39,12 +39,6 @@
                 id="pianjs"
                 data-code="5N2hIsUQsCVX1LQtvPdJ3AGwQZHGxtt5"
                 data-disable-page-views
-                data-disable-query
-                data-disable-referrer
-                data-disable-resolution
-                data-disable-history
-                data-disable-outbound-links
-                data-disable-downloads
             ></script>
         @endif
 
