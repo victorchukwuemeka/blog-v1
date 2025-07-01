@@ -20,7 +20,7 @@ it('throws a 404 if the post does not exist', function () {
         ->assertNotFound();
 });
 
-it('throws a 404 if the post is not published', function () {
+it('throws a 404 to guests if the post is not published', function () {
     $post = Post::factory()->create(['published_at' => null]);
 
     get(route('posts.show', $post))

@@ -5,9 +5,11 @@ namespace App\Actions;
 use App\Models\Post;
 use OpenAI\Laravel\Facades\OpenAI;
 
-// This action asks GPT to recommend more reading material for a given post.
 class RecommendPosts
 {
+    /**
+     * Ask GPT to recommend more reading material for a given post.
+     */
     public function recommend(Post $post) : void
     {
         $candidates = Post::query()->published()->get();

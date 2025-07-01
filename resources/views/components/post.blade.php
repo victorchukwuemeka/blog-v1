@@ -36,7 +36,7 @@
     </div>
 
     <div class="mt-4 grow">
-        {!! Str::markdown($post->description) !!}
+        {!! Str::markdown($post->description ?? '') !!}
     </div>
 
     <div class="grid grid-cols-3 gap-4 mt-6 text-sm/tight">

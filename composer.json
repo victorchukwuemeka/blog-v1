@@ -7,6 +7,8 @@
         "coconutcraig/laravel-postmark": "^3.3",
         "embed/embed": "^4.4",
         "filament/filament": "^4.0",
+        "guzzlehttp/guzzle": "^7.9",
+        "knplabs/github-api": "^3.16",
         "laravel/framework": "^12.0",
         "laravel/nightwatch": "^1.9",
         "laravel/socialite": "^5.18",

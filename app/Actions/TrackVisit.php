@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Http;
 
 class TrackVisit
 {
+    /**
+     * Track a visit to a given URL.
+     */
     public function track(string $url, string $ip, string $userAgent, string $acceptLanguage, ?string $referrer = null)
     {
         Http::withToken(config('services.pirsch.access_key'))

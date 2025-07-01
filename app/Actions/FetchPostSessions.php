@@ -18,6 +18,9 @@ class FetchPostSessions
         protected string $pirschClientSecret,
     ) {}
 
+    /**
+     * Fetch the number of sessions for each post from Pirsch.
+     */
     public function fetch(?CarbonImmutable $from = null, ?CarbonImmutable $to = null) : void
     {
         $pirschAccessToken = $this->http
