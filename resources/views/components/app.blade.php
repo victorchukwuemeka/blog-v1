@@ -47,14 +47,6 @@
     </head>
     <body {{ $attributes->class('font-light text-gray-600') }}>
         <div class="flex flex-col min-h-screen">
-            <div class="bg-gray-50">
-                <div class="container text-gray-500 py-3 text-center lg:max-w-(--breakpoint-md)">
-                    <x-fluentui-eye-tracking-20-o class="mx-auto h-7" />
-
-                    <p class="mt-1">Your ad here. <a href="mailto:hello@benjamincrozat.com?subject={{ rawurlencode('Ad space') }}&body={{ rawurlencode('Tell me about your company and how long you want to rent this space.') }}" class="font-medium underline">Email me</a>.</p>
-                </div>
-            </div>
-
             @empty($hideNavigation)
                 <header class="container mt-4 xl:max-w-(--breakpoint-lg)">
                     <x-nav />

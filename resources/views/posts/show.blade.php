@@ -11,7 +11,7 @@
                     <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover w-full rounded-xl ring-1 shadow-xl ring-black/5 aspect-video" />
                 @endif
 
-                <h1 class="mt-12 font-medium tracking-tight text-center text-black md:mt-16 text-balance text-3xl/none sm:text-4xl/none lg:text-5xl/none">
+                <h1 class="mt-12 font-medium tracking-tight text-center text-black text-balance md:mt-16 text-3xl/none sm:text-4xl/none lg:text-5xl/none">
                     {{ $post->title }}
                 </h1>
 
@@ -99,11 +99,27 @@
         </div>
 
         <div class="hidden lg:col-span-4 xl:col-span-3 lg:block">
-            <div class="sticky top-4 px-4 pt-4 pb-3 text-center text-gray-500 bg-gray-50 rounded">
-                <x-fluentui-eye-tracking-20-o class="mx-auto h-7" />
+            <a href="https://vemetric.com?utm_source=benjamin_crozat&utm_medium=sidebar" target="_blank" class="grid sticky top-4 gap-4 p-4 leading-tight bg-gray-50 rounded-xl">
+                <img src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256" alt="Benjamin Crozat" class="mx-auto h-12 rounded-full" />
 
-                <p class="mt-1">Your ad here. <a href="mailto:hello@benjamincrozat.com?subject={{ rawurlencode('Ad space') }}&body={{ rawurlencode('Tell me about your company and how long you want to rent this space.') }}" class="font-medium underline">Email me</a>.</p>
-            </div>
+                <p class="text-center text-lg/tight"><strong class="font-semibold text-black">“Let's ditch bloated analytics!”</strong></p>
+
+                <p>Vemetric plays nice with PHP, JavaScript, Python, and more, to give you real-time stats.</p>
+
+                <ul class="grid gap-1 -mt-2 ml-3 list-disc list-inside">
+                    <li>It's also open-source</li>
+                    <li>No cookies, no consent banner</li>
+                    <li>EU-hosted, GDPR-ready</li>
+                    <li>Clean dashboard</li>
+                    <li><strong class="font-medium text-black">Early adopter price: $5/mo</strong></li>
+                </ul>
+
+                <img src="{{ Vite::asset('resources/img/screenshots/vemetric.webp') }}" alt="Vemetric's dashboard" class="rounded" />
+
+                <x-btn primary class="w-full mt-2 text-center !rounded-md cursor-pointer">
+                    Start for free
+                </x-btn>
+            </a>
         </div>
     </div>
 
