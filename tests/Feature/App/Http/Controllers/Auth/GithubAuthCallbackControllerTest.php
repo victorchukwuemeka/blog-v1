@@ -62,7 +62,7 @@ it('creates a new user, sends a welcome notification, and redirects to intended 
         'email' => 'test@example.com',
         'name' => 'Test User',
         'github_login' => 'testuser',
-        'refreshed_at' => now(),
+        'refreshed_at' => now()->toDateTimeString(),
     ]);
 
     Notification::assertSentTo(
