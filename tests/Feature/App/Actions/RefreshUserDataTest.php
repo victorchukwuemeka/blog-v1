@@ -3,8 +3,11 @@
 use App\Models\User;
 use Facades\Github\Client;
 use App\Actions\RefreshUserData;
+use Illuminate\Support\Facades\Date;
 
 it('fetches GitHub user data and updates the user model', function () {
+    Date::setTestNow();
+
     $data = [
         'login' => 'foo',
         'name' => 'Foo',
@@ -21,4 +24,5 @@ it('fetches GitHub user data and updates the user model', function () {
     ]));
 
     expect($user->refresh()->github_data['user'])->toMatchArray($data);
+    expect($user->refresh()->refreshed_at->getTimestamp())->toBe(now()->getTimestamp());
 });

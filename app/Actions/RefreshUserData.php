@@ -21,6 +21,7 @@ class RefreshUserData
 
         $user->update([
             'github_data' => $githubData,
+            'refreshed_at' => now(),
         ]);
     }
 }

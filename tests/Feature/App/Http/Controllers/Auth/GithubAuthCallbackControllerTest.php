@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Notifications\Welcome;
+use Illuminate\Support\Facades\Date;
 
 use function Pest\Laravel\assertGuest;
 
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Notification;
 use function Pest\Laravel\assertAuthenticated;
 
 it('creates a new user, sends a welcome notification, and redirects to intended URL', function () {
+    Date::setTestNow();
+
     Notification::fake();
 
     $provider = Mockery::mock(GithubProvider::class);
@@ -59,6 +62,7 @@ it('creates a new user, sends a welcome notification, and redirects to intended 
         'email' => 'test@example.com',
         'name' => 'Test User',
         'github_login' => 'testuser',
+        'refreshed_at' => now(),
     ]);
 
     Notification::assertSentTo(
@@ -68,6 +72,8 @@ it('creates a new user, sends a welcome notification, and redirects to intended 
 });
 
 it('updates an existing user and redirects to intended URL', function () {
+    Date::setTestNow();
+
     Notification::fake();
 
     $provider = Mockery::mock(GithubProvider::class);
@@ -117,6 +123,7 @@ it('updates an existing user and redirects to intended URL', function () {
     expect($user->email)->toBe('test@example.com');
     expect($user->name)->toBe('New Name');
     expect($user->github_login)->toBe('newusername');
+    expect($user->refreshed_at->getTimestamp())->toBe(now()->getTimestamp());
 
     Notification::assertNothingSentTo($user);
 });

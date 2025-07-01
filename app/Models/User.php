@@ -41,6 +41,7 @@ class User extends Authenticatable implements FilamentUser
         return [
             'github_data' => 'array',
             'password' => 'hashed',
+            'refreshed_at' => 'datetime',
         ];
     }
 

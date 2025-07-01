@@ -21,6 +21,7 @@ class GithubAuthCallbackController extends Controller
             'avatar' => $githubUser->getAvatar(),
             'github_data' => (array) $githubUser,
             'email' => $githubUser->getEmail(),
+            'refreshed_at' => now(),
         ]);
 
         auth()->login($user, true);
