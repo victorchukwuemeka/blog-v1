@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use Github\Client;
 use App\Models\User;
+use Illuminate\Support\Facades\Date;
 
 class RefreshUserData
 {
@@ -21,7 +22,7 @@ class RefreshUserData
 
         $user->update([
             'github_data' => $githubData,
-            'refreshed_at' => now(),
+            'refreshed_at' => Date::now(),
         ]);
     }
 }

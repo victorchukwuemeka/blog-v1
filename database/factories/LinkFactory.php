@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,11 +27,11 @@ class LinkFactory extends Factory
 
     public function approved() : static
     {
-        return $this->state(['is_approved' => now()]);
+        return $this->state(['is_approved' => Date::now()]);
     }
 
     public function declined() : static
     {
-        return $this->state(['is_declined' => now()]);
+        return $this->state(['is_declined' => Date::now()]);
     }
 }

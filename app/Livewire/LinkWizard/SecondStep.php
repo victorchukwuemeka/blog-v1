@@ -10,6 +10,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Date;
 use Spatie\LivewireWizard\Components\StepComponent;
 
 class SecondStep extends StepComponent
@@ -60,7 +61,7 @@ class SecondStep extends StepComponent
          */
         $embed = cache()->remember(
             key: 'embed_' . Str::slug($this->url, '_'),
-            ttl: now()->addHour(),
+            ttl: Date::now()->addHour(),
             callback: function () {
                 $embed = app(Embed::class)->get($this->url);
 

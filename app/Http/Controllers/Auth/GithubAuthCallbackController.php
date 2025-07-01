@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Notifications\Welcome;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -21,7 +22,7 @@ class GithubAuthCallbackController extends Controller
             'avatar' => $githubUser->getAvatar(),
             'github_data' => (array) $githubUser,
             'email' => $githubUser->getEmail(),
-            'refreshed_at' => now(),
+            'refreshed_at' => Date::now(),
         ]);
 
         auth()->login($user, true);
