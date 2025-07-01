@@ -158,6 +158,15 @@
             </x-dropdown.item>
 
             <x-dropdown.item
+                wire:navigate
+                href="{{ route('advertise') }}"
+                data-pirsch-event='Clicked "Advertise"'
+            >
+                <x-heroicon-o-megaphone class="size-4" />
+                Advertise
+            </x-dropdown.item>
+
+            <x-dropdown.item
                 href="{{ route('home') }}#about"
                 data-pirsch-event='Clicked "About me"'
             >

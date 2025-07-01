@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\LinkWizard\LinkWizard;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdvertiseController;
 use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
@@ -31,6 +32,9 @@ Route::get('/links', ListLinksController::class)
 
 Route::get('/links/create', LinkWizard::class)
     ->name('links.create');
+
+Route::get('/advertise', AdvertiseController::class)
+    ->name('advertise');
 
 Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
