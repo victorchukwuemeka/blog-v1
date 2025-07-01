@@ -32,6 +32,22 @@
 
         @vite('resources/css/app.css')
 
+        @if (app()->isProduction())
+            <script
+                defer
+                src="https://api.pirsch.io/pa.js"
+                id="pianjs"
+                data-code="5N2hIsUQsCVX1LQtvPdJ3AGwQZHGxtt5"
+                data-disable-page-views
+                data-disable-query
+                data-disable-referrer
+                data-disable-resolution
+                data-disable-history
+                data-disable-outbound-links
+                data-disable-downloads
+            ></script>
+        @endif
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" />
