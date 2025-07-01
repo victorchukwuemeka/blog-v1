@@ -32,7 +32,7 @@
 
         @vite('resources/css/app.css')
 
-        @if (app()->isProduction())
+        @if (config('app.env') === 'production')
             <script
                 defer
                 src="https://api.pirsch.io/pa.js"
