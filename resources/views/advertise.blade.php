@@ -3,7 +3,7 @@
 >
     <div class="container md:text-xl xl:max-w-(--breakpoint-lg)">
         <h1 class="text-3xl font-medium tracking-tight text-black lg:text-4xl xl:text-7xl">
-            <span class="text-blue-600">{{ Number::format($visitors) }}</span> of eye balls<br />
+            <span class="text-blue-600">{{ Number::format($visitors) }}</span> pairs of eyeballs<br />
             on your developer-centric product
         </h1>
 
