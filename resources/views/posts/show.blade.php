@@ -4,7 +4,7 @@
     :image="$post->image_url"
     :title="$post->title"
 >
-    <div class="container lg:grid lg:grid-cols-12 lg:gap-12">
+    <div class="container 2xl:max-w-(--breakpoint-xl) lg:grid lg:grid-cols-12 lg:gap-12">
         <div class="lg:col-span-8 xl:col-span-9">
             <article>
                 @if ($post->hasImage())
@@ -99,9 +99,11 @@
         </div>
 
         <div class="hidden lg:col-span-4 xl:col-span-3 lg:block">
-            <p class="sticky top-4 p-4 text-center text-gray-500 bg-gray-50 rounded">
-                Your ad here. <a href="mailto:hello@benjamincrozat.com?subject={{ rawurlencode('Ad space') }}&body={{ rawurlencode('Tell me about your company and how long you want to rent this space.') }}" class="font-medium underline">Email me</a>.
-            </p>
+            <div class="sticky top-4 p-4 text-center text-gray-500 bg-gray-50 rounded">
+                <x-fluentui-eye-tracking-20-o class="mx-auto h-7" />
+
+                <p class="mt-1">Your ad here. <a href="mailto:hello@benjamincrozat.com?subject={{ rawurlencode('Ad space') }}&body={{ rawurlencode('Tell me about your company and how long you want to rent this space.') }}" class="font-medium underline">Email me</a>.</p>
+            </div>
         </div>
     </div>
 
