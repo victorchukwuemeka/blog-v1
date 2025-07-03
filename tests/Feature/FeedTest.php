@@ -10,9 +10,9 @@ it('lists the latest 50 posts and shows the description instead of the content',
     get(route('feeds.main'))
         ->assertOk()
         ->assertSee($post->slug)
-        ->assertSee($post->title)
-        ->assertSee($post->description)
+        ->assertSee($post->title, escape: false)
+        ->assertSee($post->description, escape: false)
         ->assertSee(route('posts.show', $post))
-        ->assertSee($post->user->name)
+        ->assertSee($post->user->name, escape: false)
         ->assertDontSee($post->content);
 });
