@@ -103,6 +103,12 @@ class PostResource extends Resource
                     ->fileAttachmentsDirectory('posts')
                     ->columnSpanFull(),
 
+                TextInput::make('serp_title')
+                    ->required()
+                    ->maxLength(255)
+                    ->label('SERP Title')
+                    ->helperText('This is the title that will appear in the search results.'),
+
                 Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),

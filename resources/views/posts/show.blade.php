@@ -2,7 +2,7 @@
     :canonical="$post->canonical_url"
     :description="$post->description"
     :image="$post->image_url"
-    :title="$post->title"
+    :title="$post->serp_title ?? $post->title"
 >
     <div class="container 2xl:max-w-(--breakpoint-xl) lg:grid lg:grid-cols-12 lg:gap-12">
         <div class="lg:col-span-8 xl:col-span-9">

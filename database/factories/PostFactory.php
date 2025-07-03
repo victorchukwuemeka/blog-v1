@@ -21,6 +21,7 @@ class PostFactory extends Factory
             'image_disk' => null,
             'title' => fake()->sentence(),
             'content' => fake()->paragraphs(random_int(3, 10), true),
+            'serp_title' => fake()->sentence(),
             'description' => fake()->sentences(random_int(1, 2), true),
             'canonical_url' => fake()->url(),
             'published_at' => fake()->dateTimeBetween('-1 year', 'now'),
