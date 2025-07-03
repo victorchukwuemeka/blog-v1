@@ -62,6 +62,36 @@ return [
             ]) : [],
         ],
 
+        'production' => [
+            'driver' => 'mysql',
+            'url' => env('PRODUCTION_DB_URL'),
+            'host' => env('PRODUCTION_DB_HOST', '127.0.0.1'),
+            'port' => env('PRODUCTION_DB_PORT', '3306'),
+            'database' => env('PRODUCTION_DB_DATABASE', 'laravel'),
+            'username' => env('PRODUCTION_DB_USERNAME', 'root'),
+            'password' => env('PRODUCTION_DB_PASSWORD', ''),
+            'unix_socket' => env('PRODUCTION_DB_SOCKET', ''),
+            'charset' => env('PRODUCTION_DB_CHARSET', 'utf8mb4'),
+            'collation' => env('PRODUCTION_DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+
+            // Added for Spatie db-dumper / snapshots – points to Homebrew MySQL 8.0 client
+            'dump' => [
+                // directory only, no trailing binary name
+                'dump_binary_path' => '/opt/homebrew/opt/mysql-client/bin/',
+                // keep transactions consistent while dumping
+                'use_single_transaction',
+                // extend timeout for large dumps (5 min)
+                'timeout' => 60 * 5,
+            ],
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
