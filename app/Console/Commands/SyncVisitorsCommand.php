@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Metric;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Attribute\AsCommand;
 
@@ -56,8 +55,8 @@ class SyncVisitorsCommand extends Command
         $overview = Http::withToken($accessToken)
             ->get('https://api.pirsch.io/api/v1/statistics/total', [
                 'id' => config('services.pirsch.domain_id'),
-                'from' => Date::now()->subDays(31)->toDateString(),
-                'to' => Date::now()->subDay()->toDateString(),
+                'from' => now()->subDays(31)->toDateString(),
+                'to' => now()->subDay()->toDateString(),
                 'timezone' => 'Europe/Paris',
             ])
             ->throw()
@@ -66,8 +65,8 @@ class SyncVisitorsCommand extends Command
         $platform = Http::withToken($accessToken)
             ->get('https://api.pirsch.io/api/v1/statistics/platform', [
                 'id' => config('services.pirsch.domain_id'),
-                'from' => Date::now()->subDays(31)->toDateString(),
-                'to' => Date::now()->subDay()->toDateString(),
+                'from' => now()->subDays(31)->toDateString(),
+                'to' => now()->subDay()->toDateString(),
                 'timezone' => 'Europe/Paris',
             ])
             ->throw()

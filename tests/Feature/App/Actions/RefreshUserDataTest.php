@@ -6,7 +6,7 @@ use App\Actions\RefreshUserData;
 use Illuminate\Support\Facades\Date;
 
 it('fetches GitHub user data and updates the user model', function () {
-    Date::setTestNow();
+    Date::setTestNow(now());
 
     $data = [
         'login' => 'foo',

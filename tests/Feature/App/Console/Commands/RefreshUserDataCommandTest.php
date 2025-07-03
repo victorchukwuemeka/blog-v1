@@ -12,7 +12,7 @@ use App\Console\Commands\RefreshUserDataCommand;
 it('queues a refresh job for a specific user when an id is provided', function () {
     Bus::fake();
 
-    Date::setTestNow();
+    Date::setTestNow(now());
 
     $user = User::factory()->create();
 
@@ -30,7 +30,7 @@ it('queues a refresh job for a specific user when an id is provided', function (
 it('queues refresh jobs for every user whose data is missing or older than a day', function () {
     Bus::fake();
 
-    Date::setTestNow();
+    Date::setTestNow(now());
 
     // Users that should be queued.
     $neverRefreshedUser = User::factory()->create(['refreshed_at' => null]);

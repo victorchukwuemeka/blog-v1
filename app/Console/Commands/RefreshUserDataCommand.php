@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\User;
 use App\Jobs\RefreshUserData;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Date;
 
 class RefreshUserDataCommand extends Command
 {
@@ -31,12 +30,12 @@ class RefreshUserDataCommand extends Command
 
         $users = User::query()
             ->whereNull('refreshed_at')
-            ->orWhere('refreshed_at', '<=', Date::now()->subDay())
+            ->orWhere('refreshed_at', '<=', now()->subDay())
             ->get()
             ->each(
                 fn (User $user, int $index) => RefreshUserData::dispatch($user)
                     // To avoid being banned by GitHub, we delay each job by 5 seconds.
-                    ->delay(Date::now()->addSeconds($index * 5))
+                    ->delay(now()->addSeconds($index * 5))
             );
 
         $this->info($users->count() . ' user(s) have been queued for a refresh.');

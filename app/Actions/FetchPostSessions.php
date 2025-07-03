@@ -6,7 +6,6 @@ use App\Models\Post;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Container\Attributes\Config;
 
 class FetchPostSessions
@@ -32,9 +31,9 @@ class FetchPostSessions
             ->throw()
             ->json('access_token');
 
-        $from ??= Date::now()->subDays(7);
+        $from ??= now()->subDays(7);
 
-        $to ??= Date::now();
+        $to ??= now();
 
         $this->http
             ->withToken($pirschAccessToken)

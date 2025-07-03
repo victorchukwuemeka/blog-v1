@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Notification;
 use function Pest\Laravel\assertAuthenticated;
 
 it('creates a new user, sends a welcome notification, and redirects to intended URL', function () {
-    Date::setTestNow();
+    Date::setTestNow(now());
 
     Notification::fake();
 
@@ -72,7 +72,7 @@ it('creates a new user, sends a welcome notification, and redirects to intended 
 });
 
 it('updates an existing user and redirects to intended URL', function () {
-    Date::setTestNow();
+    Date::setTestNow(now());
 
     Notification::fake();
 
