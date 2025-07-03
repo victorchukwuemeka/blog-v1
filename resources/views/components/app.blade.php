@@ -57,6 +57,11 @@
     </head>
     <body {{ $attributes->class('font-light text-gray-600') }}>
         <div class="flex flex-col min-h-screen">
+            {{-- Their ad will go live soon. --}}
+            @if (! app()->isProduction())
+                <x-ads.top.sevalla />
+            @endif
+
             @empty($hideNavigation)
                 <header class="container mt-4 xl:max-w-(--breakpoint-lg)">
                     <x-nav />
