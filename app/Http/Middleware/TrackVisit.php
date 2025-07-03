@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Symfony\Component\HttpFoundation\Response;
 
 class TrackVisit
@@ -39,12 +40,14 @@ class TrackVisit
      * 2. The request is not from Livewire.
      * 3. The request does not expect a JSON response.
      * 4. The request uses the GET method.
+     * 6. The request is not from a crawler. (Pirsch already filters them out, but some may be slipped through.)
      */
     protected function shouldTrack(Request $request) : bool
     {
         return 'production' === config('app.env') &&
             ! $request->hasHeader('X-Livewire') &&
             ! $request->wantsJson() &&
-            'GET' === $request->method();
+            'GET' === $request->method() &&
+            ! app(CrawlerDetect::class)->isCrawler($request->userAgent());
     }
 }

@@ -55,3 +55,9 @@ it('only tracks if all required parameters are available', function () {
 
     get('/');
 });
+
+it('does not track requests from crawlers', function () {
+    TrackVisit::shouldReceive('track')->never();
+
+    get('/', ['User-Agent' => 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36']);
+});
