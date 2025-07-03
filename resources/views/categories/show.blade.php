@@ -5,7 +5,7 @@
     <x-section
         :title="$posts->currentPage() > 1
             ? 'Page ' . $posts->currentPage()
-            : 'The best articles about<br /> ' . $category->name . ' in ' . date('Y')"
+            : $category->name"
         :big-title="$posts->currentPage() === 1"
     >
         @if ($posts->isNotEmpty())

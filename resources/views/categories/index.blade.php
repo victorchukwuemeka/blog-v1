@@ -3,7 +3,7 @@
     description="Level up as a web developer in {{ date('Y') }} with this collection of articles I wrote."
 >
     <x-section
-        title="The best web development articles<br /> I wrote in {{ date('Y') }}"
+        title="Categories"
         :big-title="true"
         class="xl:max-w-(--breakpoint-lg)"
     >
