@@ -39,9 +39,9 @@ class AppServiceProvider extends ServiceProvider
         // this trick removes a lot of friction.
         Model::unguard();
 
-        View::composer('*', fn (\Illuminate\View\View $view) => $view->with(
-            'visitors',
-            $this->visitors ??= Metric::query()->where('key', 'visitors')->value('value') ?? 0
-        ));
+        View::composer('*', fn (\Illuminate\View\View $view) => $view->with([
+            'user' => auth()->user(),
+            'visitors' => $this->visitors ??= Metric::query()->where('key', 'visitors')->value('value') ?? 0,
+        ]));
     }
 }
