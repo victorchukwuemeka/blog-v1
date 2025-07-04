@@ -20,7 +20,7 @@ class EditPost extends EditRecord
 
     protected function afterSave() : void
     {
-        if (! $this->record->recommended) {
+        if (! $this->record->recommendations) {
             RecommendPosts::dispatch($this->record);
         }
     }

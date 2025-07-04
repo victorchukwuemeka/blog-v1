@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\TrackVisit;
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\HandleRedirects;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -16,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware
             ->redirectGuestsTo('/login')
+            ->append(HandleRedirects::class)
             ->web(TrackVisit::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
