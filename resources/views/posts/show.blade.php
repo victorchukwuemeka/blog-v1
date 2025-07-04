@@ -93,7 +93,11 @@
                             <ul>
                                 @foreach ($post->recommendedPosts as $post)
                                     <li>
-                                        <a href="{{ route('posts.show', $post) }}">
+                                        <a
+                                            wire:navigate
+                                            href="{{ route('posts.show', $post) }}"
+                                            data-pirsch-event='Clicked on recommended post "{{ $post->title }}"'
+                                        >
                                             {{ trim($post->reason, '.') }}
                                         </a>
                                     </li>
