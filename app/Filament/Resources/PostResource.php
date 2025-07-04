@@ -104,7 +104,6 @@ class PostResource extends Resource
                     ->columnSpanFull(),
 
                 TextInput::make('serp_title')
-                    ->required()
                     ->maxLength(255)
                     ->label('SERP Title')
                     ->helperText('This is the title that will appear in the search results.'),
