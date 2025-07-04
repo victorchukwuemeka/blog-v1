@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <p class="mt-4">Want more details? <a href="https://benjamincrozat.pirsch.io/?domain=benjamincrozat.com&interval=30d&scale=day" target="_blank" class="font-medium underline">check my analytics dashboard</a> to learn about my audience.</p>
+        <p class="mt-4">Want more details? <a href="https://benjamincrozat.pirsch.io/?domain=benjamincrozat.com&interval=30d&scale=day" target="_blank" class="font-medium underline">Check my analytics dashboard</a> to learn about my audience.</p>
 
         <h2 class="mt-12 text-xl font-medium text-black md:mt-16 lg:text-2xl xl:text-3xl">
             Where will your ad be displayed?
