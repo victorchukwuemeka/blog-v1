@@ -31,7 +31,7 @@ class PostFactory extends Factory
         return [
             'user_id' => User::factory(),
             'image_path' => $path ?? null,
-            'image_disk' => $path,
+            'image_disk' => $path ? 'public' : null,
             'title' => fake()->sentence(),
             'content' => fake()->paragraphs(random_int(3, 10), true),
             'serp_title' => fake()->sentence(),
