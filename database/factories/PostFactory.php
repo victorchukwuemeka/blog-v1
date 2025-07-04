@@ -18,16 +18,20 @@ class PostFactory extends Factory
 {
     public function definition() : array
     {
-        $image = Http::get('https://picsum.photos/1280/720')
-            ->throw()
-            ->body();
+        if (! app()->runningUnitTests()) {
+            $image = Http::get('https://picsum.photos/1280/720')
+                ->throw()
+                ->body();
 
-        Storage::disk('public')->put($path = '/images/posts/' . Str::random() . '.jpg', $image);
+            Storage::disk('public')->put($path = '/images/posts/' . Str::random() . '.jpg', $image);
+        } else {
+            $path = null;
+        }
 
         return [
             'user_id' => User::factory(),
-            'image_path' => $path,
-            'image_disk' => 'public',
+            'image_path' => $path ?? null,
+            'image_disk' => $path,
             'title' => fake()->sentence(),
             'content' => fake()->paragraphs(random_int(3, 10), true),
             'serp_title' => fake()->sentence(),
