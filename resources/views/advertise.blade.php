@@ -3,17 +3,15 @@
 >
     <div class="container md:text-xl xl:max-w-(--breakpoint-lg)">
         <h1 class="text-3xl font-medium tracking-tight text-black lg:text-4xl xl:text-7xl">
-            <span class="text-blue-600">{{ Number::format($visitors) }}</span> pairs of eyeballs<br />
-            on your developer-centric product
+            <span class="text-blue-600">{{ Number::format($visitors) }}</span> developers<br />
+            visit this blog every month
         </h1>
 
         <h2 class="mt-12 text-xl font-medium text-black md:mt-16 lg:text-2xl xl:text-3xl">
             The last 30 days
         </h2>
 
-        <p class="mt-4">I'm mostly visited by developers. Below, you will find the metrics that matter to any advertiser. Please <a href="https://benjamincrozat.pirsch.io/?domain=benjamincrozat.com&interval=30d&scale=day" target="_blank" class="font-medium underline">check my analytics dashboard</a> to learn even more about my audience.</p>
-
-        <div class="grid grid-cols-2 gap-2 mt-10">
+        <div class="grid grid-cols-2 gap-2 mt-8">
             <div class="p-4 bg-gray-50 rounded-xl">
                 <div class="text-3xl font-medium text-black md:text-5xl lg:text-7xl">{{ Number::format($visitors) }}</div>
                 <div class="md:text-xl lg:text-xl">visitors</div>
@@ -34,6 +32,8 @@
                 <div class="md:text-xl lg:text-xl">on desktop</div>
             </div>
         </div>
+
+        <p class="mt-4">Want more details? <a href="https://benjamincrozat.pirsch.io/?domain=benjamincrozat.com&interval=30d&scale=day" target="_blank" class="font-medium underline">check my analytics dashboard</a> to learn about my audience.</p>
 
         <h2 class="mt-12 text-xl font-medium text-black md:mt-16 lg:text-2xl xl:text-3xl">
             Where will your ad be displayed?
