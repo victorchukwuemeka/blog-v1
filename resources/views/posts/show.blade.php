@@ -18,7 +18,7 @@
                 <div class="mt-12 md:mt-16">
                     <div @class([
                         'grid grid-cols-2 gap-4 text-sm leading-tight md:grid-cols-4',
-                        'md:grid-cols-5' => $user?->isAdmin(),
+                        'xl:grid-cols-5' => $user?->isAdmin(),
                     ])>
                         <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
                             <x-heroicon-o-calendar class="mx-auto mb-2 opacity-75 size-6" />
