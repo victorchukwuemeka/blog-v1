@@ -1,14 +1,11 @@
+.DS_Store
 .env
 .env.backup
 .env.production
 .phpactor.json
 *.cache
 *.log
-/.fleet
-/.idea
-/.nova
 /.vscode
-/.zed
 /node_modules
 /public/build
 /public/hot
@@ -17,6 +14,5 @@
 /storage/pail
 /vendor
 auth.json
-Homestead.json
-Homestead.yaml
 phpunit.xml
+Thumbs.db
