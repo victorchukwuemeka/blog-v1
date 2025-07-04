@@ -28,9 +28,9 @@ class User extends Authenticatable implements FilamentUser
 
     protected static function booted() : void
     {
-        static::creating(function (User $user) {
-            $user->slug = Str::slug($user->name);
-        });
+        static::creating(
+            fn (User $user) => $user->slug = Str::slug($user->name)
+        );
     }
 
     /**
