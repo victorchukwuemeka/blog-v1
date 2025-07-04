@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Str;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Category;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,10 +18,16 @@ class PostFactory extends Factory
 {
     public function definition() : array
     {
+        $image = Http::get('https://picsum.photos/1280/720')
+            ->throw()
+            ->body();
+
+        Storage::disk('public')->put($path = '/images/posts/' . Str::random() . '.jpg', $image);
+
         return [
             'user_id' => User::factory(),
-            'image_path' => null,
-            'image_disk' => null,
+            'image_path' => $path,
+            'image_disk' => 'public',
             'title' => fake()->sentence(),
             'content' => fake()->paragraphs(random_int(3, 10), true),
             'serp_title' => fake()->sentence(),

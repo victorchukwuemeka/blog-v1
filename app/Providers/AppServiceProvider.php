@@ -22,12 +22,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot() : void
     {
-        // This is a hack to make the app work with Laravel Cloud's storage in my
-        // local environment. It helps to have the blog in line with production.
-        if (! app()->isProduction()) {
-            config(['filesystems.disks.public.url' => 'https://fls-9f452e9d-5395-4fb9-bc5d-14012efd022e.laravel.cloud']);
-        }
-
         // Not necessary, but why not?
         Date::use(CarbonImmutable::class);
 
