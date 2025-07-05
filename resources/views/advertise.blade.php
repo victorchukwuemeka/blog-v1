@@ -25,9 +25,9 @@
     </div>
 
     <div class="mt-24 text-center">
-        <p class="text-sm font-bold tracking-widest text-center text-black uppercase md:text-base lg:text-lg">Trusted by</p>
+        <p class="text-sm font-bold tracking-widest text-center text-black uppercase">Trusted by</p>
 
-        <div class="flex flex-wrap gap-y-4 gap-x-16 justify-center items-center px-4 mt-4">
+        <div class="flex flex-wrap gap-y-4 gap-x-8 justify-center items-center px-4 mt-5 md:gap-x-12 lg:gap-x-16">
             <div class="text-3xl font-bold text-red-600">larajobs</div>
 
             {{-- Meilisearch --}}
@@ -45,10 +45,10 @@
     <div class="container md:text-xl xl:max-w-(--breakpoint-lg)">
         <div class="mt-24 text-center">
             <h2 class="text-sm font-bold tracking-widest text-center text-black uppercase md:text-base lg:text-lg">
-                The past 30 days
+                The past 30 days on my blog
             </h2>
 
-            <div class="grid grid-cols-2 gap-2 mt-8">
+            <div class="grid grid-cols-2 gap-2 mt-6">
                 <div class="p-2 text-black bg-gray-50 rounded-xl md:p-4">
                     <x-heroicon-o-user class="mx-auto mb-2 h-8 text-gray-600 md:h-10 lg:h-12" />
                     <div class="text-3xl font-medium md:text-5xl">{{ Number::format($visitors) }}</div>
