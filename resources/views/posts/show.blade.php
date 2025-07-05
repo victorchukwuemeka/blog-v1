@@ -4,7 +4,7 @@
     :image="$post->image_url"
     :title="$post->serp_title ?? $post->title"
 >
-    <div class="container 2xl:max-w-(--breakpoint-xl) grid lg:grid-cols-12 gap-16 lg:gap-12">
+    <div class="container 2xl:max-w-(--breakpoint-xl) grid lg:grid-cols-12 gap-16 lg:gap-8">
         <div class="lg:col-span-8 xl:col-span-9">
             <article>
                 @if ($post->hasImage())
