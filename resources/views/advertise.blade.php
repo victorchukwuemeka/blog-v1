@@ -2,12 +2,27 @@
     title="Advertise your developer-centric SaaS or product"
 >
     <div class="container md:text-xl xl:max-w-(--breakpoint-lg)">
-        <h1 class="text-3xl font-medium tracking-tight text-center text-black lg:text-4xl xl:text-7xl">
-            <span class="text-blue-600">{{ Number::format($visitors) }}</span> developers<br />
-            visit this blog every month
-        </h1>
+        <div class="text-center">
+            <h1 class="text-3xl font-medium tracking-tight text-black lg:text-4xl xl:text-7xl">
+                <span class="text-blue-600">{{ Number::format($visitors) }}</span> developers<br />
+                visit this blog every month
+            </h1>
 
-        <div class="mt-16 text-center">
+            <p class="mt-4 text-lg text-gray-800 lg:mt-6 md:text-xl lg:text-2xl">
+                This is the right time to show off your product.
+            </p>
+
+            <x-btn
+                primary
+                size="md"
+                href="mailto:hello@benjamincrozat.com"
+                class="table mx-auto mt-8 lg:mt-12"
+            >
+                Email me
+            </x-btn>
+        </div>
+
+        <div class="mt-24 text-center">
             <p class="text-xs font-bold text-black uppercase">Trusted by</p>
 
             <div class="flex gap-16 justify-center items-center mt-4">
@@ -52,14 +67,5 @@
                 </div>
             </div>
         </div>
-
-        <x-btn
-            primary
-            size="md"
-            href="mailto:hello@benjamincrozat.com"
-            class="table mx-auto mt-12 md:mt-16"
-        >
-            Email me
-        </x-btn>
     </div>
 </x-app>
