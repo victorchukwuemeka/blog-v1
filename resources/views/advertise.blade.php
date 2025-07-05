@@ -3,11 +3,13 @@
 >
     <div class="container md:text-xl xl:max-w-(--breakpoint-lg)">
         <div class="text-center">
+            <img src="{{ Vite::asset('resources/img/icons/megaphone.png') }}" class="mx-auto mb-8 h-24 md:h-28 lg:h-32" />
+
             <h1 class="text-3xl font-medium tracking-tight text-black lg:text-4xl xl:text-7xl">
                 Advertise to <span class="text-blue-600">{{ Number::format($visitors) }}</span>&nbsp;developers
             </h1>
 
-            <p class="mt-4 text-lg text-gray-800 md:text-xl lg:text-2xl">
+            <p class="mt-3 text-lg text-gray-800 md:mt-4 md:text-xl lg:text-2xl">
                 This is the right place to show off your product.
             </p>
 
