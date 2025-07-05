@@ -19,13 +19,13 @@
                 href="mailto:hello@benjamincrozat.com"
                 class="table mx-auto mt-8 lg:mt-12"
             >
-                Email me
+                Get in touch
             </x-btn>
         </div>
     </div>
 
     <div class="mt-24 text-center">
-        <p class="text-sm font-bold tracking-widest text-black uppercase">Trusted by</p>
+        <p class="text-sm font-bold tracking-widest text-center text-black uppercase md:text-base lg:text-lg">Trusted by</p>
 
         <div class="flex flex-wrap gap-y-4 gap-x-16 justify-center items-center px-4 mt-4">
             <div class="text-3xl font-bold text-red-600">larajobs</div>
@@ -44,65 +44,56 @@
 
     <div class="container md:text-xl xl:max-w-(--breakpoint-lg)">
         <div class="mt-24 text-center">
-            <h2 class="text-2xl font-medium tracking-tight text-black md:mt-16 md:text-2xl lg:text-3xl">
+            <h2 class="text-sm font-bold tracking-widest text-center text-black uppercase md:text-base lg:text-lg">
                 The past 30 days
             </h2>
 
             <div class="grid grid-cols-2 gap-2 mt-8">
-                <div class="p-2 bg-gray-50 rounded-xl md:p-4">
-                    <div class="text-3xl font-medium text-black md:text-5xl">{{ Number::format($visitors) }}</div>
+                <div class="p-2 text-black bg-gray-50 rounded-xl md:p-4">
+                    <x-heroicon-o-user class="mx-auto mb-2 h-8 text-gray-600 md:h-10 lg:h-12" />
+                    <div class="text-3xl font-medium md:text-5xl">{{ Number::format($visitors) }}</div>
                     <div class="md:text-xl lg:text-xl">visitors</div>
                 </div>
 
-                <div class="p-2 bg-gray-50 rounded-xl md:p-4">
-                    <div class="text-3xl font-medium text-black md:text-5xl">{{ $views }}</div>
+                <div class="p-2 text-black bg-gray-50 rounded-xl md:p-4">
+                    <x-heroicon-o-window class="mx-auto mb-2 h-8 text-gray-600 md:h-10 lg:h-12" />
+                    <div class="text-3xl font-medium md:text-5xl">{{ $views }}</div>
                     <div class="md:text-xl lg:text-xl">page views</div>
                 </div>
 
-                <div class="p-2 bg-gray-50 rounded-xl md:p-4">
-                    <div class="text-3xl font-medium text-black md:text-5xl">{{ $sessions }}</div>
+                <div class="p-2 text-black bg-gray-50 rounded-xl md:p-4">
+                    <x-heroicon-o-user-group class="mx-auto mb-2 h-8 text-gray-600 md:h-10 lg:h-12" />
+                    <div class="text-3xl font-medium md:text-5xl">{{ $sessions }}</div>
                     <div class="md:text-xl lg:text-xl">sessions</div>
                 </div>
 
-                <div class="p-2 bg-gray-50 rounded-xl md:p-4">
-                    <div class="text-3xl font-medium text-black md:text-5xl">{{ $desktop }}%</div>
+                <div class="p-2 text-black bg-gray-50 rounded-xl md:p-4">
+                    <x-heroicon-o-computer-desktop class="mx-auto mb-2 h-8 text-gray-600 md:h-10 lg:h-12" />
+                    <div class="text-3xl font-medium md:text-5xl">{{ $desktop }}%</div>
                     <div class="md:text-xl lg:text-xl">on desktop</div>
                 </div>
             </div>
         </div>
 
         <div class="mt-24">
-            <p class="text-sm font-bold tracking-widest text-center text-black uppercase">Current advertisers</p>
+            <p class="text-sm font-bold tracking-widest text-center text-black uppercase md:text-base lg:text-lg">Current advertisers</p>
 
-            <table class="mt-4 w-full border-collapse">
-                <tr class="border-b border-gray-200">
-                    <th class="p-2 pl-0 text-left md:p-4">Company</th>
-                    <th class="p-2 text-left md:p-4">From</th>
-                    <th class="p-2 text-left md:p-4">Until</th>
-                    <th class="p-2 pr-0 text-left md:p-4">Area</th>
-                </tr>
+            <div class="grid gap-4 mt-6 md:grid-cols-2">
+                <div class="p-4 bg-gray-50 rounded-xl">
+                    <p><strong class="font-medium text-black">Vemetric</strong> in the sidebar of every article</p>
+                    <p>From Jul 2<sup>nd</sup>, 2025 to Aug 2<sup>nd</sup>, 2025</p>
+                </div>
 
-                <tr class="border-b border-gray-200">
-                    <td class="p-2 pl-0 md:p-4">Vemetric</td>
-                    <td class="p-2 md:p-4">Jul 2<sup>nd</sup>, 2025</td>
-                    <td class="p-2 md:p-4">Aug 2<sup>nd</sup>, 2025</td>
-                    <td class="p-2 pr-0 md:p-4">Sidebar on every article</td>
-                </tr>
+                <div class="p-4 bg-gray-50 rounded-xl">
+                    <p><strong class="font-medium text-black">Sevalla</strong> in the sidebar of every article</p>
+                    <p class="text-gray-500">Dates to be announced</p>
+                </div>
 
-                <tr class="border-b border-gray-200">
-                    <td class="p-2 pl-0 md:p-4">Sevalla</td>
-                    <td class="p-2 md:p-4">TBA</td>
-                    <td class="p-2 md:p-4">TBA</td>
-                    <td class="p-2 pr-0 md:p-4">Top of every page</td>
-                </tr>
-
-                <tr class="border-b border-gray-200">
-                    <td class="p-2 pl-0 md:p-4">Sevalla</td>
-                    <td class="p-2 md:p-4">Aug 3<sup>rd</sup>, 2025</td>
-                    <td class="p-2 md:p-4">Feb 3<sup>rd</sup>, 2026</td>
-                    <td class="p-2 pr-0 md:p-4">Sidebar on every article</td>
-                </tr>
-            </table>
+                <div class="p-4 bg-gray-50 rounded-xl">
+                    <p><strong class="font-medium text-black">Sevalla</strong> in the top of every page</p>
+                    <p class="text-gray-500">Dates to be announced</p>
+                </div>
+            </div>
         </div>
     </div>
 </x-app>
