@@ -9,14 +9,6 @@
             <article>
                 @if ($post->hasImage())
                     <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover mb-12 w-full rounded-xl ring-1 shadow-xl ring-black/5 aspect-video" />
-                @else
-                    @php
-                    $bgColors = collect([
-                        'bg-amber-600', 'bg-blue-600', 'bg-cyan-600', 'bg-emerald-600', 'bg-gray-600', 'bg-green-600', 'bg-indigo-600', 'bg-lime-600', 'bg-pink-600', 'bg-purple-600', 'bg-red-600', 'bg-sky-600', 'bg-teal-600', 'bg-yellow-600',
-                    ])->random();
-                    @endphp
-
-                    <div class="{{ $bgColors }} shadow-md ring-1 ring-black/5 aspect-video rounded-xl shadow-black/5"></div>
                 @endif
 
                 <h1 class="font-medium tracking-tight text-center text-black text-balance md:mt-16 text-3xl/none sm:text-4xl/none lg:text-5xl/none">
