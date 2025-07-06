@@ -8,10 +8,10 @@
         <div class="lg:col-span-8 xl:col-span-9">
             <article>
                 @if ($post->hasImage())
-                    <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover mb-12 w-full rounded-xl ring-1 shadow-xl ring-black/5 aspect-video" />
+                    <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover mb-12 w-full rounded-xl ring-1 shadow-xl md:mb-16 ring-black/5 aspect-video" />
                 @endif
 
-                <h1 class="font-medium tracking-tight text-center text-black text-balance md:mt-16 text-3xl/none sm:text-4xl/none lg:text-5xl/none">
+                <h1 class="font-medium tracking-tight text-center text-black text-balancetext-3xl/none sm:text-4xl/none lg:text-5xl/none">
                     {{ $post->title }}
                 </h1>
 
