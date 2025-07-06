@@ -69,7 +69,7 @@
                                 <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900">
                                     <x-heroicon-o-pencil-square class="mx-auto mb-2 opacity-75 size-6" />
                                     Edit<br />
-                                    Article
+                                    article
                                 </div>
                             </a>
                         @endif
@@ -116,7 +116,11 @@
         </div>
 
         <div class="lg:col-span-4 xl:col-span-3">
-            <x-ads.sidebar.vemetric />
+            @if (now()->isAfter('2025-08-03'))
+                <x-ads.sidebar.sevalla />
+            @else
+                <x-ads.sidebar.vemetric />
+            @endif
         </div>
     </div>
 
