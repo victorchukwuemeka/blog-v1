@@ -1,19 +1,19 @@
 @props(['post'])
 
 <div {{ $attributes->class('flex flex-col h-full') }}>
-    @if ($post->hasImage())
-        <a wire:navigate href="{{ route('posts.show', $post->slug) }}">
+    <a wire:navigate href="{{ route('posts.show', $post->slug) }}">
+        @if ($post->hasImage())
             <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover rounded-xl ring-1 shadow-md transition-opacity shadow-black/5 aspect-video hover:opacity-50 ring-black/5" />
-        </a>
-    @else
-        @php
-        $bgColors = collect([
-            'bg-amber-600', 'bg-blue-600', 'bg-cyan-600', 'bg-emerald-600', 'bg-gray-600', 'bg-green-600', 'bg-indigo-600', 'bg-lime-600', 'bg-pink-600', 'bg-purple-600', 'bg-red-600', 'bg-sky-600', 'bg-teal-600', 'bg-yellow-600',
-        ])->random();
-        @endphp
+        @else
+            @php
+            $bgColors = collect([
+                'bg-amber-600', 'bg-blue-600', 'bg-cyan-600', 'bg-emerald-600', 'bg-gray-600', 'bg-green-600', 'bg-indigo-600', 'bg-lime-600', 'bg-pink-600', 'bg-purple-600', 'bg-red-600', 'bg-sky-600', 'bg-teal-600', 'bg-yellow-600',
+            ])->random();
+            @endphp
 
-        <div class="{{ $bgColors }} shadow-md ring-1 ring-black/5 aspect-video rounded-xl shadow-black/5"></div>
-    @endif
+            <div class="{{ $bgColors }} shadow-md ring-1 ring-black/5 aspect-video rounded-xl shadow-black/5"></div>
+        @endif
+    </a>
 
     @if (! empty($post->categories))
         <div class="flex gap-2 mt-6">
