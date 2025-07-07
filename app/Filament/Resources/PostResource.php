@@ -199,7 +199,7 @@ class PostResource extends Resource
                     TableAction::make('open')
                         ->label('Open')
                         ->icon('heroicon-o-arrow-top-right-on-square')
-                        ->url(fn (Post $record) => route('posts.show', $record)),
+                        ->url(fn (Post $record) => route('posts.show', $record), shouldOpenInNewTab: true),
 
                     TableAction::make('copy')
                         ->label('Copy as Markdown')
