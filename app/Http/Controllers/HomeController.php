@@ -24,7 +24,7 @@ class HomeController extends Controller
                 ->limit(12)
                 ->get(),
 
-            'about' => User::first()?->biography,
+            'aboutUser' => User::first(),
         ]);
     }
 }

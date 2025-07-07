@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <x-form class="flex sm:max-w-[480px] sm:mx-auto gap-4 mt-16">
+    <x-form class="flex gap-4 mt-16">
         @if (auth()->check())
             <img
                 src="{{ $user->avatar }}"

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\RedirectResource\Pages;
 
+use Illuminate\Support\Js;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\RedirectResource;
@@ -13,6 +15,16 @@ class EditRedirect extends EditRecord
     protected function getHeaderActions() : array
     {
         return [
+            Action::make('copy')
+                ->label('copy')
+                ->icon('')
+                ->button()
+                ->outlined()
+                ->size('xs')
+                ->color('gray')
+                ->extraAttributes(fn () : array => [
+                    'x-on:click' => 'navigator.clipboard.writeText(' . Js::from($this->getRecord()->to) . "); this.innerText='copied'; setTimeout(() => { this.innerText='copy'; }, 2000);",
+                ]),
             DeleteAction::make(),
         ];
     }

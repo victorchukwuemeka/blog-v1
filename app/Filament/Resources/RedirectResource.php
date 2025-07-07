@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Models\Redirect;
 use Filament\Tables\Table;
+use Illuminate\Support\Js;
+use Filament\Actions\Action;
 use Filament\Schemas\Schema;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
@@ -66,6 +68,16 @@ class RedirectResource extends Resource
                     ->label('Creation Date'),
             ])
             ->recordActions([
+                Action::make('copy')
+                    ->label('copy')
+                    ->icon('')
+                    ->button()
+                    ->outlined()
+                    ->size('xs')
+                    ->color('gray')
+                    ->extraAttributes(fn (Redirect $record) : array => [
+                        'x-on:click' => 'navigator.clipboard.writeText(' . Js::from($record->to) . "); this.innerText='copied'; setTimeout(() => { this.innerText='copy'; }, 2000);",
+                    ]),
                 EditAction::make()
                     ->icon('')
                     ->button()

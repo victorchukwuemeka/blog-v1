@@ -72,16 +72,16 @@
         </div>
     </x-section>
 
-    @if ($about)
-        <x-section title="About Benjamin Crozat" id="about" class="mt-24 lg:max-w-(--breakpoint-md) md:mt-32">
+    @if ($aboutUser->biography)
+        <x-section title="About {{ $aboutUser->name }}" id="about" class="mt-24 lg:max-w-(--breakpoint-md) md:mt-32">
             <x-prose>
                 <img
-                    src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
-                    alt="Benjamin Crozat"
+                    src="{{ $aboutUser->avatar }}"
+                    alt="{{ $aboutUser->name }}"
                     class="float-right mt-4 ml-4 rounded-full! size-28 md:size-32"
                 />
 
-                {!! Str::markdown($about) !!}
+                {!! Str::markdown($aboutUser->biography) !!}
             </x-prose>
         </x-section>
     @endif

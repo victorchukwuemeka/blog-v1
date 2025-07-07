@@ -6,6 +6,7 @@ use App\Str;
 use App\Models\Post;
 use Spatie\Image\Image;
 use Filament\Tables\Table;
+use Illuminate\Support\Js;
 use Spatie\Image\Enums\Fit;
 use Filament\Schemas\Schema;
 use Filament\Actions\EditAction;
@@ -23,6 +24,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Actions\Action as TableAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
@@ -203,6 +205,14 @@ class PostResource extends Resource
                     ->button()
                     ->outlined()
                     ->size('xs'),
+
+                TableAction::make('copy')
+                    ->label('Copy')
+                    ->button()
+                    ->outlined()
+                    ->size('xs')
+                    ->tooltip('Copy the article in Markdown format')
+                    ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
             ])
             ->toolbarActions([
                 DeleteBulkAction::make(),
