@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\PostResource\Pages;
 
 use App\Models\Post;
-use Livewire\Attributes\Js;
+use Illuminate\Support\Js;
 use App\Jobs\RecommendPosts;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
