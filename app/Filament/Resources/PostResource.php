@@ -196,6 +196,11 @@ class PostResource extends Resource
             ])
             ->recordActions([
                 ActionGroup::make([
+                    Action::make('open')
+                        ->label('Open')
+                        ->icon('heroicon-o-arrow-top-right-on-square')
+                        ->url(fn (Post $record) => route('posts.show', $record)),
+
                     TableAction::make('copy')
                         ->label('Copy as Markdown')
                         ->icon('heroicon-o-clipboard-document')

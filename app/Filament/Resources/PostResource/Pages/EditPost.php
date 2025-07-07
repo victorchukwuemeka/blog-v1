@@ -19,6 +19,11 @@ class EditPost extends EditRecord
     {
         return [
             ActionGroup::make([
+                Action::make('open')
+                    ->label('Open')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->url(fn (Post $record) => route('posts.show', $record)),
+
                 Action::make('copy')
                     ->label('Copy as Markdown')
                     ->icon('heroicon-o-clipboard-document')
