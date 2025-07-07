@@ -18,7 +18,7 @@
                 <div class="mt-12 md:mt-16">
                     <div @class([
                         'grid grid-cols-2 gap-4 text-sm leading-tight md:grid-cols-4',
-                        // 'xl:grid-cols-5' => $user?->isAdmin(),
+                        'xl:grid-cols-5' => $user?->isAdmin(),
                     ])>
                         <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
                             <x-heroicon-o-calendar class="mx-auto mb-2 opacity-75 size-6" />
@@ -47,7 +47,7 @@
                             </div>
                         </a>
 
-                        {{-- <a href="#comments" class="group">
+                        <a href="#comments" class="group">
                             <div @class([
                                 'flex-1 p-3 text-center transition-colors rounded-lg bg-gray-50 hover:bg-blue-50 group-hover:text-blue-900',
                                 'text-blue-600' => $post->comments_count > 0,
@@ -56,7 +56,7 @@
                                 {{ $post->comments_count }}<br />
                                 {{ trans_choice('comment|comments', $post->comments_count) }}
                             </div>
-                        </a> --}}
+                        </a>
 
                         <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
                             <x-heroicon-o-clock class="mx-auto mb-2 opacity-75 size-6" />
@@ -107,6 +107,12 @@
                     </x-prose>
                 </div>
             </article>
+
+            @if ($post->comments_count)
+                <div class="mt-24">
+                    <livewire:comments :post-id="$post->id" />
+                </div>
+            @endif
         </div>
 
         <div class="lg:col-span-4 xl:col-span-3">
