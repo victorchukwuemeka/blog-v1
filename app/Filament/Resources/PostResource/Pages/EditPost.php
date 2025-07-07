@@ -22,7 +22,7 @@ class EditPost extends EditRecord
                 Action::make('copy')
                     ->label('Copy')
                     ->icon('heroicon-o-clipboard-document')
-                    ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . '); $dispatch("close")'),
+                    ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
 
                 DeleteAction::make(),
             ]),
