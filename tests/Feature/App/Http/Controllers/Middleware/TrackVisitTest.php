@@ -1,9 +1,14 @@
 <?php
 
+use App\Models\User;
+
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
 use Facades\App\Actions\TrackVisit;
+
+use function Pest\Laravel\actingAs;
+
 use Illuminate\Support\Facades\Route;
 
 use function Pest\Laravel\withServerVariables;
@@ -60,4 +65,13 @@ it('does not track requests from crawlers', function () {
     TrackVisit::shouldReceive('track')->never();
 
     get('/', ['User-Agent' => 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36']);
+});
+
+it('does not track requests from admins', function () {
+    TrackVisit::shouldReceive('track')->never();
+
+    $user = User::factory()->create(['email' => 'benjamincrozat@me.com']);
+
+    actingAs($user)
+        ->get('/');
 });
