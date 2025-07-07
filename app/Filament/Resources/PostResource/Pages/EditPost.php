@@ -20,7 +20,7 @@ class EditPost extends EditRecord
         return [
             ActionGroup::make([
                 Action::make('copy')
-                    ->label('Copy')
+                    ->label('Copy as Markdown')
                     ->icon('heroicon-o-clipboard-document')
                     ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
 

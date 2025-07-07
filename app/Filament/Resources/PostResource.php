@@ -11,6 +11,7 @@ use Spatie\Image\Enums\Fit;
 use Filament\Schemas\Schema;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Select;
 use Filament\Actions\DeleteBulkAction;
@@ -194,25 +195,18 @@ class PostResource extends Resource
                     ),
             ])
             ->recordActions([
-                EditAction::make()
-                    ->icon('')
-                    ->button()
-                    ->outlined()
-                    ->size('xs'),
+                ActionGroup::make([
+                    TableAction::make('copy')
+                        ->label('Copy as Markdown')
+                        ->icon('heroicon-o-clipboard-document')
+                        ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
 
-                DeleteAction::make()
-                    ->icon('')
-                    ->button()
-                    ->outlined()
-                    ->size('xs'),
+                    EditAction::make()
+                        ->icon('heroicon-o-pencil-square'),
 
-                TableAction::make('copy')
-                    ->label('Copy')
-                    ->button()
-                    ->outlined()
-                    ->size('xs')
-                    ->tooltip('Copy the article in Markdown format')
-                    ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
+                    DeleteAction::make()
+                        ->icon('heroicon-o-trash'),
+                ]),
             ])
             ->toolbarActions([
                 DeleteBulkAction::make(),
