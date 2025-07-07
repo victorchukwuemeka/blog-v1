@@ -91,14 +91,14 @@
                             <p>Did you like this article? Then, keep learning:</p>
 
                             <ul>
-                                @foreach ($post->recommendedPosts as $post)
+                                @foreach ($post->recommendedPosts as $recommendedPost)
                                     <li>
                                         <a
                                             wire:navigate
-                                            href="{{ route('posts.show', $post) }}"
-                                            data-pirsch-event='Clicked on recommended post "{{ $post->title }}"'
+                                            href="{{ route('posts.show', $recommendedPost) }}"
+                                            data-pirsch-event='Clicked on recommended post "{{ $recommendedPost->title }}"'
                                         >
-                                            {{ trim($post->reason, '.') }}
+                                            {{ trim($recommendedPost->reason, '.') }}
                                         </a>
                                     </li>
                                 @endforeach
