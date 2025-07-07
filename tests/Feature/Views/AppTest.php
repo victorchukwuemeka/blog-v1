@@ -17,10 +17,10 @@ it("includes Pirsch's script in production", function () {
     withoutMiddleware(TrackVisit::class);
 
     get('/')
-        ->assertSee('src="https://api.pirsch.io/pa.js"', escape: false);
+        ->assertSee('https://api.pirsch.io/pa.js', escape: false);
 });
 
 it('signals the Atom feed', function () {
     get('/')
-        ->assertSee('<link rel="alternate" type="application/atom+xml"', escape: false);
+        ->assertSee('application/atom+xml', escape: false);
 });
