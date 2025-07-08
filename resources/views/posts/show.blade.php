@@ -108,11 +108,9 @@
                 </div>
             </article>
 
-            @if ($post->comments_count)
-                <div class="mt-24">
-                    <livewire:comments :post-id="$post->id" />
-                </div>
-            @endif
+            <div class="mt-24">
+                <livewire:comments :post-id="$post->id" />
+            </div>
         </div>
 
         <div class="lg:col-span-4 xl:col-span-3">
