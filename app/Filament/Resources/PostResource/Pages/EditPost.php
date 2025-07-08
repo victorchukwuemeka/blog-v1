@@ -22,7 +22,7 @@ class EditPost extends EditRecord
                 Action::make('open')
                     ->label('Open')
                     ->icon('heroicon-o-arrow-top-right-on-square')
-                    ->url(fn (Post $record) => route('posts.show', $record)),
+                    ->url(fn (Post $record) => route('posts.show', $record), shouldOpenInNewTab: true),
 
                 Action::make('copy')
                     ->label('Copy as Markdown')
