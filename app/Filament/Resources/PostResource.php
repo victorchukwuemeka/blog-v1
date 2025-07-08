@@ -6,6 +6,8 @@ use App\Str;
 use App\Models\Post;
 use Filament\Tables\Table;
 use Illuminate\Support\Js;
+use App\Jobs\RecommendPosts;
+use Filament\Actions\Action;
 use Filament\Schemas\Schema;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
@@ -19,6 +21,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
@@ -89,6 +92,11 @@ class PostResource extends Resource
                     ->fileAttachmentsDirectory('images/posts')
                     ->columnSpanFull(),
 
+                Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->required()
+                    ->label('Author'),
+
                 TextInput::make('serp_title')
                     ->maxLength(255)
                     ->label('SERP Title')
@@ -102,12 +110,7 @@ class PostResource extends Resource
                     ->nullable()
                     ->maxLength(255)
                     ->rules('url')
-                    ->columnSpanFull(),
-
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required()
-                    ->label('Author'),
+                    ->label('Canonical URL'),
 
                 DateTimePicker::make('published_at')
                     ->timezone('Europe/Paris')
@@ -188,6 +191,17 @@ class PostResource extends Resource
                         ->label('Copy as Markdown')
                         ->icon('heroicon-o-clipboard-document')
                         ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
+
+                    Action::make('recommendations')
+                        ->action(function (Post $record) {
+                            RecommendPosts::dispatch($record);
+
+                            Notification::make()
+                                ->title('A job has been queued to refresh the recommendations.')
+                                ->success()
+                                ->send();
+                        })
+                        ->icon('heroicon-o-arrow-path'),
 
                     EditAction::make()
                         ->icon('heroicon-o-pencil-square'),

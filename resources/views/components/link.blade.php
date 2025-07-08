@@ -7,7 +7,7 @@
         data-pirsch-event='Clicked the image of "{{ $link->title }}"'
     >
         @if ($link->image_url)
-            <img src="{{ $link->image_url }}" alt="{{ $link->title  }}" class="object-cover transition-opacity shadow-md shadow-black/5 rounded-xl aspect-video hover:opacity-50 ring-1 ring-black/5" />
+            <img src="{{ $link->image_url }}" alt="{{ $link->title  }}" class="object-cover rounded-xl ring-1 shadow-md transition-opacity shadow-black/5 aspect-video hover:opacity-50 ring-black/5" />
         @else
             @php
             $bgColors = collect([
@@ -19,10 +19,16 @@
         @endif
     </a>
 
-    <div class="flex items-center gap-2 mt-4">
-        <time datetime="{{ $link->is_approved }}">
-            {{ $link->is_approved->isoFormat('LL') }}
-        </time>
+    <div class="flex gap-2 items-center mt-4">
+        @if ($link->post)
+            <a href="{{ route('posts.show', $link->post) }}" class="underline underline-offset-4 decoration-gray-600/30 decoration-1">
+        @endif
+                <time datetime="{{ $link->is_approved }}">
+                        {{ $link->is_approved->isoFormat('LL') }}
+                </time>
+        @if ($link->post)
+            </a>
+        @endif
 
         <a
             href="{{ $link->user->github_data['user']['html_url'] }}"
@@ -30,12 +36,17 @@
             class="flex items-center"
             data-pirsch-event='Clicked "{{ $link->user->name }}"'
         >
-            <span class="mr-2 text-xs opacity-50">/</span>
-            <span class="text-black underline underline-offset-4 decoration-black/30">{{ $link->user->name }}</span>
+            <span class="mr-2 text-xs opacity-50">
+                /
+            </span>
+
+            <span class="text-black underline underline-offset-4 decoration-black/30">
+                {{ $link->user->name }}
+            </span>
         </a>
     </div>
 
-    <div class="flex items-center justify-between gap-6 mt-2">
+    <div class="flex gap-6 justify-between items-center mt-2">
         <a
             href="{{ $link->url }}"
             target="_blank"

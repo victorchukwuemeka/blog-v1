@@ -13,7 +13,8 @@ it('shows a post', function () {
         ->assertOk()
         ->assertViewIs('posts.show')
         ->assertViewHas('post', $post)
-        ->assertSee("<title>{$post->serp_title}</title>", escape: false);
+        ->assertSee("<title>{$post->serp_title}</title>", escape: false)
+        ->assertSee("<meta name=\"description\" content=\"{$post->description}\" />", escape: false);
 });
 
 it('without a SERP title, the title is used', function () {

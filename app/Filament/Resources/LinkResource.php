@@ -6,6 +6,7 @@ use App\Models\Link;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
 use Filament\Schemas\Schema;
+use App\Jobs\CreatePostForLink;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
@@ -50,6 +51,13 @@ class LinkResource extends Resource
                     ->columnSpanFull()
                     ->label('Sender'),
 
+                Select::make('post_id')
+                    ->relationship('post', 'title')
+                    ->searchable()
+                    ->columnSpanFull()
+                    ->label('Post')
+                    ->helperText("Any link can be associated with a post. Usually, they're AI-generated."),
+
                 TextInput::make('url')
                     ->required()
                     ->url()
@@ -59,6 +67,12 @@ class LinkResource extends Resource
 
                 TextInput::make('image_url')
                     ->url()
+                    ->label('Image URL')
+                    ->columnSpanFull(),
+
+                TextInput::make('author')
+                    ->required()
+                    ->maxLength(255)
                     ->columnSpanFull(),
 
                 TextInput::make('title')
@@ -155,32 +169,78 @@ class LinkResource extends Resource
                     ->default('pending'),
             ])
             ->recordActions([
-                Action::make('approve')
-                    ->action(function (Link $record, array $data) {
-                        $record->approve($data['notes']);
-
-                        Notification::make()
-                            ->title('The link has been approved.')
-                            ->success()
-                            ->send();
-                    })
-                    ->modalHeading('Approve Link')
-                    ->modalSubmitActionLabel('Approve')
-                    ->hidden(fn (Link $record) => $record->isApproved())
-                    ->color('success')
-                    ->button()
-                    ->outlined()
-                    ->size('xs'),
-
-                Action::make('decline')
-                    ->action(fn (Link $record) => $record->decline())
-                    ->hidden(fn (Link $record) => $record->isDeclined())
-                    ->color('danger')
-                    ->button()
-                    ->outlined()
-                    ->size('xs'),
-
                 ActionGroup::make([
+                    Action::make('approve')
+                        ->schema([
+                            Textarea::make('notes')
+                                ->helperText('These notes will help when generating the small companion article designed to entice readers to click.'),
+                        ])
+                        ->modalHeading('Approve Link')
+                        ->modalSubmitActionLabel('Approve')
+                        ->modalFooterActions([
+                            Action::make('regenerate')
+                                ->action(function (Link $record, array $data) {
+                                    $record->approve();
+
+                                    Notification::make()
+                                        ->title('The link has been approved.')
+                                        ->success()
+                                        ->send();
+                                })
+                                ->color('gray')
+                                ->label('Approve without post'),
+
+                            Action::make('approve')
+                                ->action(function (Link $record, array $data) {
+                                    $record->approve($data['notes']);
+
+                                    if ($record->post_id) {
+                                        Notification::make()
+                                            ->title('The link has been approved.')
+                                            ->success()
+                                            ->send();
+                                    } else {
+                                        CreatePostForLink::dispatch($record);
+
+                                        Notification::make()
+                                            ->title('The link has been approved and a post is being created.')
+                                            ->success()
+                                            ->send();
+                                    }
+                                })
+                                ->label('Approve and generate post'),
+                        ])
+                        ->hidden(fn (Link $record) => $record->isApproved())
+                        ->color('success')
+                        ->icon('heroicon-o-check')
+                        ->label('Approve'),
+
+                    Action::make('decline')
+                        ->action(fn (Link $record) => $record->decline())
+                        ->hidden(fn (Link $record) => $record->isDeclined())
+                        ->color('danger')
+                        ->icon('heroicon-o-x-circle'),
+
+                    Action::make('regenerate')
+                        ->action(function (Link $record, array $data) {
+                            $record->approve($data['notes']);
+
+                            CreatePostForLink::dispatch($record);
+
+                            Notification::make()
+                                ->title('A new post is being regenerated.')
+                                ->success()
+                                ->send();
+                        })
+                        ->schema([
+                            Textarea::make('notes')
+                                ->helperText('These notes will help when generating the small companion article designed to entice readers to click.'),
+                        ])
+                        ->modalHeading('Approve Link')
+                        ->modalSubmitActionLabel('Approve')
+                        ->hidden(fn (Link $record) => is_null($record->post_id))
+                        ->icon('heroicon-o-arrow-path'),
+
                     Action::make('Put back in pending')
                         ->action(fn (Link $record) => $record->update([
                             'is_approved' => null,

@@ -85,6 +85,14 @@
                     <x-prose class="mt-8">
                         {!! $post->formatted_content !!}
 
+                        @if ($post->link)
+                            <p>
+                                <a href="{{ $post->link->url }}" target="_blank">
+                                    Read more on {{ $post->link->domain }} →
+                                </a>
+                            </p>
+                        @endif
+
                         @if (! empty($post->recommendedPosts))
                             <hr />
 

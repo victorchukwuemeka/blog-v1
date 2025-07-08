@@ -12,7 +12,10 @@ class RecommendPosts
      */
     public function recommend(Post $post) : void
     {
-        $candidates = Post::query()->published()->get();
+        $candidates = Post::query()
+            ->published()
+            ->where('id', '!=', $post->id)
+            ->get();
 
         $response = OpenAI::chat()->create([
             'model' => 'gpt-4.1-mini',
