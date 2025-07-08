@@ -1,8 +1,8 @@
 @props([
-    'canonical' => url()->current(),
+    'canonical' => $canonical ?? url()->current(),
     'description' => '',
     'image' => '',
-    'title' => config('app.name'),
+    'title' => $title ?? config('app.name'),
 ])
 
 <!DOCTYPE html>
