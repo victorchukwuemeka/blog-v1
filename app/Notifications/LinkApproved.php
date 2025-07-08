@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Notifications;
+
+use App\Models\Link;
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
+
+class LinkApproved extends Notification
+{
+    use Queueable;
+
+    public function __construct(public Link $link) {}
+
+    public function via(object $notifiable) : array
+    {
+        return ['mail'];
+    }
+
+    public function toMail(object $notifiable) : MailMessage
+    {
+        return (new MailMessage)
+            ->subject('Your link was approved')
+            ->greeting('Thank you for submitting!')
+            ->line("Your link to {$this->link->domain} is live on the blog and ready to be seen by my visitors.")
+            ->line('By the way, if you want to do me a favor, follow me on [X](https://x.com/benjamincrozat) and [LinkedIn](https://www.linkedin.com/in/benjamincrozat/)!');
+    }
+}

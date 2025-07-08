@@ -6,11 +6,19 @@ use App\Models\Link;
 use App\Models\Post;
 use App\Jobs\RecommendPosts;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Http;
+use fivefilters\Readability\Readability;
 
 class CreatePostForLink
 {
     public function create(Link $link) : Post
     {
+        $response = Http::get($link->url)->throw();
+
+        $html = $response->body();
+
+        app(Readability::class)->parse($html);
+
         $response = OpenAI::chat()->create([
             'model' => 'gpt-4.1',
             'messages' => [
@@ -22,8 +30,9 @@ class CreatePostForLink
                     'role' => 'user',
                     'content' => view('components.prompts.create-post-for-link.user', [
                         'url' => $link->url,
-                        'title' => $link->title,
-                        'author' => $link->author,
+                        'author' => app(Readability::class)->getAuthor(),
+                        'title' => app(Readability::class)->getTitle(),
+                        'content' => app(Readability::class)->getContent(),
                         'description' => $link->description,
                         'notes' => $link->notes,
                     ])->render(),

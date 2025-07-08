@@ -78,7 +78,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function isAdmin() : bool
     {
-        return 'benjamincrozat@me.com' === $this->email;
+        return 'benjamincrozat' === $this->github_login;
     }
 
     public function canAccessPanel(Panel $panel) : bool

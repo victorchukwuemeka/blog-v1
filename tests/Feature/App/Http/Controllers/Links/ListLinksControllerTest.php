@@ -62,9 +62,9 @@ it('passes distinct user avatars to the view', function () {
         });
 });
 
-it('excludes specific emails from distinct user avatars', function () {
+it('excludes specific users from distinct user avatars', function () {
     User::factory()->sequence(
-        ['email' => 'benjamincrozat@me.com'],
+        ['github_login' => 'benjamincrozat'],
     )->create([
         'avatar' => 'https://example.com/excluded-avatar.png',
     ])->each(function (User $user) {
@@ -99,7 +99,7 @@ it('passes distinct users count to the view', function () {
 
     // Create excluded users (they shouldn't be counted as well).
     $excludedUser = User::factory()->create([
-        'email' => 'benjamincrozat@me.com',
+        'github_login' => 'benjamincrozat',
         'avatar' => 'https://example.com/avatar.png',
     ]);
 

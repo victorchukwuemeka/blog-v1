@@ -4,6 +4,8 @@ use App\Models\Link;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\CarbonImmutable;
+use App\Notifications\LinkApproved;
+use Illuminate\Support\Facades\Notification;
 
 it('casts is_approved and is_declined to datetime', function () {
     $link = Link::factory()->create([
@@ -85,7 +87,9 @@ it('has a domain attribute', function () {
     expect($link->domain)->toBe('google.com');
 });
 
-it('can change to approved', function () {
+it('can change to approved and notify the user', function () {
+    Notification::fake();
+
     $link = Link::factory()->create([
         'is_approved' => null,
         'is_declined' => null,
@@ -96,6 +100,8 @@ it('can change to approved', function () {
     $link->approve();
 
     expect($link->is_approved)->toBeInstanceOf(CarbonImmutable::class);
+
+    Notification::assertSentToTimes($link->user, LinkApproved::class, 1);
 });
 
 it('can change to declined', function () {

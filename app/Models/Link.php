@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\LinkApproved;
 use Database\Factories\LinkFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -71,6 +72,8 @@ class Link extends Model
             'is_approved' => now(),
             'is_declined' => null,
         ]);
+
+        $this->user->notify(new LinkApproved($this));
 
         return $this;
     }

@@ -70,7 +70,7 @@ it('does not track requests from crawlers', function () {
 it('does not track requests from admins', function () {
     TrackVisit::shouldReceive('track')->never();
 
-    $user = User::factory()->create(['email' => 'benjamincrozat@me.com']);
+    $user = User::factory()->create(['github_login' => 'benjamincrozat']);
 
     actingAs($user)
         ->get('/');

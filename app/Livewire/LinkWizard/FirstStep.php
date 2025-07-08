@@ -51,7 +51,6 @@ class FirstStep extends StepComponent
             Http::head($this->url)->throw();
 
             $this->nextStep();
-
         } catch (ConnectionException|RequestException $e) {
             throw ValidationException::withMessages([
                 'url' => 'Your URL is invalid.',

@@ -38,7 +38,7 @@ it('throws a 404 to guests if the post is not published', function () {
 
 it('shows unpublished posts if the user is admin', function () {
     $user = User::factory()->create([
-        'email' => 'benjamincrozat@me.com',
+        'github_login' => 'benjamincrozat',
     ]);
 
     $post = Post::factory()->create([

@@ -14,7 +14,7 @@ class ListLinksController extends Controller
         $distinctUsersQuery = Link::query()
             ->select('user_id')
             ->distinct('user_id')
-            ->whereRelation('user', fn (Builder $query) => $query->whereNotIn('email', ['benjamincrozat@me.com']))
+            ->whereRelation('user', fn (Builder $query) => $query->where('github_login', '!=', 'benjamincrozat'))
             ->approved();
 
         return view('links.index', [

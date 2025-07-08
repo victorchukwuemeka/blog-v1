@@ -4,12 +4,14 @@ namespace App\Livewire\LinkWizard;
 
 use Embed\Embed;
 use App\Models\Link;
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
+use App\Notifications\LinkWaitingForValidation;
 use Spatie\LivewireWizard\Components\StepComponent;
 
 class SecondStep extends StepComponent
@@ -81,13 +83,18 @@ class SecondStep extends StepComponent
     {
         $this->validate();
 
-        Link::query()->create([
+        $link = Link::query()->create([
             'user_id' => auth()->id(),
             'url' => $this->url,
             'image_url' => $this->imageUrl,
             'title' => $this->title,
             'description' => $this->description,
         ]);
+
+        User::query()
+            ->where('github_login', 'benjamincrozat')
+            ->first()
+            ->notify(new LinkWaitingForValidation($link));
 
         $this->redirect(route('links.index', ['submitted' => true]), true);
     }
