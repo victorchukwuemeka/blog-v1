@@ -86,7 +86,7 @@ class PostResource extends Resource
                 MarkdownEditor::make('content')
                     ->required()
                     ->fileAttachmentsDisk('public')
-                    ->fileAttachmentsDirectory('posts')
+                    ->fileAttachmentsDirectory('images/posts')
                     ->columnSpanFull(),
 
                 TextInput::make('serp_title')

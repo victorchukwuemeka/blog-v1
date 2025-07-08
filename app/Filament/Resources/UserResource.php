@@ -15,7 +15,7 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
-use App\Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\UserResource\Pages\EditUser;
 use App\Filament\Resources\UserResource\Pages\ViewUser;
 use App\Filament\Resources\UserResource\Pages\ListUsers;

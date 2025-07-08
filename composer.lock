@@ -3050,16 +3050,16 @@
         },
         {
             "name": "laravel/nightwatch",
-            "version": "v1.10.3",
+            "version": "v1.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/nightwatch.git",
-                "reference": "90ec0f78fe09b5328a36b03d8d42d0ef5ecc61d1"
+                "reference": "075c2cd68cb2fbfa460799d1d24c10d0abbdb2fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/nightwatch/zipball/90ec0f78fe09b5328a36b03d8d42d0ef5ecc61d1",
-                "reference": "90ec0f78fe09b5328a36b03d8d42d0ef5ecc61d1",
+                "url": "https://api.github.com/repos/laravel/nightwatch/zipball/075c2cd68cb2fbfa460799d1d24c10d0abbdb2fb",
+                "reference": "075c2cd68cb2fbfa460799d1d24c10d0abbdb2fb",
                 "shasum": ""
             },
             "require": {
@@ -3075,11 +3075,14 @@
                 "symfony/http-foundation": "^6.0|^7.0"
             },
             "require-dev": {
+                "aws/aws-sdk-php": "^3.349",
                 "ext-pdo": "*",
                 "guzzlehttp/guzzle": "^7.0",
                 "guzzlehttp/psr7": "^2.0",
                 "laravel/horizon": "^5.4",
                 "laravel/pint": "1.21.0",
+                "laravel/vapor-core": "^2.38.2",
+                "livewire/livewire": "^2.0|^3.0",
                 "mockery/mockery": "^1.0",
                 "mongodb/laravel-mongodb": "^4.0|^5.0",
                 "orchestra/testbench": "^8.0|^9.0|^10.0",
@@ -3088,6 +3091,7 @@
                 "phpstan/phpstan": "^1.0",
                 "phpunit/phpunit": "^10.0|^11.0",
                 "ramsey/uuid": "^4.0",
+                "singlestoredb/singlestoredb-laravel": "^1.0|^2.0",
                 "spatie/laravel-ignition": "^2.0",
                 "symfony/mailer": "^6.0|^7.0",
                 "symfony/mime": "^6.0|^7.0",
@@ -3128,7 +3132,7 @@
                 "issues": "https://github.com/laravel/nightwatch/issues",
                 "source": "https://github.com/laravel/nightwatch"
             },
-            "time": "2025-07-02T00:39:56+00:00"
+            "time": "2025-07-08T01:29:53+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -5362,16 +5366,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v4.30.0",
+            "version": "v4.30.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "df9b0f4d229c37c3caa5a9252a6ad8a94efb0fb5"
+                "reference": "4550fc0dbf01aff86d12691f8a7f6ce22d2b2edc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/df9b0f4d229c37c3caa5a9252a6ad8a94efb0fb5",
-                "reference": "df9b0f4d229c37c3caa5a9252a6ad8a94efb0fb5",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/4550fc0dbf01aff86d12691f8a7f6ce22d2b2edc",
+                "reference": "4550fc0dbf01aff86d12691f8a7f6ce22d2b2edc",
                 "shasum": ""
             },
             "require": {
@@ -5385,13 +5389,13 @@
             },
             "require-dev": {
                 "ext-zlib": "*",
-                "friendsofphp/php-cs-fixer": "^3.75.0",
-                "infection/infection": "^0.29.14",
+                "friendsofphp/php-cs-fixer": "^3.80.0",
+                "infection/infection": "^0.30.1",
                 "phpbench/phpbench": "^1.4.1",
-                "phpstan/phpstan": "^2.1.16",
+                "phpstan/phpstan": "^2.1.17",
                 "phpstan/phpstan-phpunit": "^2.0.6",
                 "phpstan/phpstan-strict-rules": "^2.0.4",
-                "phpunit/phpunit": "^12.1.5"
+                "phpunit/phpunit": "^12.2.6"
             },
             "suggest": {
                 "ext-iconv": "To handle non UTF-8 CSV files (if \"php-mbstring\" is not already installed or is too limited)",
@@ -5439,7 +5443,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v4.30.0"
+                "source": "https://github.com/openspout/openspout/tree/v4.30.1"
             },
             "funding": [
                 {
@@ -5451,7 +5455,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-20T12:33:06+00:00"
+            "time": "2025-07-07T06:15:55+00:00"
         },
         {
             "name": "oscarotero/html-parser",
@@ -11955,16 +11959,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.13.2",
+            "version": "1.13.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "d25e62e636b0a9b01e3bdebb7823b474876dd829"
+                "reference": "faed855a7b5f4d4637717c2b3863e277116beb36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/d25e62e636b0a9b01e3bdebb7823b474876dd829",
-                "reference": "d25e62e636b0a9b01e3bdebb7823b474876dd829",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/faed855a7b5f4d4637717c2b3863e277116beb36",
+                "reference": "faed855a7b5f4d4637717c2b3863e277116beb36",
                 "shasum": ""
             },
             "require": {
@@ -12003,7 +12007,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.2"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.3"
             },
             "funding": [
                 {
@@ -12011,7 +12015,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-04T14:07:32+00:00"
+            "time": "2025-07-05T12:25:42+00:00"
         },
         {
             "name": "nunomaduro/collision",
@@ -12578,22 +12582,22 @@
         },
         {
             "name": "pestphp/pest-plugin-type-coverage",
-            "version": "v3.5.1",
+            "version": "v3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest-plugin-type-coverage.git",
-                "reference": "78d65c9c4f0a77e0aab5c0d70991bda20e7821d9"
+                "reference": "dff0a51ad90a4cd5795cccd2f8805806a4658210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/78d65c9c4f0a77e0aab5c0d70991bda20e7821d9",
-                "reference": "78d65c9c4f0a77e0aab5c0d70991bda20e7821d9",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/dff0a51ad90a4cd5795cccd2f8805806a4658210",
+                "reference": "dff0a51ad90a4cd5795cccd2f8805806a4658210",
                 "shasum": ""
             },
             "require": {
                 "pestphp/pest-plugin": "^3.0.0",
                 "php": "^8.2",
-                "phpstan/phpstan": "^1.12.21|^2.1.12",
+                "phpstan/phpstan": "^1.12.21|^2.1.17",
                 "tomasvotruba/type-coverage": "^1.0.0|^2.0.2"
             },
             "require-dev": {
@@ -12630,7 +12634,7 @@
                 "unit"
             ],
             "support": {
-                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/v3.5.1"
+                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/v3.6.0"
             },
             "funding": [
                 {
@@ -12642,7 +12646,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-20T21:49:49+00:00"
+            "time": "2025-07-05T17:57:07+00:00"
         },
         {
             "name": "phar-io/manifest",
