@@ -12,7 +12,15 @@ it('shows a post', function () {
     get(route('posts.show', $post))
         ->assertOk()
         ->assertViewIs('posts.show')
-        ->assertViewHas('post', $post);
+        ->assertViewHas('post', $post)
+        ->assertSee("<title>{$post->serp_title}</title>", escape: false);
+});
+
+it('without a SERP title, the title is used', function () {
+    $post = Post::factory()->create(['serp_title' => null]);
+
+    get(route('posts.show', $post))
+        ->assertSee("<title>{$post->title}</title>", escape: false);
 });
 
 it('throws a 404 if the post does not exist', function () {
