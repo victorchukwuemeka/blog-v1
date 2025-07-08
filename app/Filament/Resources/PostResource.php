@@ -4,10 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Str;
 use App\Models\Post;
-use Spatie\Image\Image;
 use Filament\Tables\Table;
 use Illuminate\Support\Js;
-use Spatie\Image\Enums\Fit;
 use Filament\Schemas\Schema;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
@@ -57,22 +55,7 @@ class PostResource extends Resource
                     ->image()
                     ->disk(fn (Post $record) : string => $record->image_disk ?? 'public')
                     ->directory('posts')
-                    ->saveUploadedFileUsing(function (TemporaryUploadedFile $file) {
-                        // if (str_contains($file->getMimeType(), 'image/')) {
-                        //     $image = Image::load($file->path());
-
-                        //     if ($image->getWidth() > 1500 || $image->getHeight() > 1500) {
-                        //         $image->fit(Fit::Contain, 1500, 1500);
-                        //     }
-
-                        //     $image
-                        //         ->quality(70)
-                        //         ->optimize()
-                        //         ->save($file->path());
-                        // }
-
-                        return $file->storePubliclyAs('posts', Str::ulid() . '.' . $file->getClientOriginalExtension(), ['disk' => 'public']);
-                    })
+                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file) => $file->storePubliclyAs('posts', Str::ulid() . '.' . $file->getClientOriginalExtension(), ['disk' => 'public']))
                     ->columnSpanFull()
                     ->label('Image'),
 
