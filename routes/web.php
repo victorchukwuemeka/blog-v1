@@ -8,6 +8,7 @@ use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
+use App\Http\Controllers\RedirectToAdvertiserController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
@@ -35,6 +36,9 @@ Route::get('/links/create', LinkWizard::class)
 
 Route::get('/advertise', AdvertiseController::class)
     ->name('advertise');
+
+Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)
+    ->name('redirect-to-advertiser');
 
 Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');

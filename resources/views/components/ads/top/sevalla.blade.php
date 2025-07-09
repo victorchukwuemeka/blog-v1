@@ -1,6 +1,6 @@
 <p class="text-orange-900 bg-orange-50">
     <a
-        href="https://sevalla.com??utm_source=benjamin_crozat&utm_medium=top"
+        href="{{ route('redirect-to-advertiser', 'sevalla-top') }}"
         target="_blank"
         class="container block py-4 leading-tight text-center"
     >

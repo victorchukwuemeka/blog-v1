@@ -3,7 +3,7 @@
         $attributes
             ->class('grid sticky top-4 gap-4 p-4 !pt-6 leading-tight bg-blue-50/75 text-blue-900 rounded-xl')
             ->merge([
-                'href' => 'https://vemetric.com?utm_source=benjamin_crozat&utm_medium=sidebar',
+                'href' => route('redirect-to-advertiser', 'vemetric-sidebar'),
                 'target' => '_blank',
             ])
     }}
