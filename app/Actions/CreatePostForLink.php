@@ -33,7 +33,6 @@ class CreatePostForLink
                         'author' => app(Readability::class)->getAuthor(),
                         'title' => app(Readability::class)->getTitle(),
                         'content' => app(Readability::class)->getContent(),
-                        'description' => $link->description,
                         'notes' => $link->notes,
                     ])->render(),
                 ],

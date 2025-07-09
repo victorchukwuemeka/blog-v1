@@ -1,5 +1,5 @@
 URL: {{ $url }}
 Title: {{ $title }}
 Author: {{ $author }}
-Description: {{ $description }}
+Content: {{ $content }}
 Notes: {{ $notes }}

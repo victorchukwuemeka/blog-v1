@@ -173,6 +173,7 @@ class Post extends Model implements Feedable
     {
         return static::query()
             ->published()
+            ->whereDoesntHave('link')
             ->latest('published_at')
             ->limit(50)
             ->get();

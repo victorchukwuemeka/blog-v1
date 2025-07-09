@@ -28,8 +28,8 @@ class ListLinksController extends Controller
             'distinctUsersCount' => $distinctUsersQuery->count(),
 
             'links' => Link::query()
-                ->approved()
                 ->latest('is_approved')
+                ->approved()
                 ->paginate(12),
         ]);
     }
