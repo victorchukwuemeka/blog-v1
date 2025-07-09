@@ -78,17 +78,6 @@ class Link extends Model
         return $this;
     }
 
-    public function approveWithoutNotifying(?string $notes = null) : self
-    {
-        $this->update([
-            'notes' => $notes,
-            'is_approved' => now(),
-            'is_declined' => null,
-        ]);
-
-        return $this;
-    }
-
     public function decline() : self
     {
         $this->update([
