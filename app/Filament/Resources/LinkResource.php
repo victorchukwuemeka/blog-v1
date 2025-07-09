@@ -7,10 +7,12 @@ use Filament\Tables\Table;
 use Filament\Actions\Action;
 use Filament\Schemas\Schema;
 use App\Jobs\CreatePostForLink;
+use Filament\Actions\BulkAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
+use Illuminate\Support\Collection;
 use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\Select;
 use Filament\Actions\DeleteBulkAction;
@@ -176,7 +178,6 @@ class LinkResource extends Resource
                                 ->helperText('These notes will help when generating the small companion article designed to entice readers to click.'),
                         ])
                         ->modalHeading('Approve Link')
-                        ->modalSubmitActionLabel('Approve')
                         ->modalFooterActions([
                             Action::make('regenerate')
                                 ->action(function (Link $record, array $data) {
@@ -221,7 +222,7 @@ class LinkResource extends Resource
                         ->color('danger')
                         ->icon('heroicon-o-x-circle'),
 
-                    Action::make('regenerate')
+                    Action::make('regenerate_post')
                         ->action(function (Link $record, array $data) {
                             $record->approve($data['notes']);
 
@@ -258,6 +259,23 @@ class LinkResource extends Resource
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
+                    BulkAction::make('approve')
+                        ->action(fn (Collection $records) => $records->each->approve())
+                        ->color('success')
+                        ->icon('heroicon-o-check'),
+
+                    BulkAction::make('decline')
+                        ->action(fn (Collection $records) => $records->each->decline())
+                        ->color('danger')
+                        ->icon('heroicon-o-x-circle'),
+
+                    BulkAction::make('Put back in pending')
+                        ->action(fn (Collection $records) => $records->each->update([
+                            'is_approved' => null,
+                            'is_declined' => null,
+                        ]))
+                        ->icon('heroicon-o-queue-list'),
+
                     DeleteBulkAction::make(),
                 ]),
             ]);

@@ -24,7 +24,7 @@
             <a href="{{ route('posts.show', $link->post) }}" class="underline underline-offset-4 decoration-gray-600/30 decoration-1">
         @endif
                 <time datetime="{{ $link->is_approved }}">
-                        {{ $link->is_approved->isoFormat('LL') }}
+                    {{ $link->is_approved->isoFormat('LL') }}
                 </time>
         @if ($link->post)
             </a>
