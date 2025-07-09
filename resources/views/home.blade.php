@@ -50,6 +50,28 @@
         </x-section>
     @endif
 
+    <x-section title="Latest links" id="links" class="mt-24 md:mt-32">
+        @if ($links->isNotEmpty())
+            <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
+                @foreach ($links as $link)
+                    <li>
+                        <x-link :$link />
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+
+        <div class="mt-16 text-center">
+            <x-btn
+                primary
+                wire:navigate
+                href="{{ route('links.index') }}"
+            >
+                Browse all links
+            </x-btn>
+        </div>
+    </x-section>
+
     <x-section title="Latest posts" id="latest" class="mt-24 md:mt-32">
         @if ($latest->isNotEmpty())
             <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">

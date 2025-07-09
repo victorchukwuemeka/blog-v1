@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Link;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\View\View;
@@ -23,6 +24,12 @@ class HomeController extends Controller
                 ->latest('published_at')
                 ->published()
                 ->whereDoesntHave('link')
+                ->limit(12)
+                ->get(),
+
+            'links' => Link::query()
+                ->latest('is_approved')
+                ->approved()
                 ->limit(12)
                 ->get(),
 
