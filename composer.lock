@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3ca7846733d400af312ff707374d552",
+    "content-hash": "5582b9e996a450472e7d485218bfa4f3",
     "packages": [
         {
             "name": "andreiio/blade-iconoir",
@@ -1117,6 +1117,69 @@
                 }
             ],
             "time": "2025-02-21T08:52:11+00:00"
+        },
+        {
+            "name": "dedmytro/laravel-cloudflare-images",
+            "version": "0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DeDmytro/laravel-cloudflare-images.git",
+                "reference": "ea394547bea1611db1700f1d732597709cf1b33b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DeDmytro/laravel-cloudflare-images/zipball/ea394547bea1611db1700f1d732597709cf1b33b",
+                "reference": "ea394547bea1611db1700f1d732597709cf1b33b",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2.1|^7.0",
+                "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^6.0|^9.0|^10.0",
+                "phpunit/phpunit": "^10.0|^11.5.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "CloudflareImages": "DeDmytro\\CloudflareImages\\Facades\\CloudflareApi"
+                    },
+                    "providers": [
+                        "DeDmytro\\CloudflareImages\\CloudflareImagesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DeDmytro\\CloudflareImages\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hodun Dmytro",
+                    "email": "godundmytro@gmail.com"
+                }
+            ],
+            "description": "Cloudflare API client and filesystem for Laravel",
+            "keywords": [
+                "CloudFlare API",
+                "cloudflare",
+                "cloudflare images",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/DeDmytro/laravel-cloudflare-images/issues",
+                "source": "https://github.com/DeDmytro/laravel-cloudflare-images"
+            },
+            "time": "2025-06-22T11:21:06+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

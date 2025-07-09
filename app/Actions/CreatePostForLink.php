@@ -15,9 +15,9 @@ class CreatePostForLink
     {
         $response = Http::get($link->url)->throw();
 
-        $html = $response->body();
-
-        app(Readability::class)->parse($html);
+        app(Readability::class)->parse(
+            $response->body()
+        );
 
         $response = OpenAI::chat()->create([
             'model' => 'gpt-4.1',
