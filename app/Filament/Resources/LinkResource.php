@@ -172,6 +172,10 @@ class LinkResource extends Resource
             ])
             ->recordActions([
                 ActionGroup::make([
+                    Action::make('open')
+                        ->url(fn (Link $record) => $record->url, shouldOpenInNewTab: true)
+                        ->icon('heroicon-o-arrow-top-right-on-square'),
+
                     Action::make('approve')
                         ->schema([
                             Textarea::make('notes')
