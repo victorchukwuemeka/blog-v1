@@ -222,7 +222,7 @@ class LinkResource extends Resource
                         ->color('danger')
                         ->icon('heroicon-o-x-circle'),
 
-                    Action::make('regenerate_post')
+                    Action::make('generate_post')
                         ->action(function (Link $record, array $data) {
                             $record->approve($data['notes']);
 
@@ -237,9 +237,8 @@ class LinkResource extends Resource
                             Textarea::make('notes')
                                 ->helperText('These notes will help when generating the small companion article designed to entice readers to click.'),
                         ])
-                        ->modalHeading('Approve Link')
-                        ->modalSubmitActionLabel('Approve')
-                        ->hidden(fn (Link $record) => is_null($record->post_id))
+                        ->modalHeading('Generate Post')
+                        ->modalSubmitActionLabel('Generate')
                         ->icon('heroicon-o-arrow-path'),
 
                     Action::make('Put back in pending')
