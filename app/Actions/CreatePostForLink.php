@@ -77,7 +77,7 @@ class CreatePostForLink
             'title' => $json->title,
             'content' => $json->content,
             'description' => $json->description,
-            'published_at' => now(),
+            'published_at' => $link->is_approved ?? now(),
         ]);
 
         $link->update([
