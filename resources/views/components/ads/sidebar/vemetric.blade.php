@@ -12,7 +12,7 @@
 
     <p class="text-center text-lg/tight text-blue-950"><strong class="font-semibold">“Let's ditch<br /> bloated analytics!”</strong></p>
 
-    <p>Vemetric plays nice with PHP, JavaScript, Python, and more, to give you real-time stats.</p>
+    <p>Vemetric plays nice with PHP and others to give you real-time stats.</p>
 
     <ul class="grid gap-1 -mt-2 ml-3 list-disc list-inside">
         <li>It's also open-source</li>
