@@ -3,16 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\LinkWizard\LinkWizard;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AdvertiseController;
 use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
 use App\Http\Controllers\CloudflareImagesTestController;
-use App\Http\Controllers\RedirectToAdvertiserController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
+use App\Http\Controllers\Advertising\RedirectToAdvertiserController;
 
 Route::get('/', HomeController::class)
     ->name('home');
@@ -35,7 +34,7 @@ Route::get('/links', ListLinksController::class)
 Route::get('/links/create', LinkWizard::class)
     ->name('links.create');
 
-Route::get('/advertise', AdvertiseController::class)
+Route::get('/advertise', App\Http\Controllers\Advertising\AdvertiseController::class)
     ->name('advertise');
 
 Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)

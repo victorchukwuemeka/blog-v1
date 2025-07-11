@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Advertising;
 
 use App\Models\Metric;
 use Illuminate\View\View;
 use Illuminate\Support\Number;
+use App\Http\Controllers\Controller;
 
 class AdvertiseController extends Controller
 {

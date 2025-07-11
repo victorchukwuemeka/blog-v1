@@ -3,7 +3,10 @@
         $attributes
             ->class('grid sticky top-4 gap-4 p-4 !pt-6 leading-tight bg-orange-50/75 rounded-xl text-orange-900')
             ->merge([
-                'href' => route('redirect-to-advertiser', 'sevalla-sidebar'),
+                'href' => route('redirect-to-advertiser', [
+                    'slug' => 'sevalla',
+                    'utm_medium' => 'sidebar',
+                ]),
                 'target' => '_blank',
             ])
     }}

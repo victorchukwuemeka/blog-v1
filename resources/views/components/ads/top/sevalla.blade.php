@@ -1,5 +1,8 @@
 <a
-    href="{{ route('redirect-to-advertiser', 'sevalla-top') }}"
+    href="{{ route('redirect-to-advertiser', [
+        'slug' => 'sevalla',
+        'utm_medium' => 'top',
+    ]) }}"
     target="_blank"
     {{ $attributes->class('block ring-1 ring-orange-50/75 text-orange-900 bg-gradient-to-r from-orange-50/75 to-orange-50/25') }}
 >
