@@ -8,6 +8,7 @@ use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
+use App\Http\Controllers\CloudflareImagesTestController;
 use App\Http\Controllers\RedirectToAdvertiserController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
@@ -42,6 +43,11 @@ Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)
 
 Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
+
+Route::get('/test/cloudflare-images', [CloudflareImagesTestController::class, 'show'])
+    ->name('cloudflare-images.show');
+Route::post('/test/cloudflare-images', [CloudflareImagesTestController::class, 'store'])
+    ->name('cloudflare-images.store');
 
 Route::feeds();
 

@@ -52,4 +52,9 @@ return [
         ],
     ],
 
+    'cloudflare_images' => [
+        'account_id' => env('CLOUDFLARE_IMAGES_ACCOUNT_ID'),
+        'token' => env('CLOUDFLARE_API_TOKEN'),
+    ],
+
 ];
