@@ -2,8 +2,12 @@
     <a
         href="{{ route('redirect-to-advertiser', 'sevalla-top') }}"
         target="_blank"
-        class="container block py-4 leading-tight text-center"
+        class="container flex gap-4 items-center py-4 leading-normal"
     >
-        Successful developers automate. Deploy with Sevalla. <span class="font-medium underline">Claim&nbsp;$50&nbsp;free&nbsp;credits&nbsp;→</span>
+        <span>
+            “Heard about Sevalla? They let you to deploy PHP apps with ease.” <span class="font-medium underline">Claim&nbsp;$50 →</span>
+        </span>
+
+        <img src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256" class="h-8 rounded-full" />
     </a>
 </p>
