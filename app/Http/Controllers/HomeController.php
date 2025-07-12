@@ -33,7 +33,9 @@ class HomeController extends Controller
                 ->limit(12)
                 ->get(),
 
-            'aboutUser' => User::first(),
+            'aboutUser' => User::query()
+                ->where('github_login', 'benjamincrozat')
+                ->first(),
         ]);
     }
 }
