@@ -11,9 +11,11 @@
             ])
     }}
 >
-    <img src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256" alt="Benjamin Crozat" class="mx-auto h-12 rounded-full" />
+    <img src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256" alt="Benjamin Crozat" class="mx-auto h-10 rounded-full" />
 
-    <p class="text-center text-lg/tight text-blue-950"><strong class="font-semibold">“Let's ditch<br /> bloated analytics!”</strong></p>
+    <p class="-mt-2 leading-tight text-center text-blue-950">
+        <strong class="font-semibold">“Let's ditch<br /> bloated analytics!”</strong>
+    </p>
 
     <p>Vemetric plays nice with PHP and others to give you real-time stats.</p>
 
@@ -21,13 +23,16 @@
         <li>It's also open-source</li>
         <li>No cookies, no consent banner</li>
         <li>EU-hosted, GDPR-ready</li>
-        <li>Clean dashboard</li>
         <li><strong class="font-medium text-blue-950">Early adopter price: $5/mo</strong></li>
     </ul>
 
-    <img src="{{ Vite::asset('resources/img/screenshots/vemetric.webp') }}" alt="Vemetric's dashboard" class="mt-1 rounded" />
+    <img
+        src="{{ Vite::asset('resources/img/screenshots/vemetric.webp') }}"
+        alt="Vemetric's dashboard"
+        class="z-10 mt-5 rounded ring-1 shadow-lg transition-transform scale-125 rotate-1 hover:rotate-0 hover:scale-150 shadow-blue-900/10 ring-blue-900/10"
+    />
 
-    <x-btn primary class="w-full mt-2 text-center !rounded-md cursor-pointer">
+    <x-btn primary class="w-full mt-6 text-center !rounded-md cursor-pointer">
         Start for free
     </x-btn>
 </a>
