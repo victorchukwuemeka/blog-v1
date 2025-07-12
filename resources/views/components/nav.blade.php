@@ -2,31 +2,13 @@
     <a
         wire:navigate
         href="{{ route('home') }}"
-        data-pirsch-event='Clicked the logo'
+        data-pirsch-event="Clicked the logo"
     >
         <x-logo />
         <span class="sr-only">{{ config('app.name') }}</span>
     </a>
 
     <div class="grow"></div>
-
-    <a
-        wire:navigate
-        href="{{ route('home') }}"
-        @class([
-            'transition-colors hover:text-blue-600',
-            'text-blue-600' => request()->routeIs('home'),
-        ])"
-        data-pirsch-event='Clicked "Home"'
-    >
-        @if (request()->routeIs('home'))
-            <x-heroicon-s-home class="mx-auto size-6 md:size-7" />
-        @else
-            <x-heroicon-o-home class="mx-auto size-6 md:size-7" />
-        @endif
-
-        Home
-    </a>
 
     <a
         wire:navigate

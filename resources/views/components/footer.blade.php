@@ -10,8 +10,8 @@
             <a href="mailto:hello@benjamincrozat.com">Contact</a>
         </nav>
 
-        <p class="mt-8 text-center">
-            This blog is hosted on <a href="https://cloud.laravel.com" target="_blank">Laravel Cloud</a>. Analytics provided by <a href="https://benjamincrozat.com/recommends/pirsch-analytics" target="_blank">Pirsch</a>.
+        <p class="mt-8 text-center text-balance">
+            My blog is hosted on <a href="https://cloud.laravel.com" target="_blank">Laravel Cloud</a>. Analytics provided by <a href="https://benjamincrozat.com/recommends/pirsch-analytics" target="_blank">Pirsch</a>.
         </p>
 
         <p class="mt-8 text-center text-gray-400">Please don't steal my content. © {{ date('Y') }} blah blah blah.</p>

@@ -49,8 +49,8 @@
 
                         <a href="#comments" class="group">
                             <div @class([
-                                'flex-1 p-3 text-center transition-colors rounded-lg bg-gray-50 hover:bg-blue-50 group-hover:text-blue-900',
-                                'text-blue-600' => $post->comments_count > 0,
+                                'flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900',
+                                'text-blue-600 bg-blue-50!' => $post->comments_count,
                             ])>
                                 <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-2 opacity-75 size-6" />
                                 {{ $post->comments_count }}<br />
@@ -60,7 +60,7 @@
 
                         <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
                             <x-heroicon-o-clock class="mx-auto mb-2 opacity-75 size-6" />
-                            {{ $post->read_time }} minutes<br />
+                            {{ trans_choice(':count min|:count mins', $post->read_time) }}<br />
                             read
                         </div>
 

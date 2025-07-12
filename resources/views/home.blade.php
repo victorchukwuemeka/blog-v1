@@ -100,7 +100,7 @@
                 <img
                     src="{{ $aboutUser->avatar }}"
                     alt="{{ $aboutUser->name }}"
-                    class="float-right mt-4 ml-4 rounded-full! size-28 md:size-32"
+                    class="float-right mt-4 ml-4 rounded-full! size-20 sm:size-28 md:size-32"
                 />
 
                 {!! Str::markdown($aboutUser->biography) !!}
