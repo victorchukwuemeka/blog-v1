@@ -43,17 +43,18 @@
                         <a
                             wire:navigate
                             href="{{ route('authors.show', $post->user) }}"
+                            class="flex-1"
                         >
-                            <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900">
+                            <div class="p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900">
                                 <img src="{{ $post->user->avatar }}" class="mx-auto mb-2 rounded-full size-6" />
                                 Written by<br />
                                 {{ $post->user->name }}
                             </div>
                         </a>
 
-                        <a href="#comments" class="group">
+                        <a href="#comments" class="flex-1">
                             <div @class([
-                                'flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900',
+                                'flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900',
                                 'text-blue-600 bg-blue-50!' => $post->comments_count,
                             ])>
                                 <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-2 opacity-75 size-6" />
@@ -62,10 +63,10 @@
                             </div>
                         </a>
 
-                        <x-dropdown>
+                        <x-dropdown class="flex-1">
                             <x-slot:btn
                                 data-pirsch-event='Clicked "Actions"'
-                                class="p-3 w-full h-full text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900"
+                                class="p-3 w-full h-full text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900"
                             >
                                 <x-heroicon-o-ellipsis-horizontal
                                     class="mx-auto transition-transform size-6 md:size-7"
