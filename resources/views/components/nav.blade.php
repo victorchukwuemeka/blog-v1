@@ -93,6 +93,14 @@
                         <x-heroicon-o-adjustments-horizontal class="size-4" />
                         Admin
                     </x-dropdown.item>
+
+                    <x-dropdown.item
+                        wire:navigate
+                        href="{{ route('show-cloudflare-images-form') }}"
+                    >
+                        <x-heroicon-o-cloud-arrow-up class="size-4" />
+                        Upload
+                    </x-dropdown.item>
                 @endif
 
                 <x-dropdown.divider />
