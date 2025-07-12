@@ -21,5 +21,5 @@ it('uploads an image to Cloudflare Images via real API', function () {
         ])
         ->assertRedirect(route('show-cloudflare-images-form'))
         ->assertSessionHas('success')
-        ->assertSessionHas('image_url');
+        ->assertSessionHas('url');
 });
