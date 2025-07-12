@@ -54,7 +54,8 @@
                 x-bind:class="{ 'bg-blue-50 text-blue-900': dragging }"
                 @click="$refs.file.click()"
             >
-                <x-heroicon-o-photo class="mx-auto h-16" />
+                <x-heroicon-o-photo class="mx-auto h-16" x-show="!dragging" />
+                <x-heroicon-o-inbox-arrow-down class="mx-auto h-16" x-cloak x-show="dragging" />
 
                 <p x-show="!dragging">
                     Click or drag and drop to upload an image.
