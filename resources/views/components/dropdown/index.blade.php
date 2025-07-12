@@ -16,6 +16,8 @@
                     'x-anchor.bottom' => '$el.previousElementSibling',
                     'x-cloak' => true,
                     'x-show' => 'open',
+                    'x-trap' => 'open',
+                    '@keydown.esc' => 'open = false',
                     '@click.away' => 'open = false',
                 ])
         }}
