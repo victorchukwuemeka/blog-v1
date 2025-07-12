@@ -14,7 +14,9 @@ use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Schemas\Components\Group;
 use Filament\Support\Enums\FontWeight;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\Textarea;
@@ -53,70 +55,102 @@ class PostResource extends Resource
     {
         return $schema
             ->components([
-                FileUpload::make('image_path')
-                    ->image()
-                    ->disk(fn (Get $get) => $get('image_disk') ?? config('filesystems.default'))
-                    ->columnSpanFull()
-                    ->label('Image')
-                    ->requiredWithAll('image_disk'),
+                Group::make([
+                    TextInput::make('title')
+                        ->required()
+                        ->maxLength(255)
+                        ->live(onBlur: true)
+                        ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                            // Only update slug if it hasn't been manually customized.
+                            if (($get('slug') ?? '') !== Str::slug($old)) {
+                                return;
+                            }
 
-                Select::make('image_disk')
-                    ->options(collect(config('filesystems.disks'))->mapWithKeys(fn (array $disk, string $key) => [$key => $key]))
-                    ->rules(['nullable', 'string', 'in:' . implode(',', array_keys(config('filesystems.disks')))])
-                    ->requiredWithAll('image_path')
-                    ->columnSpanFull()
-                    ->label('Image Disk'),
+                            // If the slug hasn't been customized, update it to match the new title
+                            $set('slug', Str::slug($state));
+                        }),
 
-                TextInput::make('title')
-                    ->required()
-                    ->maxLength(255)
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                        // Only update slug if it hasn't been manually customized.
-                        if (($get('slug') ?? '') !== Str::slug($old)) {
-                            return;
-                        }
+                    MarkdownEditor::make('content')
+                        ->required()
+                        ->columnSpanFull(),
+                ])
+                    ->columnSpan([
+                        'default' => 12,
+                        'lg' => 8,
+                    ]),
 
-                        // If the slug hasn't been customized, update it to match the new title
-                        $set('slug', Str::slug($state));
-                    }),
+                Group::make([
+                    FileUpload::make('image_path')
+                        ->image()
+                        ->disk(fn (Get $get) => $get('image_disk') ?? config('filesystems.default'))
+                        ->columnSpanFull()
+                        ->label('Image')
+                        ->requiredWithAll('image_disk'),
 
-                TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
+                    Select::make('image_disk')
+                        ->options(collect(config('filesystems.disks'))->mapWithKeys(fn (array $disk, string $key) => [$key => $key]))
+                        ->rules(['nullable', 'string', 'in:' . implode(',', array_keys(config('filesystems.disks')))])
+                        ->requiredWithAll('image_path')
+                        ->columnSpanFull()
+                        ->label('Disk')
+                        ->helperText('Where the image is stored.'),
 
-                MarkdownEditor::make('content')
-                    ->required()
-                    ->columnSpanFull(),
+                    TextInput::make('slug')
+                        ->required()
+                        ->maxLength(255),
 
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required()
-                    ->label('Author'),
+                    Select::make('user_id')
+                        ->relationship('user', 'name')
+                        ->required()
+                        ->searchable()
+                        ->label('Author'),
 
-                TextInput::make('serp_title')
-                    ->maxLength(255)
-                    ->label('SERP Title')
-                    ->helperText('This is the title that will appear in the search results.'),
+                    TextInput::make('serp_title')
+                        ->maxLength(255)
+                        ->label('SERP Title')
+                        ->helperText('This is the title that will appear in the search results.'),
 
-                Textarea::make('description')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                    Textarea::make('description')
+                        ->maxLength(65535)
+                        ->columnSpanFull(),
 
-                TextInput::make('canonical_url')
-                    ->nullable()
-                    ->maxLength(255)
-                    ->rules('url')
-                    ->label('Canonical URL'),
+                    Toggle::make('is_commercial')
+                        ->label('Commercial')
+                        ->default(false)
+                        ->helperText('This gives readers a focused layout.')
+                        ->columnSpanFull(),
 
-                DateTimePicker::make('published_at')
-                    ->timezone('Europe/Paris')
-                    ->native(false),
+                    TextInput::make('canonical_url')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->rules('url')
+                        ->label('Canonical URL')
+                        ->columnSpanFull(),
 
-                DateTimePicker::make('modified_at')
-                    ->timezone('Europe/Paris')
-                    ->native(false),
-            ]);
+                    DateTimePicker::make('published_at')
+                        ->timezone('Europe/Paris')
+                        ->native(false)
+                        ->seconds(false)
+                        ->closeOnDateSelection()
+                        ->label('Publication Date'),
+
+                    DateTimePicker::make('modified_at')
+                        ->timezone('Europe/Paris')
+                        ->native(false)
+                        ->seconds(false)
+                        ->closeOnDateSelection()
+                        ->label('Last Modification Date'),
+                ])
+                    ->columnSpan([
+                        'default' => 12,
+                        'lg' => 4,
+                    ])
+                    ->columnStart([
+                        'default' => 1,
+                        'lg' => 9,
+                    ]),
+            ])
+            ->columns(12);
     }
 
     public static function table(Table $table) : Table

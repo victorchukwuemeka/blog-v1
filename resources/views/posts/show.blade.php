@@ -1,11 +1,17 @@
 <x-app
     :canonical="$post->canonical_url"
     :description="$post->description"
+    :hide-ad="$post->is_commercial"
     :image="$post->image_url"
     :title="! empty($post->serp_title) ? $post->serp_title : $post->title"
 >
-    <div class="container 2xl:max-w-(--breakpoint-xl) grid lg:grid-cols-12 gap-16 lg:gap-12">
-        <div class="lg:col-span-8 xl:col-span-9">
+    <div @class([
+        'container lg:max-w-(--breakpoint-md)',
+        '2xl:max-w-(--breakpoint-xl) grid lg:grid-cols-12 gap-16 lg:gap-12' => ! $post->is_commercial,
+    ])>
+        <div @class([
+            'lg:col-span-8 xl:col-span-9' => ! $post->is_commercial,
+        ])>
             <article>
                 @if ($post->hasImage())
                     <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover mb-12 w-full rounded-xl ring-1 shadow-xl md:mb-16 ring-black/5 aspect-video" />
@@ -133,7 +139,7 @@
                             </p>
                         @endif
 
-                        @if (! empty($post->recommendedPosts))
+                        @if (! empty($post->recommendedPosts) && ! $post->is_commercial)
                             <hr />
 
                             <p>Did you like this article? Then, keep learning:</p>
@@ -156,28 +162,32 @@
                 </div>
             </article>
 
-            <div class="mt-24">
-                <livewire:comments :post-id="$post->id" />
-            </div>
-        </div>
-
-        <div class="lg:col-span-4 xl:col-span-3">
-            @if (now()->isAfter('2025-08-03'))
-                <x-ads.sidebar.sevalla
-                    class="opacity-0 duration-[600ms] delay-600 transition-[opacity,translate] translate-y-4"
-                    x-bind:class="{ 'opacity-100 !translate-y-0': show }"
-                    x-data="{ show: false }"
-                    x-intersect:enter="show = true"
-                />
-            @else
-                <x-ads.sidebar.vemetric
-                    class="opacity-0 duration-[600ms] delay-600 transition-[opacity,translate] translate-y-4"
-                    x-bind:class="{ 'opacity-100 !translate-y-0': show }"
-                    x-data="{ show: false }"
-                    x-intersect:enter="show = true"
-                />
+            @if (! $post->is_commercial)
+                <div class="mt-24">
+                    <livewire:comments :post-id="$post->id" />
+                </div>
             @endif
         </div>
+
+        @if (! $post->is_commercial)
+            <div class="lg:col-span-4 xl:col-span-3">
+                @if (now()->isAfter('2025-08-03'))
+                    <x-ads.sidebar.sevalla
+                        class="opacity-0 duration-[600ms] delay-600 transition-[opacity,translate] translate-y-4"
+                        x-bind:class="{ 'opacity-100 !translate-y-0': show }"
+                        x-data="{ show: false }"
+                        x-intersect:enter="show = true"
+                    />
+                @else
+                    <x-ads.sidebar.vemetric
+                        class="opacity-0 duration-[600ms] delay-600 transition-[opacity,translate] translate-y-4"
+                        x-bind:class="{ 'opacity-100 !translate-y-0': show }"
+                        x-data="{ show: false }"
+                        x-intersect:enter="show = true"
+                    />
+                @endif
+            </div>
+        @endif
     </div>
 
     {{-- This kind of information is only relevant for published posts. --}}

@@ -57,14 +57,16 @@
     </head>
     <body {{ $attributes->class('font-light text-gray-600') }}>
         <div class="flex flex-col min-h-screen">
-            <x-ads.top.sevalla
-                class="opacity-0 delay-[300ms] transition-[opacity,translate] duration-[600ms] -translate-y-4"
-                x-bind:class="{
-                    'opacity-100 translate-y-0': show,
-                }"
-                x-data="{ show: false }"
-                x-intersect:enter="show = true"
-            />
+            @empty($hideAd)
+                <x-ads.top.sevalla
+                    class="opacity-0 delay-[300ms] transition-[opacity,translate] duration-[600ms] -translate-y-4"
+                    x-bind:class="{
+                        'opacity-100 translate-y-0': show,
+                    }"
+                    x-data="{ show: false }"
+                    x-intersect:enter="show = true"
+                />
+            @endempty
 
             @empty($hideNavigation)
                 <header class="container mt-4 xl:max-w-(--breakpoint-lg)">
