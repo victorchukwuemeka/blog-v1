@@ -141,3 +141,13 @@ it('updates existing redirects to avoid multi-hop chains', function () {
         'to' => 'b',
     ]);
 });
+
+it('generates a prompt for LLMs', function () {
+    $post = Post::factory()->create([
+        'title' => 'Foo Bar Baz',
+        'content' => 'Foo **bar** baz [qux](https://example.com)',
+    ]);
+
+    expect($post->toPrompt())->toContain('Foo Bar Baz Foo bar baz');
+    expect($post->toPrompt())->toContain('href="https://example.com">qux</a>');
+});
