@@ -18,6 +18,8 @@
                     'x-show' => 'open',
                     'x-trap' => 'open',
                     '@keydown.esc' => 'open = false',
+                    '@keydown.arrow-down.stop.prevent' => '$focus.next()',
+                    '@keydown.arrow-up.stop.prevent' => '$focus.prev()',
                     '@click.away' => 'open = false',
                 ])
         }}
