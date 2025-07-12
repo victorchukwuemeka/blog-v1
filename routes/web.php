@@ -36,7 +36,7 @@ Route::get('/links', ListLinksController::class)
 Route::get('/links/create', LinkWizard::class)
     ->name('links.create');
 
-Route::get('/advertise', App\Http\Controllers\Advertising\AdvertiseController::class)
+Route::get('/advertise', App\Http\Controllers\Advertising\ShowAdvertisingLandingPageController::class)
     ->name('advertise');
 
 Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)
