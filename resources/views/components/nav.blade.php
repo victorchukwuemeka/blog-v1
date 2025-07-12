@@ -3,6 +3,7 @@
         wire:navigate
         href="{{ route('home') }}"
         data-pirsch-event="Clicked the logo"
+        class="text-black transition-colors hover:text-blue-600"
     >
         <x-logo />
         <span class="sr-only">{{ config('app.name') }}</span>
