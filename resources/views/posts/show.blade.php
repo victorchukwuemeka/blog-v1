@@ -162,7 +162,12 @@
 
         <div class="lg:col-span-4 xl:col-span-3">
             @if (now()->isAfter('2025-08-03'))
-                <x-ads.sidebar.sevalla />
+                <x-ads.sidebar.sevalla
+                    class="opacity-0 duration-[600ms] delay-600 transition-[opacity,translate] translate-y-4"
+                    x-bind:class="{ 'opacity-100 !translate-y-0': show }"
+                    x-data="{ show: false }"
+                    x-intersect:enter="show = true"
+                />
             @else
                 <x-ads.sidebar.vemetric
                     class="opacity-0 duration-[600ms] delay-600 transition-[opacity,translate] translate-y-4"
