@@ -35,7 +35,6 @@ use Filament\Schemas\Components\Utilities\Set;
 use App\Filament\Resources\PostResource\Pages\EditPost;
 use App\Filament\Resources\PostResource\Pages\ListPosts;
 use App\Filament\Resources\PostResource\Pages\CreatePost;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use App\Filament\Resources\PostResource\RelationManagers\CategoriesRelationManager;
 
 class PostResource extends Resource
@@ -56,15 +55,15 @@ class PostResource extends Resource
             ->components([
                 FileUpload::make('image_path')
                     ->image()
-                    ->disk(fn (Post $record) : string => $record->image_disk ?? 'public')
-                    ->directory('posts')
-                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file) => $file->storePubliclyAs('posts', Str::ulid() . '.' . $file->getClientOriginalExtension(), ['disk' => 'public']))
+                    ->disk(fn (Get $get) => $get('image_disk') ?? config('filesystems.default'))
                     ->columnSpanFull()
-                    ->label('Image'),
+                    ->label('Image')
+                    ->requiredWithAll('image_disk'),
 
                 Select::make('image_disk')
-                    ->options(['public' => 'Public'])
-                    ->default('public')
+                    ->options(collect(config('filesystems.disks'))->mapWithKeys(fn (array $disk, string $key) => [$key => $key]))
+                    ->rules(['nullable', 'string', 'in:' . implode(',', array_keys(config('filesystems.disks')))])
+                    ->requiredWithAll('image_path')
                     ->columnSpanFull()
                     ->label('Image Disk'),
 
@@ -88,8 +87,6 @@ class PostResource extends Resource
 
                 MarkdownEditor::make('content')
                     ->required()
-                    ->fileAttachmentsDisk('public')
-                    ->fileAttachmentsDirectory('images/posts')
                     ->columnSpanFull(),
 
                 Select::make('user_id')

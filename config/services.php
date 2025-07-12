@@ -54,6 +54,7 @@ return [
 
     'cloudflare_images' => [
         'account_id' => env('CLOUDFLARE_IMAGES_ACCOUNT_ID'),
+        'account_hash' => env('CLOUDFLARE_IMAGES_ACCOUNT_HASH'),
         'token' => env('CLOUDFLARE_API_TOKEN'),
     ],
 

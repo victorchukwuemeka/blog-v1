@@ -5,13 +5,17 @@ namespace App\Providers;
 use App\Models\Metric;
 use Livewire\Livewire;
 use Carbon\CarbonImmutable;
+use League\Flysystem\Filesystem;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\View;
 use App\Livewire\LinkWizard\FirstStep;
 use App\Livewire\LinkWizard\LinkWizard;
 use App\Livewire\LinkWizard\SecondStep;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
+use App\Filesystem\CloudflareImagesAdapter;
+use Illuminate\Filesystem\FilesystemAdapter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,6 +42,19 @@ class AppServiceProvider extends ServiceProvider
         // Be careful with unguarded models! But
         // this trick removes a lot of friction.
         Model::unguard();
+
+        Storage::extend('cloudflare-images', function ($app, array $config) {
+            $adapter = new CloudflareImagesAdapter(
+                config('services.cloudflare_images.token'),
+                config('services.cloudflare_images.account_id'),
+                config('services.cloudflare_images.account_hash'),
+                $config['variant'] ?? 'public',
+            );
+
+            $filesystem = new Filesystem($adapter);
+
+            return new FilesystemAdapter($filesystem, $adapter, $config);
+        });
 
         View::composer('*', fn (\Illuminate\View\View $view) => $view->with([
             'user' => auth()->user(),
