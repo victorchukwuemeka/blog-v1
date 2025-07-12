@@ -171,10 +171,10 @@ class Post extends Model implements Feedable
 
     public function toPrompt() : string
     {
-        return <<<MARKDOWN
-# $this->title
+        $content = preg_replace(['/\s+/', '/\n+/'], [' ', "\n"], strip_tags($this->formatted_content));
 
-$this->content
+        return <<<MARKDOWN
+$this->title $content
 
 ---
 
