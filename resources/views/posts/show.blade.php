@@ -134,7 +134,7 @@
     @if ($post->published_at)
         <script type="application/ld+json">
             {
-                "@context": "https://schema.org",
+                "@@context": "https://schema.org",
                 "@type": "Article",
                 "author": {
                     "@type": "Person",
