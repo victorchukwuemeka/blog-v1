@@ -81,17 +81,17 @@
             <div class="grid gap-4 mt-6 md:grid-cols-2">
                 <div class="p-4 bg-gray-50 rounded-xl">
                     <p><strong class="font-medium text-black">Vemetric</strong> in the sidebar of every article</p>
-                    <p>From Jul 2<sup>nd</sup>, 2025 to Aug 2<sup>nd</sup>, 2025</p>
+                    <p>Jul 2<sup>nd</sup>, 2025 <span class="mx-1 md:mx-[.35rem]">→</span> Aug 2<sup>nd</sup>, 2025</p>
                 </div>
 
                 <div class="p-4 bg-gray-50 rounded-xl">
                     <p><strong class="font-medium text-black">Sevalla</strong> in the sidebar of every article</p>
-                    <p class="text-gray-500">Dates to be announced</p>
+                    <p class="text-gray-500">Aug 3<sup>rd</sup>, 2025 <span class="mx-1 md:mx-[.35rem]">→</span> February 3rd, 2026</p>
                 </div>
 
                 <div class="p-4 bg-gray-50 rounded-xl">
                     <p><strong class="font-medium text-black">Sevalla</strong> in the top of every page</p>
-                    <p class="text-gray-500">Dates to be announced</p>
+                    <p class="text-gray-500">July 11th, 2025 <span class="mx-1 md:mx-[.35rem]">→</span> January 11th, 2026</p>
                 </div>
             </div>
         </div>
