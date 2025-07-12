@@ -169,6 +169,19 @@ class Post extends Model implements Feedable
         return "---\n{$frontMatterLines}\n---\n\n# {$this->title}\n\n{$this->content}\n";
     }
 
+    public function toPrompt() : string
+    {
+        return <<<MARKDOWN
+# $this->title
+
+$this->content
+
+---
+
+Highlight the key points of this article.
+MARKDOWN;
+    }
+
     public static function getFeedItems() : Collection
     {
         return static::query()
