@@ -64,7 +64,6 @@
                 }"
                 x-data="{ show: false }"
                 x-intersect:enter="show = true"
-                x-intersect:leave="show = false"
             />
 
             @empty($hideNavigation)
