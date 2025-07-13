@@ -64,7 +64,7 @@ class MetricResource extends Resource
                     ->searchable(),
 
                 TextColumn::make('created_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Creation Date'),
             ])

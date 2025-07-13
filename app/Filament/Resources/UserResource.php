@@ -16,7 +16,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\UserResource\Pages\EditUser;
-use App\Filament\Resources\UserResource\Pages\ViewUser;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
 use App\Filament\Resources\UserResource\Pages\CreateUser;
 
@@ -76,12 +75,12 @@ class UserResource extends Resource
                     ->searchable(),
 
                 TextColumn::make('created_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Registration Date'),
 
                 TextColumn::make('last_login_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Last Login Date')
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -111,7 +110,6 @@ class UserResource extends Resource
         return [
             'index' => ListUsers::route('/'),
             'create' => CreateUser::route('/create'),
-            'view' => ViewUser::route('/{record}'),
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }

@@ -186,12 +186,12 @@ class PostResource extends Resource
                     ->separator(','),
 
                 TextColumn::make('published_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Publication Date'),
 
                 TextColumn::make('modified_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Modification Date')
                     ->toggleable(isToggledHiddenByDefault: true),

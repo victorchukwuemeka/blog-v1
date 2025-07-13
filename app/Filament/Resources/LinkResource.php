@@ -145,7 +145,7 @@ class LinkResource extends Resource
                     ->label('Status'),
 
                 TextColumn::make('created_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Submitted Date'),
             ])

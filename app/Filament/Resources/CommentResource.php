@@ -93,12 +93,12 @@ class CommentResource extends Resource
                     ->limit(50),
 
                 TextColumn::make('created_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Creation Date'),
 
                 TextColumn::make('modified_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Modification Date')
                     ->toggleable(isToggledHiddenByDefault: true),
