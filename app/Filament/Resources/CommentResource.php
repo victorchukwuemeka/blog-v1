@@ -11,9 +11,9 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\Select;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Schemas\Components\Group;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\CommentResource\Pages\EditComment;
@@ -35,34 +35,43 @@ class CommentResource extends Resource
     {
         return $schema
             ->components([
-                MarkdownEditor::make('content')
-                    ->required()
-                    ->columnSpanFull(),
+                Group::make([
+                    Select::make('user_id')
+                        ->relationship('user', 'name')
+                        ->required()
+                        ->searchable()
+                        ->label('Author'),
 
-                Section::make('Metadata')
-                    ->schema([
-                        Select::make('user_id')
-                            ->relationship('user', 'name')
-                            ->required()
-                            ->label('Author'),
+                    MarkdownEditor::make('content')
+                        ->required(),
+                ])
+                    ->columnSpan([
+                        'default' => 12,
+                        'lg' => 8,
+                    ]),
 
-                        Select::make('post_id')
-                            ->relationship('post', 'title')
-                            ->required()
-                            ->label('Attached To Post'),
+                Group::make([
+                    Select::make('post_id')
+                        ->relationship('post', 'title')
+                        ->required()
+                        ->label('Attached To Post'),
 
-                        Select::make('parent_id')
-                            ->relationship('parent', 'content')
-                            ->label('In Reply To'),
+                    Select::make('parent_id')
+                        ->relationship('parent', 'content')
+                        ->label('In Reply To'),
 
-                        DateTimePicker::make('modified_at')
-                            ->timezone('Europe/Paris')
-                            ->native(false)
-                            ->label('Modification Date')
-                            ->helperText('This is blank until the user updates the comment.'),
-                    ])
-                    ->collapsible(),
-            ]);
+                    DateTimePicker::make('modified_at')
+                        ->timezone('Europe/Paris')
+                        ->native(false)
+                        ->label('Modification Date')
+                        ->helperText('This is blank until the user updates the comment.'),
+                ])
+                    ->columnSpan([
+                        'default' => 12,
+                        'lg' => 4,
+                    ]),
+            ])
+            ->columns(12);
     }
 
     public static function table(Table $table) : Table

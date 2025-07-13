@@ -152,10 +152,6 @@ class PostResource extends Resource
                     ->columnSpan([
                         'default' => 12,
                         'lg' => 4,
-                    ])
-                    ->columnStart([
-                        'default' => 1,
-                        'lg' => 9,
                     ]),
             ])
             ->columns(12);
