@@ -58,16 +58,18 @@
                             </div>
                         </a>
 
-                        <a href="#comments" class="flex-1">
-                            <div @class([
-                                'flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900',
-                                'text-blue-600 bg-blue-50!' => $post->comments_count,
-                            ])>
-                                <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-2 opacity-75 size-6" />
-                                {{ $post->comments_count }}<br />
-                                {{ trans_choice('comment|comments', $post->comments_count) }}
-                            </div>
-                        </a>
+                        @if (! $post->is_commercial)
+                            <a href="#comments" class="flex-1">
+                                <div @class([
+                                    'flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900',
+                                    'text-blue-600 bg-blue-50!' => $post->comments_count,
+                                ])>
+                                    <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-2 opacity-75 size-6" />
+                                    {{ $post->comments_count }}<br />
+                                    {{ trans_choice('comment|comments', $post->comments_count) }}
+                                </div>
+                            </a>
+                        @endif
 
                         <x-dropdown class="flex-1">
                             <x-slot:btn
