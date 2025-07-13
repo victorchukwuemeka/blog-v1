@@ -11,7 +11,6 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\Select;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Schemas\Components\Section;
@@ -20,6 +19,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\CommentResource\Pages\EditComment;
 use App\Filament\Resources\CommentResource\Pages\ListComments;
 use App\Filament\Resources\CommentResource\Pages\CreateComment;
+use App\Filament\Resources\PostResource\Pages\ManagePostComments;
 
 class CommentResource extends Resource
 {
@@ -70,18 +70,14 @@ class CommentResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('id')
-                    ->sortable()
-                    ->label('ID')
-                    ->weight(FontWeight::Bold),
-
                 TextColumn::make('user.name')
                     ->searchable()
                     ->label('Author'),
 
                 TextColumn::make('post.title')
                     ->searchable()
-                    ->label('Post'),
+                    ->label('Post')
+                    ->hiddenOn(ManagePostComments::class),
 
                 TextColumn::make('content')
                     ->searchable()

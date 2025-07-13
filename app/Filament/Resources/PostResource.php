@@ -13,6 +13,7 @@ use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
+use Filament\Resources\Pages\Page;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteBulkAction;
@@ -34,10 +35,11 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Pages\Enums\SubNavigationPosition;
 use App\Filament\Resources\PostResource\Pages\EditPost;
 use App\Filament\Resources\PostResource\Pages\ListPosts;
 use App\Filament\Resources\PostResource\Pages\CreatePost;
-use App\Filament\Resources\PostResource\RelationManagers\CategoriesRelationManager;
+use App\Filament\Resources\PostResource\Pages\ManagePostComments;
 
 class PostResource extends Resource
 {
@@ -104,6 +106,12 @@ class PostResource extends Resource
                         ->required()
                         ->searchable()
                         ->label('Author'),
+
+                    Select::make('categories')
+                        ->relationship(name: 'categories', titleAttribute: 'name')
+                        ->multiple()
+                        ->searchable()
+                        ->createOptionForm(CategoryResource::form($schema)->getComponents()),
 
                     TextInput::make('serp_title')
                         ->maxLength(255)
@@ -254,23 +262,30 @@ class PostResource extends Resource
             'index' => ListPosts::route('/'),
             'create' => CreatePost::route('/create'),
             'edit' => EditPost::route('/{record}/edit'),
-        ];
-    }
-
-    public static function getRelations() : array
-    {
-        return [
-            CategoriesRelationManager::class,
+            'comments' => ManagePostComments::route('/{record}/comments'),
         ];
     }
 
     public static function getGloballySearchableAttributes() : array
     {
-        return ['user.name', 'title', 'slug', 'content', 'description', 'canonical_url'];
+        return ['user.name', 'title', 'serp_title', 'slug', 'content', 'description', 'canonical_url'];
     }
 
     public static function getGlobalSearchResultDetails(Model $record) : array
     {
         return ['Author' => $record->user->name];
+    }
+
+    public static function getRecordSubNavigation(Page $page) : array
+    {
+        return $page->generateNavigationItems([
+            EditPost::class,
+            ManagePostComments::class,
+        ]);
+    }
+
+    public static function getSubNavigationPosition() : SubNavigationPosition
+    {
+        return SubNavigationPosition::Top;
     }
 }

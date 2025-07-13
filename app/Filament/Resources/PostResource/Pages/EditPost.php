@@ -40,4 +40,9 @@ class EditPost extends EditRecord
             RecommendPosts::dispatch($this->record);
         }
     }
+
+    public static function getNavigationLabel() : string
+    {
+        return 'Post';
+    }
 }
