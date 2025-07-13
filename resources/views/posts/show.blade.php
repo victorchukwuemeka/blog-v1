@@ -27,10 +27,8 @@
                 </h1>
 
                 <div class="mt-12 md:mt-16">
-                    <div @class([
-                        'grid grid-cols-2 gap-4 text-sm leading-tight md:grid-cols-4',
-                    ])>
-                        <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
+                    <div class="grid grid-cols-2 gap-4 text-sm leading-tight md:grid-flow-col md:grid-cols-none md:auto-cols-fr">
+                        <div class="p-3 text-center bg-gray-50 rounded-lg">
                             <x-heroicon-o-calendar class="mx-auto mb-2 opacity-75 size-6" />
 
                             @if ($post->modified_at)
@@ -49,7 +47,6 @@
                         <a
                             wire:navigate
                             href="{{ route('authors.show', $post->user) }}"
-                            class="flex-1"
                         >
                             <div class="p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900">
                                 <img src="{{ $post->user->avatar }}" class="mx-auto mb-2 rounded-full size-6" />
@@ -59,7 +56,7 @@
                         </a>
 
                         @if (! $post->is_commercial)
-                            <a href="#comments" class="flex-1">
+                            <a href="#comments">
                                 <div @class([
                                     'flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900',
                                     'text-blue-600 bg-blue-50!' => $post->comments_count,
@@ -71,7 +68,7 @@
                             </a>
                         @endif
 
-                        <x-dropdown class="flex-1">
+                        <x-dropdown>
                             <x-slot:btn
                                 data-pirsch-event='Clicked "Actions"'
                                 class="p-3 w-full h-full text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900"
