@@ -9,7 +9,6 @@ use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Support\Enums\FontWeight;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -58,11 +57,6 @@ class MetricResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('id')
-                    ->sortable()
-                    ->label('ID')
-                    ->weight(FontWeight::Bold),
-
                 TextColumn::make('key')
                     ->searchable(),
 

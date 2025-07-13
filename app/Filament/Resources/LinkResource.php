@@ -16,7 +16,6 @@ use Illuminate\Support\Collection;
 use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\Select;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Support\Enums\FontWeight;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
@@ -107,11 +106,6 @@ class LinkResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('id')
-                    ->sortable()
-                    ->label('ID')
-                    ->weight(FontWeight::Bold),
-
                 ImageColumn::make('image_url')
                     ->imageWidth(107)
                     ->imageHeight(80)

@@ -11,7 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -58,11 +57,6 @@ class CategoryResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('id')
-                    ->sortable()
-                    ->label('ID')
-                    ->weight(FontWeight::Bold),
-
                 TextColumn::make('name')
                     ->searchable(),
 

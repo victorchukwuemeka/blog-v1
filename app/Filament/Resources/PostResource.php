@@ -18,7 +18,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Schemas\Components\Group;
-use Filament\Support\Enums\FontWeight;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -162,11 +161,6 @@ class PostResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('id')
-                    ->sortable()
-                    ->label('ID')
-                    ->weight(FontWeight::Bold),
-
                 ImageColumn::make('image_path')
                     ->disk(fn (Post $record) => $record->image_disk ?? 'public')
                     ->imageWidth(107)

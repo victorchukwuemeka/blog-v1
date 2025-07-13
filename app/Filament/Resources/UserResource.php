@@ -10,7 +10,6 @@ use Filament\Resources\Resource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
@@ -63,11 +62,6 @@ class UserResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('id')
-                    ->sortable()
-                    ->label('ID')
-                    ->weight(FontWeight::Bold),
-
                 ImageColumn::make('gravatar')
                     ->circular()
                     ->getStateUsing(fn (User $record) => $record->avatar),
