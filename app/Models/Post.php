@@ -80,6 +80,12 @@ class Post extends Model implements Feedable
         $query->whereNotNull('published_at');
     }
 
+    #[Scope]
+    protected function unpublished(Builder $query) : void
+    {
+        $query->whereNull('published_at');
+    }
+
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);

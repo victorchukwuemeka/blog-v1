@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Category;
 use Spatie\Sitemap\Sitemap;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
@@ -41,10 +40,8 @@ class GenerateSitemapCommand extends Command
 
         $sitemap->add(route('links.index'));
 
-        $sitemap->writeToDisk('public', $path = 'sitemap.xml', public: true);
+        $sitemap->writeToFile($path = public_path('sitemap.xml'));
 
-        $url = Storage::disk('public')->url($path);
-
-        $this->info("Sitemap generated successfully at $url");
+        $this->info("Sitemap generated successfully at $path");
     }
 }
