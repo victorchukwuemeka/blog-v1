@@ -14,33 +14,7 @@
         </div>
     @endif
 
-    <x-form class="flex gap-4 mt-16">
-        @if (auth()->check())
-            <img
-                src="{{ $user->avatar }}"
-                alt="{{ $user->name }}"
-                class="flex-none rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"
-            />
-        @else
-            <img
-                src="https://www.gravatar.com/avatar/?d=mp"
-                class="flex-none rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"
-            />
-        @endif
-
-        <div class="grow">
-            <textarea
-                id="comment"
-                name="comment"
-                placeholder="Your comment"
-                disabled
-                class="px-3 py-2 w-full placeholder-gray-300 rounded-md border border-gray-200 shadow-sm resize-none shadow-black/5"
-                x-autosize
-            ></textarea>
-
-            <x-btn primary disabled class="table mx-auto mt-4">
-                Comment
-            </x-btn>
-        </div>
-    </x-form>
+    <div class="mt-16">
+        <livewire:comment-form :postId="$postId" />
+    </div>
 </section>

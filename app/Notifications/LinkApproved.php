@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Link;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -13,12 +14,12 @@ class LinkApproved extends Notification
 
     public function __construct(public Link $link) {}
 
-    public function via(object $notifiable) : array
+    public function via(User $user) : array
     {
         return ['mail'];
     }
 
-    public function toMail(object $notifiable) : MailMessage
+    public function toMail(User $user) : MailMessage
     {
         return (new MailMessage)
             ->subject('Your link was approved')

@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,12 +12,12 @@ class Welcome extends Notification
 {
     use Queueable;
 
-    public function via(object $notifiable) : array
+    public function via(User $user) : array
     {
         return ['mail'];
     }
 
-    public function toMail(object $notifiable) : MailMessage
+    public function toMail(User $user) : MailMessage
     {
         $mailMessage = (new MailMessage)
             ->subject('Your welcome gifts')
