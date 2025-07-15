@@ -4,6 +4,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 use App\Livewire\Comments;
+use App\Notifications\NewReply;
 use App\Notifications\NewComment;
 
 use function Pest\Laravel\actingAs;
@@ -34,6 +35,8 @@ it('allows users to comment on a post and notifies the admin', function () {
         'content' => 'Lorem ipsum dolor sit amet.',
     ]);
 
+    Notification::assertSentTimes(NewReply::class, 0);
+
     Notification::assertSentToTimes($admin, NewComment::class, 1);
 });
 
@@ -51,7 +54,30 @@ it("doesn't notify the admin if the user is the admin", function () {
     livewire(Comments::class, ['postId' => $post->id])
         ->call('store', null, 'Lorem ipsum dolor sit amet.');
 
+    Notification::assertSentTimes(NewReply::class, 0);
+
     Notification::assertNotSentTo($admin, NewComment::class);
+});
+
+it("notifies the parent comment's author when a reply is posted", function () {
+    Notification::fake();
+
+    $user = User::factory()->create();
+
+    $admin = User::factory()->create([
+        'github_login' => 'benjamincrozat',
+    ]);
+
+    $existingComment = Comment::factory()->create();
+
+    actingAs($user);
+
+    livewire(Comments::class, ['postId' => $existingComment->post_id])
+        ->call('store', $existingComment->id, 'Lorem ipsum dolor sit amet.');
+
+    Notification::assertSentToTimes($existingComment->user, NewReply::class, 1);
+
+    Notification::assertSentToTimes($admin, NewComment::class, 1);
 });
 
 it("doesn't allow guests to comment", function () {
