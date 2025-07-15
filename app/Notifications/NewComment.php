@@ -25,7 +25,7 @@ class NewComment extends Notification
     {
         return (new MailMessage)
             ->subject('New comment posted')
-            ->greeting("$user->name commented on [{$this->comment->post->title}](" . route('posts.show', $this->comment->post) . ')')
+            ->greeting("{$this->comment->user->name} commented on [{$this->comment->post->title}](" . route('posts.show', $this->comment->post) . ')')
             ->action('Check Comment', route('posts.show', $this->comment->post) . '#comments');
     }
 }
