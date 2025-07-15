@@ -33,22 +33,33 @@
                 x-autosize
             ></textarea>
 
-            @if (auth()->check())
-                <button
-                    class="table mx-auto mt-4 font-medium tracking-tight text-white bg-blue-600 rounded-xl transition-colors disabled:bg-gray-100 disabled:hover:bg-gray-100! disabled:text-gray-300! px-[1.3rem] py-[.65rem] hover:bg-blue-500"
-                    wire:loading.attr="disabled"
-                >
-                    {{ $parentId ? 'Reply' : 'Comment' }}
-                </button>
-            @else
-                <x-btn
-                    primary-alt
-                    href="{{ route('auth.redirect') }}"
-                    class="table mx-auto mt-4"
-                >
-                    Log in
-                </x-btn>
-            @endif
+            <div class="flex gap-2 justify-center items-center mt-4">
+                @if (auth()->check())
+                    <button
+                        class="font-medium tracking-tight text-white bg-blue-600 rounded-xl transition-colors disabled:bg-gray-100 disabled:hover:bg-gray-100! disabled:text-gray-300! px-[1.3rem] py-[.65rem] hover:bg-blue-500"
+                        wire:loading.attr="disabled"
+                    >
+                        {{ $parentId ? 'Reply' : 'Comment' }}
+                    </button>
+
+                    @if ($parentId)
+                        <x-btn
+                            type="button"
+                            class="-order-1"
+                            @click="$wire.$parent.$set('parentId', null)"
+                        >
+                            Cancel
+                        </x-btn>
+                    @endif
+                @else
+                    <x-btn
+                        primary-alt
+                        href="{{ route('auth.redirect') }}"
+                    >
+                        Log in
+                    </x-btn>
+                @endif
+            </div>
         </div>
     </x-form>
 </div>

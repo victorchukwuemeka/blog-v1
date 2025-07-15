@@ -60,11 +60,12 @@ it("doesn't allow guests to comment", function () {
         ->assertStatus(401);
 });
 
-it('allows users to delete their own comments', function () {
+it('allows users to delete their own comments and all their children', function () {
     $post = Post::factory()->create();
 
     $comment = Comment::factory()
         ->for($post)
+        ->has(Comment::factory(3), 'children')
         ->create();
 
     actingAs($comment->user);
@@ -72,7 +73,7 @@ it('allows users to delete their own comments', function () {
     livewire(Comments::class, ['postId' => $post->id])
         ->call('delete', $comment->id);
 
-    expect($comment->exists())->toBeFalse();
+    expect(Comment::query()->count())->toBe(0);
 });
 
 it("doesn't allow users to delete comments they don't own", function () {

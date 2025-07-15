@@ -7,14 +7,16 @@
     </h1>
 
     @if ($comments->isNotEmpty())
-        <div class="grid gap-8 mt-8">
+        <ul class="grid gap-8 mt-8">
             @foreach ($comments as $comment)
-                <x-comment :$comment />
+                <li>
+                    <x-comment :$comment />
+                </li>
             @endforeach
-        </div>
+        </ul>
     @endif
 
     <div class="mt-16">
-        <livewire:comment-form :postId="$postId" />
+        <livewire:comment-form />
     </div>
 </section>

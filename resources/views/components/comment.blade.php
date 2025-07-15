@@ -37,12 +37,12 @@
 
             <div class="px-4 py-3 mt-2 bg-gray-100 rounded-lg">
                 <x-prose>
-                    {!! Str::markdown($comment->content) !!}
+                    {!! Str::lightdown($comment->content) !!}
                 </x-prose>
 
                 <div class="mt-2 text-right">
                     <button
-                        class="inline-flex disabled:opacity-30 gap-[.35rem] items-center font-medium"
+                        class="inline-flex hover:text-blue-600 transition-colors disabled:opacity-30 gap-[.35rem] items-center font-medium"
                         wire:click="$set('parentId', {{ $comment->id }})"
                         {{ $this->parentId === $comment->id ? 'disabled' : '' }}
                     >
@@ -55,16 +55,22 @@
     </div>
 
     @if ($this->parentId === $comment->id)
-        <div class="mt-8 ml-11 md:ml-12">
+        <div
+            class="mt-8 ml-11 md:ml-12"
+            x-trap="true"
+            @keydown.esc="$wire.$set('parentId', null)"
+        >
             <livewire:comment-form wire:key="comment-form-{{ $comment->id }}" :parentId="$comment->id" />
         </div>
     @endif
 
     @if ($comment->children->isNotEmpty())
-        <div class="grid gap-8 mt-8 ml-11 md:ml-12">
+        <ul class="grid gap-8 mt-8 ml-11 md:ml-12">
             @foreach ($comment->children as $child)
-                <x-comment :comment="$child" />
+                <li>
+                    <x-comment :comment="$child" />
+                </li>
             @endforeach
-        </div>
+        </ul>
     @endif
 </div>

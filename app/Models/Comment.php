@@ -46,4 +46,15 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id');
     }
+
+    public function deleteWithChildren() : self
+    {
+        $this->children->each(
+            fn (Comment $comment) => $comment->deleteWithChildren()
+        );
+
+        $this->delete();
+
+        return $this;
+    }
 }

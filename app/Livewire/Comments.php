@@ -9,13 +9,15 @@ use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
 use App\Notifications\NewComment;
-use Illuminate\Support\Facades\DB;
 
 class Comments extends Component
 {
     #[Locked]
     public int $postId;
 
+    /**
+     * Used in the view to track which comment is being replied to.
+     */
     public ?int $parentId = null;
 
     public function render() : View
@@ -69,13 +71,7 @@ class Comments extends Component
         }
 
         if ($comment && auth()->user()->can('delete', $comment)) {
-            DB::transaction(function () use ($comment) {
-                $comment->delete();
-
-                Comment::query()
-                    ->where('parent_id', $comment->id)
-                    ->delete();
-            });
+            $comment->deleteWithChildren();
         }
     }
 }
