@@ -1,23 +1,19 @@
 <x-ads.deals
     {{
         $attributes
-            ->class('text-violet-900 border-violet-300')
+            ->class('text-violet-900 bg-violet-50')
             ->merge([
                 'href' => route('redirect-to-advertiser', [
                     'slug' => 'vemetric',
                     'utm_source' => 'deals',
                 ]),
+                'name' => 'Vemetric',
+                'svgLogo' => 'icon-vemetric',
+                'descriptionColor' => 'text-violet-900',
+                'description' => 'Vemetric is a simple, open-source, privacy-first analytics tool that tracks the full user journey.',
+                'cta' => 'Start for free',
+                'ctaColor' => 'bg-violet-500!',
+                'screenshot' => Vite::asset('resources/img/screenshots/vemetric.webp'),
             ])
     }}
->
-    <x-icon-vemetric class="self-start h-10 md:h-12" />
-
-    <p class="flex-grow mt-4 leading-tight text-balance">Vemetric is a simple, open-source, privacy-first analytics tool that tracks the full user journey—from first visit to feature adoption.</p>
-
-    <x-btn
-        primary
-        class="mt-8 cursor-pointer bg-violet-500! rounded-md!"
-    >
-        Start for free
-    </x-btn>
-</x-ads.deals>
+/>

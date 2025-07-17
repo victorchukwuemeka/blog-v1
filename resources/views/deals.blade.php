@@ -7,7 +7,9 @@
             Featured deals
         </h1>
 
-        <div class="flex overflow-x-auto gap-4 px-4 mt-8 md:justify-center snap-mandatory snap-x">
+        <p class="px-4 mt-2 leading-tight text-center">These companies are sponsoring my blog.<br class="hidden md:inline" /> Big thanks to them and make sure to check them out!</p>
+
+        <div class="flex overflow-x-auto gap-8 px-4 mt-8 md:justify-center snap-mandatory snap-x">
             @php
             $components = collect([
                 'ads.deals.sevalla',
@@ -22,7 +24,12 @@
     </section>
 
     <x-section title="Latest deals" class="mt-14 md:mt-24">
-        <div class="grid gap-16 md:gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <p class="px-4 -mt-6 leading-tight text-center">
+            Browse the great deals I gathered from across the web.<br class="hidden md:inline" />
+            Services, apps, and all kinds of tools to help you do your job more efficiently.
+        </p>
+
+        <div class="grid gap-16 mt-8 md:gap-8 md:grid-cols-2 xl:grid-cols-3">
             <x-deals.item
                 name="Fathom Analytics"
                 headline="Know who visits your site"

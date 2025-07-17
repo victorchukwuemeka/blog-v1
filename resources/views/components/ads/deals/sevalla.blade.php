@@ -1,21 +1,19 @@
-<x-ads.deals {{
-    $attributes
-        ->class('border-orange-300')
-        ->merge([
-            'href' => route('redirect-to-advertiser', [
-                'slug' => 'sevalla',
-                'utm_source' => 'deals',
-            ]),
-        ])
-}}>
-    <x-icon-sevalla class="self-start h-10 md:h-12" />
-
-    <p class="flex-grow mt-4 leading-tight text-orange-700 text-balance">Deploy and scale your web applications securely with ease.</p>
-
-    <x-btn
-        primary
-        class="mt-8 cursor-pointer bg-[#FA7216]! rounded-md!"
-    >
-        $50 free credits
-    </x-btn>
-</x-ads.deals>
+<x-ads.deals
+    {{
+        $attributes
+            ->class('bg-orange-50')
+            ->merge([
+                'href' => route('redirect-to-advertiser', [
+                    'slug' => 'sevalla',
+                    'utm_source' => 'deals',
+                ]),
+                'name' => 'Sevalla',
+                'svgLogo' => 'icon-sevalla',
+                'descriptionColor' => 'text-orange-700',
+                'description' => 'Deploy and scale your web applications securely with ease.',
+                'cta' => '$50 free credits',
+                'ctaColor' => 'bg-[#FA7216]!',
+                'screenshot' => Vite::asset('resources/img/screenshots/sevalla.webp'),
+            ])
+    }}
+/>
