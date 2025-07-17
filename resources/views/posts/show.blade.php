@@ -203,7 +203,12 @@
 
                             <div>
                                 <p>
-                                    <a href="{{ $latestComment->user->github_data['user']['html_url'] }}" target="_blank" class="font-medium">
+                                    <a
+                                        href="{{ $latestComment->user->github_data['user']['html_url'] }}"
+                                        target="_blank"
+                                        class="font-medium"
+                                        data-pirsch-event="Clicked on latest comment's username"
+                                    >
                                         {{ $latestComment->user->name }}
                                     </a>
 
@@ -217,7 +222,11 @@
                                 </x-prose>
 
                                 <p class="mt-2">
-                                    <a href="#comments" class="font-medium underline">
+                                    <a
+                                        href="#comments"
+                                        class="font-medium underline"
+                                        data-pirsch-event='Clicked "Check comments"'
+                                    >
                                         Check comments →
                                     </a>
                                 </p>
