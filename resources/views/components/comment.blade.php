@@ -1,7 +1,6 @@
-@props([
-    'comment',
-    'parentId' => null,
-])
+@php
+$parentId = $this->parentId ?? $attributes->get('parentId');
+@endphp
 
 <div {{ $attributes }}>
     <div class="flex gap-4">

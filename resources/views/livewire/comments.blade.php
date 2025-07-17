@@ -10,7 +10,7 @@
         <ul class="grid gap-8 mt-8">
             @foreach ($comments as $comment)
                 <li>
-                    <x-comment :$comment :$parentId />
+                    <x-comment :$comment :parentId="$this->parentId" />
                 </li>
             @endforeach
         </ul>
