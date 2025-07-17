@@ -93,6 +93,14 @@
                     </x-dropdown.item>
 
                     <x-dropdown.item
+                        href="{{ route('horizon.index') }}"
+                        data-pirsch-event='Clicked "Horizon"'
+                    >
+                        <x-icon-horizon class="size-4" />
+                        Horizon
+                    </x-dropdown.item>
+
+                    <x-dropdown.item
                         wire:navigate
                         href="{{ route('show-cloudflare-images-form') }}"
                     >
