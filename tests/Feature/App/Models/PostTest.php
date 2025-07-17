@@ -265,7 +265,7 @@ it('accurately detects if a post has an attached image via hasImage()', function
 });
 
 it('generates valid Markdown with YAML front matter via toMarkdown()', function () {
-    $post = Post::factory()->withCategories()->create([
+    $post = Post::factory()->hasCategories(3)->create([
         'title' => 'Foo Bar',
         'content' => 'Baz',
         'slug' => 'foo-bar',
@@ -323,13 +323,13 @@ it('converts a post to a valid FeedItem via toFeedItem()', function () {
 });
 
 it('belongs to many categories', function () {
-    $post = Post::factory()->withCategories()->create();
+    $post = Post::factory()->hasCategories(3)->create();
 
     expect($post->categories)->not->toBeEmpty();
 });
 
 it('has many comments and counts them automatically', function () {
-    $post = Post::factory()->withComments(3)->create();
+    $post = Post::factory()->hasComments(3)->create();
 
     // Refresh so comments_count is included.
     $post->refresh();
