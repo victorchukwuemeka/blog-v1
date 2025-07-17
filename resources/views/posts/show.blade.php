@@ -188,6 +188,12 @@
                     />
                 @endif
 
+                <p class="mt-4 text-right">
+                    <a href="{{ route('deals') }}" class="font-medium underline">
+                        Check more deals →
+                    </a>
+                </p>
+
                 @if ($latestComment)
                     <div class="hidden mt-16 md:block">
                         <p class="font-bold tracking-widest text-black uppercase text-balance">
@@ -221,7 +227,7 @@
                                     {{ $latestComment->truncated }}
                                 </x-prose>
 
-                                <p class="mt-2">
+                                <p class="mt-2 text-right">
                                     <a
                                         href="#comments"
                                         class="font-medium underline"
