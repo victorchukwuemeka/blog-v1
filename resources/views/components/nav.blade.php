@@ -50,7 +50,10 @@
     <a
         wire:navigate
         href="{{ route('deals') }}"
-        class="text-blue-600"
+        @class([
+            'transition-colors text-orange-600 hover:text-blue-600',
+            'text-blue-600!' => request()->routeIs('deals'),
+        ])"
         data-pirsch-event='Clicked "For you"'
     >
         @if (request()->routeIs('deals'))
