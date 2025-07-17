@@ -6,8 +6,9 @@
     :title="! empty($post->serp_title) ? $post->serp_title : $post->title"
 >
     <div @class([
-        'container lg:max-w-(--breakpoint-md)',
+        'container',
         '2xl:max-w-(--breakpoint-xl) grid lg:grid-cols-12 gap-16 lg:gap-12' => ! $post->is_commercial,
+        'lg:max-w-(--breakpoint-md)' => $post->is_commercial,
     ])>
         <div @class([
             'lg:col-span-8 xl:col-span-9' => ! $post->is_commercial,
