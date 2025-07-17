@@ -29,7 +29,7 @@
             Services, apps, and all kinds of tools to help you do your job more efficiently.
         </p>
 
-        <div class="grid gap-16 mt-8 md:gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div class="grid gap-16 mt-8 md:gap-8 md:grid-cols-2">
             <x-deals.item
                 name="Fathom Analytics"
                 headline="Know who visits your site"
@@ -51,7 +51,7 @@
             <x-deals.item
                 name="Mailcoach"
                 headline="Send emails to your users"
-                subheadline="Mailcoach is a self-hosted email marketing tool for newsletters, automations, and transactional emails, built for Laravel developers."
+                subheadline="Self-hosted email marketing built for Laravel developers, by Laravel developers."
                 cta="Start free"
                 href="{{ route('merchants.show', 'mailcoach') }}"
                 :src="Vite::asset('resources/img/screenshots/mailcoach.webp')"
