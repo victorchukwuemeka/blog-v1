@@ -10,7 +10,7 @@
     <div class="flex flex-col flex-1 p-4 md:p-6">
         <x-dynamic-component :component="$svgLogo" class="self-start h-10" />
 
-        <p class="flex-grow mt-4 leading-tight text-balance {{ $descriptionColor }}">
+        <p class="flex-grow mt-4 leading-tight sm:text-balance {{ $descriptionColor }}">
             {{ $description }}
         </p>
 
