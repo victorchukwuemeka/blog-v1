@@ -7,12 +7,13 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\actingAs;
 
 it('shows a post', function () {
-    $post = Post::factory()->create();
+    $post = Post::factory()->hasComments(3)->create();
 
     get(route('posts.show', $post))
         ->assertOk()
         ->assertViewIs('posts.show')
         ->assertViewHas('post', $post)
+        ->assertViewHas('latestComment', $post->comments()->latest()->first())
         ->assertSee("<title>{$post->serp_title}</title>", escape: false)
         ->assertSee("<meta name=\"description\" content=\"{$post->description}\" />", escape: false);
 });
