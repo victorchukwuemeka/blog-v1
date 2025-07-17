@@ -27,7 +27,7 @@
             loading="lazy"
             src="{{ $screenshot }}"
             alt="{{ $name }}"
-            class="object-cover absolute inset-0 w-full h-full object-top-left"
+            class="object-cover absolute inset-0 w-full h-full ring-1 shadow-2xl ring-black/10 object-top-left"
         />
     </div>
 </a>
