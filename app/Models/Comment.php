@@ -53,21 +53,13 @@ class Comment extends Model
     {
         return Attribute::make(
             function () {
-                $stripped = strip_tags(Str::markdown($this->content));
+                $stripped = strip_tags(Str::lightdown($this->content));
 
-                if (strlen($stripped) > 100) {
-                    $truncated = substr($stripped, 0, 100);
-
-                    if (! str_ends_with($truncated, '.')) {
-                        $truncated .= '…';
-                    }
-
-                    return $truncated;
-                }
-
-                return $stripped;
+                return strlen($stripped) > 100
+                    ? rtrim(substr($stripped, 0, 100), '.') . '…'
+                    : $stripped;
             },
-        );
+        )->shouldCache();
     }
 
     public function deleteWithChildren() : self

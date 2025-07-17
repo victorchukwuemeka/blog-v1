@@ -213,7 +213,7 @@
                                 </p>
 
                                 <x-prose class="mt-2 leading-normal text-gray-500">
-                                    {!! substr(strip_tags(Str::markdown($comment->content)), 0, 100) !!}…
+                                    {{ $comment->truncated }}
                                 </x-prose>
 
                                 <p class="mt-2">
