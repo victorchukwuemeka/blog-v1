@@ -1,7 +1,7 @@
 <a
     {{
         $attributes
-            ->class('grid sticky top-4 gap-4 p-4 !pt-6 leading-tight bg-blue-50/75 text-blue-900 rounded-xl')
+            ->class('grid gap-4 p-4 !pt-6 leading-tight bg-blue-50/75 text-blue-900 rounded-xl')
             ->merge([
                 'href' => route('redirect-to-advertiser', [
                     'slug' => 'vemetric',

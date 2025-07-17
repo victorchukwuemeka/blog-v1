@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Str;
 use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,6 +47,27 @@ class Comment extends Model
     public function children() : HasMany
     {
         return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    public function truncated() : Attribute
+    {
+        return Attribute::make(
+            function () {
+                $stripped = strip_tags(Str::markdown($this->content));
+
+                if (strlen($stripped) > 100) {
+                    $truncated = substr($stripped, 0, 100);
+
+                    if (! str_ends_with($truncated, '.')) {
+                        $truncated .= '…';
+                    }
+
+                    return $truncated;
+                }
+
+                return $stripped;
+            },
+        );
     }
 
     public function deleteWithChildren() : self

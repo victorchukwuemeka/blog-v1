@@ -174,18 +174,56 @@
             <div class="lg:col-span-4 xl:col-span-3">
                 @if (now()->isAfter('2025-08-03'))
                     <x-ads.sidebar.sevalla
-                        class="opacity-0 duration-[600ms] delay-600 transition-[opacity,translate] translate-y-4"
+                        class="opacity-0 duration-[600ms] delay-300 md:delay-600 transition-[opacity,translate] translate-y-4"
                         x-bind:class="{ 'opacity-100 !translate-y-0': show }"
                         x-data="{ show: false }"
                         x-intersect:enter="show = true"
                     />
                 @else
                     <x-ads.sidebar.vemetric
-                        class="opacity-0 duration-[600ms] delay-600 transition-[opacity,translate] translate-y-4"
+                        class="opacity-0 duration-[600ms] delay-300 md:delay-600 transition-[opacity,translate] translate-y-4"
                         x-bind:class="{ 'opacity-100 !translate-y-0': show }"
                         x-data="{ show: false }"
                         x-intersect:enter="show = true"
                     />
+                @endif
+
+                @if ($comment = $post->comments()->latest()->first())
+                    <div class="hidden mt-16 md:block">
+                        <p class="font-bold tracking-widest text-black uppercase text-balance">
+                            Latest comment
+                        </p>
+
+                        <div class="flex gap-4 mt-6">
+                            <img
+                                src="{{ $comment->user->avatar }}"
+                                alt="{{ $comment->user->name }}"
+                                class="flex-none mt-1 rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"
+                            />
+
+                            <div>
+                                <p>
+                                    <a href="{{ $comment->user->github_data['user']['html_url'] }}" target="_blank" class="font-medium">
+                                        {{ $comment->user->name }}
+                                    </a>
+
+                                    <span class="ml-1 text-gray-500">
+                                        {{ $comment->created_at->diffForHumans(short: true) }}
+                                    </span>
+                                </p>
+
+                                <x-prose class="mt-2 leading-normal text-gray-500">
+                                    {!! substr(strip_tags(Str::markdown($comment->content)), 0, 100) !!}…
+                                </x-prose>
+
+                                <p class="mt-2">
+                                    <a href="#comments" class="font-medium underline">
+                                        Check comments →
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 @endif
             </div>
         @endif
