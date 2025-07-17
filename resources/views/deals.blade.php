@@ -29,7 +29,7 @@
             Services, apps, and all kinds of tools to help you do your job more efficiently.
         </p>
 
-        <div class="grid gap-16 mt-8 md:gap-8 md:grid-cols-2">
+        <div class="grid gap-8 mt-8 md:grid-cols-2">
             <x-deals.item
                 name="Fathom Analytics"
                 headline="Know who visits your site"
