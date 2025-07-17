@@ -55,6 +55,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Link::class);
     }
 
+    public function comments() : HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function about() : Attribute
     {
         return Attribute::make(

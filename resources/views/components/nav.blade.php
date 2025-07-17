@@ -47,6 +47,23 @@
         Links
     </a>
 
+    <a
+        wire:navigate
+        href="{{ route('deals') }}"
+        class="relative text-blue-600 transition-colors hover:text-blue-600"
+        data-pirsch-event='Clicked "For you"'
+    >
+        @if (request()->routeIs('deals'))
+            <x-heroicon-s-gift class="mx-auto size-6 md:size-7" />
+        @else
+            <x-heroicon-o-gift class="mx-auto size-6 md:size-7" />
+        @endif
+
+        For you
+
+        <div class="absolute top-0 right-0 bg-blue-600 rounded-full size-[.4rem]"></div>
+    </a>
+
     @auth
         <x-dropdown>
             <x-slot:btn
@@ -87,6 +104,14 @@
                 @endif
 
                 <x-dropdown.divider />
+
+                <x-dropdown.item
+                    wire:navigate
+                    href="{{ route('user.comments') }}"
+                >
+                    <x-heroicon-o-chat-bubble-oval-left class="size-4" />
+                    Your comments
+                </x-dropdown.item>
 
                 <x-dropdown.item
                     href="https://github.com/settings"

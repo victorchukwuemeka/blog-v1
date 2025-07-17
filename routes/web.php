@@ -8,6 +8,7 @@ use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
+use App\Http\Controllers\User\ShowUserCommentsController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
@@ -30,6 +31,9 @@ Route::get('/categories', ListCategoriesController::class)
 Route::get('/categories/{category:slug}', ShowCategoryController::class)
     ->name('categories.show');
 
+Route::view('/deals', 'deals')
+    ->name('deals');
+
 Route::get('/links', ListLinksController::class)
     ->name('links.index');
 
@@ -45,11 +49,19 @@ Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)
 Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
 
-Route::middleware(['auth', Admin::class])->group(function () {
-    Route::get('/cloudflare-images', ShowCloudflareImagesFormController::class)
-        ->name('show-cloudflare-images-form');
-    Route::post('/cloudflare-images', UploadToCloudflareImagesController::class)
-        ->name('upload-to-cloudflare-images');
+Route::middleware('auth')->group(function () {
+    Route::prefix('/user')->group(function () {
+        Route::get('/comments', ShowUserCommentsController::class)
+            ->name('user.comments');
+    });
+
+    Route::middleware(Admin::class)->group(function () {
+        Route::get('/cloudflare-images', ShowCloudflareImagesFormController::class)
+            ->name('show-cloudflare-images-form');
+
+        Route::post('/cloudflare-images', UploadToCloudflareImagesController::class)
+            ->name('upload-to-cloudflare-images');
+    });
 });
 
 Route::feeds();
