@@ -6,6 +6,7 @@ $parentId = $this->parentId ?? $attributes->get('parentId');
 <div {{ $attributes }}>
     <div class="flex gap-4">
         <img
+            loading="lazy"
             src="{{ $comment->user->avatar }}"
             alt="{{ $comment->user->name }}"
             class="flex-none mt-1 rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"

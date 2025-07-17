@@ -11,7 +11,12 @@
             ])
     }}
 >
-    <img src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256" alt="Benjamin Crozat" class="mx-auto h-10 rounded-full" />
+    <img
+        loading="lazy"
+        src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
+        alt="Benjamin Crozat"
+        class="mx-auto h-10 rounded-full"
+    />
 
     <p class="-mt-2 leading-tight text-center"><strong class="font-semibold text-orange-900">“Successful developers automate”</strong></p>
 
@@ -25,7 +30,12 @@
         <li><strong class="font-medium text-orange-950">Get $50 free credits</strong></li>
     </ul>
 
-    <img src="{{ Vite::asset('resources/img/screenshots/sevalla.webp') }}" alt="Sevalla's interface" class="z-10 mt-5 rounded ring-1 shadow-lg transition-transform scale-125 rotate-1 hover:rotate-0 hover:scale-150 shadow-orange-900/10 ring-orange-900/10" />
+    <img
+        loading="lazy"
+        src="{{ Vite::asset('resources/img/screenshots/sevalla.webp') }}"
+        alt="Sevalla's interface"
+        class="z-10 mt-5 rounded ring-1 shadow-lg transition-transform scale-125 rotate-1 hover:rotate-0 hover:scale-150 shadow-orange-900/10 ring-orange-900/10"
+    />
 
     <x-btn primary class="w-full bg-orange-500! hover:bg-orange-400! mt-6 text-center !rounded-md cursor-pointer">
         Claim $50 free credits

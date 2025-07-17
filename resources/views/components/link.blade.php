@@ -7,7 +7,12 @@
         data-pirsch-event='Clicked the image of "{{ $link->title }}"'
     >
         @if ($link->image_url)
-            <img src="{{ $link->image_url }}" alt="{{ $link->title  }}" class="object-cover rounded-xl ring-1 shadow-md transition-opacity shadow-black/5 aspect-video hover:opacity-50 ring-black/5" />
+            <img
+                fetchpriority="high"
+                src="{{ $link->image_url }}"
+                alt="{{ $link->title  }}"
+                class="object-cover rounded-xl ring-1 shadow-md transition-opacity shadow-black/5 aspect-video hover:opacity-50 ring-black/5"
+            />
         @else
             @php
             $bgColors = collect([
@@ -57,6 +62,7 @@
         </a>
 
         <img
+            loading="lazy"
             src="{{ $link->user->avatar }}"
             alt="{{ $link->user->name }}"
             class="rounded-full ring-1 ring-black/5 size-10"

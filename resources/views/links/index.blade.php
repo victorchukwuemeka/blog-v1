@@ -15,7 +15,7 @@
             <div class="flex justify-center items-center mt-4 md:mt-6">
                 @foreach ($distinctUserAvatars as $avatar)
                     <div class="overflow-hidden -ml-2 bg-white rounded-full">
-                        <img src="{{ $avatar }}" class="size-8 md:size-10" />
+                        <img loading="lazy" src="{{ $avatar }}" class="size-8 md:size-10" />
                     </div>
                 @endforeach
             </div>

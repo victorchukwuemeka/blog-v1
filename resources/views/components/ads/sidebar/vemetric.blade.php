@@ -11,7 +11,12 @@
             ])
     }}
 >
-    <img src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256" alt="Benjamin Crozat" class="mx-auto h-10 rounded-full" />
+    <img
+        loading="lazy"
+        src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
+        alt="Benjamin Crozat"
+        class="mx-auto h-10 rounded-full"
+    />
 
     <p class="-mt-2 leading-tight text-center text-blue-950">
         <strong class="font-semibold">“Let's ditch<br /> bloated analytics!”</strong>
@@ -27,6 +32,7 @@
     </ul>
 
     <img
+        loading="lazy"
         src="{{ Vite::asset('resources/img/screenshots/vemetric.webp') }}"
         alt="Vemetric's dashboard"
         class="z-10 mt-5 rounded ring-1 shadow-lg transition-transform rotate-1 scale-115 md:scale-125 hover:rotate-0 hover:scale-125 md:hover:scale-150 shadow-blue-900/10 ring-blue-900/10"

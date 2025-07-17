@@ -82,6 +82,7 @@
                     target="_blank"
                 >
                     <img
+                        loading="lazy"
                         src="{{ session('url') }}"
                         alt="Uploaded image"
                         class="mx-auto rounded-xl ring-1 shadow-lg ring-black/10"

@@ -98,6 +98,7 @@
         <x-section title="About {{ $aboutUser->name }}" id="about" class="mt-24 lg:max-w-(--breakpoint-md) md:mt-32">
             <x-prose>
                 <img
+                    loading="lazy"
                     src="{{ $aboutUser->avatar }}"
                     alt="{{ $aboutUser->name }}"
                     class="float-right mt-4 ml-4 rounded-full! size-20 sm:size-28 md:size-32"

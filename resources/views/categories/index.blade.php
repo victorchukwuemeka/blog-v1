@@ -23,6 +23,7 @@
                                     <div class="flex gap-4 items-start md:gap-6">
                                         <a wire:navigate href="{{ route('posts.show', $post) }}" class="flex-none mt-1">
                                             <img
+                                                loading="lazy"
                                                 src="{{ $post->image_url }}"
                                                 class="rounded ring-1 shadow size-10 aspect-square ring-black/5 shadow-black/5"
                                             />

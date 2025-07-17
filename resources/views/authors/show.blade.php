@@ -13,6 +13,7 @@ $description = Str::limit(
     <article class="container lg:max-w-(--breakpoint-md)">
         <header>
             <img
+                loading="lazy"
                 src="{{ $author->avatar }}"
                 alt="{{ $author->name }}"
                 class="mx-auto mt-1 rounded-full size-16"

@@ -4,6 +4,7 @@
             <a href="{{ route('auth.redirect') }}">
         @endif
             <img
+                loading="lazy"
                 src="{{ auth()->check() ? $user->avatar : 'https://www.gravatar.com/avatar/?d=mp' }}"
                 alt="{{ auth()->check() ? $user->name : 'Guest' }}"
                 class="flex-none mt-1 rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"

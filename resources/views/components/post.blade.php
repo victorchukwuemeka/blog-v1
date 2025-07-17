@@ -3,7 +3,12 @@
 <div {{ $attributes->class('flex flex-col h-full') }}>
     <a wire:navigate href="{{ route('posts.show', $post->slug) }}">
         @if ($post->hasImage())
-            <img src="{{ $post->image_url }}" alt="{{ $post->title  }}" class="object-cover rounded-xl ring-1 shadow-md transition-opacity shadow-black/5 aspect-video hover:opacity-50 ring-black/5" />
+            <img
+                fetchpriority="high"
+                src="{{ $post->image_url }}"
+                alt="{{ $post->title  }}"
+                class="object-cover rounded-xl ring-1 shadow-md transition-opacity shadow-black/5 aspect-video hover:opacity-50 ring-black/5"
+            />
         @else
             @php
             $bgColors = collect([
