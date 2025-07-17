@@ -112,14 +112,6 @@
                 <x-dropdown.divider />
 
                 <x-dropdown.item
-                    wire:navigate
-                    href="{{ route('user.comments') }}"
-                >
-                    <x-heroicon-o-chat-bubble-oval-left class="size-4" />
-                    Your comments
-                </x-dropdown.item>
-
-                <x-dropdown.item
                     href="https://github.com/settings"
                     target="_blank"
                     data-pirsch-event='Clicked "Manage on GitHub"'
