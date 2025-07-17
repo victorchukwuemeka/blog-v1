@@ -15,6 +15,11 @@ class ShowPostController extends Controller
             abort(404);
         }
 
-        return view('posts.show', compact('post'));
+        return view('posts.show', compact('post') + [
+            'latestComment' => $post->comments()
+                ->whereRelation('user', 'github_login', '!=', 'benjamincrozat')
+                ->latest()
+                ->first(),
+        ]);
     }
 }

@@ -188,7 +188,7 @@
                     />
                 @endif
 
-                @if ($comment = $post->comments()->latest()->first())
+                @if ($latestComment)
                     <div class="hidden mt-16 md:block">
                         <p class="font-bold tracking-widest text-black uppercase text-balance">
                             Latest comment
@@ -196,24 +196,24 @@
 
                         <div class="flex gap-4 mt-6">
                             <img
-                                src="{{ $comment->user->avatar }}"
-                                alt="{{ $comment->user->name }}"
+                                src="{{ $latestComment->user->avatar }}"
+                                alt="{{ $latestComment->user->name }}"
                                 class="flex-none mt-1 rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"
                             />
 
                             <div>
                                 <p>
-                                    <a href="{{ $comment->user->github_data['user']['html_url'] }}" target="_blank" class="font-medium">
-                                        {{ $comment->user->name }}
+                                    <a href="{{ $latestComment->user->github_data['user']['html_url'] }}" target="_blank" class="font-medium">
+                                        {{ $latestComment->user->name }}
                                     </a>
 
                                     <span class="ml-1 text-gray-500">
-                                        {{ $comment->created_at->diffForHumans(short: true) }}
+                                        {{ $latestComment->created_at->diffForHumans(short: true) }}
                                     </span>
                                 </p>
 
                                 <x-prose class="mt-2 leading-normal text-gray-500">
-                                    {{ $comment->truncated }}
+                                    {{ $latestComment->truncated }}
                                 </x-prose>
 
                                 <p class="mt-2">
