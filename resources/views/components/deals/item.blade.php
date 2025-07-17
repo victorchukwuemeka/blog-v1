@@ -19,7 +19,7 @@
 
         <x-btn
             primary
-            class="mt-8 self-start cursor-pointer rounded-md!"
+            class="mt-8 self-start cursor-pointer rounded-md! {{ $ctaColor ?? '' }}"
         >
             {{ $cta }}
         </x-btn>

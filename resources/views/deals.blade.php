@@ -35,6 +35,7 @@
                 headline="Know who visits your site"
                 subheadline="Fathom Analytics is a simple, privacy-focused web analytics. No cookies, ads, or tracking."
                 cta="Start free + $10 off"
+                cta-color="bg-[#171B18]!"
                 href="{{ route('merchants.show', 'fathom-analytics') }}"
                 :src="Vite::asset('resources/img/screenshots/fathom-analytics.webp')"
             />
@@ -44,6 +45,7 @@
                 headline="Easily deploy PHP web apps"
                 subheadline="PHP 8, scalability, Cloudflare, caching, 24/7 support, and more with Cloudways"
                 cta="Start free"
+                cta-color="bg-[#3641C2]!"
                 href="{{ route('merchants.show', 'cloudways-php') }}"
                 :src="Vite::asset('resources/img/screenshots/cloudways.webp')"
             />
@@ -53,6 +55,7 @@
                 headline="Send emails to your users"
                 subheadline="Self-hosted email marketing built for Laravel developers, by Laravel developers."
                 cta="Start free"
+                cta-color="bg-[#142C6E]!"
                 href="{{ route('merchants.show', 'mailcoach') }}"
                 :src="Vite::asset('resources/img/screenshots/mailcoach.webp')"
             />
@@ -62,6 +65,7 @@
                 headline="Rank higher on Google"
                 subheadline="Use Wincher to track and grow your business’s search visibility."
                 cta="Start free"
+                cta-color="bg-[#F09B4F]!"
                 href="{{ route('merchants.show', 'wincher') }}"
                 :src="Vite::asset('resources/img/screenshots/wincher.avif')"
             />
