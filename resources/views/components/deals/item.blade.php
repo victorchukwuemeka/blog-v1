@@ -14,7 +14,7 @@
         </p>
 
         <p class="flex-grow mt-4 leading-tight sm:text-balance">
-            {{ $subheadline }}
+            {!! Str::markdown($subheadline) !!}
         </p>
 
         <x-btn
