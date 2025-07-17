@@ -174,31 +174,15 @@
         @if (! $post->is_commercial)
             <div class="lg:col-span-4 xl:col-span-3">
                 @if (now()->isAfter('2025-08-03'))
-                    <x-ads.sidebar.sevalla
-                        class="opacity-0 duration-[600ms] delay-300 md:delay-600 transition-[opacity,translate] translate-y-4"
-                        x-bind:class="{ 'opacity-100 !translate-y-0': show }"
-                        x-data="{ show: false }"
-                        x-intersect:enter="show = true"
-                    />
+                    <x-ads.sidebar.sevalla />
                 @else
-                    <x-ads.sidebar.vemetric
-                        class="opacity-0 duration-[600ms] delay-300 md:delay-600 transition-[opacity,translate] translate-y-4"
-                        x-bind:class="{ 'opacity-100 !translate-y-0': show }"
-                        x-data="{ show: false }"
-                        x-intersect:enter="show = true"
-                    />
+                    <x-ads.sidebar.vemetric />
                 @endif
 
                 <a href="{{ route('deals') }}" class="hidden lg:block">
-                    <div class="p-4 mt-4 leading-tight rounded-xl bg-gray-100/75">
-                        <p>
-                            <strong class="font-medium">I have even more deals for developers.</strong> Services, apps, and all kinds of tools at a discount.
-                        </p>
-
-                        <p class="mt-3 font-medium text-right underline">
-                            Check the deals page →
-                        </p>
-                    </div>
+                    <p class="p-4 mt-4 leading-tight rounded-xl text-balance bg-gray-100/75">
+                        <strong class="font-medium">I have even more deals for developers.</strong> Services, apps, and all kinds of tools at a discount. <span class="font-medium underline">Check available deals →</span>
+                    </p>
                 </a>
 
                 @if ($latestComment)
