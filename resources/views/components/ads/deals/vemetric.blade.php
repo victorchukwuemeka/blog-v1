@@ -11,7 +11,7 @@
                 'svgLogo' => 'icon-vemetric',
                 'descriptionColor' => 'text-violet-900',
                 'description' => 'Vemetric is a simple, open-source, privacy-first analytics tool that tracks the full user journey.',
-                'cta' => 'Start for free',
+                'cta' => 'Start free',
                 'ctaColor' => 'bg-violet-500!',
                 'screenshot' => Vite::asset('resources/img/screenshots/vemetric.webp'),
             ])
