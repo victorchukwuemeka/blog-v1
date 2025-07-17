@@ -41,7 +41,7 @@
 
             <x-deals.item
                 name="Cloudways"
-                headline="Easily deploy PHP web applications"
+                headline="Easily deploy PHP web apps"
                 subheadline="PHP 8, scalability, Cloudflare, caching, 24/7 support, and more with Cloudways"
                 cta="Start free"
                 href="{{ route('merchants.show', 'cloudways-php') }}"
@@ -68,7 +68,7 @@
 
             <x-deals.item
                 name="DigitalOcean"
-                headline="Host your web applications on a VPS"
+                headline="Host your web apps on a VPS"
                 subheadline="DigitalOcean provides affordable, scalable, and reliable VPS hosting."
                 cta="Start with $200 free credit"
                 href="{{ route('merchants.show', 'digitalocean') }}"
