@@ -224,7 +224,7 @@ return [
             'timeline' => false,  // Add the queries to the timeline
             'duration_background' => true,   // Show shaded background on each query relative to how long it took to execute.
             'explain' => [                 // Show EXPLAIN output on queries
-                'enabled' => false,
+                'enabled' => true,
             ],
             'hints' => false,   // Show hints for common mistakes
             'show_copy' => true,    // Show copy button next to the query,
