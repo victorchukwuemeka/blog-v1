@@ -3,7 +3,7 @@ import.meta.glob([
     '../svg/**',
 ])
 
-import { Alpine, Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm'
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm'
 import Autosize from '@marcreichel/alpine-autosize'
 
 Alpine.plugin(Autosize)
