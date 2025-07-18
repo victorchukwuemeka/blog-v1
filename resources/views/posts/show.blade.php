@@ -18,7 +18,7 @@
                     <img
                         fetchpriority="high"
                         src="{{ $post->image_url }}"
-                        alt="{{ $post->title  }}"
+                        alt="{{ $post->title }}"
                         class="object-cover mb-12 w-full rounded-xl ring-1 shadow-xl md:mb-16 ring-black/5 aspect-video"
                     />
                 @endif
@@ -54,7 +54,13 @@
                         href="{{ route('authors.show', $post->user) }}"
                     >
                         <div class="p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900">
-                            <img src="{{ $post->user->avatar }}" class="mx-auto mb-2 rounded-full size-6" />
+                            <img
+                                loading="lazy"
+                                src="{{ $post->user->avatar }}"
+                                alt="{{ $post->user->name }}"
+                                class="mx-auto mb-2 rounded-full size-6"
+                            />
+
                             Written by<br />
                             {{ $post->user->name }}
                         </div>
