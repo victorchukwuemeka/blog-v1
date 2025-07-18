@@ -200,6 +200,7 @@
 
                         <div class="flex gap-4 mt-6">
                             <img
+                                loading="lazy"
                                 src="{{ $latestComment->user->avatar }}"
                                 alt="{{ $latestComment->user->name }}"
                                 class="flex-none mt-1 rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"
