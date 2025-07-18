@@ -13,9 +13,9 @@
             {{ $headline }}
         </p>
 
-        <p class="flex-grow mt-4 leading-tight sm:text-balance">
+        <div class="flex-grow mt-4 leading-tight sm:text-balance">
             {!! Str::markdown($subheadline) !!}
-        </p>
+        </div>
 
         <x-btn
             primary
