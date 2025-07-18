@@ -22,7 +22,7 @@ class Welcome extends Notification
         $mailMessage = (new MailMessage)
             ->subject('Your welcome gifts')
             ->greeting('Thank you for signing up!')
-            ->line('You can now post comments or [submit links](' . route('links.index') . ') to content you find useful or wrote.')
+            ->line('You can now **post comments** or [**submit links**](' . route('links.index') . ') to content you find useful or wrote.')
             ->line('If you want to keep reading, here are some popular articles:');
 
         Post::query()
@@ -36,7 +36,9 @@ class Welcome extends Notification
                 "- [$post->title](" . route('posts.show', $post) . ')'
             ));
 
-        return $mailMessage->line('Are you old school like me? Subscribe to the [Atom feed]().')
+        return $mailMessage
+            ->line('I also have a selection of [great software deals](' . route('deals') . ') for developers that you might want to check out.')
+            ->line('Are you old school like me? Subscribe to the [Atom feed]().')
             ->line('Find me on [X](https://x.com/benjamincrozat) and [LinkedIn](https://www.linkedin.com/in/benjamincrozat/).');
     }
 }
