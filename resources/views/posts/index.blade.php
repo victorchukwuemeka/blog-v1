@@ -1,4 +1,4 @@
-<x-app title="The best articles about web development in {{ date('Y') }}">
+<x-app title="The latest articles about web development in {{ date('Y') }}">
     <x-section
         :title="$posts->currentPage() > 1
             ? 'Page ' . $posts->currentPage()

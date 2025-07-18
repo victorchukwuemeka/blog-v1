@@ -6,9 +6,9 @@ $description = Str::limit(
 @endphp
 
 <x-app
+    title="About {{ $author->name }}"
     :description="$description"
     :image="$author->avatar"
-    title="About {{ $author->name }}"
 >
     <article class="container lg:max-w-(--breakpoint-md)">
         <header>

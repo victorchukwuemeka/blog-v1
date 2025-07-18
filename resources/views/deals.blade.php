@@ -1,6 +1,7 @@
 <x-app
     :hide-ad="true"
     title="Unlock the best software deals for developers"
+    description="Browse the great deals I gathered from across the web. Services, apps, and all kinds of tools to help you do your job more efficiently."
 >
     <h1 class="px-4 font-medium tracking-tight text-center text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
         Unlock the best software deals<br class="hidden md:inline" />

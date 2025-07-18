@@ -1,9 +1,13 @@
 <x-app
-    title="Advertise your developer-centric SaaS or product"
+    title="Advertise to {{ Number::format($visitors) }} developers"
 >
     <div class="container md:text-xl xl:max-w-(--breakpoint-lg)">
         <div class="text-center">
-            <img loading="lazy" src="{{ Vite::asset('resources/img/icons/megaphone.png') }}" class="mx-auto mb-8 h-24 md:h-28 lg:h-32" />
+            <img
+                loading="lazy"
+                src="{{ Vite::asset('resources/img/icons/megaphone.png') }}"
+                class="mx-auto mb-8 h-24 md:h-28 lg:h-32"
+            />
 
             <h1 class="text-3xl font-medium tracking-tight text-black lg:text-4xl xl:text-7xl">
                 Advertise to <span class="text-blue-600">{{ Number::format($visitors) }}</span>&nbsp;developers

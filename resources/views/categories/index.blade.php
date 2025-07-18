@@ -1,6 +1,6 @@
 <x-app
-    title="The best web development articles I wrote in {{ date('Y') }}"
-    description="Level up as a web developer in {{ date('Y') }} with this collection of articles I wrote."
+    title="Categories"
+    description="Level up as a web developer in {{ date('Y') }} with this collection of articles I wrote sorted by category."
 >
     <x-section
         title="Categories"
