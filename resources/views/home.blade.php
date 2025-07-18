@@ -1,4 +1,7 @@
-<x-app>
+<x-app
+    title="Benjamin Crozat's blog"
+    description="The best blog about PHP, Laravel, AI, and every other topics involved in building software."
+>
     <div class="container text-center">
         <div class="font-medium tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
             <span class="text-blue-600">{{ Number::format($visitors) }}</span> monthly visitors read my blog
