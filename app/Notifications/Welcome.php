@@ -37,8 +37,14 @@ class Welcome extends Notification
             ));
 
         return $mailMessage
-            ->line('I also have a selection of [great software deals](' . route('deals') . ') for developers that you might want to check out.')
-            ->line('Are you old school like me? Subscribe to the [Atom feed]().')
+            ->line('I also have a selection of [great software deals](' . route('deals') . ') for developers:')
+            ->line('- [Unlock the power of Git on Mac and Windows](' . route('merchants.show', 'tower') . ')')
+            ->line('- [Know who visits your site](' . route('merchants.show', 'fathom-analytics') . ')')
+            ->line('- [Easily deploy PHP web apps](' . route('merchants.show', 'cloudways-php') . ')')
+            ->line('- [Send emails to your users](' . route('merchants.show', 'mailcoach') . ')')
+            ->line('- [Rank higher on Google](' . route('merchants.show', 'wincher') . ')')
+            ->line('- [Monitor your site\'s uptime, speed, and SSL](' . route('merchants.show', 'uptimia') . ')')
+            ->line('And if you are old school like me, subscribe to the [Atom feed](' . route('feeds.main') . ').')
             ->line('Find me on [X](https://x.com/benjamincrozat) and [LinkedIn](https://www.linkedin.com/in/benjamincrozat/).');
     }
 }
