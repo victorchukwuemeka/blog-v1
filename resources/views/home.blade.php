@@ -50,6 +50,20 @@
         </x-section>
     @endif
 
+    <x-section
+        title="Great deals for developers"
+        class="mt-24 md:mt-32"
+    >
+        <div class="grid gap-8 mt-8 lg:grid-cols-2">
+            <x-deals.tower />
+            <x-deals.fathom-analytics />
+            <x-deals.cloudways />
+            <x-deals.mailcoach />
+            <x-deals.wincher />
+            <x-deals.uptimia />
+        </div>
+    </x-section>
+
     <x-section title="Latest posts" id="latest" class="mt-24 md:mt-32">
         @if ($latest->isNotEmpty())
             <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
