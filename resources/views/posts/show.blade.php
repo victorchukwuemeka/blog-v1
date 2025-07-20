@@ -175,15 +175,34 @@
                 <div class="mt-24">
                     <livewire:comments :post-id="$post->id" />
                 </div>
+
+                <section class="mt-24">
+                    <h1 class="mb-8 font-bold tracking-widest text-center text-black uppercase text-balance">
+                        Great deals for developers
+                    </h1>
+
+                    <div class="grid gap-4">
+                        <x-deals.fathom-analytics />
+                        <x-deals.cloudways />
+                        <x-deals.mailcoach />
+                        <x-deals.wincher />
+                    </div>
+
+                    <p class="mt-8 text-center">
+                        <a wire:navigate href="{{ route('deals') }}" class="font-medium underline">
+                            Check all deals →
+                        </a>
+                    </p>
+                </section>
             @endif
         </div>
 
         @if (! $post->is_commercial)
             <div class="lg:col-span-4 xl:col-span-3">
                 @if (now()->isAfter('2025-08-03'))
-                    <x-ads.sidebar.sevalla />
+                    <x-ads.sidebar.sevalla class="max-w-[280px] mx-auto lg:max-w-none lg:mx-0" />
                 @else
-                    <x-ads.sidebar.vemetric />
+                    <x-ads.sidebar.vemetric class="max-w-[280px] mx-auto lg:max-w-none lg:mx-0" />
                 @endif
 
                 <a href="{{ route('deals') }}" class="hidden lg:block">
@@ -193,7 +212,7 @@
                 </a>
 
                 @if ($latestComment)
-                    <div class="hidden mt-16 md:block">
+                    <div class="hidden mt-16 lg:block">
                         <p class="font-bold tracking-widest text-black uppercase text-balance">
                             Latest comment
                         </p>

@@ -1,7 +1,7 @@
 <a
     {{
         $attributes
-            ->class('bg-gray-100/75 flex rounded-xl overflow-hidden transition-opacity hover:opacity-50 leading-tight')
+            ->class('bg-gray-100/75 flex rounded-xl overflow-hidden transition-opacity hover:opacity-50')
             ->merge([
                 'href' => $href,
                 'target' => '_blank',
@@ -13,13 +13,13 @@
             {{ $headline }}
         </p>
 
-        <div class="flex-grow mt-4 leading-tight sm:text-balance">
+        <x-prose class="flex-grow mt-4 leading-normal sm:text-balance">
             {!! Str::markdown($subheadline) !!}
-        </div>
+        </x-prose>
 
         <x-btn
             primary
-            class="mt-8 self-start cursor-pointer rounded-md! {{ $ctaColor ?? '' }}"
+            class="mt-8 self-start cursor-pointer rounded-md! {{ $ctaColor ?? '' }} {{ $ctaTextColor ?? '' }}"
         >
             {{ $cta }}
         </x-btn>
@@ -30,7 +30,7 @@
             loading="lazy"
             src="{{ $src }}"
             alt="{{ $name }}"
-            class="object-cover absolute inset-0 w-full h-full object-top-left"
+            class="object-cover absolute inset-0 w-full h-full ring-1 shadow-2xl ring-black/10 object-top-left"
         />
     </div>
 </a>
