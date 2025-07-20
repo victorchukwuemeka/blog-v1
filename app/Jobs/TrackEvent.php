@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Jobs;
+
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class TrackEvent implements ShouldQueue
+{
+    use Queueable;
+
+    public function __construct(
+        public string $name,
+        public string $url,
+        public string $ip,
+        public string $userAgent,
+        public string $acceptLanguage,
+        public string $referrer,
+    ) {}
+
+    public function handle() : void
+    {
+        app(\App\Actions\TrackEvent::class)->track(
+            $this->name,
+            $this->url,
+            $this->ip,
+            $this->userAgent,
+            $this->acceptLanguage,
+            $this->referrer,
+        );
+    }
+}

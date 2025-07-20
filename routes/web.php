@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
+use App\Http\Controllers\RedirectShortUrlController;
 use App\Http\Controllers\Authors\ShowAuthorController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
@@ -57,6 +58,10 @@ Route::middleware('auth')->group(function () {
             ->name('upload-to-cloudflare-images');
     });
 });
+
+Route::domain(config('app.url_shortener_domain'))
+    ->group(fn () => Route::get('/{shortUrl:code}', RedirectShortUrlController::class)
+        ->name('redirect-short-url'));
 
 Route::feeds();
 

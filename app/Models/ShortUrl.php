@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class ShortUrl extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'url',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (self $model) : void {
+            $model->code ??= Str::random(5);
+        });
+    }
+
+    public function link() : Attribute
+    {
+        return Attribute::make(
+            fn () => 'https://' . config('app.url_shortener_domain') . '/' . $this->code,
+        );
+    }
+}
