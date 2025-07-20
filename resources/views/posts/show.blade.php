@@ -182,6 +182,7 @@
                     </h1>
 
                     <div class="grid gap-4">
+                        <x-deals.tower />
                         <x-deals.fathom-analytics />
                         <x-deals.cloudways />
                         <x-deals.mailcoach />
