@@ -187,6 +187,7 @@
                         <x-deals.cloudways />
                         <x-deals.mailcoach />
                         <x-deals.wincher />
+                        <x-deals.uptimia />
                     </div>
 
                     <p class="mt-8 text-center">

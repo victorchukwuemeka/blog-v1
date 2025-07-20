@@ -74,6 +74,7 @@ return [
         'skillshare' => 'https://skillshare.eqcm.net/rQWAbD',
         'tinkerwell' => 'https://tinkerwell.app/?ref=benjamincrozat',
         'tower' => 'https://www.git-tower.com/?via=benjamincrozat',
+        'uptimia' => 'https://www.uptimia.com/?via=benjamincrozat',
         'untitled-ui' => 'https://store.untitledui.com?aff=WJ9DG',
         'vultr' => 'https://www.vultr.com/products/cloud-compute/?ref=9270910-8H',
         'webshare' => 'https://www.webshare.io/?referral_code=dt6d6ofk1rzp',

@@ -41,6 +41,7 @@
             <x-deals.cloudways />
             <x-deals.mailcoach />
             <x-deals.wincher />
+            <x-deals.uptimia />
             <x-deals.digitalocean />
         </div>
     </x-section>
