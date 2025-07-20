@@ -52,18 +52,20 @@
         {!! Str::markdown($post->description ?? '') !!}
     </div>
 
-    <div class="grid grid-cols-3 gap-4 mt-6 text-sm/tight">
+    <div class="grid grid-cols-none grid-flow-col auto-cols-fr gap-4 mt-6 text-sm/tight">
         <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
             <x-heroicon-o-calendar class="mx-auto mb-1 opacity-75 size-5" />
             {{ ($post->modified_at ?? $post->published_at)->isoFormat('ll') }}
         </div>
 
-        <a href="{{ route('posts.show', $post->slug) }}#comments" class="group">
-            <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900">
-                <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-1 opacity-75 size-5" />
-                {{ $post->comments_count }} {{ trans_choice('comment|comments', $post->comments_count) }}
-            </div>
-        </a>
+        @if (! $post->is_commercial)
+            <a href="{{ route('posts.show', $post->slug) }}#comments" class="group">
+                <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900">
+                    <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-1 opacity-75 size-5" />
+                    {{ $post->comments_count }} {{ trans_choice('comment|comments', $post->comments_count) }}
+                </div>
+            </a>
+        @endif
 
         <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg">
             <x-heroicon-o-clock class="mx-auto mb-1 opacity-75 size-5" />
