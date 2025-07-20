@@ -6,4 +6,4 @@ This is the source code for the new version of my 20K monthly visitors blog. It'
 
 **You can do whatever you want with the code.**
 
-<img src="https://github.com/user-attachments/assets/a45b650d-38b7-47c5-885b-7aaf50bcb2f9" />
+<img src="https://github.com/user-attachments/assets/75f8d85f-4e86-4674-b8cd-8c8c085b00a1" />
