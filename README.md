@@ -2,10 +2,8 @@
 
 # benjamincrozat.com
 
-This is the source code for the new version of my 1000s monthly visitors blog. It's **100% not vibe coded.**
+This is the source code for the new version of my 20K monthly visitors blog. It's **100% not vibe coded.**
 
 **You can do whatever you want with the code.**
-
-Remaining tasks can be seen in the [projects section](https://github.com/users/benjamincrozat/projects).
 
 <img src="https://github.com/user-attachments/assets/a45b650d-38b7-47c5-885b-7aaf50bcb2f9" />
