@@ -5,6 +5,7 @@
             ->merge([
                 'href' => $href,
                 'target' => '_blank',
+                'data-pirsch-event' => "Clicked on $name",
             ])
     }}
 >
