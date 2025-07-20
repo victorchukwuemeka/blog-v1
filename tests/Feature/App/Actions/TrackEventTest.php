@@ -7,13 +7,13 @@ use Illuminate\Http\Client\RequestException;
 beforeEach(fn () => Http::allowStrayRequests());
 
 it("successfully makes a call to Pirsch's API with valid parameters", function () {
-    app(TrackEvent::class)->track(...parameters());
+    app(TrackEvent::class)->track(...trackEventParameters());
 })->throwsNoExceptions();
 
 it('handles an invalid token appropriately', function () {
     config(['services.pirsch.access_key' => 'invalid_token']);
 
-    app(TrackEvent::class)->track(...parameters());
+    app(TrackEvent::class)->track(...trackEventParameters());
 })->throws(RequestException::class);
 
 it('retries on network failure and does not throw if it succeeds', function () {
@@ -22,7 +22,7 @@ it('retries on network failure and does not throw if it succeeds', function () {
         ->pushStatus(503)
         ->pushStatus(200);
 
-    app(TrackEvent::class)->track(...parameters());
+    app(TrackEvent::class)->track(...trackEventParameters());
 })->throwsNoExceptions();
 
 it('properly handles request timeouts', function () {
@@ -31,10 +31,10 @@ it('properly handles request timeouts', function () {
         ->pushStatus(408)
         ->pushStatus(200);
 
-    app(TrackEvent::class)->track(...parameters());
+    app(TrackEvent::class)->track(...trackEventParameters());
 })->throwsNoExceptions();
 
-function parameters() : array
+function trackEventParameters() : array
 {
     return [
         'name' => 'Foo',
