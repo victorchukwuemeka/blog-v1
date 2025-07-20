@@ -8,6 +8,11 @@ return new class extends Migration
 {
     public function up() : void
     {
+        Schema::dropIfExists('reactions');
+    }
+
+    public function down() : void
+    {
         Schema::create('reactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->index();
@@ -15,10 +20,5 @@ return new class extends Migration
             $table->string('emoji');
             $table->timestamps();
         });
-    }
-
-    public function down() : void
-    {
-        Schema::dropIfExists('reactions');
     }
 };
