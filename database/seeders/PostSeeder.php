@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 use App\Jobs\FetchImageForPost;
 use Illuminate\Database\Seeder;
 
@@ -13,8 +14,7 @@ class PostSeeder extends Seeder
     {
         Post::factory(30)
             ->recycle(User::all())
-            ->hasCategories(3)
-            ->hasComments(10)
+            ->recycle(Category::all())
             ->create([
                 'content' => <<<'MARKDOWN'
 # Heading 1

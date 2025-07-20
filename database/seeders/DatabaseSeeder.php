@@ -13,11 +13,15 @@ class DatabaseSeeder extends Seeder
     {
         Storage::disk('public')->deleteDirectory('images/posts');
 
+        cache()->flush();
+
         Artisan::call(SyncVisitorsCommand::class);
 
         $this->call([
             UserSeeder::class,
+            CategorySeeder::class,
             PostSeeder::class,
+            CommentSeeder::class,
             LinkSeeder::class,
         ]);
     }
