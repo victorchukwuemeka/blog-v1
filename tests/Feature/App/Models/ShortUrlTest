@@ -1,0 +1,17 @@
+<?php
+
+use App\Models\ShortUrl;
+
+it('generates the code on creation', function () {
+    $shortUrl = ShortUrl::query()->create([
+        'url' => 'https://example.com',
+    ]);
+
+    expect($shortUrl->code)->toBeString();
+});
+
+it('has a link attribute', function () {
+    $shortUrl = ShortUrl::factory()->create();
+
+    expect($shortUrl->link)->toBe('https://' . config('app.url_shortener_domain') . '/' . $shortUrl->code);
+});

@@ -55,9 +55,11 @@ class Comment extends Model
             function () {
                 $stripped = strip_tags(Str::lightdown($this->content));
 
-                return strlen($stripped) > 100
-                    ? rtrim(substr($stripped, 0, 100), '.') . '…'
-                    : $stripped;
+                return trim(
+                    strlen($stripped) > 100
+                        ? rtrim(substr($stripped, 0, 100), '.') . '…'
+                        : $stripped
+                );
             },
         )->shouldCache();
     }

@@ -11,15 +11,8 @@ class ShortUrl extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'code',
-        'url',
-    ];
-
-    protected static function boot()
+    protected static function booted() : void
     {
-        parent::boot();
-
         static::creating(function (self $model) : void {
             $model->code ??= Str::random(5);
         });
