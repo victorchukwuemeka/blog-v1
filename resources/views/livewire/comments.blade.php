@@ -14,6 +14,12 @@
                 </li>
             @endforeach
         </ul>
+
+        @if ($comments->hasPages())
+            <div class="mt-8">
+                {{ $comments->links() }}
+            </div>
+        @endif
     @endif
 
     <div class="mt-16">
