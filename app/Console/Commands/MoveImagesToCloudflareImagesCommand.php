@@ -7,6 +7,7 @@ use Spatie\Image\Image;
 use Spatie\Image\Enums\Fit;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Image\Exceptions\UnsupportedImageFormat;
 
 class MoveImagesToCloudflareImagesCommand extends Command
 {
@@ -46,22 +47,26 @@ class MoveImagesToCloudflareImagesCommand extends Command
 
         $contents = $publicDisk->get($path);
 
-        $image = Image::load($publicDisk->path($path));
+        try {
+            $image = Image::load($publicDisk->path($path));
 
-        if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
-            $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
+            if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
+                $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
 
-            $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
+                $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
 
-            $contents = file_get_contents($tmpPath);
+                $contents = file_get_contents($tmpPath);
 
-            @unlink($tmpPath);
+                @unlink($tmpPath);
+            }
+
+            Storage::disk('cloudflare-images')->put($path, $contents);
+
+            $post->update(['image_disk' => 'cloudflare-images']);
+
+            $this->info("Moved image for post \"{$post->title}\" (#{$post->id})");
+        } catch (UnsupportedImageFormat $e) {
+            $this->warn("Unsupported image format for post #{$post->id} at '{$path}'. Skipping…");
         }
-
-        Storage::disk('cloudflare-images')->put($path, $contents);
-
-        $post->update(['image_disk' => 'cloudflare-images']);
-
-        $this->info("Moved image for post \"{$post->title}\" (#{$post->id})");
     }
 }
