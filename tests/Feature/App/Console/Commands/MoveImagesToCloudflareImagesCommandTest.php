@@ -26,7 +26,7 @@ it('moves post images from the public disk to the cloudflare-images disk', funct
 
     // File should now exist on the cloudflare-images disk and be removed from public
     expect(Storage::disk('cloudflare-images')->exists($path))->toBeTrue();
-    expect(Storage::disk('public')->exists($path))->toBeFalse();
+    expect(Storage::disk('public')->exists($path))->toBeTrue();
 
     expect($post->fresh()->image_disk)->toBe('cloudflare-images');
 });
@@ -96,7 +96,7 @@ it('processes only the specified post when a slug is provided', function () {
 
     // Migrated post should be moved
     expect(Storage::disk('cloudflare-images')->exists($pathToMove))->toBeTrue();
-    expect(Storage::disk('public')->exists($pathToMove))->toBeFalse();
+    expect(Storage::disk('public')->exists($pathToMove))->toBeTrue();
     expect($migratePost->fresh()->image_disk)->toBe('cloudflare-images');
 
     // Other post should stay on public disk

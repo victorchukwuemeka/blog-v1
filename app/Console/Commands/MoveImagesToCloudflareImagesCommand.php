@@ -67,9 +67,6 @@ class MoveImagesToCloudflareImagesCommand extends Command
         // Upload to Cloudflare Images (overwriting if it already exists).
         Storage::disk('cloudflare-images')->put($path, $contents);
 
-        // Delete original file on public disk.
-        Storage::disk('public')->delete($path);
-
         // Update post record.
         $post->update(['image_disk' => 'cloudflare-images']);
 
