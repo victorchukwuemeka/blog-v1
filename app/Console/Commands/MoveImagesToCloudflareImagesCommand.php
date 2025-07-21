@@ -6,6 +6,7 @@ use App\Models\Post;
 use Spatie\Image\Image;
 use Spatie\Image\Enums\Fit;
 use Illuminate\Console\Command;
+use Spatie\Image\Enums\ImageDriver;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Attribute\AsCommand;
 
@@ -84,8 +85,33 @@ class MoveImagesToCloudflareImagesCommand extends Command
                 @unlink($tmpPath);
             }
         } catch (\Throwable $exception) {
-            // Any issue with processing (unsupported format, corrupted image, etc.)
-            $this->warn("Could not process image for post #{$post->id}: {$exception->getMessage()}. Uploading original file.");
+            // Retry with GD driver in case Imagick can't handle the image.
+            try {
+                Image::useImageDriver(ImageDriver::Gd);
+
+                $image = Image::load($fullPath);
+
+                if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
+                    $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
+                    $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
+                    $contents = file_get_contents($tmpPath);
+                    @unlink($tmpPath);
+                }
+            } catch (\Throwable $e) {
+                // Final fallback: if the dimensions are still too large, skip upload.
+                $size = @getimagesize($fullPath);
+
+                if ($size && (max($size[0], $size[1]) > 12000)) {
+                    $this->warn("Image for post #{$post->id} is too large and could not be resized. Skipping upload.");
+
+                    return;
+                }
+
+                $this->warn("Could not process image for post #{$post->id}: {$exception->getMessage()}. Uploading original file.");
+            } finally {
+                // Restore default driver
+                Image::useImageDriver(ImageDriver::Imagick);
+            }
         }
 
         // Upload to Cloudflare Images (overwriting if it already exists).

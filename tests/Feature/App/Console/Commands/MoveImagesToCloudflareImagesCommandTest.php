@@ -128,3 +128,30 @@ it('uploads original file when image cannot be processed', function () {
     expect(Storage::disk('public')->exists($badPath))->toBeTrue();
     expect($post->fresh()->image_disk)->toBe('cloudflare-images');
 });
+
+it('resizes images larger than 12000px before uploading', function () {
+    Storage::fake('public');
+    Storage::fake('cloudflare-images');
+
+    $bigPath = 'images/big.jpg';
+
+    // Create a large blank image (13000 x 100)
+    $resource = imagecreatetruecolor(13000, 100);
+    ob_start();
+    imagejpeg($resource);
+    $jpegData = ob_get_clean();
+    imagedestroy($resource);
+
+    Storage::disk('public')->put($bigPath, $jpegData);
+
+    $post = Post::factory()->create([
+        'image_path' => $bigPath,
+        'image_disk' => 'public',
+    ]);
+
+    artisan(MoveImagesToCloudflareImagesCommand::class)->assertSuccessful();
+
+    // The image is expected to be skipped due to being oversized and unresizable.
+    expect(Storage::disk('cloudflare-images')->exists($bigPath))->toBeFalse();
+    expect($post->fresh()->image_disk)->toBe('public');
+});
