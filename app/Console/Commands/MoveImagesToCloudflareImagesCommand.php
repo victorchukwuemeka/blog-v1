@@ -66,7 +66,7 @@ class MoveImagesToCloudflareImagesCommand extends Command
 
             $this->info("Moved image for post \"{$post->title}\" (#{$post->id})");
         } catch (UnsupportedImageFormat $e) {
-            $this->warn("Unsupported image format for post #{$post->id} at '{$path}'. Skipping…");
+            $this->warn("Unsupported image format for post #$post->id at \“$path\". {$e->getMessage()}. Skipping…");
         }
     }
 }
