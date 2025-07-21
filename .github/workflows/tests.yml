@@ -88,6 +88,13 @@ jobs:
         if: github.ref == 'refs/heads/main' && success()
         run: curl -X POST ${{ secrets.DEPLOYMENT_URL }}
 
+      - name: Debug via SSH
+        if: failure()
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 30
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
