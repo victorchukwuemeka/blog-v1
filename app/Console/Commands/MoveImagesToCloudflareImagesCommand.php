@@ -68,19 +68,24 @@ class MoveImagesToCloudflareImagesCommand extends Command
 
         $fullPath = Storage::disk('public')->path($path);
 
-        $image = Image::load($fullPath);
+        $contents = file_get_contents($fullPath);
 
-        if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
-            // Resize while respecting aspect ratio.
-            $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
+        try {
+            $image = Image::load($fullPath);
 
-            $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
+            if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
+                // Resize while respecting aspect ratio.
+                $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
 
-            $contents = file_get_contents($tmpPath);
+                $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
 
-            @unlink($tmpPath);
-        } else {
-            $contents = file_get_contents($fullPath);
+                $contents = file_get_contents($tmpPath);
+
+                @unlink($tmpPath);
+            }
+        } catch (\Throwable $exception) {
+            // Any issue with processing (unsupported format, corrupted image, etc.)
+            $this->warn("Could not process image for post #{$post->id}: {$exception->getMessage()}. Uploading original file.");
         }
 
         // Upload to Cloudflare Images (overwriting if it already exists).

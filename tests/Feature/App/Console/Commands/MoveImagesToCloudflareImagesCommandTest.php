@@ -109,3 +109,22 @@ it('processes only the specified post when a slug is provided', function () {
     expect(Storage::disk('public')->exists($stayPath))->toBeTrue();
     expect($stayPost->fresh()->image_disk)->toBe('public');
 });
+
+it('uploads original file when image cannot be processed', function () {
+    Storage::fake('public');
+    Storage::fake('cloudflare-images');
+
+    $badPath = 'images/bad.txt';
+    Storage::disk('public')->put($badPath, 'not-an-image');
+
+    $post = Post::factory()->create([
+        'image_path' => $badPath,
+        'image_disk' => 'public',
+    ]);
+
+    artisan(MoveImagesToCloudflareImagesCommand::class)->assertSuccessful();
+
+    expect(Storage::disk('cloudflare-images')->exists($badPath))->toBeTrue();
+    expect(Storage::disk('public')->exists($badPath))->toBeTrue();
+    expect($post->fresh()->image_disk)->toBe('cloudflare-images');
+});
