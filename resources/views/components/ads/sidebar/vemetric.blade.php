@@ -39,6 +39,6 @@
     />
 
     <x-btn primary class="w-full mt-6 text-center !rounded-md cursor-pointer">
-        Start for free
+        Start free
     </x-btn>
 </a>
