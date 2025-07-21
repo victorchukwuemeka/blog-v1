@@ -6,50 +6,28 @@ use App\Models\Post;
 use Spatie\Image\Image;
 use Spatie\Image\Enums\Fit;
 use Illuminate\Console\Command;
-use Spatie\Image\Enums\ImageDriver;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(
-    name: 'app:move-images-to-cloudflare-images',
-    description: 'Move post images from the public disk to Cloudflare Images.'
-)]
 class MoveImagesToCloudflareImagesCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * Note: the signature is still required for the Laravel Artisan command
-     * registration even though we're also using the PHP Attribute above.
-     */
     protected $signature = 'app:move-images-to-cloudflare-images {slug? : The slug of the post to process}';
 
     protected $description = 'Move post images from the public disk to Cloudflare Images.';
 
     public function handle() : void
     {
-
-        // If a slug was provided, process only that post.
         if ($slug = $this->argument('slug')) {
-
-            /** @var \App\Models\Post $post */
             $post = Post::query()->where('slug', $slug)->firstOrFail();
 
             $this->processPost($post);
 
-            return; // Done.
+            return;
         }
 
-        // Otherwise, process all eligible posts.
         Post::query()
             ->where('image_disk', 'public')
             ->whereNotNull('image_path')
-            ->chunkById(100, function ($posts) {
-                /** @var \App\Models\Post $post */
-                foreach ($posts as $post) {
-                    $this->processPost($post);
-                }
-            });
+            ->cursor($this->processPost(...));
 
         $this->info('All eligible images have been processed.');
     }
@@ -58,66 +36,30 @@ class MoveImagesToCloudflareImagesCommand extends Command
     {
         $path = $post->image_path;
 
-        // Skip if file is missing.
-        if (! Storage::disk('public')->exists($path)) {
+        $publicDisk = Storage::disk('public');
+
+        if (! $publicDisk->exists($path)) {
             $this->warn("Image not found for post #{$post->id} at '{$path}'. Skipping…");
 
             return;
         }
 
-        // Prepare image for upload, resizing if necessary to comply with Cloudflare's 12 000-px limit.
+        $contents = $publicDisk->get($path);
 
-        $fullPath = Storage::disk('public')->path($path);
+        $image = Image::load($publicDisk->path($path));
 
-        $contents = file_get_contents($fullPath);
+        if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
+            $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
 
-        try {
-            $image = Image::load($fullPath);
+            $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
 
-            if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
-                // Resize while respecting aspect ratio.
-                $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
+            $contents = file_get_contents($tmpPath);
 
-                $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
-
-                $contents = file_get_contents($tmpPath);
-
-                @unlink($tmpPath);
-            }
-        } catch (\Throwable $exception) {
-            // Retry with GD driver in case Imagick can't handle the image.
-            try {
-                Image::useImageDriver(ImageDriver::Gd);
-
-                $image = Image::load($fullPath);
-
-                if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
-                    $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
-                    $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
-                    $contents = file_get_contents($tmpPath);
-                    @unlink($tmpPath);
-                }
-            } catch (\Throwable $e) {
-                // Final fallback: if the dimensions are still too large, skip upload.
-                $size = @getimagesize($fullPath);
-
-                if ($size && (max($size[0], $size[1]) > 12000)) {
-                    $this->warn("Image for post #{$post->id} is too large and could not be resized. Skipping upload.");
-
-                    return;
-                }
-
-                $this->warn("Could not process image for post #{$post->id}: {$exception->getMessage()}. Uploading original file.");
-            } finally {
-                // Restore default driver
-                Image::useImageDriver(ImageDriver::Imagick);
-            }
+            @unlink($tmpPath);
         }
 
-        // Upload to Cloudflare Images (overwriting if it already exists).
         Storage::disk('cloudflare-images')->put($path, $contents);
 
-        // Update post record.
         $post->update(['image_disk' => 'cloudflare-images']);
 
         $this->info("Moved image for post \"{$post->title}\" (#{$post->id})");
