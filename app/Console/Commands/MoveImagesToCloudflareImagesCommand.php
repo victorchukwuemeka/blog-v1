@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Post;
 use Spatie\Image\Image;
+use Spatie\Image\Enums\Fit;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -73,7 +74,7 @@ class MoveImagesToCloudflareImagesCommand extends Command
             // Resize while respecting aspect ratio.
             $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
 
-            $image->fit(\Spatie\Image\Manipulations::FIT_MAX, 12000, 12000)->save($tmpPath);
+            $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
 
             $contents = file_get_contents($tmpPath);
 
