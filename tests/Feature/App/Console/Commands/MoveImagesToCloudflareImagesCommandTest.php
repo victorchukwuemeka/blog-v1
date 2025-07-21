@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use Illuminate\Http\UploadedFile;
 
 use function Pest\Laravel\artisan;
 
@@ -14,7 +15,8 @@ it('moves post images from the public disk to the cloudflare-images disk', funct
 
     // Prepare a dummy image on the public disk
     $path = 'images/sample.jpg';
-    Storage::disk('public')->put($path, 'dummy-content');
+    $file = UploadedFile::fake()->image('sample.jpg', 50, 50);
+    Storage::disk('public')->put($path, file_get_contents($file->getPathname()));
 
     /** @var \App\Models\Post $post */
     $post = Post::factory()->create([
@@ -35,7 +37,8 @@ it('skips posts whose images are already on the cloudflare-images disk', functio
     Storage::fake('cloudflare-images');
 
     $path = 'images/already-there.jpg';
-    Storage::disk('cloudflare-images')->put($path, 'dummy');
+    $fileCf = UploadedFile::fake()->image('already-there.jpg', 50, 50);
+    Storage::disk('cloudflare-images')->put($path, file_get_contents($fileCf->getPathname()));
 
     $post = Post::factory()->create([
         'image_path' => $path,
@@ -74,7 +77,8 @@ it('processes only the specified post when a slug is provided', function () {
     // Post to migrate
     $slug = 'migrate-me';
     $pathToMove = 'images/migrate.jpg';
-    Storage::disk('public')->put($pathToMove, 'to-migrate');
+    $fileMigrate = UploadedFile::fake()->image('migrate.jpg', 60, 60);
+    Storage::disk('public')->put($pathToMove, file_get_contents($fileMigrate->getPathname()));
 
     $migratePost = Post::factory()->create([
         'slug' => $slug,
@@ -84,7 +88,8 @@ it('processes only the specified post when a slug is provided', function () {
 
     // Post that should remain unchanged
     $stayPath = 'images/stay.jpg';
-    Storage::disk('public')->put($stayPath, 'stay-put');
+    $fileStay = UploadedFile::fake()->image('stay.jpg', 60, 60);
+    Storage::disk('public')->put($stayPath, file_get_contents($fileStay->getPathname()));
 
     $stayPost = Post::factory()->create([
         'slug' => 'stay-put',

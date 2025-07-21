@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Post;
+use Spatie\Image\Image;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -62,7 +63,24 @@ class MoveImagesToCloudflareImagesCommand extends Command
             return;
         }
 
-        $contents = Storage::disk('public')->get($path);
+        // Prepare image for upload, resizing if necessary to comply with Cloudflare's 12 000-px limit.
+
+        $fullPath = Storage::disk('public')->path($path);
+
+        $image = Image::load($fullPath);
+
+        if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
+            // Resize while respecting aspect ratio.
+            $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
+
+            $image->fit(\Spatie\Image\Manipulations::FIT_MAX, 12000, 12000)->save($tmpPath);
+
+            $contents = file_get_contents($tmpPath);
+
+            @unlink($tmpPath);
+        } else {
+            $contents = file_get_contents($fullPath);
+        }
 
         // Upload to Cloudflare Images (overwriting if it already exists).
         Storage::disk('cloudflare-images')->put($path, $contents);
