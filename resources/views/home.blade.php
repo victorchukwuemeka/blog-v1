@@ -108,7 +108,7 @@
         </div>
     </x-section>
 
-    @if ($aboutUser->biography)
+    @if ($aboutUser)
         <x-section title="About {{ $aboutUser->name }}" id="about" class="mt-24 lg:max-w-(--breakpoint-md) md:mt-32">
             <x-prose>
                 <img
