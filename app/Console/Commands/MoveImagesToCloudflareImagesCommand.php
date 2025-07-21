@@ -35,6 +35,8 @@ class MoveImagesToCloudflareImagesCommand extends Command
 
     protected function processPost(Post $post) : void
     {
+        $this->info("Processing post #{$post->id}…");
+
         $path = $post->image_path;
 
         $publicDisk = Storage::disk('public');
@@ -50,10 +52,10 @@ class MoveImagesToCloudflareImagesCommand extends Command
         try {
             $image = Image::load($publicDisk->path($path));
 
-            if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
+            if ($image->getWidth() > 6000 || $image->getHeight() > 6000) {
                 $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
 
-                $image->fit(Fit::Max, 12000, 12000)->save($tmpPath);
+                $image->fit(Fit::Max, 6000, 6000)->save($tmpPath);
 
                 $contents = file_get_contents($tmpPath);
 
