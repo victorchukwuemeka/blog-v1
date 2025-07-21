@@ -28,7 +28,8 @@ class MoveImagesToCloudflareImagesCommand extends Command
         Post::query()
             ->where('image_disk', 'public')
             ->whereNotNull('image_path')
-            ->cursor($this->processPost(...));
+            ->get()
+            ->each($this->processPost(...));
 
         $this->info('All eligible images have been processed.');
     }
