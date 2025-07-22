@@ -116,8 +116,9 @@ class LinkResource extends Resource
                     ->limit(50),
 
                 TextColumn::make('url')
+                    ->url(fn (Link $record) => $record->url, shouldOpenInNewTab: true)
                     ->searchable()
-                    ->limit(30)
+                    ->limit(40)
                     ->label('URL'),
 
                 TextColumn::make('user.name')
