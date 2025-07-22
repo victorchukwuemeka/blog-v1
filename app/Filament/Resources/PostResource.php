@@ -72,6 +72,8 @@ class PostResource extends Resource
                         }),
 
                     MarkdownEditor::make('content')
+                        ->fileAttachmentsDisk('cloudflare-images')
+                        ->fileAttachmentsDirectory('images/posts')
                         ->required()
                         ->columnSpanFull(),
                 ])
@@ -84,6 +86,7 @@ class PostResource extends Resource
                     FileUpload::make('image_path')
                         ->image()
                         ->disk(fn (Get $get) => $get('image_disk') ?? config('filesystems.default'))
+                        ->directory('images/posts')
                         ->columnSpanFull()
                         ->label('Image')
                         ->requiredWithAll('image_disk'),
