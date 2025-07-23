@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Authors;
 
-use App\Models\Link;
 use App\Models\User;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
@@ -19,7 +18,7 @@ class ShowAuthorController extends Controller
                 ->published()
                 ->paginate(12),
 
-            'links' => Link::query()
+            'links' => $user->links()
                 ->latest('is_approved')
                 ->approved()
                 ->paginate(12),
