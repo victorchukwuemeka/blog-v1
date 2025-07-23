@@ -54,13 +54,7 @@ $description = Str::limit(
 
     <x-section title="Links sent by {{ $author->name }}" class="mt-12 md:mt-16">
         @if ($links->isNotEmpty())
-            <ul class="grid gap-10 gap-y-16 xl:gap-x-16 md:grid-cols-2 xl:grid-cols-3">
-                @foreach ($links as $link)
-                    <li>
-                        <x-link :$link />
-                    </li>
-                @endforeach
-            </ul>
+            <x-links-grid :$links />
         @else
             <p class="-mt-4 text-center text-gray-500">
                 So far, {{ $author->name }} didn't send any link.
