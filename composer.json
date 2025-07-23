@@ -24,7 +24,6 @@
         "spatie/laravel-feed": "^4.4",
         "spatie/laravel-livewire-wizard": "^2.4",
         "spatie/laravel-sitemap": "^7.3",
-        "stechstudio/filament-impersonate": "*",
         "tempest/highlight": "^2.11"
     },
     "require-dev": {

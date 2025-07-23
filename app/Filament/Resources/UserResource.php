@@ -16,7 +16,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\UserResource\Pages\EditUser;
-use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
 use App\Filament\Resources\UserResource\Pages\CreateUser;
 
@@ -87,8 +86,6 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->recordActions([
-                Impersonate::make(),
-
                 EditAction::make()
                     ->icon('')
                     ->button()

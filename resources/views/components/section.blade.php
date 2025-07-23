@@ -1,13 +1,11 @@
-@props([
-    'title' => null,
-    'bigTitle' => false,
-])
-
 <section {{ $attributes->class('container scroll-mt-4') }}>
     @if (! empty($title))
-        <x-heading :big="$bigTitle" class="mb-8">
+        <h1 @class([
+            'font-bold tracking-widest text-center text-black uppercase text-balance mb-8',
+            'text-xl/tight md:text-2xl/tight' => ! empty($bigTitle),
+        ])>
             {!! $title !!}
-        </x-heading>
+        </h1>
     @endif
 
     {{ $slot }}

@@ -51,9 +51,10 @@
             </ul>
         @endif
 
-        <x-pagination
-            :paginator="$links"
-            class="mt-16"
-        />
+        @if ($links->hasPages())
+            <div class="mt-16">
+                {{ $links->links() }}
+            </div>
+        @endif
     </x-section>
 </x-app>

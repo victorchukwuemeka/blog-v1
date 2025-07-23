@@ -1,9 +1,9 @@
 @props(['headings'])
 
 <div {{ $attributes->class('px-4 py-6 mt-4 rounded-lg bg-gray-50') }}>
-    <x-heading class="text-sm">
+    <div class="text-sm font-bold tracking-widest text-center text-black uppercase">
         Table of contents
-    </x-heading>
+    </div>
 
     <x-table-of-contents.items :$headings class="mt-4 ml-0" />
 </div>
