@@ -177,9 +177,9 @@
                 </div>
 
                 <section class="mt-24">
-                    <h1 class="mb-8 font-bold tracking-widest text-center text-black uppercase text-balance">
+                    <x-heading>
                         Great deals for developers
-                    </h1>
+                    </x-heading>
 
                     <div class="grid gap-4">
                         <x-deals.tower />
@@ -201,6 +201,7 @@
 
         @if (! $post->is_commercial)
             <div class="lg:col-span-4 xl:col-span-3">
+                {{-- Just in case I don't think about switching the ads. --}}
                 @if (now()->isAfter('2025-08-03'))
                     <x-ads.sidebar.sevalla class="max-w-[280px] mx-auto lg:max-w-none lg:mx-0" />
                 @else
