@@ -1,11 +1,18 @@
 <x-app
+    :hide-ad="true"
     :hide-footer="true"
     :hide-navigation="true"
     title="Sign in"
 >
     <div class="flex flex-col min-h-screen">
-        <div class="container flex items-center justify-between mt-4">
-            <x-logo />
+        <div class="container flex justify-between items-center mt-4">
+            <div class="flex gap-3 items-center">
+                <x-icon-logo class="h-9 fill-current" />
+
+                <span class="hidden text-base font-bold tracking-widest uppercase md:inline">
+                    benjamincrozat.com
+                </span>
+            </div>
 
             <a
                 wire:navigate
@@ -16,7 +23,7 @@
             </a>
         </div>
 
-        <div class="grid grow place-items-center">
+        <div class="grid place-items-center grow">
             <div class="container text-center lg:max-w-(--breakpoint-md)">
                 <div class="text-lg font-bold text-black sm:text-2xl md:text-3xl">
                     To continue, please sign in
