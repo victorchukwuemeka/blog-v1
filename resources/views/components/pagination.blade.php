@@ -2,6 +2,6 @@
 
 @if ($paginator->hasPages())
     <div {{ $attributes }}>
-        {{ $paginator->links(attributes: ['class' => 'pagination']) }}
+        {{ $paginator->links() }}
     </div>
 @endif
