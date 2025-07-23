@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\ShortUrl;
 use Illuminate\Database\Seeder;
 
 class ShortUrlSeeder extends Seeder
 {
     public function run() : void
     {
-        \App\Models\ShortUrl::factory()->count(10)->create();
+        ShortUrl::factory(10)->create();
     }
 }
