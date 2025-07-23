@@ -9,9 +9,9 @@
     </h1>
 
     <section class="mt-16 md:mt-24">
-        <h2 class="font-bold tracking-widest text-center text-black uppercase text-balance">
+        <x-heading>
             Featured deals
-        </h2>
+        </x-heading>
 
         <p class="px-4 mt-2 leading-tight text-center">These companies are sponsoring my blog.<br class="hidden md:inline" /> Big thanks to them and make sure to check them out!</p>
 

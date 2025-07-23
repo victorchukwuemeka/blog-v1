@@ -2,9 +2,9 @@
     id="comments"
     class="mt-24 scroll-mt-4"
 >
-    <h1 class="font-bold tracking-widest text-center text-black uppercase">
+    <x-heading>
         {{ trans_choice(':count comment|:count comments', $commentsCount) }}
-    </h1>
+    </x-heading>
 
     @if ($comments->isNotEmpty())
         <ul class="grid gap-8 mt-8">
