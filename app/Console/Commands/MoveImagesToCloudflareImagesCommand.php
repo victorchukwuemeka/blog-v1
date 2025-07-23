@@ -7,7 +7,6 @@ use Spatie\Image\Image;
 use Spatie\Image\Enums\Fit;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Image\Exceptions\UnsupportedImageFormat;
 
 class MoveImagesToCloudflareImagesCommand extends Command
 {
@@ -53,6 +52,14 @@ class MoveImagesToCloudflareImagesCommand extends Command
         try {
             $image = Image::load($publicDisk->path($path));
 
+            // Skip images that are way too large to handle
+            if ($image->getWidth() > 12000 || $image->getHeight() > 12000) {
+                $this->warn("Image for post #{$post->id} is too large ({$image->getWidth()}x{$image->getHeight()}). Skipping…");
+
+                return;
+            }
+
+            // Resize very large images down to a manageable size before uploading
             if ($image->getWidth() > 6000 || $image->getHeight() > 6000) {
                 $tmpPath = tempnam(sys_get_temp_dir(), 'cfimg_');
 
@@ -62,14 +69,17 @@ class MoveImagesToCloudflareImagesCommand extends Command
 
                 @unlink($tmpPath);
             }
-
-            Storage::disk('cloudflare-images')->put($path, $contents);
-
-            $post->update(['image_disk' => 'cloudflare-images']);
-
-            $this->info("Moved image for post \"{$post->title}\" (#{$post->id})");
-        } catch (UnsupportedImageFormat $e) {
-            $this->warn("Unsupported image format for post #$post->id at \“$path\". {$e->getMessage()}. Skipping…");
+        } catch (\Throwable $e) {
+            // Could not process the file as an image (e.g., not an image or unsupported format).
+            // We'll upload the original file contents instead of failing.
+            $this->warn("Could not process image for post #{$post->id} at \"{$path}\": {$e->getMessage()}. Uploading original file…");
         }
+
+        // Whether we resized the image or not, at this point `$contents` contains the data we want to store.
+        Storage::disk('cloudflare-images')->put($path, $contents);
+
+        $post->update(['image_disk' => 'cloudflare-images']);
+
+        $this->info("Moved image for post \"{$post->title}\" (#{$post->id})");
     }
 }
