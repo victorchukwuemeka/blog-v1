@@ -32,15 +32,14 @@
         <x-section title="Popular posts" id="popular" class="mt-24 md:mt-32">
             <x-posts-grid :posts="$popular" />
 
-            <div class="mt-16 text-center">
-                <x-btn
-                    primary
-                    wire:navigate
-                    href="{{ route('posts.index') }}"
-                >
-                    Browse all articles
-                </x-btn>
-            </div>
+            <x-btn
+                primary
+                wire:navigate
+                href="{{ route('posts.index') }}"
+                class="table mx-auto mt-16"
+            >
+                Browse all articles
+            </x-btn>
         </x-section>
     @endif
 
@@ -63,15 +62,14 @@
             <x-posts-grid :posts="$latest" />
         @endif
 
-        <div class="mt-16 text-center">
-            <x-btn
-                primary
-                wire:navigate
-                href="{{ route('posts.index') }}"
-            >
-                Browse all articles
-            </x-btn>
-        </div>
+        <x-btn
+            primary
+            wire:navigate
+            href="{{ route('posts.index') }}"
+            class="table mx-auto mt-16"
+        >
+            Browse all articles
+        </x-btn>
     </x-section>
 
     <x-section title="Latest links" id="links" class="mt-24 md:mt-32">
@@ -79,15 +77,14 @@
             <x-links-grid :$links />
         @endif
 
-        <div class="mt-16 text-center">
-            <x-btn
-                primary
-                wire:navigate
-                href="{{ route('links.index') }}"
-            >
-                Browse all links
-            </x-btn>
-        </div>
+        <x-btn
+            primary
+            wire:navigate
+            href="{{ route('links.index') }}"
+            class="table mx-auto mt-16"
+        >
+            Browse all links
+        </x-btn>
     </x-section>
 
     @if ($aboutUser)

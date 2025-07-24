@@ -5,15 +5,12 @@ namespace App\Console\Commands;
 use App\Models\Post;
 use App\Jobs\RecommendPosts;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(
-    name: 'app:generate-recommendations',
-    description: 'Generate recommendations for posts'
-)]
 class GenerateRecommendationsCommand extends Command
 {
     protected $signature = 'app:generate-recommendations {slug? : The slug of the post to generate recommendations for}';
+
+    protected $description = 'Generate recommendations for posts';
 
     public function handle() : void
     {

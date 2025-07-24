@@ -181,7 +181,7 @@
                         Great deals for developers
                     </x-heading>
 
-                    <div class="grid gap-4">
+                    <div class="grid gap-4 mt-8">
                         <x-deals.tower />
                         <x-deals.fathom-analytics />
                         <x-deals.cloudways />
