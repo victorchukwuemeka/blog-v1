@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\Page;
+use Illuminate\Support\Facades\Date;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteBulkAction;
@@ -85,27 +86,22 @@ class PostResource extends Resource
                 Group::make([
                     FileUpload::make('image_path')
                         ->image()
-                        ->disk(fn (Get $get) => $get('image_disk') ?? config('filesystems.default'))
+                        ->disk('cloudflare-images')
                         ->directory('images/posts')
+                        ->required()
                         ->columnSpanFull()
                         ->label('Image')
-                        ->requiredWithAll('image_disk'),
-
-                    Select::make('image_disk')
-                        ->options(collect(config('filesystems.disks'))->mapWithKeys(fn (array $disk, string $key) => [$key => $key]))
-                        ->rules(['nullable', 'string', 'in:' . implode(',', array_keys(config('filesystems.disks')))])
-                        ->requiredWithAll('image_path')
-                        ->columnSpanFull()
-                        ->label('Disk')
-                        ->helperText('Where the image is stored.'),
+                        ->helperText('Resizing and compression are applied automatically.'),
 
                     TextInput::make('slug')
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->helperText('An exact match with the main keyword is preferred.'),
 
                     Select::make('user_id')
                         ->relationship('user', 'name')
                         ->required()
+                        ->default(auth()->id())
                         ->searchable()
                         ->label('Author'),
 
@@ -118,7 +114,7 @@ class PostResource extends Resource
                     TextInput::make('serp_title')
                         ->maxLength(255)
                         ->label('SERP Title')
-                        ->helperText('This is the title that will appear in the search results.'),
+                        ->helperText('This appears in the search results.'),
 
                     Textarea::make('description')
                         ->maxLength(65535)
@@ -142,13 +138,41 @@ class PostResource extends Resource
                         ->native(false)
                         ->seconds(false)
                         ->closeOnDateSelection()
+                        ->placeholder(now())
+                        ->defaultFocusedDate(now())
+                        ->reactive()
+                        ->afterStateUpdated(function (DateTimePicker $component, $state) {
+                            if (blank($state)) {
+                                return;
+                            }
+
+                            $now = Date::now();
+
+                            $date = Date::parse($state)->setTime($now->hour, $now->minute, $now->second);
+
+                            $component->state($date);
+                        })
                         ->label('Publication Date'),
 
                     DateTimePicker::make('modified_at')
                         ->timezone('Europe/Paris')
                         ->native(false)
                         ->seconds(false)
+                        ->placeholder(now())
+                        ->defaultFocusedDate(now())
                         ->closeOnDateSelection()
+                        ->reactive()
+                        ->afterStateUpdated(function (DateTimePicker $component, $state) {
+                            if (blank($state)) {
+                                return;
+                            }
+
+                            $now = Date::now();
+
+                            $date = Date::parse($state)->setTime($now->hour, $now->minute, $now->second);
+
+                            $component->state($date);
+                        })
                         ->label('Last Modification Date'),
                 ])
                     ->columnSpan([
