@@ -3,78 +3,46 @@
         wire:navigate
         href="{{ route('home') }}"
         data-pirsch-event="Clicked the logo"
-        class="text-black transition-colors hover:text-blue-600"
+        class="flex gap-3 items-center text-black transition-colors hover:text-blue-600"
     >
-        <div class="flex gap-3 items-center">
-            <div class="relative">
-                <x-icon-logo class="h-9 fill-current" />
+        <div class="relative">
+            <x-icon-logo class="h-9 fill-current" />
 
-                <div class="grid absolute right-[-.65rem] bottom-[-.65rem] place-items-center bg-white rounded-full size-5">
-                    <x-heroicon-s-home class="h-[.9rem] text-current" />
-                </div>
+            <div class="grid absolute right-[-.65rem] bottom-[-.65rem] place-items-center bg-white rounded-full size-5">
+                <x-heroicon-s-home class="h-[.9rem] text-current" />
             </div>
-
-            <span class="hidden text-base font-bold tracking-widest uppercase md:inline">
-                benjamincrozat.com
-            </span>
         </div>
+
+        <span class="hidden text-base font-bold tracking-widest uppercase md:inline">
+            benjamincrozat.com
+        </span>
     </a>
 
     <div class="grow"></div>
 
-    <a
-        wire:navigate
+    <x-nav.item
+        active-icon="heroicon-s-fire"
+        icon="heroicon-o-fire"
         href="{{ route('posts.index') }}"
-        @class([
-            'transition-colors hover:text-blue-600',
-            'text-blue-600' => request()->routeIs('posts.index'),
-        ])"
-        data-pirsch-event='Clicked "Latest"'
     >
-        @if (request()->routeIs('posts.index'))
-            <x-heroicon-s-fire class="mx-auto size-6 md:size-7" />
-        @else
-            <x-heroicon-o-fire class="mx-auto size-6 md:size-7" />
-        @endif
-
         Latest
-    </a>
+    </x-nav.item>
 
-    <a
-        wire:navigate
+    <x-nav.item
+        active-icon="heroicon-s-link"
+        icon="heroicon-o-link"
         href="{{ route('links.index') }}"
-        @class([
-            'transition-colors hover:text-blue-600',
-            'text-blue-600' => request()->routeIs('links.index'),
-        ])"
-        data-pirsch-event='Clicked "Links"'
     >
-        @if (request()->routeIs('links.index'))
-            <x-heroicon-s-link class="mx-auto size-6 md:size-7" />
-        @else
-            <x-heroicon-o-link class="mx-auto size-6 md:size-7" />
-        @endif
-
         Links
-    </a>
+    </x-nav.item>
 
-    <a
-        wire:navigate
+    <x-nav.item
+        active-icon="heroicon-s-gift"
+        icon="heroicon-o-gift"
         href="{{ route('deals') }}"
-        @class([
-            'transition-colors hover:text-blue-600',
-            'text-blue-600' => request()->routeIs('deals'),
-        ])"
-        data-pirsch-event='Clicked "For you"'
     >
-        @if (request()->routeIs('deals'))
-            <x-heroicon-s-gift class="mx-auto size-6 md:size-7" />
-        @else
-            <x-heroicon-o-gift class="mx-auto size-6 md:size-7" />
-        @endif
-
         For you
-    </a>
+    </x-nav.item>
 
     @auth
         <x-dropdown>
@@ -149,14 +117,14 @@
             </x-slot>
         </x-dropdown>
     @else
-        <a
+        <x-nav.item
+            no-wire-navigate
             href="{{ route('auth.redirect') }}"
-            class="transition-colors hover:text-blue-600"
+            icon="iconoir-github"
             data-pirsch-event='Clicked "Sign in"'
         >
-            <x-iconoir-github class="mx-auto size-6 md:size-7" />
             Sign in
-        </a>
+        </x-nav.item>
     @endauth
 
     <x-dropdown>
