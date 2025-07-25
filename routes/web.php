@@ -1,20 +1,17 @@
 <?php
 
-use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\LinkWizard\LinkWizard;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
-use App\Http\Controllers\RedirectShortUrlController;
 use App\Http\Controllers\Authors\ShowAuthorController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
+use App\Http\Controllers\ShortUrls\RedirectShortUrlController;
 use App\Http\Controllers\Advertising\RedirectToAdvertiserController;
-use App\Http\Controllers\CloudflareImages\ShowCloudflareImagesFormController;
-use App\Http\Controllers\CloudflareImages\UploadToCloudflareImagesController;
 
 Route::get('/', HomeController::class)
     ->name('home');
@@ -48,16 +45,6 @@ Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)
 
 Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
-
-Route::middleware('auth')->group(function () {
-    Route::middleware(Admin::class)->group(function () {
-        Route::get('/cloudflare-images', ShowCloudflareImagesFormController::class)
-            ->name('show-cloudflare-images-form');
-
-        Route::post('/cloudflare-images', UploadToCloudflareImagesController::class)
-            ->name('upload-to-cloudflare-images');
-    });
-});
 
 Route::domain(config('app.url_shortener_domain'))
     ->group(fn () => Route::get('/{shortUrl:code}', RedirectShortUrlController::class)
