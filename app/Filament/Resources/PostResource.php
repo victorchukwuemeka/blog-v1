@@ -30,6 +30,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\TrashedFilter;
@@ -91,7 +92,7 @@ class PostResource extends Resource
                 Group::make([
                     FileUpload::make('image_path')
                         ->image()
-                        ->disk('cloudflare-images')
+                        ->disk(fn (Post $record) => $record->image_disk ?? 'cloudflare-images')
                         ->directory('images/posts')
                         ->required()
                         ->columnSpanFull()
@@ -194,9 +195,10 @@ class PostResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 ImageColumn::make('image_path')
-                    ->disk(fn (Post $record) => $record->image_disk ?? 'public')
+                    ->disk(fn (Post $record) => $record->image_disk ?? 'cloudflare-images')
                     ->imageWidth(107)
                     ->imageHeight(80)
+                    ->default(secure_asset('img/placeholder.png'))
                     ->label('Image'),
 
                 TextColumn::make('title')
@@ -229,7 +231,29 @@ class PostResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                TrashedFilter::make(),
+                TernaryFilter::make('image_path')
+                    ->nullable()
+                    ->label('Image')
+                    ->placeholder('Both')
+                    ->trueLabel('With image')
+                    ->falseLabel('Without image')
+                    ->queries(
+                        blank: fn (Builder $query) => $query,
+                        true: fn (Builder $query) => $query->whereNotNull('image_path'),
+                        false: fn (Builder $query) => $query->whereNull('image_path'),
+                    ),
+
+                SelectFilter::make('link_association')
+                    ->label('Link Association')
+                    ->options([
+                        'with_link' => 'With link',
+                        'without_link' => 'Without link',
+                    ])
+                    ->query(fn (Builder $query, array $data) => match ($data['value']) {
+                        'with_link' => $query->whereHas('link'),
+                        'without_link' => $query->whereDoesntHave('link'),
+                        default => $query,
+                    }),
 
                 TernaryFilter::make('published_at')
                     ->nullable()
@@ -242,6 +266,8 @@ class PostResource extends Resource
                         true: fn (Builder $query) => $query->whereNotNull('published_at'),
                         false: fn (Builder $query) => $query->whereNull('published_at'),
                     ),
+
+                TrashedFilter::make(),
             ])
             ->recordActions([
                 ActionGroup::make([

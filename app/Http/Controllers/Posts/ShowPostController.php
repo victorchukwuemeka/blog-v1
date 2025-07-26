@@ -23,14 +23,16 @@ class ShowPostController extends Controller
             abort(404);
         }
 
-        // If the post is soft-deleted, always return 410 Gone for Google.
-        if ($post->trashed()) {
-            abort(410);
-        }
+        if (! $request->user()?->isAdmin()) {
+            // If the post is soft-deleted, return 410 Gone.
+            if ($post->trashed()) {
+                abort(410);
+            }
 
-        // If the post hasn't been published already, return 404 unless the user is an admin.
-        if (! $request->user()?->isAdmin() && ! $post->published_at) {
-            abort(404);
+            // If the post hasn't been published already, return 404.
+            if (! $post->published_at) {
+                abort(404);
+            }
         }
 
         return view('posts.show', compact('post') + [

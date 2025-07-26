@@ -24,14 +24,14 @@ class FetchImageForPost implements ShouldQueue
                 ->throw()
                 ->body();
 
-            Storage::disk('public')->put($path = '/images/posts/' . Str::random() . '.jpg', $image);
+            Storage::put($path = '/images/posts/' . Str::random() . '.jpg', $image);
         } else {
             $path = null;
         }
 
         $this->post->update([
             'image_path' => $path,
-            'image_disk' => $path ? 'public' : null,
+            'image_disk' => $path ? config('filesystems.default') : null,
         ]);
     }
 }
