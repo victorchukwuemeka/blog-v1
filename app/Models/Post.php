@@ -11,6 +11,7 @@ use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Post extends Model implements Feedable
 {
     /** @use HasFactory<PostFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $withCount = ['comments'];
 
@@ -214,5 +215,10 @@ MARKDOWN ?? ''))
             ->updated($this->modified_at ?? $this->published_at)
             ->link($link)
             ->authorName($this->user->name);
+    }
+
+    public function getRouteKeyName() : string
+    {
+        return 'slug';
     }
 }

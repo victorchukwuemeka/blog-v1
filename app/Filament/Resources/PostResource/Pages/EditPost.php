@@ -8,6 +8,8 @@ use App\Jobs\RecommendPosts;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\ForceDeleteAction;
 use App\Filament\Resources\PostResource;
 use Filament\Resources\Pages\EditRecord;
 
@@ -30,6 +32,10 @@ class EditPost extends EditRecord
                     ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
 
                 DeleteAction::make(),
+
+                ForceDeleteAction::make(),
+
+                RestoreAction::make(),
             ]),
         ];
     }

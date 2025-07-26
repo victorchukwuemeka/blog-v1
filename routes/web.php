@@ -53,5 +53,5 @@ Route::domain(config('app.url_shortener_domain'))
 Route::feeds();
 
 // This route needs to be the last one so all others take precedence.
-Route::get('/{post:slug}', ShowPostController::class)
+Route::get('/{slug}', ShowPostController::class)
     ->name('posts.show');

@@ -14,11 +14,14 @@ use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\Page;
+use Filament\Actions\RestoreAction;
 use Illuminate\Support\Facades\Date;
+use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Schemas\Components\Group;
+use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -29,6 +32,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\Action as TableAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Forms\Components\DateTimePicker;
@@ -36,6 +40,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Pages\Enums\SubNavigationPosition;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PostResource\Pages\EditPost;
 use App\Filament\Resources\PostResource\Pages\ListPosts;
 use App\Filament\Resources\PostResource\Pages\CreatePost;
@@ -224,6 +229,8 @@ class PostResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                TrashedFilter::make(),
+
                 TernaryFilter::make('published_at')
                     ->nullable()
                     ->label('Published Status')
@@ -264,12 +271,18 @@ class PostResource extends Resource
 
                     DeleteAction::make()
                         ->icon('heroicon-o-trash'),
+
+                    ForceDeleteAction::make(),
+
+                    RestoreAction::make(),
                 ]),
             ])
             ->toolbarActions([
-                DeleteBulkAction::make(),
-                ForceDeleteBulkAction::make(),
-                RestoreBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+                ]),
             ]);
     }
 
@@ -304,5 +317,13 @@ class PostResource extends Resource
     public static function getSubNavigationPosition() : SubNavigationPosition
     {
         return SubNavigationPosition::Top;
+    }
+
+    public static function getRecordRouteBindingEloquentQuery() : Builder
+    {
+        return parent::getRecordRouteBindingEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

@@ -9,8 +9,26 @@ use App\Http\Controllers\Controller;
 
 class ShowPostController extends Controller
 {
-    public function __invoke(Request $request, Post $post) : View
+    /**
+     * The resolution logic is here to make the code easier to follow.
+     * In that case, no implicit binding since it needs to be custom.
+     */
+    public function __invoke(Request $request, string $slug) : View
     {
+        // Retrieve the post, including soft-deleted ones.
+        $post = Post::withTrashed()->where('slug', $slug)->first();
+
+        // If it doesn't exist at all, return 404.
+        if (! $post) {
+            abort(404);
+        }
+
+        // If the post is soft-deleted, always return 410 Gone for Google.
+        if ($post->trashed()) {
+            abort(410);
+        }
+
+        // If the post hasn't been published already, return 404 unless the user is an admin.
         if (! $request->user()?->isAdmin() && ! $post->published_at) {
             abort(404);
         }
