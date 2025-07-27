@@ -276,12 +276,28 @@ class PostResource extends Resource
                     ->queries(
                         blank: fn (Builder $query) => $query,
                         true: fn (Builder $query) => $query->where(function (Builder $query) {
-                            $query->whereNull('modified_at')
-                                ->orWhere('modified_at', '<=', Date::now()->subYear());
+                            $oneYearAgo = Date::now()->subYear();
+
+                            $query
+                                ->whereDate('modified_at', '<=', $oneYearAgo)
+                                ->orWhere(
+                                    fn (Builder $query) => $query
+                                        ->whereNull('modified_at')
+                                        ->whereDate('published_at', '<=', $oneYearAgo)
+                                );
                         }),
                         false: fn (Builder $query) => $query->where(function (Builder $query) {
-                            $query->whereNotNull('modified_at')
-                                ->where('modified_at', '>', Date::now()->subYear());
+                            $oneYearAgo = Date::now()->subYear();
+
+                            $query->where(
+                                fn (Builder $query) => $query
+                                    ->whereNotNull('modified_at')
+                                    ->whereDate('modified_at', '>', $oneYearAgo)
+                            )->orWhere(
+                                fn (Builder $query) => $query
+                                    ->whereNull('modified_at')
+                                    ->whereDate('published_at', '>', $oneYearAgo)
+                            );
                         }),
                     ),
 
