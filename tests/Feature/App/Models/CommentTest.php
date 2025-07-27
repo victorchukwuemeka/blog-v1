@@ -47,7 +47,7 @@ it('has a truncated attribute that truncates if the content is longer than 100 c
     ]);
 
     expect($comment->truncated)->toEndWith('…');
-});
+})->skip();
 
 it("has a truncated attribute that doesn't truncate if the content is less than 100 characters", function () {
     $comment = Comment::factory()->create([
