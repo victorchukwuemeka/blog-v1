@@ -4,6 +4,7 @@ Reasoning instructions:
 When planning a complex code change, think carefully and step-by-step about the change itself. When debugging a problem, make sure you have sufficient information to deeply understand the problem.
 
 Project specificities:
+- I'm using Filament v4.
 - Tests are written using Pest.
 - This is a blog made with Laravel.
 - It generates money through affiliate links.

@@ -152,7 +152,7 @@ class PostResource extends Resource
                                 return;
                             }
 
-                            $now = Date::now();
+                            $now = now();
 
                             $date = Date::parse($state)->setTime($now->hour, $now->minute, $now->second);
 
@@ -173,7 +173,7 @@ class PostResource extends Resource
                                 return;
                             }
 
-                            $now = Date::now();
+                            $now = now();
 
                             $date = Date::parse($state)->setTime($now->hour, $now->minute, $now->second);
 
@@ -276,7 +276,7 @@ class PostResource extends Resource
                     ->queries(
                         blank: fn (Builder $query) => $query,
                         true: fn (Builder $query) => $query->where(function (Builder $query) {
-                            $oneYearAgo = Date::now()->subYear();
+                            $oneYearAgo = now()->subYear();
 
                             $query
                                 ->whereDate('modified_at', '<=', $oneYearAgo)
@@ -287,7 +287,7 @@ class PostResource extends Resource
                                 );
                         }),
                         false: fn (Builder $query) => $query->where(function (Builder $query) {
-                            $oneYearAgo = Date::now()->subYear();
+                            $oneYearAgo = now()->subYear();
 
                             $query->where(
                                 fn (Builder $query) => $query
@@ -310,10 +310,24 @@ class PostResource extends Resource
                         ->icon('heroicon-o-arrow-top-right-on-square')
                         ->url(fn (Post $record) => route('posts.show', $record), shouldOpenInNewTab: true),
 
+                    TableAction::make('copy_url')
+                        ->label('Copy URL')
+                        ->icon('heroicon-o-link')
+                        ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from(route('posts.show', $record)) . ')'),
+
                     TableAction::make('copy')
                         ->label('Copy as Markdown')
                         ->icon('heroicon-o-clipboard-document')
                         ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
+
+                    Action::make('search_console')
+                        ->label('Check in GSC')
+                        ->icon('heroicon-o-chart-bar')
+                        ->url(function (Post $record) {
+                            $domain = preg_replace('/https?:\/\//', '', config('app.url'));
+
+                            return "https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3A$domain&breakdown=query&page=!" . rawurlencode(route('posts.show', $record));
+                        }, shouldOpenInNewTab: true),
 
                     Action::make('recommendations')
                         ->action(function (Post $record) {
