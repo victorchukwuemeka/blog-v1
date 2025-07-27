@@ -255,6 +255,25 @@ class PostResource extends Resource
                         default => $query,
                     }),
 
+                // New: Filter posts that haven't been modified for a year or more
+                TernaryFilter::make('updated_stale')
+                    ->nullable()
+                    ->label('Updated 1+ Year Ago')
+                    ->placeholder('Both')
+                    ->trueLabel('Yes')
+                    ->falseLabel('No')
+                    ->queries(
+                        blank: fn (Builder $query) => $query,
+                        true: fn (Builder $query) => $query->where(function (Builder $query) {
+                            $query->whereNull('modified_at')
+                                ->orWhere('modified_at', '<=', Date::now()->subYear());
+                        }),
+                        false: fn (Builder $query) => $query->where(function (Builder $query) {
+                            $query->whereNotNull('modified_at')
+                                ->where('modified_at', '>', Date::now()->subYear());
+                        }),
+                    ),
+
                 TernaryFilter::make('published_at')
                     ->nullable()
                     ->label('Published Status')
