@@ -244,7 +244,7 @@ class PostResource extends Resource
                     ),
 
                 SelectFilter::make('link_association')
-                    ->label('Link Association')
+                    ->label('Link association')
                     ->options([
                         'with_link' => 'With link',
                         'without_link' => 'Without link',
@@ -255,10 +255,21 @@ class PostResource extends Resource
                         default => $query,
                     }),
 
-                // New: Filter posts that haven't been modified for a year or more
+                TernaryFilter::make('published_at')
+                    ->nullable()
+                    ->label('Published status')
+                    ->placeholder('Both')
+                    ->trueLabel('Published')
+                    ->falseLabel('Draft')
+                    ->queries(
+                        blank: fn (Builder $query) => $query,
+                        true: fn (Builder $query) => $query->whereNotNull('published_at'),
+                        false: fn (Builder $query) => $query->whereNull('published_at'),
+                    ),
+
                 TernaryFilter::make('updated_stale')
                     ->nullable()
-                    ->label('Updated 1+ Year Ago')
+                    ->label('Updated 1+ year ago')
                     ->placeholder('Both')
                     ->trueLabel('Yes')
                     ->falseLabel('No')
@@ -272,18 +283,6 @@ class PostResource extends Resource
                             $query->whereNotNull('modified_at')
                                 ->where('modified_at', '>', Date::now()->subYear());
                         }),
-                    ),
-
-                TernaryFilter::make('published_at')
-                    ->nullable()
-                    ->label('Published Status')
-                    ->placeholder('Both')
-                    ->trueLabel('Published')
-                    ->falseLabel('Draft')
-                    ->queries(
-                        blank: fn (Builder $query) => $query,
-                        true: fn (Builder $query) => $query->whereNotNull('published_at'),
-                        false: fn (Builder $query) => $query->whereNull('published_at'),
                     ),
 
                 TrashedFilter::make(),
