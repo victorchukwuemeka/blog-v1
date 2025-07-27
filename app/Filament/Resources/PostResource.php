@@ -9,6 +9,7 @@ use Illuminate\Support\Js;
 use App\Jobs\RecommendPosts;
 use Filament\Actions\Action;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Number;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
@@ -218,6 +219,11 @@ class PostResource extends Resource
                     ->getStateUsing(fn (Post $record) => $record->categories->pluck('name')->join(','))
                     ->badge()
                     ->separator(','),
+
+                TextColumn::make('sessions_count')
+                    ->formatStateUsing(fn (int $state) => Number::format($state))
+                    ->sortable()
+                    ->label('Sessions (7d)'),
 
                 TextColumn::make('published_at')
                     ->dateTime()
