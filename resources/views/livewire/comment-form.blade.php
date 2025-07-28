@@ -34,6 +34,8 @@
                 x-autosize
             ></textarea>
 
+            <p class="text-sm text-gray-500">Markdown is supported.</p>
+
             <div class="flex gap-2 justify-center items-center mt-4">
                 @if (auth()->check())
                     <button
