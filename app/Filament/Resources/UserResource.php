@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Models\User;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
 use Filament\Schemas\Schema;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
@@ -86,6 +87,19 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->recordActions([
+                Action::make('impersonate')
+                    ->label('Impersonate')
+                    ->icon('')
+                    ->button()
+                    ->outlined()
+                    ->color('gray')
+                    ->size('xs')
+                    ->action(function (User $record) {
+                        auth()->user()->impersonate($record);
+
+                        return redirect('/');
+                    }),
+
                 EditAction::make()
                     ->icon('')
                     ->button()

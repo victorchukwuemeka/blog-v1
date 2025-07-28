@@ -13,6 +13,7 @@ use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
 use App\Http\Controllers\ShortUrls\RedirectShortUrlController;
 use App\Http\Controllers\Advertising\RedirectToAdvertiserController;
+use App\Http\Controllers\Impersonation\LeaveImpersonationController;
 
 Route::get('/', HomeController::class)
     ->name('home');
@@ -55,6 +56,9 @@ Route::prefix('/user')
     });
 
 Route::feeds();
+
+Route::get('/leave-impersonation', LeaveImpersonationController::class)
+    ->name('leave-impersonation');
 
 Route::domain(config('app.url_shortener_domain'))
     ->group(fn () => Route::get('/{shortUrl:code}', RedirectShortUrlController::class)

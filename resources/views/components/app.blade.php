@@ -64,6 +64,20 @@
     </head>
     <body {{ $attributes->class('font-light text-gray-600') }}>
         <div class="flex flex-col min-h-screen">
+            @if (app('impersonate')->isImpersonating())
+                <div class="text-white bg-orange-600">
+                    <p class="container p-4 text-center leading-[1.35] text-sm sm:text-base">
+                        Currently impersonating {{ auth()->user()->name }}.
+                        <a
+                            href="{{ route('leave-impersonation') }}"
+                            class="font-medium underline"
+                        >
+                            Return&nbsp;to&nbsp;account →
+                        </a>
+                    </p>
+                </div>
+            @endif
+
             @empty($hideAd)
                 <x-ads.top.sevalla />
             @endempty
