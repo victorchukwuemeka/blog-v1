@@ -95,6 +95,10 @@ class UserResource extends Resource
                     ->color('gray')
                     ->size('xs')
                     ->action(function (User $record) {
+                        session([
+                            'impersonate.return' => request()->headers->get('referer') ?? request()->fullUrl(),
+                        ]);
+
                         auth()->user()->impersonate($record);
 
                         return redirect('/');
