@@ -15,11 +15,7 @@
             @endforeach
         </ul>
 
-        @if ($comments->hasPages())
-            <div class="mt-8">
-                {{ $comments->links() }}
-            </div>
-        @endif
+        <x-pagination :paginator="$comments" />
     @endif
 
     <div class="mt-16">

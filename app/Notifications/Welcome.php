@@ -6,9 +6,10 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Welcome extends Notification
+class Welcome extends Notification implements ShouldQueue
 {
     use Queueable;
 

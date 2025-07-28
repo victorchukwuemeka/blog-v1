@@ -14,6 +14,24 @@ class CommentSeeder extends Seeder
         Comment::factory(50)
             ->recycle(User::all())
             ->recycle(Post::all())
-            ->create();
+            ->create([
+                'content' => <<<'MARKDOWN'
+**bold** *italic* ~~strike~~
+[link](https://example.com) ![img](https://via.placeholder.com/50)
+
+> quote
+
+- item
+  - subitem
+1. one
+
+---
+
+`inline`
+```js
+console.log("hi");
+```
+MARKDOWN
+            ]);
     }
 }

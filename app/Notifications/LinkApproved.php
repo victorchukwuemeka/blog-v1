@@ -6,9 +6,10 @@ use App\Models\Link;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class LinkApproved extends Notification
+class LinkApproved extends Notification implements ShouldQueue
 {
     use Queueable;
 

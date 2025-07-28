@@ -6,9 +6,10 @@ use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewComment extends Notification
+class NewComment extends Notification implements ShouldQueue
 {
     use Queueable;
 

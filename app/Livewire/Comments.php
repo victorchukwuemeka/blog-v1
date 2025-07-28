@@ -7,12 +7,15 @@ use App\Models\Comment;
 use Livewire\Component;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 use App\Notifications\NewReply;
 use Livewire\Attributes\Locked;
 use App\Notifications\NewComment;
 
 class Comments extends Component
 {
+    use WithPagination;
+
     #[Locked]
     public int $postId;
 
@@ -27,7 +30,7 @@ class Comments extends Component
             'comments' => Comment::query()
                 ->where('post_id', $this->postId)
                 ->whereNull('parent_id')
-                ->paginate(10),
+                ->paginate(2),
 
             'commentsCount' => Comment::query()
                 ->where('post_id', $this->postId)
