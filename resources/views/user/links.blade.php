@@ -1,6 +1,20 @@
 <x-app>
-    <x-section title="Your links" class="lg:max-w-screen-md">
-        <div class="grid gap-8 md:gap-12">
+    <x-section class="lg:max-w-screen-md">
+        <header class="flex gap-8 justify-between items-center">
+            <x-heading>
+                Your links
+            </x-heading>
+
+            <x-btn
+                primary
+                wire:navigate
+                href="{{ route('links.create') }}"
+            >
+                Submit a new link
+            </x-btn>
+        </header>
+
+        <div class="grid gap-8 mt-8 md:gap-12">
             @foreach ($links as $link)
                 <div class="flex gap-4 items-start md:gap-6">
                     <img
