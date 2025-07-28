@@ -48,10 +48,6 @@
                                 <span>Pending</span>
                             @endif
                         </p>
-
-                        <p>
-                            <span>Submitted:</span> {{ $link->created_at->diffForHumans() }}
-                        </p>
                     </div>
                 </div>
             @endforeach
