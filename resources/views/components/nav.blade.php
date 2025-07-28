@@ -86,6 +86,15 @@
                 <x-dropdown.divider />
 
                 <x-dropdown.item
+                    wire:navigate
+                    href="{{ route('user.links') }}"
+                    data-pirsch-event='Clicked "Your links"'
+                >
+                    <x-heroicon-o-link class="size-4" />
+                    Your links
+                </x-dropdown.item>
+
+                <x-dropdown.item
                     href="https://github.com/settings"
                     target="_blank"
                     data-pirsch-event='Clicked "Manage on GitHub"'

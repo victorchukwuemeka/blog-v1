@@ -7,6 +7,7 @@ use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
+use App\Http\Controllers\User\ListUserLinksController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
@@ -46,11 +47,18 @@ Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)
 Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
 
+Route::prefix('/user')
+    ->name('user.')
+    ->group(function () {
+        Route::get('/links', ListUserLinksController::class)
+            ->name('links');
+    });
+
+Route::feeds();
+
 Route::domain(config('app.url_shortener_domain'))
     ->group(fn () => Route::get('/{shortUrl:code}', RedirectShortUrlController::class)
         ->name('redirect-short-url'));
-
-Route::feeds();
 
 // This route needs to be the last one so all others take precedence.
 Route::get('/{slug}', ShowPostController::class)
