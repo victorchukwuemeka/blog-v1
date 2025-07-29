@@ -8,6 +8,7 @@ use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
 use App\Http\Controllers\User\ListUserLinksController;
+use App\Http\Controllers\User\ListUserCommentsController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
@@ -51,6 +52,9 @@ Route::get('/recommends/{slug}', ShowMerchantController::class)
 Route::prefix('/user')
     ->name('user.')
     ->group(function () {
+        Route::get('/comments', ListUserCommentsController::class)
+            ->name('comments');
+
         Route::get('/links', ListUserLinksController::class)
             ->name('links');
     });

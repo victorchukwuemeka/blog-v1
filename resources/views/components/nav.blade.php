@@ -87,6 +87,15 @@
 
                 <x-dropdown.item
                     wire:navigate
+                    href="{{ route('user.comments') }}"
+                    data-pirsch-event='Clicked "Your comments"'
+                >
+                    <x-heroicon-o-chat-bubble-oval-left class="size-4" />
+                    Your comments
+                </x-dropdown.item>
+
+                <x-dropdown.item
+                    wire:navigate
                     href="{{ route('user.links') }}"
                     data-pirsch-event='Clicked "Your links"'
                 >
