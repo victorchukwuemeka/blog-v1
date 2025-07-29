@@ -68,4 +68,46 @@
             </div>
         </div>
     </x-section>
+
+    <x-section
+        title="How to show off your product"
+        class="mt-24 md:max-w-screen-sm"
+    >
+        <div class="p-4 rounded-xl bg-gray-100/50 md:p-8 md:text-xl">
+            <h3 class="text-xl font-medium md:text-2xl">
+                Sponsored article
+            </h3>
+
+            <ul class="grid gap-2 mt-4">
+                <li class="flex gap-2 items-center">
+                    <x-heroicon-o-check-circle class="text-emerald-600 size-6" />
+                    Featured on top for a week
+                </li>
+
+                <li class="flex gap-2 items-center">
+                    <x-heroicon-o-check-circle class="text-emerald-600 size-6" />
+                    Access to {{ Number::format($visitors) }} monthly developers
+                </li>
+
+                <li class="flex gap-2 items-center">
+                    <x-heroicon-o-check-circle class="text-emerald-600 size-6" />
+                    Lifetime backlink on a DR 51 domain
+                </li>
+
+                <li class="flex gap-2 items-center">
+                    <x-heroicon-o-check-circle class="text-emerald-600 size-6" />
+                    Forever on the blog
+                </li>
+            </ul>
+
+            <x-btn
+                primary
+                size="md"
+                href="mailto:hello@benjamincrozat.com"
+                class="mt-[1.35rem] text-base rounded-lg!"
+            >
+                Get in touch
+            </x-btn>
+        </div>
+    </x-section>
 </x-app>
