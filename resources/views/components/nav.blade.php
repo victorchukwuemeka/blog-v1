@@ -104,15 +104,6 @@
                 </x-dropdown.item>
 
                 <x-dropdown.item
-                    href="https://github.com/settings"
-                    target="_blank"
-                    data-pirsch-event='Clicked "Manage on GitHub"'
-                >
-                    <x-heroicon-o-arrow-top-right-on-square class="size-4" />
-                    Manage on GitHub
-                </x-dropdown.item>
-
-                <x-dropdown.item
                     destructive
                     form="logout-form"
                     data-pirsch-event='Clicked "Log out"'

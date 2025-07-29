@@ -23,12 +23,19 @@
 
                         <x-prose>
                             {!! Str::lightdown($comment->content) !!}
+
+                            <p>
+                                <a wire:navigate href="{{ route('posts.show', $comment->post) }}" class="font-medium underline">Check out the post →</a>
+                            </p>
                         </x-prose>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <x-pagination :paginator="$comments" />
+        <x-pagination
+            :paginator="$comments"
+            class="mt-16"
+        />
     </x-section>
 </x-app>

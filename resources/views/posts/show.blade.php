@@ -370,7 +370,7 @@
                                 data-pirsch-event="Clicked on GitHub in the subscribe section"
                                 class="group"
                             >
-                                <div class="flex gap-3 items-center px-4 py-3 text-white bg-gray-900 rounded-md">
+                                <div class="flex gap-3 items-center px-4 py-3 bg-white rounded-md ring-1 ring-black/10">
                                     <x-iconoir-github class="size-4 translate-y-[.5px]" />
                                     <p class="font-medium">GitHub</p>
                                 </div>

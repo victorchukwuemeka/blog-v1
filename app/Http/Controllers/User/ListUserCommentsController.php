@@ -11,7 +11,7 @@ class ListUserCommentsController extends Controller
     public function __invoke(Request $request) : View
     {
         return view('user.comments', [
-            'comments' => $request->user()->comments()->paginate(10),
+            'comments' => $request->user()->comments()->paginate(2),
         ]);
     }
 }
