@@ -95,7 +95,6 @@ class PostResource extends Resource
                         ->image()
                         ->disk(fn (Post $record) => $record->image_disk ?? 'cloudflare-images')
                         ->directory('images/posts')
-                        ->required()
                         ->columnSpanFull()
                         ->label('Image')
                         ->helperText('Resizing and compression are applied automatically.'),
