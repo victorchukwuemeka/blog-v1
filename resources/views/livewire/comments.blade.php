@@ -19,6 +19,6 @@
     @endif
 
     <div class="mt-16">
-        <livewire:comment-form />
+        <livewire:comment-form label="Your comment" />
     </div>
 </section>

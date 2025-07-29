@@ -12,11 +12,14 @@ use function Pest\Livewire\livewire;
 use function Pest\Laravel\assertDatabaseHas;
 
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 it('allows users to comment on a post and notifies the admin', function () {
     Notification::fake();
 
-    $post = Post::factory()->create();
+    $post = Post::factory()
+        ->hasComments(15)
+        ->create();
 
     $user = User::factory()->create();
 
@@ -27,6 +30,12 @@ it('allows users to comment on a post and notifies the admin', function () {
     actingAs($user);
 
     livewire(Comments::class, ['postId' => $post->id])
+        ->assertViewHas('comments', function (LengthAwarePaginator $comments) {
+            expect($comments->perPage())->toBe(10);
+
+            return true;
+        })
+        ->assertViewHas('commentsCount', 15)
         ->call('store', null, 'Lorem ipsum dolor sit amet.');
 
     assertDatabaseHas(Comment::class, [

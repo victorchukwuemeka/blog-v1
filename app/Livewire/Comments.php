@@ -30,7 +30,7 @@ class Comments extends Component
             'comments' => Comment::query()
                 ->where('post_id', $this->postId)
                 ->whereNull('parent_id')
-                ->paginate(2),
+                ->paginate(10),
 
             'commentsCount' => Comment::query()
                 ->where('post_id', $this->postId)

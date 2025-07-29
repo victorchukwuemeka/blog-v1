@@ -9,7 +9,7 @@
 
         <div class="grow">
             <label for="comment" class="text-sm font-bold uppercase">
-                {{ $label ?? 'Your comment' }}
+                {{ $label }}
             </label>
 
             <textarea
