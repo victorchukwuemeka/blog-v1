@@ -127,6 +127,37 @@
                                 <x-icon-claude class="size-4" />
                                 Ask Claude
                             </x-dropdown.item>
+
+                            <x-dropdown.divider>
+                                Share
+                            </x-dropdown.divider>
+
+                            <x-dropdown.item
+                                :href="'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($post->canonical_url)"
+                                target="_blank"
+                                data-pirsch-event='Clicked "Share on Facebook"'
+                            >
+                                <x-iconoir-facebook class="size-4" />
+                                Share on Facebook
+                            </x-dropdown.item>
+
+                            <x-dropdown.item
+                                :href="'https://www.linkedin.com/shareArticle?mini=true&url=' . urlencode($post->canonical_url) . '&title=' . urlencode($post->title)"
+                                target="_blank"
+                                data-pirsch-event='Clicked "Share on LinkedIn"'
+                            >
+                                <x-iconoir-linkedin class="size-4" />
+                                Share on LinkedIn
+                            </x-dropdown.item>
+
+                            <x-dropdown.item
+                                :href="'https://x.com/intent/tweet?url=' . urlencode($post->canonical_url) . '&text=' . urlencode($post->title)"
+                                target="_blank"
+                                data-pirsch-event='Clicked "Share on X"'
+                            >
+                                <x-iconoir-x class="size-4" />
+                                Share on X
+                            </x-dropdown.item>
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -169,6 +200,49 @@
                         </ul>
                     @endif
                 </x-prose>
+
+                <div class="p-8 mt-8 text-xl bg-gray-100 rounded-xl">
+                    <p>Would you mind helping me reach more people by sharing this article on social media?</p>
+
+                    <ul class="flex gap-3 mt-4">
+                        <li>
+                            <a
+                                href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($post->canonical_url) }}"
+                                target="_blank"
+                                data-pirsch-event='Clicked on "Facebook"'
+                                class="grid place-items-center size-12 text-white bg-[#0766FF] rounded-md"
+                            >
+                                <x-iconoir-facebook class="size-6" />
+                                <span class="sr-only">Facebook</span>
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a
+                                href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode($post->canonical_url) }}&title={{ urlencode($post->title) }}"
+                                target="_blank"
+                                data-pirsch-event='Clicked on "LinkedIn"'
+                                class="grid place-items-center size-12 text-white bg-[#0B66C2] rounded-md"
+                            >
+                                <x-iconoir-linkedin class="size-6" />
+                                <span class="sr-only">Linkedin</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="https://x.com/intent/tweet?url={{ urlencode($post->canonical_url) }}&text={{ urlencode($post->title) }}"
+                                target="_blank"
+                                data-pirsch-event='Clicked on "X"'
+                                class="grid place-items-center text-white bg-gray-900 rounded-md size-12"
+                            >
+                                <x-iconoir-x class="size-6" />
+                                <span class="sr-only">X</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </article>
 
             @if (! $post->is_commercial)
@@ -189,12 +263,6 @@
                         <x-deals.wincher />
                         <x-deals.uptimia />
                     </div>
-
-                    <p class="mt-8 text-center">
-                        <a wire:navigate href="{{ route('deals') }}" class="font-medium underline">
-                            Check all deals →
-                        </a>
-                    </p>
                 </section>
             @endif
         </div>
