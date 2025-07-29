@@ -288,7 +288,7 @@
                             Latest comment
                         </p>
 
-                        <div class="flex gap-4 mt-6">
+                        <div class="flex gap-4 mt-4">
                             <img
                                 loading="lazy"
                                 src="{{ $latestComment->user->avatar }}"
@@ -329,6 +329,23 @@
                         </div>
                     </div>
                 @endif
+
+                <div class="hidden mt-16 lg:block">
+                    <p class="font-bold tracking-widest text-black uppercase text-balance">
+                        Subscribe
+                    </p>
+
+                    <a
+                        href="{{ route('feeds.main') }}"
+                        data-pirsch-event='Clicked on "Atom feed"'
+                        class="group"
+                    >
+                        <div class="flex gap-3 items-center px-4 py-3 mt-4 text-white bg-orange-400 rounded-md transition-colors group-hover:bg-orange-500">
+                            <x-heroicon-o-rss class="size-4 translate-y-[.5px]" />
+                            <p class="font-medium">Atom feed</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         @endif
     </div>
