@@ -19,6 +19,8 @@ class Comments extends Component
     #[Locked]
     public int $postId;
 
+    public string $sort = 'desc';
+
     /**
      * Used in the view to track which comment is being replied to.
      */
@@ -30,6 +32,7 @@ class Comments extends Component
             'comments' => Comment::query()
                 ->where('post_id', $this->postId)
                 ->whereNull('parent_id')
+                ->orderBy('created_at', $this->sort)
                 ->paginate(10),
 
             'commentsCount' => Comment::query()

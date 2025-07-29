@@ -11,27 +11,9 @@ class CommentSeeder extends Seeder
 {
     public function run() : void
     {
-        Comment::factory(50)
+        Comment::factory(100)
             ->recycle(User::all())
-            ->recycle(Post::all())
-            ->create([
-                'content' => <<<'MARKDOWN'
-**bold** *italic* ~~strike~~
-[link](https://example.com) ![img](https://via.placeholder.com/50)
-
-> quote
-
-- item
-  - subitem
-1. one
-
----
-
-`inline`
-```js
-console.log("hi");
-```
-MARKDOWN
-            ]);
+            ->recycle(Post::query()->where('is_commercial', false)->get())
+            ->create();
     }
 }

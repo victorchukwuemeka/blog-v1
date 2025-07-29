@@ -12,7 +12,7 @@ class PostSeeder extends Seeder
 {
     public function run() : void
     {
-        Post::factory(30)
+        Post::factory(50)
             ->recycle(User::all())
             ->recycle(Category::all())
             ->create([
