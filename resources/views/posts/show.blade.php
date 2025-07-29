@@ -332,19 +332,65 @@
 
                 <div class="hidden mt-16 lg:block">
                     <p class="font-bold tracking-widest text-black uppercase text-balance">
-                        Subscribe
+                        Follow me
                     </p>
 
-                    <a
-                        href="{{ route('feeds.main') }}"
-                        data-pirsch-event='Clicked on "Atom feed"'
-                        class="group"
-                    >
-                        <div class="flex gap-3 items-center px-4 py-3 mt-4 text-white bg-orange-400 rounded-md transition-colors group-hover:bg-orange-500">
-                            <x-heroicon-o-rss class="size-4 translate-y-[.5px]" />
-                            <p class="font-medium">Atom feed</p>
-                        </div>
-                    </a>
+                    <ul class="grid gap-2 mt-4">
+                        <li>
+                            <a
+                                href="{{ route('feeds.main') }}"
+                                data-pirsch-event="Clicked on Atom feed in the subscribe section"
+                                class="group"
+                            >
+                                <div class="flex gap-3 items-center px-4 py-3 text-white bg-orange-400 rounded-md">
+                                    <x-heroicon-o-rss class="size-4 translate-y-[.5px]" />
+                                    <p class="font-medium">Atom feed</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="https://www.linkedin.com/in/benjamincrozat/"
+                                target="_blank"
+                                data-pirsch-event="Clicked on LinkedIn in the subscribe section"
+                                class="group"
+                            >
+                                <div class="flex gap-3 items-center px-4 py-3 text-white bg-[#0B66C2] rounded-md">
+                                    <x-iconoir-linkedin class="size-4 translate-y-[.5px]" />
+                                    <p class="font-medium">LinkedIn</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="https://github.com/benjamincrozat"
+                                target="_blank"
+                                data-pirsch-event="Clicked on GitHub in the subscribe section"
+                                class="group"
+                            >
+                                <div class="flex gap-3 items-center px-4 py-3 text-white bg-gray-900 rounded-md">
+                                    <x-iconoir-github class="size-4 translate-y-[.5px]" />
+                                    <p class="font-medium">GitHub</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="https://x.com/benjamincrozat"
+                                target="_blank"
+                                data-pirsch-event="Clicked on X in the subscribe section"
+                                class="group"
+                            >
+                                <div class="flex gap-3 items-center px-4 py-3 text-white bg-black rounded-md">
+                                    <x-iconoir-x class="size-4 translate-y-[.5px]" />
+                                    <p class="font-medium">X</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         @endif
