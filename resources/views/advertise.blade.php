@@ -73,41 +73,34 @@
         title="How to show off your product"
         class="mt-24 md:max-w-screen-sm"
     >
-        <div class="p-4 rounded-xl bg-gray-100/50 md:p-8 md:text-xl">
-            <h3 class="text-xl font-medium md:text-2xl">
-                Sponsored article
-            </h3>
+        <p>Your options right now are:</p>
 
-            <ul class="grid gap-2 mt-4">
-                <li class="flex gap-2 items-center">
-                    <x-heroicon-o-check-circle class="text-emerald-600 size-6" />
-                    Featured on top for a week
-                </li>
+        <ul class="grid gap-2 mt-2 ml-4 list-disc list-inside">
+            <li>
+                A sponsored article that gets you:
 
-                <li class="flex gap-2 items-center">
-                    <x-heroicon-o-check-circle class="text-emerald-600 size-6" />
-                    Access to {{ Number::format($visitors) }} monthly developers
-                </li>
+                <ul class="grid gap-2 mt-2 ml-4 list-disc list-inside">
+                    <li>
+                        Featured on top for a week
+                    </li>
 
-                <li class="flex gap-2 items-center">
-                    <x-heroicon-o-check-circle class="text-emerald-600 size-6" />
-                    Lifetime backlink on a DR 51 domain
-                </li>
+                    <li>
+                        Access to {{ Number::format($visitors) }} monthly developers
+                    </li>
 
-                <li class="flex gap-2 items-center">
-                    <x-heroicon-o-check-circle class="text-emerald-600 size-6" />
-                    Forever on the blog
-                </li>
-            </ul>
+                    <li>
+                        A lifetime backlink on a DR 51 domain
+                    </li>
 
-            <x-btn
-                primary
-                size="md"
-                href="mailto:hello@benjamincrozat.com"
-                class="mt-[1.35rem] text-base rounded-lg!"
-            >
-                Get in touch
-            </x-btn>
-        </div>
+                    <li>
+                        A position on the blog, forever
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="mt-4">
+            Interested? <a href="mailto:hello@benjamincrozat.com" class="font-medium underline">Get in touch</a> with me.
+        </p>
     </x-section>
 </x-app>
