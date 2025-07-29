@@ -133,7 +133,7 @@
                             </x-dropdown.divider>
 
                             <x-dropdown.item
-                                :href="'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($post->canonical_url)"
+                                :href="'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(route('posts.show', $post))"
                                 target="_blank"
                                 data-pirsch-event='Clicked "Share on Facebook"'
                             >
@@ -142,7 +142,7 @@
                             </x-dropdown.item>
 
                             <x-dropdown.item
-                                :href="'https://www.linkedin.com/shareArticle?mini=true&url=' . urlencode($post->canonical_url) . '&title=' . urlencode($post->title)"
+                                :href="'https://www.linkedin.com/shareArticle?mini=true&url=' . urlencode(route('posts.show', $post)) . '&title=' . urlencode($post->title)"
                                 target="_blank"
                                 data-pirsch-event='Clicked "Share on LinkedIn"'
                             >
@@ -151,7 +151,7 @@
                             </x-dropdown.item>
 
                             <x-dropdown.item
-                                :href="'https://x.com/intent/tweet?url=' . urlencode($post->canonical_url) . '&text=' . urlencode($post->title)"
+                                :href="'https://x.com/intent/tweet?url=' . urlencode(route('posts.show', $post)) . '&text=' . urlencode($post->title)"
                                 target="_blank"
                                 data-pirsch-event='Clicked "Share on X"'
                             >
@@ -207,7 +207,7 @@
                     <ul class="flex gap-2 mt-4 md:gap-3">
                         <li>
                             <a
-                                href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($post->canonical_url) }}"
+                                href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('posts.show', $post)) }}"
                                 target="_blank"
                                 data-pirsch-event='Clicked on "Facebook"'
                                 class="grid place-items-center size-12 text-white bg-[#0766FF] rounded-md"
@@ -220,7 +220,7 @@
 
                         <li>
                             <a
-                                href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode($post->canonical_url) }}&title={{ urlencode($post->title) }}"
+                                href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(route('posts.show', $post)) }}&title={{ urlencode($post->title) }}"
                                 target="_blank"
                                 data-pirsch-event='Clicked on "LinkedIn"'
                                 class="grid place-items-center size-12 text-white bg-[#0B66C2] rounded-md"
@@ -232,7 +232,7 @@
 
                         <li>
                             <a
-                                href="https://x.com/intent/tweet?url={{ urlencode($post->canonical_url) }}&text={{ urlencode($post->title) }}"
+                                href="https://x.com/intent/tweet?url={{ urlencode(route('posts.show', $post)) }}&text={{ urlencode($post->title) }}"
                                 target="_blank"
                                 data-pirsch-event='Clicked on "X"'
                                 class="grid place-items-center text-white bg-gray-900 rounded-md size-12"
