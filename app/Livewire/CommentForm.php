@@ -10,6 +10,8 @@ class CommentForm extends Component
     #[Validate('nullable|exists:comments,id')]
     public ?int $parentId = null;
 
+    public ?string $label = null;
+
     #[Validate('required|string|min:3')]
     public string $commentContent = '';
 

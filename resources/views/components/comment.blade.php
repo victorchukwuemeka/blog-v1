@@ -57,10 +57,14 @@ $parentId = $this->parentId ?? $attributes->get('parentId');
                 </x-prose>
 
                 @empty($hideReplyButton)
-                    <div class="mt-2 text-right">
+                    <div class="mt-4 text-right">
                         <button
                             class="inline-flex hover:text-blue-600 transition-colors disabled:opacity-30 gap-[.35rem] items-center font-medium"
-                            wire:click="$set('parentId', {{ $comment->id }})"
+                            @if (auth()->guest())
+                                disabled
+                            @else
+                                wire:click="$set('parentId', {{ $comment->id }})"
+                            @endif
                             {{ $parentId === $comment->id ? 'disabled' : '' }}
                         >
                             Reply
@@ -78,7 +82,11 @@ $parentId = $this->parentId ?? $attributes->get('parentId');
             x-trap="true"
             @keydown.esc="$wire.$set('parentId', null)"
         >
-            <livewire:comment-form wire:key="comment-form-{{ $comment->id }}" :parentId="$comment->id" />
+            <livewire:comment-form
+                wire:key="comment-form-{{ $comment->id }}"
+                :parentId="$comment->id"
+                label="Your reply"
+            />
         </div>
     @endif
 
