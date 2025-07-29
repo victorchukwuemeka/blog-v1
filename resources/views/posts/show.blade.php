@@ -313,10 +313,10 @@
                                 </p>
 
                                 <x-prose class="mt-1 leading-normal text-gray-500">
-                                    {{ $latestComment->truncated }}
+                                    {!! $latestComment->truncated !!}
                                 </x-prose>
 
-                                <p class="mt-3 text-right">
+                                <p class="mt-1 text-right">
                                     <a
                                         href="#comments"
                                         class="font-medium underline"
