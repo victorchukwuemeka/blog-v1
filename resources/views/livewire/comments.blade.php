@@ -17,7 +17,7 @@
                     Newest to oldest
                 @endif
 
-                <x-heroicon-o-arrows-up-down
+                <x-heroicon-o-arrow-down
                     @class([
                         'transition-transform duration-300 size-4',
                         'rotate-180' => $sort === 'asc',
@@ -27,26 +27,20 @@
 
             <x-slot:items>
                 <x-dropdown.item
+                    icon="heroicon-o-check"
+                    :iconClass="$sort === 'desc' ? null : 'opacity-0'"
                     wire:click="$set('sort', 'desc')"
                     @click.prevent="open = false"
                 >
-                    <x-heroicon-o-check @class([
-                        'size-4 opacity-0',
-                        'opacity-100' => $sort === 'desc',
-                    ]) />
-
                     Newest to oldest
                 </x-dropdown.item>
 
                 <x-dropdown.item
+                    icon="heroicon-o-check"
+                    :iconClass="$sort === 'asc' ? null : 'opacity-0'"
                     wire:click="$set('sort', 'asc')"
                     @click.prevent="open = false"
                 >
-                    <x-heroicon-o-check @class([
-                        'size-4 opacity-0',
-                        'opacity-100' => $sort === 'asc',
-                    ]) />
-
                     Oldest to newest
                 </x-dropdown.item>
             </x-slot>

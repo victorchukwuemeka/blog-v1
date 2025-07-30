@@ -1,31 +1,33 @@
 <x-app>
-    <x-section title="Your comments">
-        <div class="grid grid-cols-2 gap-8 mt-8 md:gap-12">
+    <x-section title="Your comments ({{ $comments->total() }})">
+        <div class="grid gap-4 mt-8 md:grid-cols-2">
             @foreach ($comments as $comment)
-                <div class="flex gap-4">
-                    <img
-                        loading="lazy"
-                        src="{{ $comment->user->avatar }}"
-                        alt="{{ $comment->user->name }}"
-                        class="flex-none mt-1 rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"
-                    />
+                <a href="{{ route('posts.show', $comment->post) }}#comments" class="flex gap-4 p-4 rounded-xl border-2 border-gray-200 transition-colors group md:gap-6 hover:border-blue-300 md:p-6">
+                    <div class="flex gap-4">
+                        <img
+                            loading="lazy"
+                            src="{{ $comment->user->avatar }}"
+                            alt="{{ $comment->user->name }}"
+                            class="flex-none mt-1 rounded-full ring-1 shadow-sm shadow-black/5 ring-black/10 size-7 md:size-8"
+                        />
 
-                    <div>
                         <div>
-                            <a href="{{ $comment->user->github_data['user']['html_url'] }}" target="_blank" class="font-medium">
+                            <div>
                                 {{ $comment->user->name }}
-                            </a>
 
-                            <a wire:navigate href="{{ route('posts.show', $comment->post) }}" class="ml-1 text-gray-500">
-                                {{ $comment->created_at->diffForHumans(short: true) }}
-                            </a>
+                                <span class="ml-1">
+                                    {{ $comment->created_at->diffForHumans(short: true) }}
+                                </span>
+                            </div>
+
+                            <x-prose class="mt-2 leading-normal">
+                                {!! Str::lightdown($comment->content) !!}
+                            </x-prose>
                         </div>
-
-                        <x-prose>
-                            {!! Str::lightdown($comment->content) !!}
-                        </x-prose>
                     </div>
-                </div>
+
+                    <x-heroicon-o-chevron-right class="flex-none self-center text-gray-400 transition-colors size-4 group-hover:text-blue-400" />
+                </a>
             @endforeach
         </div>
 

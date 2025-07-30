@@ -1,3 +1,9 @@
+@props([
+    'icon' => null,
+    'iconClass' => null,
+    'description' => null,
+])
+
 @if ($attributes->has('href'))
 <a
 @else
@@ -15,6 +21,7 @@
         <x-dynamic-component :component="$icon" @class([
             'flex-none size-4',
             'mt-1' => ! empty($description),
+            $iconClass,
         ]) />
     @endif
 
