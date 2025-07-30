@@ -67,18 +67,18 @@
 
                 @if (auth()->user()->isAdmin())
                     <x-dropdown.item
+                        icon="heroicon-o-adjustments-horizontal"
                         href="{{ route('filament.admin.pages.dashboard') }}"
                         data-pirsch-event='Clicked "Admin"'
                     >
-                        <x-heroicon-o-adjustments-horizontal class="size-4" />
                         Admin
                     </x-dropdown.item>
 
                     <x-dropdown.item
+                        icon="icon-horizon"
                         href="{{ route('horizon.index') }}"
                         data-pirsch-event='Clicked "Horizon"'
                     >
-                        <x-icon-horizon class="size-4" />
                         Horizon
                     </x-dropdown.item>
                 @endif
@@ -86,29 +86,29 @@
                 <x-dropdown.divider />
 
                 <x-dropdown.item
+                    icon="heroicon-o-chat-bubble-oval-left"
                     wire:navigate
                     href="{{ route('user.comments') }}"
                     data-pirsch-event='Clicked "Your comments"'
                 >
-                    <x-heroicon-o-chat-bubble-oval-left class="size-4" />
                     Your comments
                 </x-dropdown.item>
 
                 <x-dropdown.item
+                    icon="heroicon-o-link"
                     wire:navigate
                     href="{{ route('user.links') }}"
                     data-pirsch-event='Clicked "Your links"'
                 >
-                    <x-heroicon-o-link class="size-4" />
                     Your links
                 </x-dropdown.item>
 
                 <x-dropdown.item
+                    icon="heroicon-o-arrow-right-end-on-rectangle"
                     destructive
                     form="logout-form"
                     data-pirsch-event='Clicked "Log out"'
                 >
-                    <x-heroicon-o-arrow-right-end-on-rectangle class="size-4" />
                     Log out
                 </x-dropdown.item>
 
@@ -145,49 +145,50 @@
             </x-dropdown.divider>
 
             <x-dropdown.item
+                icon="heroicon-o-tag"
                 wire:navigate
                 href="{{ route('categories.index') }}"
                 data-pirsch-event='Clicked "Categories"'
             >
-                <x-heroicon-o-tag class="size-4" />
                 Categories
             </x-dropdown.item>
 
             <x-dropdown.item
+                icon="heroicon-o-megaphone"
                 wire:navigate
                 href="{{ route('advertise') }}"
                 data-pirsch-event='Clicked "Advertise"'
             >
-                <x-heroicon-o-megaphone class="size-4" />
                 Advertise
             </x-dropdown.item>
 
             <x-dropdown.item
+                icon="heroicon-o-question-mark-circle"
                 href="{{ route('home') }}#about"
                 data-pirsch-event='Clicked "About me"'
             >
-                <x-heroicon-o-question-mark-circle class="size-4" />
                 About me
             </x-dropdown.item>
 
             <x-dropdown.item
+                icon="heroicon-o-envelope"
                 href="mailto:hello@benjamincrozat.com"
                 data-pirsch-event='Clicked "Contact me"'
             >
-                <x-heroicon-o-envelope class="size-4" />
                 Contact me
             </x-dropdown.item>
 
             <x-dropdown.divider>
-                Code and free tools
+                Freebies
             </x-dropdown.divider>
 
             <x-dropdown.item
+                icon="iconoir-git-fork"
+                description="This blog is open source and the codebase becomes bigger fast. There's a lot to learn and this is free."
                 href="https://github.com/benjamincrozat/blog-v5"
                 target="_blank"
                 data-pirsch-event='Clicked "Fork the source code"'
             >
-                <x-iconoir-git-fork class="size-4" />
                 Fork the source code
             </x-dropdown.item>
 
@@ -196,37 +197,37 @@
             </x-dropdown.divider>
 
             <x-dropdown.item
+                icon="heroicon-o-rss"
                 href="{{ route('feeds.main') }}"
                 data-pirsch-event='Clicked "Atom feed"'
             >
-                <x-heroicon-o-rss class="size-4" />
                 Atom feed
             </x-dropdown.item>
 
             <x-dropdown.item
+                icon="iconoir-github"
                 href="https://github.com/benjamincrozat"
                 target="_blank"
                 data-pirsch-event='Clicked "GitHub"'
             >
-                <x-iconoir-github class="size-4" />
                 GitHub
             </x-dropdown.item>
 
             <x-dropdown.item
+                icon="iconoir-linkedin"
                 href="https://www.linkedin.com/in/benjamincrozat"
                 target="_blank"
                 data-pirsch-event='Clicked "LinkedIn"'
             >
-                <x-iconoir-linkedin class="size-4" />
                 LinkedIn
             </x-dropdown.item>
 
             <x-dropdown.item
+                icon="iconoir-x"
                 href="https://x.com/benjamincrozat"
                 target="_blank"
                 data-pirsch-event='Clicked "X"'
             >
-                <x-iconoir-x class="size-4" />
                 X
             </x-dropdown.item>
         </x-slot>
