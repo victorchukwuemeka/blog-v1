@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <span class="hidden text-base font-bold tracking-widest uppercase md:inline">
+        <span class="text-base font-bold tracking-widest uppercase sr-only md:not-sr-only">
             benjamincrozat.com
         </span>
     </a>
