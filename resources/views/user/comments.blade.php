@@ -1,6 +1,6 @@
 <x-app>
-    <x-section title="Your comments" class="lg:max-w-screen-md">
-        <div class="grid gap-8 mt-8 md:gap-12">
+    <x-section title="Your comments">
+        <div class="grid grid-cols-2 gap-8 mt-8 md:gap-12">
             @foreach ($comments as $comment)
                 <div class="flex gap-4">
                     <img
@@ -16,17 +16,13 @@
                                 {{ $comment->user->name }}
                             </a>
 
-                            <span class="ml-1 text-gray-500">
+                            <a wire:navigate href="{{ route('posts.show', $comment->post) }}" class="ml-1 text-gray-500">
                                 {{ $comment->created_at->diffForHumans(short: true) }}
-                            </span>
+                            </a>
                         </div>
 
                         <x-prose>
                             {!! Str::lightdown($comment->content) !!}
-
-                            <p>
-                                <a wire:navigate href="{{ route('posts.show', $comment->post) }}" class="font-medium underline">Check out the post →</a>
-                            </p>
                         </x-prose>
                     </div>
                 </div>

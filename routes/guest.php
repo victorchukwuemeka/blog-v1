@@ -7,14 +7,10 @@ use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
-use App\Http\Controllers\User\ListUserLinksController;
-use App\Http\Controllers\User\ListUserCommentsController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
-use App\Http\Controllers\ShortUrls\RedirectShortUrlController;
 use App\Http\Controllers\Advertising\RedirectToAdvertiserController;
-use App\Http\Controllers\Impersonation\LeaveImpersonationController;
 
 Route::get('/', HomeController::class)
     ->name('home');
@@ -34,11 +30,12 @@ Route::get('/categories/{category:slug}', ShowCategoryController::class)
 Route::view('/deals', 'deals')
     ->name('deals');
 
+Route::get('/links/create', LinkWizard::class)
+    ->middleware('auth')
+    ->name('links.create');
+
 Route::get('/links', ListLinksController::class)
     ->name('links.index');
-
-Route::get('/links/create', LinkWizard::class)
-    ->name('links.create');
 
 Route::get('/advertise', App\Http\Controllers\Advertising\ShowAdvertisingLandingPageController::class)
     ->name('advertise');
@@ -49,24 +46,7 @@ Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)
 Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
 
-Route::prefix('/user')
-    ->name('user.')
-    ->group(function () {
-        Route::get('/comments', ListUserCommentsController::class)
-            ->name('comments');
-
-        Route::get('/links', ListUserLinksController::class)
-            ->name('links');
-    });
-
 Route::feeds();
-
-Route::get('/leave-impersonation', LeaveImpersonationController::class)
-    ->name('leave-impersonation');
-
-Route::domain(config('app.url_shortener_domain'))
-    ->group(fn () => Route::get('/{shortUrl:code}', RedirectShortUrlController::class)
-        ->name('redirect-short-url'));
 
 // This route needs to be the last one so all others take precedence.
 Route::get('/{slug}', ShowPostController::class)

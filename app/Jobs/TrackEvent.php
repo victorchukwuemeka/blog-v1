@@ -11,6 +11,7 @@ class TrackEvent implements ShouldQueue
 
     public function __construct(
         public string $name,
+        public array $meta,
         public string $url,
         public string $ip,
         public string $userAgent,
@@ -22,6 +23,7 @@ class TrackEvent implements ShouldQueue
     {
         app(\App\Actions\TrackEvent::class)->track(
             $this->name,
+            $this->meta,
             $this->url,
             $this->ip,
             $this->userAgent,

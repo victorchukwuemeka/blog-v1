@@ -112,7 +112,7 @@
                     Log out
                 </x-dropdown.item>
 
-                <form method="POST" action="{{ route('auth.logout') }}" id="logout-form" class="hidden">
+                <form method="POST" action="{{ route('logout') }}" id="logout-form" class="hidden">
                     @csrf
                 </form>
             </x-slot>

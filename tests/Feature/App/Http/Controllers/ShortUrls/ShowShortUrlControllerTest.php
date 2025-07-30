@@ -15,14 +15,22 @@ it('redirects to the short URL and tracks the event', function () {
 
     $shortUrl = ShortUrl::factory()->create();
 
-    get(route('redirect-short-url', $shortUrl))
+    get(route('shortUrl.show', $shortUrl))
         ->assertStatus(302)
         ->assertRedirect($shortUrl->url);
 
-    Bus::assertDispatchedAfterResponse(TrackEvent::class);
+    Bus::assertDispatchedAfterResponse(TrackEvent::class, function (TrackEvent $job) use ($shortUrl) {
+        expect($job->name)->toBe('Clicked on short URL');
+
+        expect($job->meta)->toBe([
+            'url' => $shortUrl->url,
+        ]);
+
+        return true;
+    });
 });
 
 it('throws a 404 if the short URL does not exist', function () {
-    get(route('redirect-short-url', 'non-existing'))
+    get(route('shortUrl.show', 'non-existing'))
         ->assertNotFound();
 });

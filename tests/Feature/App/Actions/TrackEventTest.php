@@ -38,6 +38,7 @@ function trackEventParameters() : array
 {
     return [
         'name' => 'Foo',
+        'meta' => ['foo' => 'bar'],
         'url' => fake()->url(),
         'ip' => fake()->ipv4(),
         'userAgent' => fake()->userAgent(),

@@ -6,13 +6,6 @@ use Spatie\LivewireWizard\Components\WizardComponent;
 
 class LinkWizard extends WizardComponent
 {
-    public function mount()
-    {
-        if (! auth()->check()) {
-            return redirect()->guest(route('auth.login'));
-        }
-    }
-
     public function steps() : array
     {
         return [

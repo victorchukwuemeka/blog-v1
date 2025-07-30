@@ -4,6 +4,7 @@ use App\Str;
 use App\Models\Link;
 use App\Models\User;
 
+use function Pest\Laravel\getJson;
 use function Pest\Laravel\actingAs;
 use function Pest\Livewire\livewire;
 
@@ -29,7 +30,9 @@ it('submits the link and notifies the admin', function () {
 
     $admin = User::factory()->create(['github_login' => 'benjamincrozat']);
 
-    actingAs($user);
+    actingAs($user)
+        ->get(route('links.create'))
+        ->assertOk();
 
     livewire(SecondStep::class, [
         'url' => $url,
@@ -50,4 +53,9 @@ it('submits the link and notifies the admin', function () {
     ]);
 
     Notification::assertSentToTimes($admin, LinkWaitingForValidation::class, 1);
+});
+
+it("doesn't allow guests", function () {
+    getJson(route('links.create'))
+        ->assertUnauthorized();
 });

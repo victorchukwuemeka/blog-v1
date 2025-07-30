@@ -3,6 +3,7 @@
 use App\Models\Link;
 use App\Models\User;
 
+use function Pest\Laravel\getJson;
 use function Pest\Laravel\actingAs;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -27,4 +28,9 @@ it("lists the user's links no matter their status", function () {
         ->assertOk()
         ->assertViewIs('user.links')
         ->assertViewHas('links', fn (LengthAwarePaginator $links) => 9 === $links->count());
+});
+
+it("doesn't allow guests", function () {
+    getJson(route('user.comments'))
+        ->assertUnauthorized();
 });

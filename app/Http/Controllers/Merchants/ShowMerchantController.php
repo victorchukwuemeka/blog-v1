@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Merchants;
 
+use App\Jobs\TrackEvent;
 use Illuminate\Support\Uri;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
 class ShowMerchantController extends Controller
 {
-    public function __invoke(string $slug) : RedirectResponse
+    public function __invoke(Request $request, string $slug) : RedirectResponse
     {
         abort_if(
             ! $merchantLink = collect(config('merchants'))
@@ -21,9 +23,26 @@ class ShowMerchantController extends Controller
             404
         );
 
-        $urlToRedirectTo = Uri::of($merchantLink)
-            ->withQuery(request()->all());
+        if (! empty($request->fullUrl()) &&
+            ($ip = $request->ip()) &&
+            ($userAgent = $request->userAgent())) {
+            TrackEvent::dispatchAfterResponse(
+                'Clicked on merchant',
+                [
+                    'slug' => $slug,
+                    'url' => $merchantLink,
+                ],
+                $request->fullUrl(),
+                $ip,
+                $userAgent,
+                $request->header('Accept-Language', ''),
+                $request->header('Referer', ''),
+            );
+        }
 
-        return redirect()->away($urlToRedirectTo);
+        return redirect()->away(
+            Uri::of($merchantLink)
+                ->withQuery(request()->all())
+        );
     }
 }

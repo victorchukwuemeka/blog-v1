@@ -14,7 +14,7 @@ it('logs out an authenticated user', function () {
 
     assertAuthenticated();
 
-    post(route('auth.logout'))
+    post(route('logout'))
         ->assertRedirect(route('home'))
         ->assertSessionHas('status', 'You have been successfully logged out.');
 

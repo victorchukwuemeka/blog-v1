@@ -1,27 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Auth\Middleware\Authenticate;
 use App\Http\Controllers\Auth\LogoutController;
-use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Auth\GithubAuthCallbackController;
 use App\Http\Controllers\Auth\GithubAuthRedirectController;
+use App\Http\Controllers\Impersonation\LeaveImpersonationController;
 
-Route::view('/login', 'login')
-    ->middleware(RedirectIfAuthenticated::class)
-    ->name('auth.login');
+Route::middleware('guest')
+    ->group(function () {
+        Route::view('/login', 'login')
+            ->name('login');
 
-Route::prefix('/auth')->name('auth.')->group(function () {
-    Route::middleware(RedirectIfAuthenticated::class)
-        ->group(function () {
-            Route::get('/redirect', GithubAuthRedirectController::class)
-                ->name('redirect');
+        Route::get('/auth/redirect', GithubAuthRedirectController::class)
+            ->name('auth.redirect');
 
-            Route::get('/callback', GithubAuthCallbackController::class)
-                ->name('callback');
-        });
+        Route::get('/auth/callback', GithubAuthCallbackController::class)
+            ->name('auth.callback');
+    });
 
-    Route::post('/logout', LogoutController::class)
-        ->middleware(Authenticate::class)
-        ->name('logout');
-});
+Route::middleware('auth')
+    ->group(function () {
+        Route::post('/logout', LogoutController::class)
+            ->middleware('auth')
+            ->name('logout');
+
+        Route::get('/leave-impersonation', LeaveImpersonationController::class)
+            ->middleware('auth')
+            ->name('leave-impersonation');
+    });

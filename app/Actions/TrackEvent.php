@@ -6,12 +6,13 @@ use Illuminate\Support\Facades\Http;
 
 class TrackEvent
 {
-    public function track(string $name, string $url, string $ip, string $userAgent, string $acceptLanguage, ?string $referrer = null)
+    public function track(string $name, array $meta, string $url, string $ip, string $userAgent, string $acceptLanguage, ?string $referrer = null)
     {
         Http::withToken(config('services.pirsch.access_key'))
             ->retry(3)
             ->post('https://api.pirsch.io/api/v1/event', [
                 'event_name' => 'Clicked on short URL',
+                'event_meta' => $meta,
                 'url' => $url,
                 'ip' => $ip,
                 'user_agent' => $userAgent,

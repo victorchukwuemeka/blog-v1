@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
-class RedirectShortUrlController extends Controller
+class ShowShortUrlController extends Controller
 {
     public function __invoke(Request $request, string $code) : RedirectResponse
     {
@@ -16,11 +16,11 @@ class RedirectShortUrlController extends Controller
             ->where('code', $code)
             ->firstOrFail();
 
-        if (! empty($url = $request->url()) &&
-            ($ip = $request->ip()) &&
+        if (($ip = $request->ip()) &&
             ($userAgent = $request->userAgent())) {
             TrackEvent::dispatchAfterResponse(
                 'Clicked on short URL',
+                ['url' => $shortUrl->url],
                 $request->fullUrl(),
                 $ip,
                 $userAgent,

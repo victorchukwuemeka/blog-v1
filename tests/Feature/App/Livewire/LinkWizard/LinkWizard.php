@@ -18,5 +18,5 @@ it('renders', function () {
 
 it('disallows guests', function () {
     livewire(LinkWizard::class)
-        ->assertRedirect(route('auth.login'));
+        ->assertRedirect(route('login'));
 });
