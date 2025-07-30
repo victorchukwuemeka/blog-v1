@@ -67,6 +67,12 @@ it('does not track requests from crawlers', function () {
     get('/', ['User-Agent' => 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36']);
 });
 
+it('does not track prefetch requests', function () {
+    TrackVisit::shouldReceive('track')->never();
+
+    get('/', ['Purpose' => 'prefetch']);
+});
+
 it('does not track requests from admins', function () {
     TrackVisit::shouldReceive('track')->never();
 
