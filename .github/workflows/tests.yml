@@ -14,27 +14,12 @@ jobs:
       PIRSCH_ACCESS_KEY: ${{ secrets.PIRSCH_ACCESS_KEY }}
       PIRSCH_CLIENT_ID: ${{ secrets.PIRSCH_CLIENT_ID }}
       PIRSCH_CLIENT_SECRET: ${{ secrets.PIRSCH_CLIENT_SECRET }}
-    services:
-      mysql:
-        image: mysql:9.3
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        ports:
-          - 3306
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           coverage: none
           php-version: 8.4
-
-      - name: Setup MySQL database
-        run: mysql -u root -h 127.0.0.1 -P ${{ job.services.mysql.ports[3306] }} -e "CREATE DATABASE benjamincrozat_test"
 
       - name: Checkout code
         uses: actions/checkout@v3
@@ -57,6 +42,9 @@ jobs:
           php artisan config:cache
           php artisan route:cache
           php artisan view:cache
+
+      - name: Setup SQLite database
+        run: touch database/database.sqlite
 
       - name: Run tests
         run: php artisan test --parallel
