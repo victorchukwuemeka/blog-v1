@@ -20,7 +20,7 @@
         @endif
     </a>
 
-    @if (! empty($post->categories))
+    @if ($post->categories->isNotEmpty())
         <div class="flex gap-2 mt-6">
             @foreach ($post->categories as $category)
                 <a wire:navigate href="{{ route('categories.show', $category->slug) }}" class="px-2 py-1 text-xs font-medium uppercase rounded-sm border border-gray-200 transition-colors hover:border-blue-300 hover:text-blue-600">

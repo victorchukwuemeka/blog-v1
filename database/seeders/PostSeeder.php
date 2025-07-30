@@ -127,6 +127,12 @@ fetchData('https://api.example.com/data').then(data => {
 
 MARKDOWN
             ])
-            ->each(fn (Post $post) => FetchImageForPost::dispatch($post));
+            ->each(function (Post $post) {
+                FetchImageForPost::dispatch($post);
+
+                $post->categories()->attach(
+                    Category::query()->inRandomOrder()->limit(random_int(1, 3))->get()
+                );
+            });
     }
 }
