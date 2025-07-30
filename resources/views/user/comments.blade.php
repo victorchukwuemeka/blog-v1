@@ -20,9 +20,9 @@
                                 </span>
                             </div>
 
-                            <x-prose class="mt-2 leading-normal">
-                                {!! Str::lightdown($comment->content) !!}
-                            </x-prose>
+                            <div class="mt-2">
+                                {!! $comment->stripped !!}
+                            </div>
                         </div>
                     </div>
 

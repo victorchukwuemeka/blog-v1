@@ -49,6 +49,13 @@ class Comment extends Model
         return $this->hasMany(Comment::class, 'parent_id');
     }
 
+    public function stripped() : Attribute
+    {
+        return Attribute::make(
+            fn () => strip_tags(Str::lightdown($this->content)),
+        )->shouldCache();
+    }
+
     public function truncated() : Attribute
     {
         return Attribute::make(
