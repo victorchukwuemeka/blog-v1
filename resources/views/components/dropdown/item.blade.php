@@ -31,7 +31,7 @@
         </div>
 
         @if (! empty($description))
-            <div class="text-xs text-gray-500 transition-colors text-wrap text-balance group-hover:text-white/75">
+            <div class="mb-[.175rem] text-xs text-gray-500 transition-colors text-balance group-hover:text-white/75">
                 {{ $description }}
             </div>
         @endif
