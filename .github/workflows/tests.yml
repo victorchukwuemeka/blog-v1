@@ -37,12 +37,6 @@ jobs:
       - name: Generate encryption key
         run: php artisan key:generate
 
-      - name: Warm Laravel caches to speed up tests
-        run: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-
       - name: Setup SQLite database
         run: touch database/database.sqlite
 
