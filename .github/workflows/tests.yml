@@ -16,7 +16,7 @@ jobs:
       PIRSCH_CLIENT_SECRET: ${{ secrets.PIRSCH_CLIENT_SECRET }}
     services:
       mysql:
-        image: mysql:latest
+        image: mysql:9.3
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports:
@@ -36,45 +36,30 @@ jobs:
       - name: Setup MySQL database
         run: mysql -u root -h 127.0.0.1 -P ${{ job.services.mysql.ports[3306] }} -e "CREATE DATABASE benjamincrozat_test"
 
-      - name: Setup Redis
-        uses: supercharge/redis-github-action@1.7.0
-        with:
-          redis-version: 7
-
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
 
       - name: Create .env file
         run: cp .env.example .env
 
-      - name: Install back-end dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          composer-options: --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Generate encryption key
         run: php artisan key:generate
 
-      - name: Install front-end dependencies
-        run: npm ci --no-fund
-
-      - name: Cache PHP dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.composer/cache/files
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Cache Node.js dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-npm-
-
-      - name: Build CSS and JavaScript
-        run: npm run build
+      - name: Warm Laravel caches to speed up tests
+        run: |
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
 
       - name: Run tests
-        run: php artisan test
+        run: php artisan test --parallel
         env:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
