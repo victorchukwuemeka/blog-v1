@@ -1,5 +1,6 @@
 <?php
 
+use Sentry\Laravel\Integration;
 use App\Http\Middleware\TrackVisit;
 use Illuminate\Foundation\Application;
 use App\Http\Middleware\HandleRedirects;
@@ -24,6 +25,6 @@ return Application::configure(basePath: dirname(__DIR__))
             ->web(TrackVisit::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        Integration::handles($exceptions);
     })
     ->create();
