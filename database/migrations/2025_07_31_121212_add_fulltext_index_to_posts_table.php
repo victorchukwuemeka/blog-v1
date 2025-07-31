@@ -9,16 +9,22 @@ return new class extends Migration
     public function up() : void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->fullText('content');
-            $table->fullText('description');
+            // In order to keep using SQLite in CI, I need to skip this migration.
+            if (! app()->runningUnitTests()) {
+                $table->fullText('content');
+                $table->fullText('description');
+            }
         });
     }
 
     public function down() : void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropFullText('content');
-            $table->dropFullText('description');
+            // In order to keep using SQLite in CI, I need to skip this migration.
+            if (! app()->runningUnitTests()) {
+                $table->dropFullText('content');
+                $table->dropFullText('description');
+            }
         });
     }
 };
