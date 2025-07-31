@@ -26,7 +26,7 @@
                 <span class="sr-only">Close</span>
             </button>
 
-            <p>Search for posts and links</p>
+            <p class="cursor-default">Search for posts and links</p>
         </div>
 
         <div class="flex relative items-center">
@@ -44,7 +44,7 @@
         </div>
 
         @if (! empty($query))
-            <div class="flex-grow">
+            <div class="flex-growp">
                 <div>
                     <p class="sticky top-0 z-10 px-4 py-3 text-sm font-medium text-black uppercase border-b border-gray-200 backdrop-blur-md bg-white/75">Posts</p>
 
@@ -94,7 +94,7 @@
                 </div>
             </div>
         @else
-            <p class="p-4 text-center text-gray-400">Try typing something…</p>
+            <p class="p-4 text-center text-gray-400">Try to type something…</p>
         @endif
     </div>
 </div>
