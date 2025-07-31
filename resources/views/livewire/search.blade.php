@@ -4,17 +4,17 @@
     x-data="{ open: false }"
     x-show="open"
     x-transition.duration.300ms
-    x-trap="open"
+    x-trap.noscroll="open"
     @click.away="open = false"
     @keydown.esc="open = false"
     @keydown.arrow-down.stop.prevent="$focus.next()"
     @keydown.arrow-up.stop.prevent="$focus.prev()"
     @keydown.meta.k.window="open = true"
 >
-    <div class="bg-white ring-1 ring-black/10 p-2 w-[480px] rounded-xl shadow-2xl">
+    <div class="bg-white ring-1 ring-black/10 w-full max-w-[480px] rounded-xl shadow-2xl">
         <div class="flex relative items-center">
             <x-heroicon-o-magnifying-glass
-                class="absolute left-3 top-1/2 text-gray-500 -translate-y-1/2 size-4"
+                class="absolute left-5 top-1/2 text-gray-500 -translate-y-1/2 size-4"
             />
 
             <input
@@ -22,12 +22,12 @@
                 wire:model.live="query"
                 placeholder="Search"
                 autofocus
-                class="flex-grow pr-3 pl-9 py-[.65rem] bg-transparent rounded-md border border-gray-200 placeholder-black/10"
+                class="flex-grow m-2 pr-3 pl-9 py-[.65rem] bg-transparent rounded-md border border-gray-200 placeholder-black/10"
             />
         </div>
 
         @if (! empty($query))
-            <div class="grid gap-8 -mx-2 mt-px mb-2">
+            <div>
                 <div>
                     <p class="sticky -top-4 z-10 px-4 py-3 text-sm font-medium text-black uppercase border-b border-gray-200 backdrop-blur-md bg-white/75">Posts</p>
 
@@ -47,14 +47,14 @@
                             @endforeach
                         </ul>
                     @else
-                        <p class="mt-4 text-center text-gray-500">
+                        <p class="p-4 text-center text-gray-500">
                             No posts found.
                         </p>
                     @endif
                 </div>
 
                 <div>
-                    <p class="sticky -top-4 z-10 px-4 py-3 text-sm font-medium text-black uppercase border-gray-200 backdrop-blur-md border-y bg-white/75">Links</p>
+                    <p class="sticky top-0 z-10 px-4 py-3 text-sm font-medium text-black uppercase border-gray-200 backdrop-blur-md border-y bg-white/75">Links</p>
 
                     @if ($links->isNotEmpty())
                         <ul class="mt-2">
@@ -72,7 +72,7 @@
                             @endforeach
                         </ul>
                     @else
-                        <p class="mt-4 text-center text-gray-500">No links found.</p>
+                        <p class="p-4 text-center text-gray-500">No links found.</p>
                     @endif
                 </div>
             </div>
