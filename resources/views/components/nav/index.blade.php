@@ -143,6 +143,13 @@
             </x-dropdown.item>
 
             <x-dropdown.item
+                icon="heroicon-o-magnifying-glass"
+                @click="$dispatch('search'); open = false"
+            >
+                Search
+            </x-dropdown.item>
+
+            <x-dropdown.item
                 icon="heroicon-o-megaphone"
                 wire:navigate
                 href="{{ route('advertise') }}"

@@ -9,6 +9,7 @@
     @keydown.arrow-down.stop.prevent="$focus.next()"
     @keydown.arrow-up.stop.prevent="$focus.prev()"
     @keydown.meta.k.window="open = true"
+    @search.window="open = true"
 >
     <div
         class="bg-white overflow-hidden ring-1 ring-black/10 mx-auto w-full max-w-[480px] rounded-xl shadow-2xl"
