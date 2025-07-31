@@ -1,12 +1,24 @@
+@props([
+    'cta',
+    'ctaColor',
+    'ctaTextColor',
+    'headline',
+    'name',
+    'src',
+    'subheadline',
+])
+
 <a
     {{
         $attributes
             ->class('bg-gray-100/75 flex rounded-xl overflow-hidden transition-opacity hover:opacity-50')
             ->merge([
-                'href' => $href,
                 'target' => '_blank',
                 'data-pirsch-event' => "Clicked on deal",
                 'data-pirsch-meta-merchant' => $name,
+                'x-intersect.once' => $user?->isAdmin() ? null : "pirsch(`Deal shown`, {
+                    meta: { name: `$name` }
+                })"
             ])
     }}
 >

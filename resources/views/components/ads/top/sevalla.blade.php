@@ -8,7 +8,7 @@
                     'utm_medium' => 'top',
                 ]),
                 'target' => '_blank',
-                'x-intersect.once' => "pirsch(`Ad shown`, {
+                'x-intersect.once' => $user?->isAdmin() ? null : "pirsch(`Ad shown`, {
                     meta: { name: `Sevalla` }
                 })",
             ])
