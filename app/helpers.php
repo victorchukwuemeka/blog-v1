@@ -28,7 +28,22 @@ if (! function_exists('extract_headings_from_markdown')) {
 
         $stack = [];
 
+        $inFencedCodeBlock = false;
+
         foreach ($lines as $line) {
+            // Toggle fenced code block detection (``` or ~~~).
+            if (preg_match('/^\s*(```|~~~)/', $line)) {
+                $inFencedCodeBlock = ! $inFencedCodeBlock;
+
+                // We don't want to evaluate headings on the same line as the opening/closing fence.
+                continue;
+            }
+
+            // Skip anything that lives inside a fenced code block.
+            if ($inFencedCodeBlock) {
+                continue;
+            }
+
             // Look for markdown headings (one or more '#' followed by a space and then text).
             if (preg_match('/^(#+)\s+(.*)$/', $line, $matches)) {
                 $level = strlen($matches[1]);  // The heading level is determined by the number of '#' characters

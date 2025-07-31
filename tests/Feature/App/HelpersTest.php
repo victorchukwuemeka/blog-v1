@@ -56,3 +56,19 @@ MARKDOWN;
 
     expect($headings[0]['text'])->toBe('Foo');
 });
+
+it('does not extract headings from lines inside fenced code blocks', function () {
+    $markdown = <<<'MD'
+```bash
+# This should not appear
+echo "Foo"
+```
+
+# Real heading
+MD;
+
+    $headings = extract_headings_from_markdown($markdown);
+
+    expect($headings)->toHaveCount(1)
+        ->and($headings[0]['text'])->toBe('Real heading');
+});
