@@ -1,10 +1,18 @@
 <a
-    href="{{ route('redirect-to-advertiser', [
-        'slug' => 'sevalla',
-        'utm_medium' => 'top',
-    ]) }}"
-    target="_blank"
-    {{ $attributes->class('block ring-1 ring-orange-50/75 text-orange-900 bg-gradient-to-r from-orange-50/75 to-orange-50/25') }}
+    {{
+        $attributes
+            ->class('block ring-1 ring-orange-50/75 text-orange-900 bg-gradient-to-r from-orange-50/75 to-orange-50/25')
+            ->merge([
+                'href' => route('redirect-to-advertiser', [
+                    'slug' => 'sevalla',
+                    'utm_medium' => 'top',
+                ]),
+                'target' => '_blank',
+                'x-intersect.once' => "pirsch(`Ad shown`, {
+                    meta: { name: `Sevalla` }
+                })",
+            ])
+    }}
 >
     <p class="flex gap-4 justify-center items-center p-4 leading-[1.35] text-sm sm:text-base">
         <img

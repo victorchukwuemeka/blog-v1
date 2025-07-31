@@ -14,7 +14,7 @@
             ->class('flex rounded-xl overflow-hidden transition-opacity hover:opacity-50')
             ->merge([
                 'target' => '_blank',
-                'x-intersect.once' => "pirsch(`Ad shown`, {
+                'x-intersect.once' => "pirsch(`Deal shown`, {
                     meta: { name: `$name` }
                 })"
             ])
