@@ -1,5 +1,5 @@
 <div
-    class="grid overflow-x-scroll fixed inset-0 place-items-center p-4"
+    class="overflow-x-scroll fixed inset-0 p-4"
     x-cloak
     x-data="{ open: false }"
     x-show="open"
@@ -11,7 +11,7 @@
     @keydown.arrow-up.stop.prevent="$focus.prev()"
     @keydown.meta.k.window="open = true"
 >
-    <div class="bg-white ring-1 ring-black/10 w-full max-w-[480px] rounded-xl shadow-2xl">
+    <div class="bg-white overflow-hidden ring-1 ring-black/10 mx-auto w-full max-w-[480px] rounded-xl shadow-2xl">
         <div class="flex relative items-center">
             <x-heroicon-o-magnifying-glass
                 class="absolute left-5 top-1/2 text-gray-500 -translate-y-1/2 size-4"
@@ -34,11 +34,11 @@
                     @if ($posts->isNotEmpty())
                         <ul>
                             @foreach ($posts as $post)
-                                <li>
+                                <li class="group">
                                     <a
                                         wire:navigate
                                         href="{{ route('posts.show', $post) }}"
-                                        class="block p-4 leading-tight transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white"
+                                        class="block p-4 leading-tight border-b transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white border-black/10 group-last:border-b-0"
                                     >
                                         <p class="font-medium">{{ $post->title }}</p>
                                         <p class="mt-2 opacity-75">{{ $post->description }}</p>
@@ -59,16 +59,16 @@
                     @if ($links->isNotEmpty())
                         <ul class="mt-2">
                             @foreach ($links as $link)
-                            <li>
-                                <a
-                                    wire:navigate
-                                    href="{{ $link->url }}"
-                                    class="block p-4 leading-tight transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white"
-                                >
-                                    <p class="font-medium">{{ $link->title }}</p>
-                                    <p class="mt-2 opacity-75">{{ $link->description }}</p>
-                                </a>
-                            </li>
+                                <li class="group">
+                                    <a
+                                        wire:navigate
+                                        href="{{ $link->url }}"
+                                        class="block p-4 leading-tight border-b transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white border-black/10 group-last:border-b-0"
+                                    >
+                                        <p class="font-medium">{{ $link->title }}</p>
+                                        <p class="mt-2 opacity-75">{{ $link->description }}</p>
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     @else
