@@ -3,14 +3,14 @@
     @keydown.meta.k.window="open = true"
 >
     <div
-        class="fixed inset-0 z-20 backdrop-blur-md bg-black/75"
+        class="fixed inset-0 backdrop-blur-md bg-black/75"
         x-cloak
         x-show="open"
         x-transition.opacity.duration.300ms
     ></div>
 
     <div
-        class="grid overflow-y-scroll fixed inset-0 z-30 place-items-center p-4"
+        class="grid overflow-y-scroll fixed inset-0 place-items-center p-4"
         @click="open = false"
     >
         <div
