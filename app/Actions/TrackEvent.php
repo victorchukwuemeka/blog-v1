@@ -11,7 +11,7 @@ class TrackEvent
         Http::withToken(config('services.pirsch.access_key'))
             ->retry(3)
             ->post('https://api.pirsch.io/api/v1/event', [
-                'event_name' => 'Clicked on short URL',
+                'event_name' => $name,
                 'event_meta' => $meta,
                 'url' => $url,
                 'ip' => $ip,
