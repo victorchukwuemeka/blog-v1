@@ -38,7 +38,7 @@
         loading="lazy"
         src="{{ Vite::asset('resources/img/screenshots/vemetric.webp') }}"
         alt="Vemetric's dashboard"
-        class="z-10 mt-5 rounded ring-1 shadow-lg transition-transform rotate-1 scale-115 md:scale-125 hover:rotate-0 hover:scale-125 md:hover:scale-150 shadow-blue-900/10 ring-blue-900/10"
+        class="mt-5 rounded ring-1 shadow-lg transition-transform rotate-1 scale-115 md:scale-125 hover:rotate-0 hover:scale-125 md:hover:scale-150 shadow-blue-900/10 ring-blue-900/10"
     />
 
     <x-btn primary class="w-full mt-6 text-center !rounded-md cursor-pointer">

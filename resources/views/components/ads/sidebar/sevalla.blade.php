@@ -37,7 +37,7 @@
         loading="lazy"
         src="{{ Vite::asset('resources/img/screenshots/sevalla.webp') }}"
         alt="Sevalla's interface"
-        class="z-10 mt-5 rounded ring-1 shadow-lg transition-transform scale-125 rotate-1 hover:rotate-0 hover:scale-150 shadow-orange-900/10 ring-orange-900/10"
+        class="mt-5 rounded ring-1 shadow-lg transition-transform scale-125 rotate-1 hover:rotate-0 hover:scale-150 shadow-orange-900/10 ring-orange-900/10"
     />
 
     <x-btn primary class="w-full bg-orange-500! hover:bg-orange-400! mt-6 text-center !rounded-md cursor-pointer">
