@@ -5,13 +5,15 @@
     x-show="open"
     x-transition.duration.300ms
     x-trap.noscroll="open"
-    @click.away="open = false"
     @keydown.esc="open = false"
     @keydown.arrow-down.stop.prevent="$focus.next()"
     @keydown.arrow-up.stop.prevent="$focus.prev()"
     @keydown.meta.k.window="open = true"
 >
-    <div class="bg-white overflow-hidden ring-1 ring-black/10 mx-auto w-full max-w-[480px] rounded-xl shadow-2xl">
+    <div
+        class="bg-white overflow-hidden ring-1 ring-black/10 mx-auto w-full max-w-[480px] rounded-xl shadow-2xl"
+        @click.away="open = false"
+    >
         <div class="flex relative items-center">
             <x-heroicon-o-magnifying-glass
                 class="absolute left-5 top-1/2 text-gray-500 -translate-y-1/2 size-4"
