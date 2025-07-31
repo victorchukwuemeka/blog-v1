@@ -52,6 +52,8 @@
                     <a
                         wire:navigate
                         href="{{ route('authors.show', $post->user) }}"
+                        data-pirsch-event="Clicked post author"
+                        data-pirsch-meta-name="{{ $post->user->name }}"
                     >
                         <div class="p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900">
                             <img
@@ -67,7 +69,11 @@
                     </a>
 
                     @if (! $post->is_commercial)
-                        <a href="#comments">
+                        <a
+                            href="#comments"
+                            data-pirsch-event="Clicked comments"
+                            data-pirsch-meta-post="{{ $post->title }}"
+                        >
                             <div @class([
                                 'flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900',
                                 'text-blue-600 bg-blue-50!' => $post->comments_count,
@@ -167,7 +173,10 @@
 
                     @if ($post->link)
                         <p>
-                            <a href="{{ $post->link->url }}" target="_blank">
+                            <a
+                                href="{{ $post->link->url }}"
+                                target="_blank"
+                            >
                                 Read more on {{ $post->link->domain }} →
                             </a>
                         </p>
@@ -270,7 +279,11 @@
                     <x-ads.sidebar.vemetric class="max-w-[280px] mx-auto lg:max-w-none lg:mx-0" />
                 @endif
 
-                <a href="{{ route('deals') }}" class="hidden lg:block">
+                <a
+                    href="{{ route('deals') }}"
+                    class="hidden lg:block"
+                    data-pirsch-event="Clicked on deals in sidebar"
+                >
                     <p class="p-4 mt-4 leading-tight rounded-xl text-balance bg-gray-100/75">
                         <strong class="font-medium">I have even more deals for developers.</strong> Services, apps, and all kinds of tools at a discount. <span class="font-medium underline">Check available deals →</span>
                     </p>
@@ -297,6 +310,7 @@
                                         target="_blank"
                                         class="font-medium"
                                         data-pirsch-event="Clicked on latest comment's username"
+                                        data-pirsch-meta-name="{{ $latestComment->user->name }}"
                                     >
                                         {{ $latestComment->user->name }}
                                     </a>

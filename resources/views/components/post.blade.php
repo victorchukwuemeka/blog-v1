@@ -23,7 +23,13 @@
     @if ($post->categories->isNotEmpty())
         <div class="flex gap-2 mt-6">
             @foreach ($post->categories as $category)
-                <a wire:navigate href="{{ route('categories.show', $category->slug) }}" class="px-2 py-1 text-xs font-medium uppercase rounded-sm border border-gray-200 transition-colors hover:border-blue-300 hover:text-blue-600">
+                <a
+                    wire:navigate
+                    href="{{ route('categories.show', $category->slug) }}"
+                    class="px-2 py-1 text-xs font-medium uppercase rounded-sm border border-gray-200 transition-colors hover:border-blue-300 hover:text-blue-600"
+                    data-pirsch-event="Clicked category"
+                    data-pirsch-meta-name="{{ $category->name }}"
+                >
                     {{ $category->name }}
                 </a>
             @endforeach
@@ -31,7 +37,13 @@
     @endif
 
     <div class="flex gap-6 justify-between items-center mt-5">
-        <a wire:navigate href="{{ route('posts.show', $post->slug) }}" class="font-bold transition-colors text-xl/tight hover:text-blue-600">
+        <a
+            wire:navigate
+            href="{{ route('posts.show', $post->slug) }}"
+            class="font-bold transition-colors text-xl/tight hover:text-blue-600"
+            data-pirsch-event="Clicked post title"
+            data-pirsch-meta-title="{{ $post->title }}"
+        >
             {{ $post->title }}
         </a>
 
@@ -39,6 +51,8 @@
             wire:navigate
             href="{{ route('authors.show', $post->user->slug) }}"
             class="flex-none"
+            data-pirsch-event="Clicked post author"
+            data-pirsch-meta-name="{{ $post->user->name }}"
         >
             <img
                 src="{{ $post->user->avatar }}"
@@ -59,7 +73,12 @@
         </div>
 
         @if (! $post->is_commercial)
-            <a href="{{ route('posts.show', $post->slug) }}#comments" class="group">
+            <a
+                href="{{ route('posts.show', $post->slug) }}#comments"
+                class="group"
+                data-pirsch-event="Clicked comments"
+                data-pirsch-meta-post="{{ $post->title }}"
+            >
                 <div class="flex-1 p-3 text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 group-hover:text-blue-900">
                     <x-heroicon-o-chat-bubble-oval-left-ellipsis class="mx-auto mb-1 opacity-75 size-5" />
                     {{ $post->comments_count }} {{ trans_choice('comment|comments', $post->comments_count) }}
