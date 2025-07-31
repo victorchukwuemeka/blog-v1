@@ -46,9 +46,7 @@
 
     @auth
         <x-dropdown>
-            <x-slot:btn
-                data-pirsch-event='Clicked "Account"'
-            >
+            <x-slot:btn>
                 <img
                     src="{{ auth()->user()->avatar }}"
                     alt="{{ auth()->user()->name }}'s GitHub avatar"
@@ -69,7 +67,6 @@
                     <x-dropdown.item
                         icon="heroicon-o-adjustments-horizontal"
                         href="{{ route('filament.admin.pages.dashboard') }}"
-                        data-pirsch-event='Clicked "Admin"'
                     >
                         Admin
                     </x-dropdown.item>
@@ -77,7 +74,6 @@
                     <x-dropdown.item
                         icon="icon-horizon"
                         href="{{ route('horizon.index') }}"
-                        data-pirsch-event='Clicked "Horizon"'
                     >
                         Horizon
                     </x-dropdown.item>
@@ -89,7 +85,6 @@
                     icon="heroicon-o-chat-bubble-oval-left"
                     wire:navigate
                     href="{{ route('user.comments') }}"
-                    data-pirsch-event='Clicked "Your comments"'
                 >
                     Your comments
                 </x-dropdown.item>
@@ -98,7 +93,6 @@
                     icon="heroicon-o-link"
                     wire:navigate
                     href="{{ route('user.links') }}"
-                    data-pirsch-event='Clicked "Your links"'
                 >
                     Your links
                 </x-dropdown.item>
@@ -107,7 +101,6 @@
                     icon="heroicon-o-arrow-right-end-on-rectangle"
                     destructive
                     form="logout-form"
-                    data-pirsch-event='Clicked "Log out"'
                 >
                     Log out
                 </x-dropdown.item>
@@ -122,16 +115,13 @@
             no-wire-navigate
             href="{{ route('auth.redirect') }}"
             icon="iconoir-github"
-            data-pirsch-event='Clicked "Sign in"'
         >
             Sign in
         </x-nav.item>
     @endauth
 
     <x-dropdown>
-        <x-slot:btn
-            data-pirsch-event='Clicked "More"'
-        >
+        <x-slot:btn>
             <x-heroicon-o-ellipsis-horizontal
                 class="mx-auto transition-transform size-6 md:size-7"
                 x-bind:class="{ 'rotate-90': open }"
@@ -148,7 +138,6 @@
                 icon="heroicon-o-tag"
                 wire:navigate
                 href="{{ route('categories.index') }}"
-                data-pirsch-event='Clicked "Categories"'
             >
                 Categories
             </x-dropdown.item>
@@ -157,7 +146,6 @@
                 icon="heroicon-o-megaphone"
                 wire:navigate
                 href="{{ route('advertise') }}"
-                data-pirsch-event='Clicked "Advertise"'
             >
                 Advertise
             </x-dropdown.item>
@@ -165,7 +153,6 @@
             <x-dropdown.item
                 icon="heroicon-o-question-mark-circle"
                 href="{{ route('home') }}#about"
-                data-pirsch-event='Clicked "About me"'
             >
                 About me
             </x-dropdown.item>
@@ -173,7 +160,6 @@
             <x-dropdown.item
                 icon="heroicon-o-envelope"
                 href="mailto:hello@benjamincrozat.com"
-                data-pirsch-event='Clicked "Contact me"'
             >
                 Contact me
             </x-dropdown.item>
@@ -187,7 +173,6 @@
                 description="This blog is open source and the codebase becomes bigger fast. There's a lot to learn and this is free."
                 href="https://github.com/benjamincrozat/blog-v5"
                 target="_blank"
-                data-pirsch-event='Clicked "Fork the source code"'
             >
                 Fork the source code
             </x-dropdown.item>
@@ -197,7 +182,6 @@
                 description="See how my blog is doing by directly checking the numbers because, why not?"
                 href="https://benjamincrozat.pirsch.io/?domain=benjamincrozat.com&interval=30d&scale=day"
                 target="_blank"
-                data-pirsch-event='Clicked "My analytics dashboard"'
             >
                 My analytics dashboard
             </x-dropdown.item>
@@ -209,7 +193,6 @@
             <x-dropdown.item
                 icon="heroicon-o-rss"
                 href="{{ route('feeds.main') }}"
-                data-pirsch-event='Clicked "Atom feed"'
             >
                 Atom feed
             </x-dropdown.item>
@@ -218,7 +201,6 @@
                 icon="iconoir-github"
                 href="https://github.com/benjamincrozat"
                 target="_blank"
-                data-pirsch-event='Clicked "GitHub"'
             >
                 GitHub
             </x-dropdown.item>
@@ -227,7 +209,6 @@
                 icon="iconoir-linkedin"
                 href="https://www.linkedin.com/in/benjamincrozat"
                 target="_blank"
-                data-pirsch-event='Clicked "LinkedIn"'
             >
                 LinkedIn
             </x-dropdown.item>
@@ -236,7 +217,6 @@
                 icon="iconoir-x"
                 href="https://x.com/benjamincrozat"
                 target="_blank"
-                data-pirsch-event='Clicked "X"'
             >
                 X
             </x-dropdown.item>

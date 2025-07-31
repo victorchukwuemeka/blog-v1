@@ -81,7 +81,6 @@
 
                     <x-dropdown>
                         <x-slot:btn
-                            data-pirsch-event='Clicked "Actions"'
                             class="p-3 w-full h-full text-center bg-gray-50 rounded-lg transition-colors hover:bg-blue-50 hover:text-blue-900"
                         >
                             <x-heroicon-o-ellipsis-horizontal
@@ -98,10 +97,9 @@
                                 </x-dropdown.divider>
 
                                 <x-dropdown.item
+                                    icon="heroicon-o-pencil-square"
                                     href="{{ route('filament.admin.resources.posts.edit', $post) }}"
-                                    data-pirsch-event='Clicked "Edit article"'
                                 >
-                                    <x-heroicon-o-pencil-square class="size-4" />
                                     Edit article
                                 </x-dropdown.item>
                             @endif
@@ -111,20 +109,18 @@
                             </x-dropdown.divider>
 
                             <x-dropdown.item
+                                icon="icon-openai"
                                 :href="'https://chatgpt.com/?q=' . urlencode($post->toPrompt())"
                                 target="_blank"
-                                data-pirsch-event='Clicked "Ask ChatGPT"'
                             >
-                                <x-icon-openai class="size-4" />
                                 Ask ChatGPT
                             </x-dropdown.item>
 
                             <x-dropdown.item
+                                icon="icon-claude"
                                 :href="'https://claude.ai/new?q=' . urlencode($post->toPrompt())"
                                 target="_blank"
-                                data-pirsch-event='Clicked "Ask Claude"'
                             >
-                                <x-icon-claude class="size-4" />
                                 Ask Claude
                             </x-dropdown.item>
 
@@ -133,29 +129,26 @@
                             </x-dropdown.divider>
 
                             <x-dropdown.item
+                                icon="iconoir-facebook"
                                 :href="'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(route('posts.show', $post))"
                                 target="_blank"
-                                data-pirsch-event='Clicked "Share on Facebook"'
                             >
-                                <x-iconoir-facebook class="size-4" />
                                 Share on Facebook
                             </x-dropdown.item>
 
                             <x-dropdown.item
+                                icon="iconoir-linkedin"
                                 :href="'https://www.linkedin.com/shareArticle?mini=true&url=' . urlencode(route('posts.show', $post)) . '&title=' . urlencode($post->title)"
                                 target="_blank"
-                                data-pirsch-event='Clicked "Share on LinkedIn"'
                             >
-                                <x-iconoir-linkedin class="size-4" />
                                 Share on LinkedIn
                             </x-dropdown.item>
 
                             <x-dropdown.item
+                                icon="iconoir-x"
                                 :href="'https://x.com/intent/tweet?url=' . urlencode(route('posts.show', $post)) . '&text=' . urlencode($post->title)"
                                 target="_blank"
-                                data-pirsch-event='Clicked "Share on X"'
                             >
-                                <x-iconoir-x class="size-4" />
                                 Share on X
                             </x-dropdown.item>
                         </x-slot>
@@ -191,7 +184,8 @@
                                     <a
                                         wire:navigate
                                         href="{{ route('posts.show', $recommendedPost) }}"
-                                        data-pirsch-event='Clicked on recommended post "{{ $recommendedPost->title }}"'
+                                        data-pirsch-event="Clicked on recommended post"
+                                        data-pirsch-meta-title="{{ $recommendedPost->title }}"
                                     >
                                         {{ trim($recommendedPost->reason, '.') }}
                                     </a>
@@ -320,7 +314,7 @@
                                     <a
                                         href="#comments"
                                         class="font-medium underline"
-                                        data-pirsch-event='Clicked "Check comments"'
+                                        data-pirsch-event='Clicked "check comments"'
                                     >
                                         Check comments →
                                     </a>
@@ -339,7 +333,7 @@
                         <li>
                             <a
                                 href="{{ route('feeds.main') }}"
-                                data-pirsch-event="Clicked on Atom feed in the subscribe section"
+                                data-pirsch-event="Clicked on Atom feed"
                                 class="group"
                             >
                                 <div class="flex gap-3 items-center px-4 py-3 text-white bg-orange-400 rounded-md">
@@ -353,7 +347,7 @@
                             <a
                                 href="https://www.linkedin.com/in/benjamincrozat/"
                                 target="_blank"
-                                data-pirsch-event="Clicked on LinkedIn in the subscribe section"
+                                data-pirsch-event="Clicked on LinkedIn"
                                 class="group"
                             >
                                 <div class="flex gap-3 items-center px-4 py-3 text-white bg-[#0B66C2] rounded-md">
@@ -367,7 +361,7 @@
                             <a
                                 href="https://github.com/benjamincrozat"
                                 target="_blank"
-                                data-pirsch-event="Clicked on GitHub in the subscribe section"
+                                data-pirsch-event="Clicked on GitHub"
                                 class="group"
                             >
                                 <div class="flex gap-3 items-center px-4 py-3 bg-white rounded-md ring-1 ring-black/10">
@@ -381,7 +375,7 @@
                             <a
                                 href="https://x.com/benjamincrozat"
                                 target="_blank"
-                                data-pirsch-event="Clicked on X in the subscribe section"
+                                data-pirsch-event="Clicked on X"
                                 class="group"
                             >
                                 <div class="flex gap-3 items-center px-4 py-3 text-white bg-black rounded-md">

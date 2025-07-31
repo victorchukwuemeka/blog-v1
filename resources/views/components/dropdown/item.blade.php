@@ -15,6 +15,9 @@
         'items-center' => empty($description),
         'focus:bg-blue-900/5 focus:text-blue-900 hover:bg-blue-600/75' => ! $attributes->has('destructive'),
         'hover:bg-red-600/75 focus:bg-red-600/10 text-red-900' => $attributes->has('destructive'),
+    ])->merge([
+        'data-pirsch-event' => "Clicked dropdown item",
+        'data-pirsch-meta-value' => strip_tags($slot),
     ]) }}
 >
     @if (! empty($icon))
