@@ -8,6 +8,9 @@
                     'utm_medium' => 'sidebar',
                 ]),
                 'target' => '_blank',
+                'x-intersect.once' => "pirsch(`Ad shown`, {
+                    meta: { name: `Sevalla` }
+                })",
             ])
     }}
 >
