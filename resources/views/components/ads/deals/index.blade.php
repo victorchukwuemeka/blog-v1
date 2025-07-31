@@ -1,9 +1,22 @@
+@props([
+    'name',
+    'description',
+    'cta',
+    'svgLogo',
+    'screenshot',
+    'descriptionColor',
+    'ctaColor',
+])
+
 <a
     {{
         $attributes
             ->class('flex rounded-xl overflow-hidden transition-opacity hover:opacity-50')
             ->merge([
                 'target' => '_blank',
+                'x-intersect.once' => "pirsch(`Ad shown`, {
+                    meta: { name: `$name` }
+                })"
             ])
     }}
 >
