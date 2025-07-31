@@ -102,6 +102,8 @@
 
         <x-status />
 
+        <livewire:search />
+
         @livewireScriptConfig
 
         @vite('resources/js/app.js')

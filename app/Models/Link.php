@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use App\Notifications\LinkApproved;
 use Database\Factories\LinkFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Link extends Model
 {
     /** @use HasFactory<LinkFactory> */
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected function casts() : array
     {

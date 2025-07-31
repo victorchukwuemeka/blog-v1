@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Str;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
+use Laravel\Scout\Searchable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Database\Factories\PostFactory;
@@ -12,7 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Laravel\Scout\Attributes\SearchUsingFullText;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Post extends Model implements Feedable
 {
     /** @use HasFactory<PostFactory> */
-    use HasFactory, SoftDeletes;
+    use HasFactory, Searchable, SoftDeletes;
 
     protected $withCount = ['comments'];
 
@@ -187,6 +190,19 @@ $this->title $content
 
 Highlight the key points of this article.
 MARKDOWN;
+    }
+
+    #[SearchUsingPrefix(['id', 'title', 'slug'])]
+    #[SearchUsingFullText(['content', 'description'])]
+    public function toSearchableArray() : array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'content' => $this->content,
+            'description' => $this->description,
+        ];
     }
 
     public static function getFeedItems() : Collection
