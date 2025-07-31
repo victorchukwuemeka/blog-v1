@@ -1,5 +1,5 @@
 <div
-    class="overflow-x-scroll fixed inset-0 p-4"
+    class="overflow-y-auto fixed inset-y-4 left-1/2 rounded-xl shadow-2xl -translate-x-1/2"
     x-cloak
     x-data="{ open: false }"
     x-show="open"
@@ -12,7 +12,7 @@
     @search.window="open = true"
 >
     <div
-        class="bg-white overflow-hidden ring-1 ring-black/10 mx-auto w-full max-w-[480px] rounded-xl shadow-2xl"
+        class="bg-white ring-1 ring-black/10 mx-auto w-full sm:w-[480px]"
         @click.away="open = false"
     >
         <div class="flex relative items-center">

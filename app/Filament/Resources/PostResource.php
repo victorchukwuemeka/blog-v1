@@ -380,6 +380,17 @@ class PostResource extends Resource
         return ['user.name', 'title', 'serp_title', 'slug', 'content', 'description', 'canonical_url'];
     }
 
+    protected function applySearchToTableQuery(Builder $query) : Builder
+    {
+        $this->applyColumnSearchesToTableQuery($query);
+
+        if (filled($search = $this->getTableSearch())) {
+            $query->whereIn('id', Post::search($search)->keys());
+        }
+
+        return $query;
+    }
+
     public static function getGlobalSearchResultDetails(Model $record) : array
     {
         return ['Author' => $record->user->name];

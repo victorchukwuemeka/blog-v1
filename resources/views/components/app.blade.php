@@ -32,15 +32,13 @@
 
         @vite('resources/css/app.css')
 
-        @if (config('app.env') === 'production')
-            <script
-                defer
-                src="https://api.pirsch.io/pa.js"
-                id="pianjs"
-                data-code="5N2hIsUQsCVX1LQtvPdJ3AGwQZHGxtt5"
-                data-disable-page-views
-            ></script>
-        @endif
+        <script
+            defer
+            src="https://api.pirsch.io/pa.js"
+            id="pianjs"
+            data-code="{{ 'production' === config('app.env') ? '5N2hIsUQsCVX1LQtvPdJ3AGwQZHGxtt5' : '2kktajcETdWwbGKEyt3Zi4SnhwxOVSY6' }}"
+            data-disable-page-views
+        ></script>
 
         <link
             rel="preload"
