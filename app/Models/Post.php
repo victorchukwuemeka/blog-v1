@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -192,8 +191,7 @@ Highlight the key points of this article.
 MARKDOWN;
     }
 
-    #[SearchUsingPrefix(['id', 'title', 'slug'])]
-    #[SearchUsingFullText(['content', 'description'])]
+    #[SearchUsingFullText(['title', 'slug', 'content', 'description'])]
     public function toSearchableArray() : array
     {
         return [
