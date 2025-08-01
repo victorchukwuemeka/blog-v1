@@ -58,11 +58,11 @@
                                         class="block p-4 leading-tight border-b transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white border-black/10 group-last:border-b-0"
                                     >
                                         <p class="font-medium">
-                                            {!! str_replace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->title) !!}
+                                            {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->title) !!}
                                         </p>
 
                                         <p class="mt-2 opacity-75">
-                                            {!! str_replace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->description) !!}
+                                            {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->description) !!}
                                         </p>
                                     </a>
                                 </li>
@@ -87,8 +87,13 @@
                                         href="{{ $link->url }}"
                                         class="block p-4 leading-tight border-b transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white border-black/10 group-last:border-b-0"
                                     >
-                                        <p class="font-medium">{{ $link->title }}</p>
-                                        <p class="mt-2 opacity-75">{{ $link->description }}</p>
+                                        <p class="font-medium">
+                                            {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $link->title) !!}
+                                        </p>
+
+                                        <p class="mt-2 opacity-75">
+                                            {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $link->description) !!}
+                                        </p>
                                     </a>
                                 </li>
                             @endforeach
