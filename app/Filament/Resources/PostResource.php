@@ -385,7 +385,20 @@ class PostResource extends Resource
         $this->applyColumnSearchesToTableQuery($query);
 
         if (filled($search = $this->getTableSearch())) {
-            $query->whereIn('id', Post::search($search)->keys());
+            $booleanQuery = collect(explode(' ', $search))
+                ->filter()
+                ->map(fn (string $word) => '+' . $word . '*')
+                ->implode(' ');
+
+            $query->selectRaw(
+                'posts.*, MATCH(title, serp_title, slug, content, description, canonical_url) AGAINST (? IN BOOLEAN MODE) AS relevance',
+                [$booleanQuery]
+            )
+                ->whereRaw(
+                    'MATCH(title, serp_title, slug, content, description, canonical_url) AGAINST (? IN BOOLEAN MODE)',
+                    [$booleanQuery]
+                )
+                ->orderByDesc('relevance');
         }
 
         return $query;

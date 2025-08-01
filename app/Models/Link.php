@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Laravel\Scout\Searchable;
 use App\Notifications\LinkApproved;
 use Database\Factories\LinkFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Laravel\Scout\Attributes\SearchUsingFullText;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Link extends Model
 {
     /** @use HasFactory<LinkFactory> */
-    use HasFactory, Searchable;
+    use HasFactory;
 
     protected function casts() : array
     {
@@ -98,16 +96,5 @@ class Link extends Model
     public function isDeclined() : bool
     {
         return null !== $this->is_declined && null === $this->is_approved;
-    }
-
-    #[SearchUsingFullText(['url', 'title', 'description'], ['mode' => 'boolean'])]
-    public function toSearchableArray() : array
-    {
-        return [
-            'id' => $this->id,
-            'url' => $this->url,
-            'title' => $this->title,
-            'description' => $this->description,
-        ];
     }
 }
