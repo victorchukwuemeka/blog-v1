@@ -191,11 +191,14 @@ Highlight the key points of this article.
 MARKDOWN;
     }
 
-    #[SearchUsingFullText(['title', 'slug', 'content', 'description'], ['mode' => 'boolean'])]
+    #[SearchUsingFullText([
+        'title', 'slug', 'content', 'description',
+    ], [
+        'mode' => 'boolean',
+    ])]
     public function toSearchableArray() : array
     {
         return [
-            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
             'content' => $this->content,
