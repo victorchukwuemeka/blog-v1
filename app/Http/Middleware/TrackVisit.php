@@ -17,7 +17,8 @@ class TrackVisit
     public function terminate(Request $request, Response $response) : void
     {
         if ($this->shouldTrack($request)) {
-            // These are needed for Pirsch's API so we need to make sure the values are not empty or null.
+            // These are needed for Pirsch's API so we need to
+            // make sure the values are not empty or null.
             if (! empty($url = $request->url()) &&
                 ($ip = $request->ip()) &&
                 ($userAgent = $request->userAgent())) {

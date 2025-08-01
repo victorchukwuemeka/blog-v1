@@ -14,6 +14,7 @@ jobs:
       PIRSCH_ACCESS_KEY: ${{ secrets.PIRSCH_ACCESS_KEY }}
       PIRSCH_CLIENT_ID: ${{ secrets.PIRSCH_CLIENT_ID }}
       PIRSCH_CLIENT_SECRET: ${{ secrets.PIRSCH_CLIENT_SECRET }}
+      PIRSCH_DOMAIN_ID: ${{ secrets.PIRSCH_DOMAIN_ID }}
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
