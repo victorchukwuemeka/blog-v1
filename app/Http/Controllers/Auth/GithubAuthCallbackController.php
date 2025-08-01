@@ -17,6 +17,7 @@ class GithubAuthCallbackController extends Controller
         // Either create a brand new user or update their information.
         $user = User::query()->updateOrCreate(['email' => $githubUser->getEmail()], [
             'name' => $githubUser->getName() ?? $githubUser->getNickname(),
+            'github_id' => $githubUser->getId(),
             'github_login' => $githubUser->getNickname(),
             'avatar' => $githubUser->getAvatar(),
             'github_data' => (array) $githubUser,

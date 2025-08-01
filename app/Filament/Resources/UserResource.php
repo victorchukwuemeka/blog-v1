@@ -40,6 +40,11 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
 
+                TextInput::make('github_id')
+                    ->required()
+                    ->maxLength(255)
+                    ->label('GitHub ID'),
+
                 TextInput::make('github_login')
                     ->required()
                     ->maxLength(255)
@@ -134,7 +139,7 @@ class UserResource extends Resource
 
     public static function getGloballySearchableAttributes() : array
     {
-        return ['name', 'github_login', 'email'];
+        return ['name', 'github_id', 'github_login', 'email'];
     }
 
     public static function getGlobalSearchResultDetails(Model $record) : array

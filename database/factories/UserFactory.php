@@ -18,6 +18,7 @@ class UserFactory extends Factory
 
         return [
             'name' => fake()->name(),
+            'github_id' => fake()->unique()->randomNumber(),
             'github_login' => fake()->userName(),
             'avatar' => 'https://i.pravatar.cc/150?u=' . $email,
             'github_data' => [

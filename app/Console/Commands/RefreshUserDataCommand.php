@@ -19,6 +19,7 @@ class RefreshUserDataCommand extends Command
                 User::query()
                     ->where('id', $id)
                     ->orWhere('name', $id)
+                    ->orWhere('github_id', $id)
                     ->orWhere('github_login', $id)
                     ->firstOrFail()
             );

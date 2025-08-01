@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use Github\Client;
 use App\Models\User;
+use Github\Exception\ApiLimitExceedException;
 
 class RefreshUserData
 {
@@ -12,16 +13,19 @@ class RefreshUserData
      */
     public function refresh(User $user) : void
     {
-        $data = app(Client::class)
-            ->api('user')
-            ->show($user->github_login);
+        try {
+            $data = app(Client::class)
+                ->api('user')
+                ->showById($user->github_id);
 
-        $githubData = $user->github_data ?? [];
-        $githubData['user'] = $data;
+            $githubData = $user->github_data ?? [];
+            $githubData['user'] = $data;
 
-        $user->update([
-            'github_data' => $githubData,
-            'refreshed_at' => now(),
-        ]);
+            $user->update([
+                'github_data' => $githubData,
+                'refreshed_at' => now(),
+            ]);
+        } catch (ApiLimitExceedException $e) {
+        }
     }
 }
