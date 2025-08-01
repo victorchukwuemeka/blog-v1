@@ -8,6 +8,8 @@ use Livewire\Component;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Builder;
 
+// Everything related to search has been written by o3.
+// I have absolutely no idea what's going on, haha.
 class Search extends Component
 {
     public string $query = '';
@@ -30,10 +32,11 @@ class Search extends Component
                 ? collect()
                 : Post::query()
                     ->when($longTerms->isNotEmpty(), function (Builder $query) use ($booleanQuery) {
-                        $query->selectRaw(
-                            'posts.*, MATCH(title, slug, content, description) AGAINST (? IN BOOLEAN MODE) AS relevance',
-                            [$booleanQuery]
-                        )
+                        $query
+                            ->selectRaw(
+                                'posts.*, MATCH(title, slug, content, description) AGAINST (? IN BOOLEAN MODE) AS relevance',
+                                [$booleanQuery]
+                            )
                             ->whereRaw(
                                 'MATCH(title, slug, content, description) AGAINST (? IN BOOLEAN MODE)',
                                 [$booleanQuery]
@@ -46,7 +49,8 @@ class Search extends Component
                                 $pattern = '%' . $term . '%';
 
                                 $query->where(function (Builder $query) use ($pattern) {
-                                    $query->where('title', 'like', $pattern)
+                                    $query
+                                        ->where('title', 'like', $pattern)
                                         ->orWhere('slug', 'like', $pattern)
                                         ->orWhere('content', 'like', $pattern)
                                         ->orWhere('description', 'like', $pattern);
@@ -60,10 +64,11 @@ class Search extends Component
                 ? collect()
                 : Link::query()
                     ->when($longTerms->isNotEmpty(), function (Builder $query) use ($booleanQuery) {
-                        $query->selectRaw(
-                            'links.*, MATCH(url, title, description) AGAINST (? IN BOOLEAN MODE) AS relevance',
-                            [$booleanQuery]
-                        )
+                        $query
+                            ->selectRaw(
+                                'links.*, MATCH(url, title, description) AGAINST (? IN BOOLEAN MODE) AS relevance',
+                                [$booleanQuery]
+                            )
                             ->whereRaw(
                                 'MATCH(url, title, description) AGAINST (? IN BOOLEAN MODE)',
                                 [$booleanQuery]
@@ -76,7 +81,8 @@ class Search extends Component
                                 $pattern = '%' . $term . '%';
 
                                 $query->where(function (Builder $query) use ($pattern) {
-                                    $query->where('title', 'like', $pattern)
+                                    $query
+                                        ->where('title', 'like', $pattern)
                                         ->orWhere('url', 'like', $pattern)
                                         ->orWhere('description', 'like', $pattern);
                                 });
