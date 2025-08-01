@@ -191,7 +191,7 @@ Highlight the key points of this article.
 MARKDOWN;
     }
 
-    #[SearchUsingFullText(['title', 'slug', 'content', 'description'])]
+    #[SearchUsingFullText(['title', 'slug', 'content', 'description'], ['mode' => 'boolean'])]
     public function toSearchableArray() : array
     {
         return [

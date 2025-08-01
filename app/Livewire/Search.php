@@ -13,13 +13,18 @@ class Search extends Component
 
     public function render() : View
     {
+        $query = collect(explode(' ', $this->query))
+            ->filter()
+            ->map(fn (string $word) => '+' . $word . '*')
+            ->implode(' ');
+
         return view('livewire.search', [
-            'posts' => ! $this->query
+            'posts' => blank($query)
                 ? collect()
-                : Post::search($this->query)->take(5)->get(),
-            'links' => ! $this->query
+                : Post::search($query)->take(5)->get(),
+            'links' => blank($query)
                 ? collect()
-                : Link::search($this->query)->take(5)->get(),
+                : Link::search($query)->take(5)->get(),
         ]);
     }
 }
