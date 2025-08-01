@@ -380,51 +380,6 @@ class PostResource extends Resource
         return ['user.name', 'title', 'serp_title', 'slug', 'content', 'description', 'canonical_url'];
     }
 
-    protected function applySearchToTableQuery(Builder $query) : Builder
-    {
-        $this->applyColumnSearchesToTableQuery($query);
-
-        if (filled($search = $this->getTableSearch())) {
-
-            $tokens = collect(explode(' ', trim($search)))->filter();
-
-            $longTerms = $tokens->filter(fn (string $word) => mb_strlen($word) >= 3);
-            $shortTerms = $tokens->diff($longTerms);
-
-            if ($longTerms->isNotEmpty()) {
-                $booleanQuery = $longTerms->map(fn ($w) => '+' . $w . '*')->implode(' ');
-
-                $query->selectRaw(
-                    'posts.*, MATCH(title, serp_title, slug, content, description, canonical_url) AGAINST (? IN BOOLEAN MODE) AS relevance',
-                    [$booleanQuery]
-                )
-                    ->whereRaw(
-                        'MATCH(title, serp_title, slug, content, description, canonical_url) AGAINST (? IN BOOLEAN MODE)',
-                        [$booleanQuery]
-                    )
-                    ->orderByDesc('relevance');
-            }
-
-            if ($shortTerms->isNotEmpty()) {
-                $query->where(function ($qq) use ($shortTerms) {
-                    foreach ($shortTerms as $term) {
-                        $pattern = '%' . $term . '%';
-                        $qq->where(function ($qqq) use ($pattern) {
-                            $qqq->where('title', 'like', $pattern)
-                                ->orWhere('serp_title', 'like', $pattern)
-                                ->orWhere('slug', 'like', $pattern)
-                                ->orWhere('content', 'like', $pattern)
-                                ->orWhere('description', 'like', $pattern)
-                                ->orWhere('canonical_url', 'like', $pattern);
-                        });
-                    }
-                });
-            }
-        }
-
-        return $query;
-    }
-
     public static function getGlobalSearchResultDetails(Model $record) : array
     {
         return ['Author' => $record->user->name];
