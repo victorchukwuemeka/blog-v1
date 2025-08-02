@@ -21,9 +21,16 @@ it('queues a recommendation job for a specific post when a slug is provided', fu
     });
 });
 
-it('queues recommendation jobs for all published posts when no slug is provided', function () {
+it('queues recommendation jobs for all published and non-commercial posts when no slug is provided', function () {
     // Three published posts (default factory sets published_at).
-    $published = Post::factory(3)->create();
+    $eligible = Post::factory(3)->create([
+        'is_commercial' => false,
+    ]);
+
+    // One commercial post that should be ignored.
+    Post::factory()->create([
+        'is_commercial' => true,
+    ]);
 
     // One unpublished post that should be ignored
     Post::factory()->create(['published_at' => null]);
@@ -33,5 +40,5 @@ it('queues recommendation jobs for all published posts when no slug is provided'
     artisan(GenerateRecommendationsCommand::class)
         ->assertSuccessful();
 
-    Bus::assertDispatchedTimes(RecommendPosts::class, $published->count());
+    Bus::assertDispatchedTimes(RecommendPosts::class, $eligible->count());
 });

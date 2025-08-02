@@ -26,6 +26,7 @@ class GenerateRecommendationsCommand extends Command
 
         Post::query()
             ->published()
+            ->where('is_commercial', false)
             ->cursor()
             ->each(function (Post $post) {
                 RecommendPosts::dispatch($post);
