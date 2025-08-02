@@ -320,11 +320,6 @@ class PostResource extends Resource
                         ->icon('heroicon-o-link')
                         ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from(route('posts.show', $record)) . ')'),
 
-                    TableAction::make('copy')
-                        ->label('Copy as Markdown')
-                        ->icon('heroicon-o-clipboard-document')
-                        ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->toMarkdown()) . ')'),
-
                     Action::make('search_console')
                         ->label('Check in GSC')
                         ->icon('heroicon-o-chart-bar')
@@ -409,11 +404,8 @@ class PostResource extends Resource
                 'image_disk',
                 'title',
                 'slug',
-                'canonical_url',
-                'sessions_count',
                 'published_at',
                 'modified_at',
-                'is_commercial',
                 'deleted_at',
             ])
             // Minimal eager-loads: only the columns used in the table.
