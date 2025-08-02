@@ -23,7 +23,9 @@
                     />
                 @endif
 
-                <p class="text-sm font-normal tracking-widest text-center uppercase md:text-base">
+                <x-categories :categories="$post->categories" class="justify-center" />
+
+                <p class="mt-4 text-sm font-normal tracking-widest text-center uppercase md:text-base">
                     {{ trans_choice(':count minute|:count minutes', $post->read_time) }}
                     read
                 </p>

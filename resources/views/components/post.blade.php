@@ -20,21 +20,7 @@
         @endif
     </a>
 
-    @if ($post->categories->isNotEmpty())
-        <div class="flex gap-2 mt-6">
-            @foreach ($post->categories as $category)
-                <a
-                    wire:navigate
-                    href="{{ route('categories.show', $category->slug) }}"
-                    class="px-2 py-1 text-xs font-medium uppercase rounded-sm border border-gray-200 transition-colors hover:border-blue-300 hover:text-blue-600"
-                    data-pirsch-event="Clicked category"
-                    data-pirsch-meta-name="{{ $category->name }}"
-                >
-                    {{ $category->name }}
-                </a>
-            @endforeach
-        </div>
-    @endif
+    <x-categories :categories="$post->categories" class="mt-6" />
 
     <div class="flex gap-6 justify-between items-center mt-5">
         <a
