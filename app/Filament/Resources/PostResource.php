@@ -393,28 +393,6 @@ class PostResource extends Resource
         return SubNavigationPosition::Top;
     }
 
-    public static function getEloquentQuery() : Builder
-    {
-        return parent::getEloquentQuery()
-            // Limit selected columns to avoid transferring large text fields.
-            ->select([
-                'id',
-                'user_id',
-                'image_path',
-                'image_disk',
-                'title',
-                'slug',
-                'published_at',
-                'modified_at',
-                'deleted_at',
-            ])
-            // Minimal eager-loads: only the columns used in the table.
-            ->with([
-                'user:id,name',
-                'categories:id,name',
-            ]);
-    }
-
     public static function getRecordRouteBindingEloquentQuery() : Builder
     {
         return parent::getRecordRouteBindingEloquentQuery()
