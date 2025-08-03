@@ -19,7 +19,6 @@
             @php
             $components = collect([
                 'ads.deals.sevalla',
-                'ads.deals.vemetric',
             ])->shuffle()->toArray();
             @endphp
 
