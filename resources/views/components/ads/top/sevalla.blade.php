@@ -19,7 +19,9 @@
             loading="lazy"
             src="https://www.gravatar.com/avatar/d58b99650fe5d74abeb9d9dad5da55ad?s=256"
             alt="Benjamin Crozat"
-            class="h-9 rounded-full sm:h-8"
+            width="32"
+            height="32"
+            class="w-auto h-9 rounded-full sm:h-8"
         />
 
         <span>
