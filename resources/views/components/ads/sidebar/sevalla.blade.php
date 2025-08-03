@@ -36,6 +36,8 @@
     <img
         loading="lazy"
         src="{{ Vite::asset('resources/img/screenshots/sevalla.webp') }}"
+        width="1280"
+        height="720"
         alt="Sevalla's interface"
         class="mt-5 rounded ring-1 shadow-lg transition-transform scale-125 rotate-1 hover:rotate-0 hover:scale-150 shadow-orange-900/10 ring-orange-900/10"
     />

@@ -19,6 +19,8 @@
                         fetchpriority="high"
                         src="{{ $post->image_url }}"
                         alt="{{ $post->title }}"
+                        width="1280"
+                        height="720"
                         class="object-cover mb-12 w-full rounded-xl ring-1 shadow-xl md:mb-16 ring-black/5 aspect-video"
                     />
                 @endif
