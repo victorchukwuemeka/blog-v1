@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use Github\Client;
 use App\Models\User;
+use Github\Exception\RuntimeException;
 use Github\Exception\ApiLimitExceedException;
 
 class RefreshUserData
@@ -26,6 +27,11 @@ class RefreshUserData
                 'refreshed_at' => now(),
             ]);
         } catch (ApiLimitExceedException $e) {
+            // Let's do nothing and patiently wait for the reset.
+        } catch (RuntimeException $e) {
+            if ('Not Found' === $e->getMessage()) {
+                $user->delete();
+            }
         }
     }
 }
