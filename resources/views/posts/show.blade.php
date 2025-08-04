@@ -21,13 +21,13 @@
                         alt="{{ $post->title }}"
                         width="1280"
                         height="720"
-                        class="object-cover mb-12 w-full rounded-xl ring-1 shadow-xl md:mb-16 ring-black/5 aspect-video"
+                        class="object-cover mb-11 w-full rounded-xl ring-1 shadow-xl ring-black/5 aspect-video"
                     />
                 @endif
 
-                <x-categories :categories="$post->categories" class="justify-center" />
+                <x-categories :categories="$post->categories" class="justify-center mt-11 mb-8" />
 
-                <p class="mt-4 text-sm font-normal tracking-widest text-center uppercase md:text-base">
+                <p class="text-sm font-normal tracking-widest text-center uppercase md:text-base">
                     {{ trans_choice(':count minute|:count minutes', $post->read_time) }}
                     read
                 </p>

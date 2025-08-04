@@ -55,15 +55,26 @@
                                     <a
                                         wire:navigate
                                         href="{{ route('posts.show', $post) }}"
-                                        class="block p-4 leading-tight border-b transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white border-black/10 group-last:border-b-0"
+                                        class="flex gap-4 items-start p-4 leading-tight border-b transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white border-black/10 group-last:border-b-0"
                                     >
-                                        <p class="font-medium">
-                                            {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->title) !!}
-                                        </p>
+                                        <img
+                                            loading="lazy"
+                                            src="{{ $post->image_url }}"
+                                            alt="{{ $post->title }}"
+                                            width="48"
+                                            height="48"
+                                            class="mt-1 rounded-md ring-1 shadow-md size-10 ring-black/10 shadow-black/10 md:size-12"
+                                        />
 
-                                        <p class="mt-2 opacity-75">
-                                            {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->description) !!}
-                                        </p>
+                                        <div>
+                                            <p class="font-medium">
+                                                {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->title) !!}
+                                            </p>
+
+                                            <p class="mt-2 opacity-75">
+                                                {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->description) !!}
+                                            </p>
+                                        </div>
                                     </a>
                                 </li>
                             @endforeach
@@ -85,15 +96,26 @@
                                     <a
                                         wire:navigate
                                         href="{{ $link->url }}"
-                                        class="block p-4 leading-tight border-b transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white border-black/10 group-last:border-b-0"
+                                        class="flex gap-4 items-start p-4 leading-tight border-b transition-colors focus:outline-none focus:bg-blue-600/75 focus:text-white border-black/10 group-last:border-b-0"
                                     >
-                                        <p class="font-medium">
-                                            {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $link->title) !!}
-                                        </p>
+                                        <img
+                                            loading="lazy"
+                                            src="{{ $link->image_url }}"
+                                            alt="{{ $link->title }}"
+                                            width="48"
+                                            height="48"
+                                            class="mt-1 rounded-md ring-1 shadow-md size-10 ring-black/10 shadow-black/10 md:size-12"
+                                        />
 
-                                        <p class="mt-2 opacity-75">
-                                            {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $link->description) !!}
-                                        </p>
+                                        <div>
+                                            <p class="font-medium">
+                                                {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $link->title) !!}
+                                            </p>
+
+                                            <p class="mt-2 opacity-75">
+                                                {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $link->description) !!}
+                                            </p>
+                                        </div>
                                     </a>
                                 </li>
                             @endforeach
