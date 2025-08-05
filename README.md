@@ -2,7 +2,7 @@
 
 # Benjamin Crozat's blog
 
-This is the source code for my revenue-generating 20K monthly visitors [blog](https://benjamincrozat.com). It's **100% not vibe coded** BTW.
+This is the source code for my revenue-generating 25K monthly visitors [blog](https://benjamincrozat.com). It's **100% not vibe coded** BTW.
 
 **Feel free to steal whatever you need.** But first, why don't you follow me on [X](https://x.com/benjamincrozat)?
 
@@ -29,4 +29,4 @@ This is the source code for my revenue-generating 20K monthly visitors [blog](ht
 - **Comprehensive test suite:**  
   150+ tests (and I'm far to be done yet) written using Pest show how to keep features reliable and code maintainable.
 
-<img src="https://github.com/user-attachments/assets/75f8d85f-4e86-4674-b8cd-8c8c085b00a1" />
+<img src="https://github.com/user-attachments/assets/3d1f2ca8-cfbf-458c-a451-9f093820361f" />
