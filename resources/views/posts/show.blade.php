@@ -208,10 +208,10 @@
                     @endif
                 </x-prose>
 
-                <div class="p-4 mt-8 bg-gray-100 rounded-xl md:p-8 md:text-xl">
-                    <p>Would you mind helping me reach more people by sharing this article on social media?</p>
+                <div class="p-4 mt-8 text-center bg-gray-100 rounded-xl md:p-8 md:text-xl/tight">
+                    <p>Help me reach more people by sharing this article on social media!</p>
 
-                    <ul class="flex gap-2 mt-4 md:gap-3">
+                    <ul class="inline-flex gap-2 mt-4 md:gap-3">
                         <li>
                             <a
                                 href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('posts.show', $post)) }}"
@@ -223,7 +223,6 @@
                                 <span class="sr-only">Facebook</span>
                             </a>
                         </li>
-
 
                         <li>
                             <a
