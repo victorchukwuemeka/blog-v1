@@ -12,7 +12,7 @@ This is the source code for my revenue-generating 20K monthly visitors [blog](ht
   This codebase evolves organically as time allows and needs arise.
   
 - **Production-ready Laravel code:**  
-  Explore clean, fast, and scalable code with Actions, Jobs, Policies, and more, as well as a thoughtfully organized structure.
+  Explore clean, fast, and scalable code with Actions, Jobs, Policies, and more, as well as a thoughtfully organized structure. (Basically, I'm following Laravel's best practices. No need to do more.)
 
 - **Monetization & analytics:**  
   See how I implemented affiliate links, ad-blocker-resistant analytics, and outbound tracking for real revenue.
@@ -24,9 +24,9 @@ This is the source code for my revenue-generating 20K monthly visitors [blog](ht
   See how I automate content, recommendations, and more using AI, queues (managed by Horizon), and scheduled tasks.
 
 - **Cloudflare Images integration:**  
-  Because I didn't want to develop my own image upload flow from scratch.
+  Because I didn't want to develop my own image upload flow from scratch and Cloudflare Images is pretty damn good.
 
 - **Comprehensive test suite:**  
-  130+ tests written using Pest show how to keep features reliable and code maintainable.
+  150+ tests (and I'm far to be done yet) written using Pest show how to keep features reliable and code maintainable.
 
 <img src="https://github.com/user-attachments/assets/75f8d85f-4e86-4674-b8cd-8c8c085b00a1" />
