@@ -44,6 +44,12 @@ return [
             'link' => 'https://lachlanmiller.gumroad.com/l/vuejs-design-patterns?a=266251475',
             'image' => 'resources/img/books/vue-design-patterns.jpg',
         ],
+        'best-practices-laravel-enterprise-apps' => [
+            'name' => 'Best Practices for Laravel Enterprise Applications',
+            'author' => 'Wendell Adriel',
+            'link' => 'https://gumroad.com/a/708015763/vtxqpk',
+            'image' => '',
+        ],
     ],
 
     'courses' => [
