@@ -8,7 +8,7 @@ use function Pest\Laravel\get;
 it('lists the latest 50 posts that are not associated to a link and shows the description instead of the content', function () {
     $posts = Post::factory(30)->create();
 
-    Link::factory(10)->create();
+    Link::factory(10)->withPost()->create();
 
     $response = get(route('feeds.main'))
         ->assertOk();
