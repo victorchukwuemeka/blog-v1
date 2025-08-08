@@ -41,12 +41,12 @@ class SecondStep extends StepComponent
         if (! $this->url) {
             $this->previousStep();
         }
+
+        $this->dispatch('fetch')->self();
     }
 
     public function render() : View
     {
-        $this->dispatch('fetch')->self();
-
         return view('livewire.link-wizard.second-step');
     }
 
