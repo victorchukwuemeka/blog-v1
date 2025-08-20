@@ -19,10 +19,10 @@
         <x-btn
             primary
             size="md"
-            href="mailto:hello@benjamincrozat.com"
+            href="#products"
             class="table mx-auto mt-8 lg:mt-12"
         >
-            Get in touch
+            Learn more
         </x-btn>
     </div>
 
@@ -70,37 +70,44 @@
     </x-section>
 
     <x-section
-        title="How to show off your product"
-        class="mt-24 md:max-w-screen-sm"
+        title="Write a sponsored article"
+        id="products"
+        class="mt-24 lg:max-w-(--breakpoint-md)"
     >
-        <p>Your options right now are:</p>
+        <div class="p-8 text-center bg-white rounded-xl ring-1 shadow-xl shadow-black/5 ring-black/10">
+            <p class="text-7xl font-medium">500€</p>
 
-        <ul class="grid gap-2 mt-2 ml-4 list-disc list-inside">
-            <li>
-                A sponsored article that gets you:
+            <p class="text-sm text-gray-500">one-time payment</p>
 
-                <ul class="grid gap-2 mt-2 ml-4 list-disc list-inside">
-                    <li>
-                        Featured on top for a week
-                    </li>
+            <p class="mt-8 font-medium">What you get:</p>
 
-                    <li>
-                        Access to {{ Number::format($visitors) }} monthly developers
-                    </li>
+            <ul class="grid gap-2 place-content-center mt-2">
+                <li class="flex gap-2 items-center">
+                    <x-heroicon-o-check class="text-green-600 size-4" />
+                    Featured on top of every article from Monday to Sunday
+                </li>
 
-                    <li>
-                        A lifetime backlink on a DR 51 domain
-                    </li>
+                <li class="flex gap-2 items-center">
+                    <x-heroicon-o-check class="text-green-600 size-4" />
+                    Access to {{ Number::format($visitors) }} monthly developers
+                </li>
 
-                    <li>
-                        A position on the blog, forever
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                <li class="flex gap-2 items-center">
+                    <x-heroicon-o-check class="text-green-600 size-4" />
+                    A backlink on a DR 51 domain
+                </li>
 
-        <p class="mt-4">
-            Interested? <a href="mailto:hello@benjamincrozat.com" class="font-medium underline">Get in touch</a> with me.
-        </p>
+                <li class="flex gap-2 items-center">
+                    <x-heroicon-o-check class="text-green-600 size-4" />
+                    <span>A secured position on the blog, <strong class="font-medium">forever</strong></span>
+                </li>
+            </ul>
+
+            <x-btn href="https://buy.stripe.com/8x24gy4g61KZ5koe3y4ko00" primary class="mt-8">
+                Pay and publish
+            </x-btn>
+
+            <p class="mt-8">Once done, <a href="mailto:hello@benjamincrozat.com" class="font-medium underline">email me</a> with your article. It will be published next Monday.</p>
+        </div>
     </x-section>
 </x-app>

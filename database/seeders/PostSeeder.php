@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Str;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
-use App\Jobs\FetchImageForPost;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class PostSeeder extends Seeder
 {
@@ -128,11 +130,18 @@ fetchData('https://api.example.com/data').then(data => {
 MARKDOWN
             ])
             ->each(function (Post $post) {
-                FetchImageForPost::dispatch($post);
+                dispatch(function () use ($post) {
+                    $image = Http::get('https://picsum.photos/1280/720')
+                        ->throw()
+                        ->body();
 
-                $post->categories()->attach(
-                    Category::query()->inRandomOrder()->limit(random_int(1, 3))->get()
-                );
+                    Storage::put($path = '/images/posts/' . Str::random() . '.jpg', $image);
+
+                    $post->update([
+                        'image_path' => $path,
+                        'image_disk' => 'public',
+                    ]);
+                });
             });
     }
 }
