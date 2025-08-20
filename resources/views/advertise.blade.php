@@ -81,24 +81,24 @@
 
             <p class="mt-8 font-medium">What you get:</p>
 
-            <ul class="grid gap-2 place-content-center mt-2">
-                <li class="flex gap-2 items-center">
-                    <x-heroicon-o-check class="text-green-600 size-4" />
+            <ul class="grid gap-2 place-content-center mt-2 text-left">
+                <li class="flex gap-2 items-start">
+                    <x-heroicon-o-check class="flex-none text-green-600 translate-y-1 size-4" />
                     Featured on top of every article from Monday to Sunday
                 </li>
 
-                <li class="flex gap-2 items-center">
-                    <x-heroicon-o-check class="text-green-600 size-4" />
+                <li class="flex gap-2 items-start">
+                    <x-heroicon-o-check class="flex-none text-green-600 translate-y-1 size-4" />
                     Access to {{ Number::format($visitors) }} monthly developers
                 </li>
 
-                <li class="flex gap-2 items-center">
-                    <x-heroicon-o-check class="text-green-600 size-4" />
+                <li class="flex gap-2 items-start">
+                    <x-heroicon-o-check class="flex-none text-green-600 translate-y-1 size-4" />
                     A backlink on a DR 51 domain
                 </li>
 
-                <li class="flex gap-2 items-center">
-                    <x-heroicon-o-check class="text-green-600 size-4" />
+                <li class="flex gap-2 items-start">
+                    <x-heroicon-o-check class="flex-none text-green-600 translate-y-1 size-4" />
                     <span>A secured position on the blog, <strong class="font-medium">forever</strong></span>
                 </li>
             </ul>
