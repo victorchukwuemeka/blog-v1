@@ -68,11 +68,11 @@
 
                                         <div>
                                             <p class="font-medium">
-                                                {{ $post->title }}
+                                                {!! $post->title !!}
                                             </p>
 
                                             <p class="mt-2 opacity-75">
-                                                {{ $post->description }}
+                                                {!! $post->description !!}
                                             </p>
                                         </div>
                                     </a>
@@ -81,7 +81,7 @@
                         </ul>
                     @else
                         <p class="p-4 text-center text-gray-500">
-                            No posts found.
+                            No posts found for "{{ $query }}".
                         </p>
                     @endif
                 </div>
@@ -109,11 +109,11 @@
 
                                         <div>
                                             <p class="font-medium">
-                                                {{ $link->title }}
+                                                {!! $link->title !!}
                                             </p>
 
                                             <p class="mt-2 opacity-75">
-                                                {{ $link->description }}
+                                                {!! $link->description !!}
                                             </p>
                                         </div>
                                     </a>
@@ -121,7 +121,7 @@
                             @endforeach
                         </ul>
                     @else
-                        <p class="p-4 text-center text-gray-500">No links found.</p>
+                        <p class="p-4 text-center text-gray-500">No links found for "{{ $query }}".</p>
                     @endif
                 </div>
             </div>
