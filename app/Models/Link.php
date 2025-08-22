@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\LinkApproved;
 use Database\Factories\LinkFactory;
+use App\Models\Traits\LinkSearchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Link extends Model
 {
     /** @use HasFactory<LinkFactory> */
-    use HasFactory;
+    use HasFactory, LinkSearchable;
 
     protected function casts() : array
     {

@@ -68,11 +68,11 @@
 
                                         <div>
                                             <p class="font-medium">
-                                                {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->title) !!}
+                                                {{ $post->title }}
                                             </p>
 
                                             <p class="mt-2 opacity-75">
-                                                {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $post->description) !!}
+                                                {{ $post->description }}
                                             </p>
                                         </div>
                                     </a>
@@ -109,11 +109,11 @@
 
                                         <div>
                                             <p class="font-medium">
-                                                {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $link->title) !!}
+                                                {{ $link->title }}
                                             </p>
 
                                             <p class="mt-2 opacity-75">
-                                                {!! str_ireplace($query, '<span class="bg-yellow-400 text-yellow-950">' . $query . '</span>', $link->description) !!}
+                                                {{ $link->description }}
                                             </p>
                                         </div>
                                     </a>
