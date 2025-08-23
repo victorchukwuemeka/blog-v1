@@ -108,7 +108,7 @@
                 Pay and publish
             </x-btn>
 
-            <p class="mt-8">Once done, <a href="mailto:hello@benjamincrozat.com" class="font-medium underline">email me</a> with your article. It will be published next Monday.</p>
+            <p class="mt-8">Once done, <a href="mailto:hello@benjamincrozat.com" class="font-medium underline">email me</a> with your article. It will be published as soon as possible today or tomorrow.</p>
         </div>
     </x-section>
 </x-app>
