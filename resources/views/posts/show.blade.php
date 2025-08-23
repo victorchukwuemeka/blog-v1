@@ -186,6 +186,7 @@
                             <a
                                 href="{{ $post->link->url }}"
                                 target="_blank"
+                                rel="sponsored noopener"
                             >
                                 Read more on {{ $post->link->domain }} →
                             </a>
