@@ -1,3 +1,7 @@
+<x-slot:title>
+    Submit a link
+</x-slot>
+
 <div>
     <x-section class="mt-16 md:max-w-(--breakpoint-sm)">
         <x-link-wizard.steps :$steps />

@@ -1,5 +1,6 @@
 <x-app
     title="Advertise to {{ Number::format($visitors) }} developers"
+    :hide-ad="true"
 >
     <div class="container text-center md:text-xl xl:max-w-(--breakpoint-lg)">
         <img

@@ -2,7 +2,7 @@
     'canonical' => $canonical ?? url()->current(),
     'description' => 'The best blog about PHP, Laravel, AI, and every other topics involved in building software.',
     'image' => '',
-    'title' => $title ?? config('app.name'),
+    'title',
 ])
 
 <!DOCTYPE html>
@@ -46,10 +46,6 @@
             href="https://fonts.googleapis.com/css2?family=Outfit:wght@200..800&display=swap"
             onload="this.onload=null;this.rel='stylesheet'"
         />
-
-        <noscript>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200..800&display=swap" />
-        </noscript>
 
         <link rel="icon" type="image/png" href="{{ Vite::asset('resources/img/favicon-96x96.png') }}" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="{{ Vite::asset('resources/img/favicon.svg') }}" />

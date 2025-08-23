@@ -1,4 +1,4 @@
-<x-app>
+<x-app title="Your comments">
     <x-section title="Your comments ({{ $comments->total() }})">
         <div class="grid gap-4 mt-8 md:grid-cols-2">
             @foreach ($comments as $comment)
