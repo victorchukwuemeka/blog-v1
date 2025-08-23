@@ -7,9 +7,11 @@ use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
+use App\Http\Controllers\Checkout\StartCheckoutController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
+use App\Http\Controllers\Checkout\CompletedCheckoutController;
 use App\Http\Controllers\Advertising\RedirectToAdvertiserController;
 
 Route::get('/', HomeController::class)
@@ -47,6 +49,9 @@ Route::get('/recommends/{slug}', ShowMerchantController::class)
     ->name('merchants.show');
 
 Route::feeds();
+
+Route::get('/checkout/completed', CompletedCheckoutController::class)->name('checkout.completed');
+Route::get('/checkout/{product}', StartCheckoutController::class)->name('checkout.start');
 
 // This route needs to be the last one so all others take precedence.
 Route::get('/{slug}', ShowPostController::class)

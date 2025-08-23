@@ -104,7 +104,7 @@
                 </li>
             </ul>
 
-            <x-btn href="https://buy.stripe.com/8x24gy4g61KZ5koe3y4ko00" primary class="mt-8">
+            <x-btn href="{{ route('checkout.start', 'sponsored_article') }}" primary class="mt-8">
                 Pay and publish
             </x-btn>
 
