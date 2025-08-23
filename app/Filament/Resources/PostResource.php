@@ -180,6 +180,14 @@ class PostResource extends Resource
                             $component->state($date);
                         })
                         ->label('Last Modification Date'),
+
+                    DateTimePicker::make('sponsored_at')
+                        ->timezone('Europe/Paris')
+                        ->native(false)
+                        ->placeholder(now())
+                        ->defaultFocusedDate(now())
+                        ->closeOnDateSelection()
+                        ->label('Sponsored Date'),
                 ])
                     ->columnSpan([
                         'default' => 12,
