@@ -1,4 +1,7 @@
-<x-app title="Thanks for your purchase!">
+<x-app
+    title="Thanks for your purchase!"
+    :hide-ad="true"
+>
     <x-heroicon-o-check-circle class="mx-auto mb-2 text-green-600 size-12" />
 
     <x-section
@@ -27,21 +30,6 @@
                         {{ Number::currency(($item->amount_total ?? 0) / 100, $item->currency ?? $session->currency ?? 'USD') }}
                     </td>
                 </tr>
-
-                {{-- <tr>
-                    <td>
-                        <p>
-                            {{ Number::currency(($item->amount_total ?? 0) / 100, $item->currency ?? $session->currency ?? 'USD') }}
-                        </p>
-
-                        @if (isset($item->amount_subtotal) && isset($item->amount_tax) && ($item->amount_tax > 0))
-                            <p>
-                                Subtotal: {{ Number::currency($item->amount_subtotal / 100, $item->currency ?? $session->currency ?? 'USD') }},
-                                Tax: {{ Number::currency($item->amount_tax / 100, $item->currency ?? $session->currency ?? 'USD') }}
-                            </p>
-                        @endif
-                    </td>
-                </tr> --}}
             @endforeach
 
             <tr class="border-b border-gray-200">
