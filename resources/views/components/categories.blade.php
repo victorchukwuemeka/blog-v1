@@ -2,6 +2,8 @@
 
 @if ($categories->isNotEmpty())
     <div {{ $attributes->class('flex gap-2') }}>
+        {{ $slot }}
+
         @foreach ($categories->sortBy('name') as $category)
             <a
                 wire:navigate

@@ -25,7 +25,13 @@
                     />
                 @endif
 
-                <x-categories :categories="$post->categories" class="justify-center mt-11 mb-8" />
+                <x-categories :categories="$post->categories" class="justify-center mt-11 mb-8">
+                    @if ($post->isSponsored())
+                        <span class="px-2 py-1 text-xs font-medium text-blue-600 uppercase rounded-sm border border-blue-300">
+                            Sponsored
+                        </span>
+                    @endif
+                </x-categories>
 
                 <p class="text-sm font-normal tracking-widest text-center uppercase md:text-base">
                     {{ trans_choice(':count minute|:count minutes', $post->read_time) }}

@@ -20,7 +20,13 @@
         @endif
     </a>
 
-    <x-categories :categories="$post->categories" class="mt-6" />
+    <x-categories :categories="$post->categories" class="mt-6">
+        @if ($post->isSponsored())
+            <span class="px-2 py-1 text-xs font-medium text-blue-600 uppercase rounded-sm border border-blue-300">
+                Sponsored
+            </span>
+        @endif
+    </x-categories>
 
     <div class="flex gap-6 justify-between items-center mt-5">
         <a

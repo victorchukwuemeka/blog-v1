@@ -21,8 +21,9 @@ class HomeController extends Controller
             ->get();
 
         $latest = Post::query()
-            ->latest('published_at')
             ->published()
+            ->sponsoredFirst()
+            ->latest('published_at')
             ->whereDoesntHave('link')
             ->limit(12)
             ->get();

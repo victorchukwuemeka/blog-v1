@@ -143,5 +143,9 @@ MARKDOWN
                     ]);
                 });
             });
+
+        Post::query()->inRandomOrder()->first()->update([
+            'sponsored_at' => now(),
+        ]);
     }
 }

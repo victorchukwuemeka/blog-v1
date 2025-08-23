@@ -31,6 +31,7 @@ class Post extends Model implements Feedable
     protected function casts() : array
     {
         return [
+            'sponsored_at' => 'datetime',
             'published_at' => 'datetime',
             'modified_at' => 'datetime',
             'recommendations' => 'collection',
@@ -51,6 +52,16 @@ class Post extends Model implements Feedable
         $query
             ->whereNull('published_at')
             ->orWhere('published_at', '>', now());
+    }
+
+    #[Scope]
+    protected function sponsoredFirst(Builder $query) : void
+    {
+        $query
+            ->orderByRaw('CASE WHEN sponsored_at IS NOT NULL AND sponsored_at >= ? THEN 1 ELSE 0 END DESC', [
+                now()->subWeek(),
+            ])
+            ->orderBy('sponsored_at', 'desc');
     }
 
     public function user() : BelongsTo
@@ -121,6 +132,11 @@ class Post extends Model implements Feedable
     public function isPublished() : bool
     {
         return ! is_null($this->published_at) && $this->published_at <= now();
+    }
+
+    public function isSponsored() : bool
+    {
+        return $this->sponsored_at && $this->sponsored_at->greaterThan(now()->subWeek());
     }
 
     public function getRouteKeyName() : string
