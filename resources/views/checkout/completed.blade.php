@@ -63,15 +63,17 @@
             </tr>
         </table>
 
-        <p class="mt-12">
-            A receipt has been sent to {{ $session->customer_details->email }}.
-        </p>
+        @if (! empty($email = $session->customer_details?->email))
+            <p class="mt-12">
+                A receipt has been sent to {{ $email }}.
+            </p>
+        @endif
 
         <p>If you have any questions, please get in touch at <a href="mailto:hello@benjamincrozat.com" class="font-medium underline">hello@benjamincrozat.com</a>.</p>
 
         <x-btn
             primary-alt
-            href="{{ $session->invoice->hosted_invoice_url }}"
+            href="{{ $session->invoice?->hosted_invoice_url }}"
             target="_blank"
             class="table mx-auto mt-4"
         >
