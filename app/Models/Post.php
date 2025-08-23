@@ -55,13 +55,13 @@ class Post extends Model implements Feedable
     }
 
     #[Scope]
-    protected function sponsoredFirst(Builder $query) : void
+    protected function sponsored(Builder $query) : void
     {
         $query
-            ->orderByRaw('CASE WHEN sponsored_at IS NOT NULL AND sponsored_at >= ? THEN 1 ELSE 0 END DESC', [
-                now()->subWeek(),
-            ])
-            ->orderBy('sponsored_at', 'desc');
+            // Boost posts with recent sponsorship (within a week).
+            ->orderByRaw('(sponsored_at IS NOT NULL AND sponsored_at >= ?) DESC', [now()->subWeek()])
+            // Within boosted group, order by most recently sponsored.
+            ->orderByRaw('CASE WHEN sponsored_at >= ? THEN sponsored_at ELSE NULL END DESC', [now()->subWeek()]);
     }
 
     public function user() : BelongsTo
@@ -136,7 +136,7 @@ class Post extends Model implements Feedable
 
     public function isSponsored() : bool
     {
-        return $this->sponsored_at && $this->sponsored_at->greaterThan(now()->subWeek());
+        return ! is_null($this->sponsored_at);
     }
 
     public function getRouteKeyName() : string

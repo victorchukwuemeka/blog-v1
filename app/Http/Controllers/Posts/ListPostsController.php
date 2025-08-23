@@ -13,7 +13,7 @@ class ListPostsController extends Controller
         return view('posts.index', [
             'posts' => Post::query()
                 ->published()
-                ->sponsoredFirst()
+                ->sponsored()
                 ->latest('published_at')
                 ->whereDoesntHave('link')
                 ->paginate(24),

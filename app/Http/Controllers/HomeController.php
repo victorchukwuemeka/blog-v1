@@ -22,7 +22,7 @@ class HomeController extends Controller
 
         $latest = Post::query()
             ->published()
-            ->sponsoredFirst()
+            ->sponsored()
             ->latest('published_at')
             ->whereDoesntHave('link')
             ->limit(12)

@@ -345,3 +345,49 @@ it('has one link', function () {
     expect($post->link)->toBeInstanceOf(\App\Models\Link::class)
         ->and($post->link->is($link))->toBeTrue();
 });
+
+it('scopes sponsored posts first within a week, then by sponsored_at desc, else normal order', function () {
+    // Create a non-sponsored, recent published post.
+    $normalPosts = Post::factory()->create([
+        'published_at' => now()->subDay(),
+        'sponsored_at' => null,
+        'title' => 'Normal',
+    ]);
+
+    // Sponsored yesterday (they come before normal posts).
+    $recentlySponsored = Post::factory()->create([
+        'published_at' => now()->subDay(),
+        'sponsored_at' => now()->subDay(),
+        'title' => 'Recent Sponsored',
+    ]);
+
+    // Sponsored 6 days ago (still within a week, but older than yesterday).
+    $olderButRecentlySponsored = Post::factory()->create([
+        'published_at' => now()->subDays(6),
+        'sponsored_at' => now()->subDays(6),
+        'title' => 'Older Recent Sponsored',
+    ]);
+
+    // Sponsored 8 days ago (older than a week, they should not get the boost).
+    $sponsoredAWhileAgo = Post::factory()->create([
+        'published_at' => now()->subDays(8),
+        'sponsored_at' => now()->subDays(8),
+        'title' => 'Old Sponsored',
+    ]);
+
+    // Query with sponsored ordering then latest published.
+    $list = Post::query()
+        ->published()
+        ->sponsored()
+        ->latest('published_at')
+        ->get();
+
+    // Expect: recent sponsored posts (within a week) listed first.
+    expect($list->first()->is($recentlySponsored))->toBeTrue();
+    expect($list->get(1)->is($olderButRecentlySponsored))->toBeTrue();
+
+    // Posts not boosted by sponsorship follow. Between $normalPosts
+    // (1 day ago) and $sponsoredAWhileAgo (8 days), normal comes next.
+    expect($list->get(2)->is($normalPosts))->toBeTrue();
+    expect($list->last()->is($sponsoredAWhileAgo))->toBeTrue();
+});
