@@ -13,7 +13,7 @@
             Advertise to <span class="text-blue-600">{{ Number::format($visitors) }}</span>&nbsp;developers
         </h1>
 
-        <p class="mt-2 text-lg text-gray-800 md:mt-4 md:text-xl lg:text-2xl">
+        <p class="mt-1 text-lg text-gray-800 md:mt-2 md:text-xl lg:text-2xl">
             This is the right place to show off your product.
         </p>
 
