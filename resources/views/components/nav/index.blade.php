@@ -97,6 +97,8 @@
                     Your links
                 </x-dropdown.item>
 
+                <x-dropdown.divider />
+
                 <x-dropdown.item
                     icon="heroicon-o-arrow-right-end-on-rectangle"
                     destructive
