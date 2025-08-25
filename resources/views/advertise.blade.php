@@ -108,7 +108,7 @@
                 Pay and publish
             </x-btn>
 
-            <p class="mt-8 text-balance">Once done, <a href="mailto:hello@benjamincrozat.com" class="font-medium underline">email me</a> with your article. Here are the <a wire:navigate href="{{ route('guidelines') }}" class="font-medium underline">guidelines</a>. It will be published as soon as possible today or tomorrow.</p>
+            <p class="mt-8 text-balance">Once done, <a href="mailto:hello@benjamincrozat.com" class="font-medium underline">email me</a> with your article. Here are the <a wire:navigate href="{{ route('advertise.guidelines') }}" class="font-medium underline">guidelines</a>. It will be published as soon as possible today or tomorrow.</p>
         </div>
     </x-section>
 </x-app>
