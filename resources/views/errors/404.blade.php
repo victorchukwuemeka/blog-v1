@@ -15,7 +15,7 @@
             <p class="mt-8">Possible causes:</p>
 
             <ul class="list-[circle] mt-1 list-inside ml-3">
-                <li>I deleted the page.</li>
+                <li>I deleted the page, so this is expected.</li>
                 <li>I messed up a redirect.</li>
                 <li>I messed up a deployment.</li>
             </ul>
