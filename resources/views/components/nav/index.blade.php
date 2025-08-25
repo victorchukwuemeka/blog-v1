@@ -151,6 +151,7 @@
 
             <x-dropdown.item
                 icon="heroicon-o-megaphone"
+                description="Show off your business through display ads or sponsored articles."
                 wire:navigate
                 href="{{ route('advertise') }}"
             >

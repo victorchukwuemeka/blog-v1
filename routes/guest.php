@@ -42,6 +42,9 @@ Route::get('/links', ListLinksController::class)
 Route::get('/advertise', App\Http\Controllers\Advertising\ShowAdvertisingLandingPageController::class)
     ->name('advertise');
 
+Route::view('/guidelines', 'guidelines')
+    ->name('guidelines');
+
 Route::get('/redirect/{slug}', RedirectToAdvertiserController::class)
     ->name('redirect-to-advertiser');
 
