@@ -1,5 +1,5 @@
 <x-app
-    title="Whoops, this page doesn't exist."
+    title="Whoops, this article doesn't exist anymore."
     :hide-ad="true"
     :hide-navigation="true"
     :hide-footer="true"
