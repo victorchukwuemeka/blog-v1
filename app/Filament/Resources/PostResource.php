@@ -6,6 +6,7 @@ use App\Str;
 use App\Models\Post;
 use Filament\Tables\Table;
 use Illuminate\Support\Js;
+use App\Actions\ReviewPost;
 use App\Jobs\RecommendPosts;
 use Filament\Actions\Action;
 use Filament\Schemas\Schema;
@@ -337,7 +338,7 @@ class PostResource extends Resource
                             return "https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3A$domain&breakdown=query&page=!" . rawurlencode(route('posts.show', $record));
                         }, shouldOpenInNewTab: true),
 
-                    Action::make('recommendations')
+                    Action::make('Refresh recommendations')
                         ->action(function (Post $record) {
                             RecommendPosts::dispatch($record);
 
@@ -347,6 +348,17 @@ class PostResource extends Resource
                                 ->send();
                         })
                         ->icon('heroicon-o-arrow-path'),
+
+                    Action::make('Ask for editor review')
+                        ->action(function (Post $record) {
+                            dispatch(fn () => app(ReviewPost::class)->review($record));
+
+                            Notification::make()
+                                ->title('The post has been queued for review.')
+                                ->success()
+                                ->send();
+                        })
+                        ->icon('heroicon-o-document-text'),
 
                     EditAction::make()
                         ->icon('heroicon-o-pencil-square'),

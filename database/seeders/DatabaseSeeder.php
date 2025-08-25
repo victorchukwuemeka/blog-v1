@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             PostSeeder::class,
             CommentSeeder::class,
+            ReportSeeder::class,
             LinkSeeder::class,
             ShortUrlSeeder::class,
         ]);

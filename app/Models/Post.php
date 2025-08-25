@@ -79,6 +79,11 @@ class Post extends Model implements Feedable
         return $this->hasMany(Comment::class);
     }
 
+    public function reports() : HasMany
+    {
+        return $this->hasMany(Report::class);
+    }
+
     public function link() : HasOne
     {
         return $this->hasOne(Link::class);
