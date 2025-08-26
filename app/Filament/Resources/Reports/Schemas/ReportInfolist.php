@@ -16,10 +16,6 @@ class ReportInfolist
                     ->label('Post')
                     ->columnSpanFull(),
 
-                TextEntry::make('content')
-                    ->markdown()
-                    ->columnSpan(2),
-
                 Grid::make()
                     ->schema([
                         TextEntry::make('created_at')
@@ -31,6 +27,10 @@ class ReportInfolist
                             ->label('Last Modification Date'),
                     ])
                     ->columnSpanFull(),
+
+                TextEntry::make('content')
+                    ->markdown()
+                    ->columnSpan(2),
             ])
             ->columns(3);
     }
