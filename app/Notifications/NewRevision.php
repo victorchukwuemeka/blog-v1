@@ -2,17 +2,17 @@
 
 namespace App\Notifications;
 
-use App\Models\Report;
+use App\Models\Revision;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewReport extends Notification
+class NewRevision extends Notification
 {
     use Queueable;
 
     public function __construct(
-        public Report $report
+        public Revision $revision
     ) {}
 
     public function via(object $notifiable) : array
@@ -23,8 +23,8 @@ class NewReport extends Notification
     public function toMail(object $notifiable) : MailMessage
     {
         return (new MailMessage)
-            ->subject('A new report is available')
-            ->line("Your AI-powered editor reviewed \"{$this->report->post->title}\".")
-            ->action('Check Report', route('filament.admin.resources.reports.view', $this->report));
+            ->subject('A new revision is available')
+            ->line("Your AI-powered writer revised \"{$this->revision->report->post->title}\".")
+            ->action('Check Revision', route('filament.admin.resources.revisions.view', $this->revision));
     }
 }

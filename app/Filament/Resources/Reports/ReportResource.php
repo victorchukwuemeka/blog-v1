@@ -18,7 +18,7 @@ class ReportResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Blog';
 
-    protected static string|\BackedEnum|null $navigationIcon = Heroicon::Document;
+    protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedDocument;
 
     protected static ?int $navigationSort = 3;
 

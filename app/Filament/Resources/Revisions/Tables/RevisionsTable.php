@@ -1,27 +1,22 @@
 <?php
 
-namespace App\Filament\Resources\Reports\Tables;
+namespace App\Filament\Resources\Revisions\Tables;
 
-use App\Models\Report;
-use App\Jobs\RevisePost;
 use Filament\Tables\Table;
-use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Notifications\Notification;
 
-class ReportsTable
+class RevisionsTable
 {
     public static function configure(Table $table) : Table
     {
         return $table
-            ->defaultSort('created_at', 'desc')
             ->columns([
-                TextColumn::make('post.title'),
+                TextColumn::make('report.post.title'),
 
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -40,18 +35,6 @@ class ReportsTable
             ->recordActions([
                 ActionGroup::make([
                     ViewAction::make(),
-
-                    Action::make('Revise post')
-                        ->action(function (Report $record) {
-                            RevisePost::dispatch($record->post, $record);
-
-                            Notification::make()
-                                ->title('The post has been queued for revision.')
-                                ->success()
-                                ->send();
-                        })
-                        ->icon('heroicon-o-pencil'),
-
                     DeleteAction::make(),
                 ]),
             ])

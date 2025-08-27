@@ -4,9 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Str;
 use App\Models\Post;
+use App\Jobs\ReviewPost;
 use Filament\Tables\Table;
 use Illuminate\Support\Js;
-use App\Actions\ReviewPost;
 use App\Jobs\RecommendPosts;
 use Filament\Actions\Action;
 use Filament\Schemas\Schema;
@@ -351,7 +351,7 @@ class PostResource extends Resource
 
                     Action::make('Ask for editor review')
                         ->action(function (Post $record) {
-                            dispatch(fn () => app(ReviewPost::class)->review($record));
+                            ReviewPost::dispatch($record);
 
                             Notification::make()
                                 ->title('The post has been queued for review.')
