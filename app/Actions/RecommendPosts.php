@@ -22,7 +22,7 @@ class RecommendPosts
             'messages' => [
                 [
                     'role' => 'system',
-                    'content' => view('components.prompts.get-recommended-posts.system')->render(),
+                    'content' => view('components.prompts.get-recommended-posts.developer')->render(),
                 ],
                 [
                     'role' => 'user',

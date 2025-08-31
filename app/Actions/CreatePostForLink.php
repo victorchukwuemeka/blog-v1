@@ -24,7 +24,7 @@ class CreatePostForLink
             'messages' => [
                 [
                     'role' => 'system',
-                    'content' => view('components.prompts.create-post-for-link.system')->render(),
+                    'content' => view('components.prompts.create-post-for-link.developer')->render(),
                 ],
                 [
                     'role' => 'user',

@@ -20,7 +20,7 @@ class RevisePost
                     'role' => 'developer',
                     'content' => [[
                         'type' => 'input_text',
-                        'text' => view('components.prompts.revise-post.system')->render(),
+                        'text' => view('components.prompts.revise-post.developer')->render(),
                     ]],
                 ],
                 [

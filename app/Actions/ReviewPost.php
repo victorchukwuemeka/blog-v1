@@ -22,7 +22,7 @@ class ReviewPost
                     'role' => 'developer',
                     'content' => [[
                         'type' => 'input_text',
-                        'text' => view('components.prompts.review-post.system')->render(),
+                        'text' => view('components.prompts.review-post.developer')->render(),
                     ]],
                 ],
                 [
