@@ -15,6 +15,14 @@ class Report extends Model
 
     protected $with = ['post'];
 
+    protected static function booted() : void
+    {
+        static::deleting(function (self $report) : void {
+            // Ensure revisions are deleted before the report.
+            $report->revisions()->delete();
+        });
+    }
+
     public function post() : BelongsTo
     {
         return $this->belongsTo(Post::class);

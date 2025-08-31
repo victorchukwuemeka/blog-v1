@@ -36,7 +36,7 @@ it('creates a report for the post and notifies the admin', function () {
         ]),
     ]);
 
-    $report = app(ReviewPost::class)->review($post);
+    $report = app(ReviewPost::class)->review($post, 'Blah blah blah');
 
     expect($report->post->is($post))->toBeTrue()
         ->and($report->content)->toBe('Generated report content');
@@ -68,7 +68,7 @@ it('does not error if admin user is missing', function () {
         ]),
     ]);
 
-    $report = app(ReviewPost::class)->review($post);
+    $report = app(ReviewPost::class)->review($post, 'Blah blah blah');
 
     expect($report->content)->toBe('Another report content');
 

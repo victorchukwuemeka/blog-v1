@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('revisions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('report_id')->constrained();
+            $table->foreignId('report_id');
             $table->json('data');
             $table->timestamps();
         });

@@ -11,6 +11,7 @@ use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
 
@@ -41,9 +42,14 @@ class ReportsTable
                 ActionGroup::make([
                     ViewAction::make(),
 
-                    Action::make('Revise post')
-                        ->action(function (Report $record) {
-                            RevisePost::dispatch($record->post, $record);
+                    Action::make('Implement editor feedback')
+                        ->schema([
+                            Textarea::make('additional_instructions')
+                                ->nullable(),
+                        ])
+                        ->modalSubmitActionLabel('Implement')
+                        ->action(function (Report $record, array $data) {
+                            RevisePost::dispatch($record->post, $record, $data['additional_instructions']);
 
                             Notification::make()
                                 ->title('The post has been queued for revision.')

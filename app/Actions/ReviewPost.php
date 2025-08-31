@@ -13,7 +13,7 @@ class ReviewPost
     /**
      * Review a post, generate a report, and notify the admin.
      */
-    public function review(Post $post) : Report
+    public function review(Post $post, ?string $additionalInstructions) : Report
     {
         $response = OpenAI::responses()->create([
             'model' => 'gpt-5',
@@ -29,7 +29,7 @@ class ReviewPost
                     'role' => 'user',
                     'content' => [[
                         'type' => 'input_text',
-                        'text' => view('components.prompts.review-post.user', compact('post'))->render(),
+                        'text' => view('components.prompts.review-post.user', compact('post', 'additionalInstructions'))->render(),
                     ]],
                 ],
             ],

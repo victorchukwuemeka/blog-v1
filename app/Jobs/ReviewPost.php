@@ -12,10 +12,11 @@ class ReviewPost implements ShouldQueue
 
     public function __construct(
         public Post $post,
+        public ?string $additionalInstructions,
     ) {}
 
     public function handle() : void
     {
-        app(\App\Actions\ReviewPost::class)->review($this->post);
+        app(\App\Actions\ReviewPost::class)->review($this->post, $this->additionalInstructions);
     }
 }

@@ -14,10 +14,11 @@ class RevisePost implements ShouldQueue
     public function __construct(
         public Post $post,
         public Report $report,
+        public ?string $additionalInstructions,
     ) {}
 
     public function handle() : void
     {
-        app(\App\Actions\RevisePost::class)->revise($this->post, $this->report);
+        app(\App\Actions\RevisePost::class)->revise($this->post, $this->report, $this->additionalInstructions);
     }
 }

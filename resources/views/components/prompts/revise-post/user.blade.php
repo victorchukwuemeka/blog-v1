@@ -5,3 +5,9 @@
 ## Post
 
 {{ $post->toMarkdown() }}
+
+@if ($additionalInstructions)
+## Additional Instructions
+
+{{ $additionalInstructions }}
+@endif

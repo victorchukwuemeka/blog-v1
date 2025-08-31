@@ -11,7 +11,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 class RevisePost
 {
-    public function revise(Post $post, Report $report)
+    public function revise(Post $post, Report $report, ?string $additionalInstructions)
     {
         $response = OpenAI::responses()->create([
             'model' => 'gpt-5',
@@ -30,6 +30,7 @@ class RevisePost
                         'text' => view('components.prompts.revise-post.user', [
                             'post' => $post,
                             'report' => $report,
+                            'additionalInstructions' => $additionalInstructions,
                         ])->render(),
                     ]],
                 ],

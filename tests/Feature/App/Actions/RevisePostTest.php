@@ -67,7 +67,7 @@ it('creates a revision for the report and notifies the admin', function () {
         ]),
     ]);
 
-    $revision = app(RevisePost::class)->revise($post, $report);
+    $revision = app(RevisePost::class)->revise($post, $report, 'Blah blah blah');
 
     expect($revision->report->is($report))->toBeTrue()
         ->and($revision->data)->toBeArray()
@@ -81,6 +81,7 @@ it('does not error if admin user is missing', function () {
     Notification::fake();
 
     $post = Post::factory()->create();
+
     $report = Report::factory()->create([
         'post_id' => $post->id,
     ]);
@@ -130,7 +131,7 @@ it('does not error if admin user is missing', function () {
         ]),
     ]);
 
-    $revision = app(RevisePost::class)->revise($post, $report);
+    $revision = app(RevisePost::class)->revise($post, $report, 'Blah blah blah');
 
     expect($revision->data['title'] ?? null)->toBe('Another Revised Title');
 

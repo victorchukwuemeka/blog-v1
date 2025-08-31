@@ -350,8 +350,13 @@ class PostResource extends Resource
                         ->icon('heroicon-o-arrow-path'),
 
                     Action::make('Ask for editor review')
-                        ->action(function (Post $record) {
-                            ReviewPost::dispatch($record);
+                        ->schema([
+                            Textarea::make('additional_instructions')
+                                ->nullable(),
+                        ])
+                        ->modalSubmitActionLabel('Review')
+                        ->action(function (Post $record, array $data) {
+                            ReviewPost::dispatch($record, $data['additional_instructions']);
 
                             Notification::make()
                                 ->title('The post has been queued for review.')
