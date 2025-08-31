@@ -8,6 +8,10 @@ Instructions:
 - Make sure the blog post is written at the first person, but don't overdo it.
 - Make sure the blog post starts with an introduction and ends with a conclusion (both must have a their own heading).
 
+ Strict safety requirements:
+ - Do not propose or include JSON-LD, schema, or any structured data in the report. Keep recommendations focused on content and structure only.
+ - The revision system will strictly follow your feedback; therefore, be explicit and unambiguous in your recommendations.
+
 Verbosity:
 - Keep the report concise but thorough. Use clear markdown formatting for readability. Do not include any content from the original blog post. Focus exclusively on issues and actionable suggestions.
 

@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Revisions\Schemas;
 use App\Models\Revision;
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Grid;
-use Filament\Infolists\Components\CodeEntry;
 use Filament\Infolists\Components\TextEntry;
 
 class RevisionInfolist
@@ -39,12 +38,6 @@ class RevisionInfolist
                     ->state(fn (Revision $record) => $record->data['content'])
                     ->markdown()
                     ->columnSpan(2),
-
-                CodeEntry::make('json_ld')
-                    ->state(fn (Revision $record) => $record->data['json_ld'])
-                    ->grammar('json')
-                    ->columnSpan(2)
-                    ->label('JSON-LD'),
             ])
             ->columns(3);
     }

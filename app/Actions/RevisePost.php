@@ -57,11 +57,7 @@ class RevisePost
                             ],
                             'content' => [
                                 'type' => 'string',
-                                'description' => 'The content of the blog post without the title and Front Matter.',
-                            ],
-                            'json_ld' => [
-                                'type' => 'string',
-                                'description' => 'The JSON-LD schema for the blog post if necessary.',
+                                'description' => 'The content of the blog post. Do not include the title, Front Matter, or any JSON-LD/structured data.',
                             ],
                         ],
                         'required' => [
@@ -69,7 +65,6 @@ class RevisePost
                             'serp_title',
                             'description',
                             'content',
-                            'json_ld',
                         ],
                         'additionalProperties' => false,
                     ],
@@ -91,9 +86,44 @@ class RevisePost
             'store' => true,
         ]);
 
+        $raw = json_decode($response->outputText, true) ?: [];
+
+        // Keep only the expected keys
+        $data = [
+            'title' => isset($raw['title']) && is_string($raw['title']) ? trim($raw['title']) : '',
+            'serp_title' => isset($raw['serp_title']) && is_string($raw['serp_title']) ? trim($raw['serp_title']) : '',
+            'description' => isset($raw['description']) && is_string($raw['description']) ? trim($raw['description']) : '',
+            'content' => isset($raw['content']) && is_string($raw['content']) ? $raw['content'] : '',
+        ];
+
+        // Sanitize content: remove JSON-LD and front matter; ensure title is not repeated.
+        $content = $data['content'] ?? '';
+
+        // Remove <script type="application/ld+json"> blocks
+        $content = preg_replace('/<script[^>]*type=["\']application\/ld\+json["\'][^>]*>.*?<\/script>/is', '', $content);
+
+        // Remove JSON-LD code fences ```json ... ``` if present
+        $content = preg_replace('/```\s*json\s*[\r\n]+\{[\s\S]*?\}[\r\n]+```/i', '', $content);
+
+        // Remove YAML/TOML front matter at the very top
+        $content = preg_replace('/^---[\s\S]*?---\s*/', '', $content);
+
+        // Remove leading H1 repeating the title (Markdown, HTML, or Setext)
+        if ('' !== $data['title']) {
+            $t = preg_quote($data['title'], '/');
+            // Markdown H1: # Title
+            $content = preg_replace('/^\s*#\s*' . $t . '\s*(?:\n|$)/u', '', $content, 1);
+            // HTML H1
+            $content = preg_replace('/^\s*<h1[^>]*>\s*' . $t . '\s*<\/h1>\s*(?:\n|$)/iu', '', $content, 1);
+            // Setext H1
+            $content = preg_replace('/^\s*' . $t . '\s*\n=+\s*(?:\n|$)/u', '', $content, 1);
+        }
+
+        $data['content'] = trim($content);
+
         $revision = Revision::query()->create([
             'report_id' => $report->id,
-            'data' => json_decode($response->outputText, true),
+            'data' => $data,
         ]);
 
         User::query()
