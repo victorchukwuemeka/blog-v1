@@ -7,6 +7,7 @@ use Filament\Tables\Table;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\Revisions\Pages\ViewRevision;
 use App\Filament\Resources\Revisions\Pages\ListRevisions;
 use App\Filament\Resources\Revisions\Tables\RevisionsTable;
@@ -47,5 +48,11 @@ class RevisionResource extends Resource
             'index' => ListRevisions::route('/'),
             'view' => ViewRevision::route('/{record}'),
         ];
+    }
+
+    public static function getEloquentQuery() : Builder
+    {
+        return parent::getEloquentQuery()
+            ->whereNull('completed_at');
     }
 }

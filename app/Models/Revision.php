@@ -16,6 +16,7 @@ class Revision extends Model
     {
         return [
             'data' => 'array',
+            'completed_at' => 'datetime',
         ];
     }
 

@@ -6,6 +6,7 @@ use App\Models\Revision;
 use Illuminate\Support\Js;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use App\Filament\Resources\Revisions\RevisionResource;
 
@@ -20,6 +21,20 @@ class ViewRevision extends ViewRecord
                 ->label('Copy as Markdown')
                 ->icon('heroicon-o-clipboard-document')
                 ->alpineClickHandler(fn (Revision $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->data['content']) . ')'),
+
+            Action::make('complete')
+                ->label('Mark as completed')
+                ->icon('heroicon-o-check')
+                ->action(function (Revision $record) {
+                    $record->update(['completed_at' => now()]);
+
+                    Notification::make()
+                        ->title('Revision marked as completed')
+                        ->success()
+                        ->send();
+
+                    $this->redirect(RevisionResource::getUrl('index'));
+                }),
 
             DeleteAction::make(),
         ];

@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Revisions\Tables;
 
+use App\Models\Revision;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
@@ -35,6 +37,14 @@ class RevisionsTable
             ->recordActions([
                 ActionGroup::make([
                     ViewAction::make(),
+
+                    Action::make('complete')
+                        ->label('Mark as completed')
+                        ->icon('heroicon-o-check')
+                        ->action(function (Revision $record) {
+                            $record->update(['completed_at' => now()]);
+                        }),
+
                     DeleteAction::make(),
                 ]),
             ])
