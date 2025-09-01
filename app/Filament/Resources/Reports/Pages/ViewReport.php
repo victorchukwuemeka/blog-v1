@@ -18,16 +18,11 @@ class ViewReport extends ViewRecord
     protected function getHeaderActions() : array
     {
         return [
-            Action::make('copy')
-                ->label('Copy as Markdown')
-                ->hiddenLabel(true)
-                ->icon('heroicon-o-clipboard-document')
-                ->color('gray')
-                ->alpineClickHandler(fn (Report $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->content) . ')'),
-
             Action::make('complete')
-                ->label('Mark as completed')
+                ->hiddenLabel(true)
+                ->tooltip('Mark as completed')
                 ->icon('heroicon-o-check')
+                ->color('gray')
                 ->action(function (Report $record) {
                     $record->update(['completed_at' => now()]);
 
@@ -38,6 +33,14 @@ class ViewReport extends ViewRecord
 
                     $this->redirect(ReportResource::getUrl('index'));
                 }),
+
+            Action::make('copy')
+                ->label('Copy as Markdown')
+                ->hiddenLabel(true)
+                ->tooltip('Copy as Markdown')
+                ->icon('heroicon-o-clipboard-document')
+                ->color('gray')
+                ->alpineClickHandler(fn (Report $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->content) . ')'),
 
             Action::make('Implement')
                 ->schema([

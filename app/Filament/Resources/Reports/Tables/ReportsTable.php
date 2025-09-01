@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Reports\Tables;
 use App\Models\Report;
 use App\Jobs\RevisePost;
 use Filament\Tables\Table;
+use Illuminate\Support\Js;
 use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Actions\ActionGroup;
@@ -57,6 +58,10 @@ class ReportsTable
                 ActionGroup::make([
                     ViewAction::make(),
 
+                    Action::make('Copy as Markdown')
+                        ->icon('heroicon-o-clipboard-document')
+                        ->alpineClickHandler(fn (Report $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->content) . ')'),
+
                     Action::make('Implement editor feedback')
                         ->schema([
                             Textarea::make('additional_instructions')
@@ -71,10 +76,9 @@ class ReportsTable
                                 ->success()
                                 ->send();
                         })
-                        ->icon('heroicon-o-pencil'),
+                        ->icon('heroicon-o-arrow-path'),
 
-                    Action::make('complete')
-                        ->label('Mark as completed')
+                    Action::make('Mark as completed')
                         ->icon('heroicon-o-check')
                         ->action(function (Report $record) {
                             $record->update(['completed_at' => now()]);
