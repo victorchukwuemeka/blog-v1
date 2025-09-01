@@ -11,6 +11,8 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class RevisionsTable
 {
@@ -32,7 +34,20 @@ class RevisionsTable
                     ->label('Last Modification Date'),
             ])
             ->filters([
-                //
+                SelectFilter::make('completion_status')
+                    ->label('Status')
+                    ->options([
+                        'incomplete' => 'Incomplete',
+                        'completed' => 'Completed',
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        return match ($data['value']) {
+                            'completed' => $query->whereNotNull('completed_at'),
+                            'incomplete' => $query->whereNull('completed_at'),
+                            default => $query,
+                        };
+                    })
+                    ->default('incomplete'),
             ])
             ->recordActions([
                 ActionGroup::make([
