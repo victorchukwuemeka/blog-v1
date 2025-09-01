@@ -25,6 +25,20 @@ class ViewReport extends ViewRecord
                 ->color('gray')
                 ->alpineClickHandler(fn (Report $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->content) . ')'),
 
+            Action::make('complete')
+                ->label('Mark as completed')
+                ->icon('heroicon-o-check')
+                ->action(function (Report $record) {
+                    $record->update(['completed_at' => now()]);
+
+                    Notification::make()
+                        ->title('Report marked as completed')
+                        ->success()
+                        ->send();
+
+                    $this->redirect(ReportResource::getUrl('index'));
+                }),
+
             Action::make('Implement')
                 ->schema([
                     Textarea::make('additional_instructions')

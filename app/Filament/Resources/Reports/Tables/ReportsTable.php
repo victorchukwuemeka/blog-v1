@@ -14,6 +14,8 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class ReportsTable
 {
@@ -36,7 +38,20 @@ class ReportsTable
                     ->label('Last Modification Date'),
             ])
             ->filters([
-                //
+                SelectFilter::make('completion_status')
+                    ->label('Status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'completed' => 'Completed',
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        return match ($data['value']) {
+                            'completed' => $query->whereNotNull('completed_at'),
+                            'pending' => $query->whereNull('completed_at'),
+                            default => $query,
+                        };
+                    })
+                    ->default('pending'),
             ])
             ->recordActions([
                 ActionGroup::make([
@@ -57,6 +72,13 @@ class ReportsTable
                                 ->send();
                         })
                         ->icon('heroicon-o-pencil'),
+
+                    Action::make('complete')
+                        ->label('Mark as completed')
+                        ->icon('heroicon-o-check')
+                        ->action(function (Report $record) {
+                            $record->update(['completed_at' => now()]);
+                        }),
 
                     DeleteAction::make(),
                 ]),

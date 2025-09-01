@@ -37,17 +37,17 @@ class RevisionsTable
                 SelectFilter::make('completion_status')
                     ->label('Status')
                     ->options([
-                        'incomplete' => 'Incomplete',
+                        'pending' => 'Pending',
                         'completed' => 'Completed',
                     ])
                     ->query(function (Builder $query, array $data) {
                         return match ($data['value']) {
                             'completed' => $query->whereNotNull('completed_at'),
-                            'incomplete' => $query->whereNull('completed_at'),
+                            'pending' => $query->whereNull('completed_at'),
                             default => $query,
                         };
                     })
-                    ->default('incomplete'),
+                    ->default('pending'),
             ])
             ->recordActions([
                 ActionGroup::make([

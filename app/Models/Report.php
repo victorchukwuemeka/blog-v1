@@ -23,6 +23,13 @@ class Report extends Model
         });
     }
 
+    protected function casts() : array
+    {
+        return [
+            'completed_at' => 'datetime',
+        ];
+    }
+
     public function post() : BelongsTo
     {
         return $this->belongsTo(Post::class);
