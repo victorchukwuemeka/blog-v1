@@ -1,8 +1,8 @@
 <?php
 
-use App\Str;
 use App\Models\Link;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\actingAs;

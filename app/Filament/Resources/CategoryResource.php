@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Str;
 use App\Models\Category;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Filament\Schemas\Schema;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Str;
 use Spatie\Feed\Feedable;
+use App\Markdown\Markdown;
 use App\Models\Traits\PostFeedable;
 use App\Models\Traits\PostSlugable;
 use Database\Factories\PostFactory;
@@ -92,7 +92,7 @@ class Post extends Model implements Feedable
     public function formattedContent() : Attribute
     {
         return Attribute::make(
-            fn () => Str::markdown($this->content),
+            fn () => Markdown::parse($this->content),
         )->shouldCache();
     }
 

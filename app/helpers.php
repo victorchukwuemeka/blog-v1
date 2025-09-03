@@ -1,6 +1,7 @@
 <?php
 
-use App\Str;
+use App\Markdown\Markdown;
+use Illuminate\Support\Str;
 
 if (! function_exists('extract_headings_from_markdown')) {
     /**
@@ -48,7 +49,7 @@ if (! function_exists('extract_headings_from_markdown')) {
             if (preg_match('/^(#+)\s+(.*)$/', $line, $matches)) {
                 $level = strlen($matches[1]);  // The heading level is determined by the number of '#' characters
 
-                $text = trim(strip_tags(Str::markdown($matches[2])));
+                $text = trim(strip_tags(Markdown::parse($matches[2])));
 
                 $node = [
                     'level' => $level,

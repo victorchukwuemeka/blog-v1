@@ -28,7 +28,7 @@
         </p>
 
         <x-prose class="flex-grow mt-4 leading-normal sm:text-balance">
-            {!! Str::markdown($subheadline) !!}
+            {!! Markdown::parse($subheadline) !!}
         </x-prose>
 
         <x-btn

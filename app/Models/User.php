@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Str;
 use Filament\Panel;
+use Illuminate\Support\Str;
 use Database\Factories\UserFactory;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;

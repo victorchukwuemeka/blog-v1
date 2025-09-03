@@ -3,7 +3,7 @@
 >
     <article class="container lg:max-w-(--breakpoint-md)">
         <x-prose>
-            {!! Str::markdown(<<< 'MD'
+            {!! Markdown::parse(<<< 'MD'
             # Advertising guidelines
 
             ## Audience fit

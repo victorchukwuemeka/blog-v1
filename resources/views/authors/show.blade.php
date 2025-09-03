@@ -1,6 +1,6 @@
 @php
 $description = Str::limit(
-    strip_tags(Str::markdown($author->about)),
+    strip_tags(Markdown::parse($author->about)),
     160
 );
 @endphp
@@ -32,7 +32,7 @@ $description = Str::limit(
 
         @if ($author->biography)
             <x-prose class="mt-6 md:mt-8">
-                {!! Str::markdown($author->about) !!}
+                {!! Markdown::parse($author->about) !!}
             </x-prose>
         @endif
     </article>

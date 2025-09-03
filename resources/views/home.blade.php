@@ -97,7 +97,7 @@
                     class="float-right mt-4 ml-4 rounded-full! size-20 sm:size-28 md:size-32"
                 />
 
-                {!! Str::markdown($aboutUser->biography) !!}
+                {!! Markdown::parse($aboutUser->biography) !!}
             </x-prose>
         </x-section>
     @endif

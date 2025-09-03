@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Str;
+use App\Markdown\Lightdown;
 use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -52,7 +52,7 @@ class Comment extends Model
     public function stripped() : Attribute
     {
         return Attribute::make(
-            fn () => strip_tags(Str::lightdown($this->content)),
+            fn () => strip_tags(Lightdown::parse($this->content)),
         )->shouldCache();
     }
 
@@ -60,7 +60,7 @@ class Comment extends Model
     {
         return Attribute::make(
             function () {
-                $stripped = strip_tags(Str::lightdown($this->content));
+                $stripped = strip_tags(Lightdown::parse($this->content));
 
                 return trim(
                     strlen($stripped) > 100

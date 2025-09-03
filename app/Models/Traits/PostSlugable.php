@@ -2,9 +2,9 @@
 
 namespace App\Models\Traits;
 
-use App\Str;
 use App\Models\Post;
 use App\Models\Redirect;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 /**

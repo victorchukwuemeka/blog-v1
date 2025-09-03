@@ -128,7 +128,8 @@ return [
     ],
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Str' => App\Str::class,
+        'Lightdown' => App\Markdown\Lightdown::class,
+        'Markdown' => App\Markdown\Markdown::class,
     ])->toArray(),
 
 ];

@@ -53,7 +53,7 @@ $parentId = $this->parentId ?? $attributes->get('parentId');
 
             <div class="px-4 py-3 mt-2 bg-gray-100 rounded-lg">
                 <x-prose>
-                    {!! Str::lightdown($comment->content) !!}
+                    {!! Lightdown::parse($comment->content) !!}
                 </x-prose>
 
                 @empty($hideReplyButton)

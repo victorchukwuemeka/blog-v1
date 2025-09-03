@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Str;
 use App\Models\Post;
 use App\Jobs\ReviewPost;
 use Filament\Tables\Table;
 use Illuminate\Support\Js;
+use Illuminate\Support\Str;
 use App\Jobs\RecommendPosts;
 use Filament\Actions\Action;
 use Filament\Schemas\Schema;

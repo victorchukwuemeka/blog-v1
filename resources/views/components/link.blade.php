@@ -73,6 +73,6 @@
     </div>
 
     <div class="mt-2">
-        {!! Str::markdown($link->description ?? '') !!}
+        {!! Markdown::parse($link->description ?? '') !!}
     </div>
 </div>
