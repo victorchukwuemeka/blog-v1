@@ -19,11 +19,16 @@ class ViewRevision extends ViewRecord
         return [
             Action::make('copy')
                 ->label('Copy as Markdown')
+                ->tooltip('Copy as Markdown')
+                ->hiddenLabel(true)
+                ->color('gray')
                 ->icon('heroicon-o-clipboard-document')
                 ->alpineClickHandler(fn (Revision $record) => 'window.navigator.clipboard.writeText(' . Js::from($record->data['content']) . ')'),
 
             Action::make('complete')
                 ->label('Mark as completed')
+                ->tooltip('Mark as completed')
+                ->hiddenLabel(true)
                 ->icon('heroicon-o-check')
                 ->action(function (Revision $record) {
                     $record->update(['completed_at' => now()]);

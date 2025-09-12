@@ -16,26 +16,21 @@ class RevisionInfolist
                 Grid::make()
                     ->schema([
                         TextEntry::make('report.post.title')
-                            ->label('Revision for')
-                            ->copyable(),
+                            ->label('Revision for'),
 
                         TextEntry::make('created_at')
                             ->dateTime()
-                            ->label('Creation Date')
-                            ->copyable(),
+                            ->label('Creation Date'),
 
                         TextEntry::make('updated_at')
                             ->dateTime()
-                            ->label('Last Modification Date')
-                            ->copyable(),
+                            ->label('Last Modification Date'),
 
                         TextEntry::make('title')
-                            ->state(fn (Revision $record) => $record->data['title'])
-                            ->copyable(),
+                            ->state(fn (Revision $record) => $record->data['title']),
 
                         TextEntry::make('description')
-                            ->state(fn (Revision $record) => $record->data['description'])
-                            ->copyable(),
+                            ->state(fn (Revision $record) => $record->data['description']),
                     ])
                     ->columnSpanFull(),
 

@@ -215,47 +215,49 @@
                     @endif
                 </x-prose>
 
-                <div class="p-4 mt-8 text-center bg-gray-100 rounded-xl md:p-8 md:text-xl/tight">
-                    <p>Help me reach more people by sharing this article on social media!</p>
+                @if (! $post->isSponsored())
+                    <div class="p-4 mt-8 text-center bg-gray-100 rounded-xl md:p-8 md:text-xl/tight">
+                        <p>Help me reach more people by sharing this article on social media!</p>
 
-                    <ul class="inline-flex gap-2 mt-4 md:gap-3">
-                        <li>
-                            <a
-                                href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('posts.show', $post)) }}"
-                                target="_blank"
-                                data-pirsch-event='Clicked on "Facebook"'
-                                class="grid place-items-center size-12 text-white bg-[#0766FF] rounded-md"
-                            >
-                                <x-iconoir-facebook class="size-6" />
-                                <span class="sr-only">Facebook</span>
-                            </a>
-                        </li>
+                        <ul class="inline-flex gap-2 mt-4 md:gap-3">
+                            <li>
+                                <a
+                                    href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('posts.show', $post)) }}"
+                                    target="_blank"
+                                    data-pirsch-event='Clicked on "Facebook"'
+                                    class="grid place-items-center size-12 text-white bg-[#0766FF] rounded-md"
+                                >
+                                    <x-iconoir-facebook class="size-6" />
+                                    <span class="sr-only">Facebook</span>
+                                </a>
+                            </li>
 
-                        <li>
-                            <a
-                                href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(route('posts.show', $post)) }}&title={{ urlencode($post->title) }}"
-                                target="_blank"
-                                data-pirsch-event='Clicked on "LinkedIn"'
-                                class="grid place-items-center size-12 text-white bg-[#0B66C2] rounded-md"
-                            >
-                                <x-iconoir-linkedin class="size-6" />
-                                <span class="sr-only">Linkedin</span>
-                            </a>
-                        </li>
+                            <li>
+                                <a
+                                    href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(route('posts.show', $post)) }}&title={{ urlencode($post->title) }}"
+                                    target="_blank"
+                                    data-pirsch-event='Clicked on "LinkedIn"'
+                                    class="grid place-items-center size-12 text-white bg-[#0B66C2] rounded-md"
+                                >
+                                    <x-iconoir-linkedin class="size-6" />
+                                    <span class="sr-only">Linkedin</span>
+                                </a>
+                            </li>
 
-                        <li>
-                            <a
-                                href="https://x.com/intent/tweet?url={{ urlencode(route('posts.show', $post)) }}&text={{ urlencode($post->title) }}"
-                                target="_blank"
-                                data-pirsch-event='Clicked on "X"'
-                                class="grid place-items-center text-white bg-gray-900 rounded-md size-12"
-                            >
-                                <x-iconoir-x class="size-6" />
-                                <span class="sr-only">X</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                            <li>
+                                <a
+                                    href="https://x.com/intent/tweet?url={{ urlencode(route('posts.show', $post)) }}&text={{ urlencode($post->title) }}"
+                                    target="_blank"
+                                    data-pirsch-event='Clicked on "X"'
+                                    class="grid place-items-center text-white bg-gray-900 rounded-md size-12"
+                                >
+                                    <x-iconoir-x class="size-6" />
+                                    <span class="sr-only">X</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                @endif
             </article>
 
             @if (! $post->is_commercial)
