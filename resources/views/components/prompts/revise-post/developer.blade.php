@@ -6,3 +6,4 @@ Strict requirements:
 - Do not include any Front Matter (e.g., YAML or TOML) anywhere.
 - Do not include JSON-LD or any other structured data (e.g., <script type="application/ld+json">, or fenced ```json blocks). Remove any such content if present in the source.
 - Use normal sentence case for the title and headings.
+- Write for a 6th grade reading level.
