@@ -16,7 +16,10 @@ class RevisionInfolist
                 Grid::make()
                     ->schema([
                         TextEntry::make('report.post.title')
-                            ->label('Revision for'),
+                            ->label('Revision for')
+                            ->url(
+                                fn (Revision $record) => route('filament.admin.resources.posts.edit', $record->report->post),
+                            ),
 
                         TextEntry::make('created_at')
                             ->dateTime()

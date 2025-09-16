@@ -234,12 +234,12 @@ class PostResource extends Resource
                     ->label('Sessions (7d)'),
 
                 TextColumn::make('published_at')
-                    ->dateTime()
+                    ->date()
                     ->sortable()
                     ->label('Publication Date'),
 
                 TextColumn::make('modified_at')
-                    ->dateTime()
+                    ->date()
                     ->sortable()
                     ->label('Modification Date')
                     ->toggleable(isToggledHiddenByDefault: true),
