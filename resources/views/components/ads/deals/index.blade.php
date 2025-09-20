@@ -3,6 +3,7 @@
     'description',
     'cta',
     'svgLogo',
+    'svgClass',
     'screenshot',
     'descriptionColor',
     'ctaColor',
@@ -21,7 +22,7 @@
     }}
 >
     <div class="flex flex-col flex-1 p-4 md:p-6">
-        <x-dynamic-component :component="$svgLogo" class="self-start h-10" />
+        <x-dynamic-component :component="$svgLogo" class="self-start {{ $svgClass }}" />
 
         <p class="flex-grow mt-4 sm:text-balance {{ $descriptionColor }}">
             {{ $description }}

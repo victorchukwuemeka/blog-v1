@@ -18,6 +18,7 @@
         <div class="flex overflow-x-auto gap-8 px-4 mt-8 md:justify-center snap-mandatory snap-x">
             @php
             $components = collect([
+                'ads.deals.coderabbit',
                 'ads.deals.sevalla',
             ])->shuffle()->toArray();
             @endphp
