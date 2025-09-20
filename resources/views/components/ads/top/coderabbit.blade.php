@@ -26,7 +26,7 @@
 
         <span>
             "What if you cut code review time & bugs in half, instantly?"
-            <span class="font-medium underline">Start&nbsp;free&nbsp;→</span>
+            <span class="font-medium underline">Start&nbsp;free&nbsp;for&nbsp;14&nbsp;days→</span>
         </span>
     </p>
 </a>
