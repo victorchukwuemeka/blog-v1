@@ -23,7 +23,7 @@
         class="mx-auto h-10 rounded-full"
     />
 
-    <p class="-mt-2 leading-tight text-center"><strong class="font-semibold text-rose-900">“Here's an AI-powered workflow your team can actually uses”</strong></p>
+    <p class="-mt-2 leading-tight text-center"><strong class="font-semibold text-rose-900">“Here's an AI-powered workflow your team can actually use”</strong></p>
 
     <p>CodeRabbit helps your team review code faster and more effectively.</p>
 
