@@ -11,6 +11,8 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertSoftDeleted;
 use function Pest\Laravel\assertDatabaseCount;
 
+use OpenAI\Responses\Responses\CreateResponse;
+
 it('creates a post for a pending link and soft-deletes previous post', function () {
     $oldPost = Post::factory()->create();
     $link = Link::factory()->withPost()->create(['post_id' => $oldPost->id]);
@@ -21,25 +23,44 @@ it('creates a post for a pending link and soft-deletes previous post', function 
         'description' => 'Sample description',
     ]);
 
-    OpenAI::swap(new class($payload)
-    {
-        public function __construct(private string $outputText) {}
-
-        public function responses()
-        {
-            $out = $this->outputText;
-
-            return new class($out)
-            {
-                public function __construct(private string $outputText) {}
-
-                public function create(array $args)
-                {
-                    return (object) ['outputText' => $this->outputText];
-                }
-            };
-        }
-    });
+    OpenAI::fake([
+        CreateResponse::fake([
+            'text' => [
+                'format' => [
+                    'type' => 'json_schema',
+                    'name' => 'blog_post',
+                    'strict' => true,
+                    'schema' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'title' => ['type' => 'string'],
+                            'content' => ['type' => 'string'],
+                            'description' => ['type' => 'string'],
+                        ],
+                        'required' => ['title', 'content', 'description'],
+                        'additionalProperties' => false,
+                    ],
+                ],
+            ],
+            'output' => [
+                [
+                    'type' => 'message',
+                    'status' => 'completed',
+                    'role' => 'assistant',
+                    'content' => [[
+                        'type' => 'output_text',
+                        'text' => $payload,
+                        'annotations' => [],
+                    ]],
+                ],
+                [
+                    'type' => 'web_search_call',
+                    'id' => 'ws_dummy',
+                    'status' => 'completed',
+                ],
+            ],
+        ]),
+    ]);
     Bus::fake();
 
     $post = app(CreatePostForLink::class)->create($link);
@@ -69,25 +90,44 @@ it('creates a post for an approved link and uses approval date as published_at',
         'description' => 'Approved description',
     ]);
 
-    OpenAI::swap(new class($payload)
-    {
-        public function __construct(private string $outputText) {}
-
-        public function responses()
-        {
-            $out = $this->outputText;
-
-            return new class($out)
-            {
-                public function __construct(private string $outputText) {}
-
-                public function create(array $args)
-                {
-                    return (object) ['outputText' => $this->outputText];
-                }
-            };
-        }
-    });
+    OpenAI::fake([
+        CreateResponse::fake([
+            'text' => [
+                'format' => [
+                    'type' => 'json_schema',
+                    'name' => 'blog_post',
+                    'strict' => true,
+                    'schema' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'title' => ['type' => 'string'],
+                            'content' => ['type' => 'string'],
+                            'description' => ['type' => 'string'],
+                        ],
+                        'required' => ['title', 'content', 'description'],
+                        'additionalProperties' => false,
+                    ],
+                ],
+            ],
+            'output' => [
+                [
+                    'type' => 'message',
+                    'status' => 'completed',
+                    'role' => 'assistant',
+                    'content' => [[
+                        'type' => 'output_text',
+                        'text' => $payload,
+                        'annotations' => [],
+                    ]],
+                ],
+                [
+                    'type' => 'web_search_call',
+                    'id' => 'ws_dummy',
+                    'status' => 'completed',
+                ],
+            ],
+        ]),
+    ]);
     Bus::fake();
 
     $post = app(CreatePostForLink::class)->create($link);
@@ -102,31 +142,43 @@ it('rolls back and throws on invalid model output', function () {
 
     $payload = 'not-json';
 
-    OpenAI::swap(new class($payload)
-    {
-        public function __construct(private string $outputText) {}
-
-        public function responses()
-        {
-            $out = $this->outputText;
-
-            return new class($out)
-            {
-                public function __construct(private string $outputText) {}
-
-                public function create(array $args)
-                {
-                    return (object) ['outputText' => $this->outputText];
-                }
-            };
-        }
-    });
+    OpenAI::fake([
+        CreateResponse::fake([
+            'text' => [
+                'format' => [
+                    'type' => 'json_schema',
+                    'name' => 'blog_post',
+                    'strict' => true,
+                    'schema' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'title' => ['type' => 'string'],
+                            'content' => ['type' => 'string'],
+                            'description' => ['type' => 'string'],
+                        ],
+                        'required' => ['title', 'content', 'description'],
+                        'additionalProperties' => false,
+                    ],
+                ],
+            ],
+            'output' => [[
+                'type' => 'message',
+                'status' => 'completed',
+                'role' => 'assistant',
+                'content' => [[
+                    'type' => 'output_text',
+                    'text' => $payload,
+                    'annotations' => [],
+                ]],
+            ]],
+        ]),
+    ]);
     Bus::fake();
 
     expect(fn () => app(CreatePostForLink::class)->create($link))
         ->toThrow(RuntimeException::class);
 
-    // No new posts created and link unchanged
+    // No new posts created and link unchanged.
     assertDatabaseCount('posts', 1);
     assertDatabaseHas('links', [
         'id' => $link->id,
