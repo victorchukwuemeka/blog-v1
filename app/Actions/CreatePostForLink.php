@@ -19,28 +19,32 @@ class CreatePostForLink
             $response->body()
         );
 
-        $response = OpenAI::chat()->create([
-            'model' => 'gpt-4.1',
-            'messages' => [
+        $response = OpenAI::responses()->create([
+            'model' => 'gpt-5',
+            'input' => [
                 [
-                    'role' => 'system',
-                    'content' => view('components.prompts.create-post-for-link.developer')->render(),
+                    'role' => 'developer',
+                    'content' => [[
+                        'type' => 'input_text',
+                        'text' => view('components.prompts.create-post-for-link.developer')->render(),
+                    ]],
                 ],
                 [
                     'role' => 'user',
-                    'content' => view('components.prompts.create-post-for-link.user', [
-                        'url' => $link->url,
-                        'author' => app(Readability::class)->getAuthor(),
-                        'title' => app(Readability::class)->getTitle(),
-                        'content' => app(Readability::class)->getContent(),
-                        'notes' => $link->notes,
-                    ])->render(),
+                    'content' => [[
+                        'type' => 'input_text',
+                        'text' => view('components.prompts.create-post-for-link.user', [
+                            'url' => $link->url,
+                            'notes' => $link->notes,
+                        ])->render(),
+                    ]],
                 ],
             ],
-            'response_format' => [
-                'type' => 'json_schema',
-                'json_schema' => [
-                    'name' => 'post',
+            'text' => [
+                'format' => [
+                    'type' => 'json_schema',
+                    'name' => 'blog_post',
+                    'strict' => true,
                     'schema' => [
                         'type' => 'object',
                         'properties' => [
@@ -64,12 +68,25 @@ class CreatePostForLink
                         ],
                         'additionalProperties' => false,
                     ],
-                    'strict' => true,
                 ],
+                'verbosity' => 'low',
             ],
+            'reasoning' => [
+                'effort' => 'low',
+                'summary' => 'auto',
+            ],
+            'tools' => [[
+                'type' => 'web_search_preview',
+                'search_context_size' => 'low',
+                'user_location' => [
+                    'type' => 'approximate',
+                    'country' => 'US',
+                ],
+            ]],
+            'store' => true,
         ]);
 
-        $json = json_decode($response->choices[0]->message->content);
+        $json = json_decode($response->outputText);
 
         $post = Post::query()->create([
             'user_id' => 1,

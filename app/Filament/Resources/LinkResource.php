@@ -177,41 +177,36 @@ class LinkResource extends Resource
                                 ->helperText('These notes will help when generating the small companion article designed to entice readers to click.'),
                         ])
                         ->modalHeading('Approve Link')
-                        ->modalFooterActions([
-                            Action::make('regenerate')
-                                ->action(function (Link $record, array $data) {
-                                    $record->approve();
+                        ->action(function (array $data, Link $record) {
+                            $record->approve($data['notes']);
 
-                                    Notification::make()
-                                        ->title('The link has been approved.')
-                                        ->success()
-                                        ->send();
-                                })
-                                ->color('gray')
-                                ->label('Approve without post'),
+                            if ($record->post_id) {
+                                Notification::make()
+                                    ->title('The link has been approved.')
+                                    ->success()
+                                    ->send();
+                            } else {
+                                CreatePostForLink::dispatch($record);
 
-                            Action::make('approve')
-                                ->action(function (Link $record, array $data) {
-                                    $record->approve($data['notes']);
+                                Notification::make()
+                                    ->title('The link has been approved and a post is being created.')
+                                    ->success()
+                                    ->send();
+                            }
+                        })
+                        ->modalSubmitActionLabel('Approve and generate post')
+                        ->modalCancelActionLabel('Approve without post')
+                        ->modalCancelAction(function (Action $action) {
+                            $action->action(function (Link $record) {
+                                $record->approve();
 
-                                    if ($record->post_id) {
-                                        Notification::make()
-                                            ->title('The link has been approved.')
-                                            ->success()
-                                            ->send();
-                                    } else {
-                                        CreatePostForLink::dispatch($record);
-
-                                        Notification::make()
-                                            ->title('The link has been approved and a post is being created.')
-                                            ->success()
-                                            ->send();
-                                    }
-                                })
-                                ->label('Approve and generate post'),
-                        ])
+                                Notification::make()
+                                    ->title('The link has been approved.')
+                                    ->success()
+                                    ->send();
+                            });
+                        })
                         ->hidden(fn (Link $record) => $record->isApproved())
-                        ->color('success')
                         ->icon('heroicon-o-check')
                         ->label('Approve'),
 
