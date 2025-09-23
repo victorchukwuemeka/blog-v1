@@ -171,12 +171,7 @@
                     </x-dropdown>
                 </div>
 
-                @if (! empty($headings = extract_headings_from_markdown($post->content)))
-                    <x-table-of-contents
-                        :$headings
-                        class="mt-4 ml-0"
-                    />
-                @endif
+                {{ $post->toTableOfContents() }}
 
                 <x-prose class="mt-8">
                     {!! $post->formatted_content !!}

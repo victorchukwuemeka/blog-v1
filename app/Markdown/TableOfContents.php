@@ -1,9 +1,15 @@
 <?php
 
-use App\Markdown\Markdown;
+namespace App\Markdown;
+
 use Illuminate\Support\Str;
 
-if (! function_exists('extract_headings_from_markdown')) {
+class TableOfContents
+{
+    public function __construct(
+        public string $markdown,
+    ) {}
+
     /**
      * This handy helper was written by ChatGPT and helps
      * me display the table of contents in articles.
@@ -20,10 +26,10 @@ if (! function_exists('extract_headings_from_markdown')) {
      *     }>
      * }>
      */
-    function extract_headings_from_markdown(string $markdown) : array
+    public function toArray() : array
     {
         // Split the markdown into lines (supports various newline types).
-        $lines = preg_split('/\R/', $markdown);
+        $lines = preg_split('/\R/', $this->markdown);
 
         $headings = [];
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Markdown\TableOfContents;
+
 it('extracts headings from markdown', function () {
     $markdown = <<<'MARKDOWN'
 # Foo
@@ -12,7 +14,7 @@ it('extracts headings from markdown', function () {
 #### Amet
 MARKDOWN;
 
-    $headings = extract_headings_from_markdown($markdown);
+    $headings = (new TableOfContents($markdown))->toArray();
 
     expect($headings[0]['level'])->toBe(1);
     expect($headings[0]['text'])->toBe('Foo');
@@ -52,7 +54,7 @@ it('extracts headings from titles with links inside', function () {
 # [*Foo*](https://example.com)
 MARKDOWN;
 
-    $headings = extract_headings_from_markdown($markdown);
+    $headings = (new TableOfContents($markdown))->toArray();
 
     expect($headings[0]['text'])->toBe('Foo');
 });
@@ -67,7 +69,7 @@ echo "Foo"
 # Real heading
 MD;
 
-    $headings = extract_headings_from_markdown($markdown);
+    $headings = (new TableOfContents($markdown))->toArray();
 
     expect($headings)->toHaveCount(1)
         ->and($headings[0]['text'])->toBe('Real heading');
