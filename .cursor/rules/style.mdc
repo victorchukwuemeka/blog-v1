@@ -1,0 +1,10 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+- Take inspiration from the codebase.
+- Don't create a variable if it's used only once.
+- When you write tests, run and fix them until they pass. (Use the --parallel option to speed up the process.)
+- Run `php vendor/bin/pint --parallel` to format the code whenever you make a change.
