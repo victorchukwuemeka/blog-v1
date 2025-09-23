@@ -6,19 +6,11 @@ use App\Models\Link;
 use App\Models\Post;
 use App\Jobs\RecommendPosts;
 use OpenAI\Laravel\Facades\OpenAI;
-use Illuminate\Support\Facades\Http;
-use fivefilters\Readability\Readability;
 
 class CreatePostForLink
 {
     public function create(Link $link) : Post
     {
-        $response = Http::get($link->url)->throw();
-
-        app(Readability::class)->parse(
-            $response->body()
-        );
-
         $response = OpenAI::responses()->create([
             'model' => 'gpt-5',
             'input' => [
