@@ -218,7 +218,9 @@ class LinkResource extends Resource
 
                     Action::make('generate_post')
                         ->action(function (Link $record, array $data) {
-                            $record->approve($data['notes']);
+                            $record->update([
+                                'notes' => $data['notes'],
+                            ]);
 
                             CreatePostForLink::dispatch($record);
 
