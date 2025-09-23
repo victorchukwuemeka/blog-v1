@@ -4,7 +4,9 @@ namespace App\Actions;
 
 use App\Models\Link;
 use App\Models\Post;
+use RuntimeException;
 use App\Jobs\RecommendPosts;
+use Illuminate\Support\Facades\DB;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class CreatePostForLink
@@ -78,22 +80,34 @@ class CreatePostForLink
             'store' => true,
         ]);
 
-        $json = json_decode($response->outputText);
+        $json = json_decode($response->outputText ?? '', false);
 
-        $post = Post::query()->create([
-            'user_id' => 1,
-            'title' => $json->title,
-            'content' => $json->content,
-            'description' => $json->description,
-            'published_at' => $link->is_approved ?? now(),
-        ]);
+        if (! is_object($json) || ! isset($json->title, $json->content, $json->description)) {
+            throw new RuntimeException('Invalid model output.');
+        }
 
-        $link->update([
-            'post_id' => $post->id,
-        ]);
+        return DB::transaction(function () use ($link, $json) {
+            $post = Post::query()->create([
+                'user_id' => $link->user_id,
+                'title' => (string) $json->title,
+                'content' => (string) $json->content,
+                'description' => (string) $json->description,
+                'published_at' => $link->is_approved,
+            ]);
 
-        RecommendPosts::dispatch($post);
+            // Let's avoid orphans. If a new post is generated,
+            // the old one does not need to exist anymore.
+            if ($link->post) {
+                $link->post->delete();
+            }
 
-        return $post;
+            $link->update([
+                'post_id' => $post->id,
+            ]);
+
+            RecommendPosts::dispatch($post)->afterCommit();
+
+            return $post;
+        });
     }
 }
