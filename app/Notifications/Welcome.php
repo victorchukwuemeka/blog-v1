@@ -38,7 +38,7 @@ class Welcome extends Notification implements ShouldQueue
             ));
 
         return $mailMessage
-            ->line('I also have a selection of [great software deals](' . route('deals') . ') for developers:')
+            ->line('I also have a selection of [great tools](' . route('tools.index') . ') for developers:')
             ->line('- [Unlock the power of Git on Mac and Windows](' . route('merchants.show', 'tower') . ')')
             ->line('- [Know who visits your site](' . route('merchants.show', 'fathom-analytics') . ')')
             ->line('- [Easily deploy PHP web apps](' . route('merchants.show', 'cloudways-php') . ')')

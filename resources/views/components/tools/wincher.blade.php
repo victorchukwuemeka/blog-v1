@@ -1,4 +1,4 @@
-<x-deals.item
+<x-tools.item
     name="Wincher"
     headline="Rank higher on Google"
     subheadline="Use Wincher to track and grow your business’s search visibility. **Use WELCOME30 for 30% off your first invoice.**"

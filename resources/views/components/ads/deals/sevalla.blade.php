@@ -5,7 +5,7 @@
             ->merge([
                 'href' => route('redirect-to-advertiser', [
                     'slug' => 'sevalla',
-                    'utm_source' => 'deals',
+                    'utm_source' => 'tools',
                 ]),
                 'name' => 'Sevalla',
                 'svgLogo' => 'icon-sevalla',

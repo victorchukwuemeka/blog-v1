@@ -3,5 +3,5 @@
 use function Pest\Laravel\get;
 
 it('renders', function () {
-    get(route('deals'))->assertOk();
+    get(route('tools.index'))->assertOk();
 });

@@ -1,4 +1,4 @@
-<x-deals.item
+<x-tools.item
     name="Uptimia"
     headline="Get alerts when your site is down"
     subheadline="Uptimia monitors your site’s uptime, speed, and SSL from 170+ global checkpoints."

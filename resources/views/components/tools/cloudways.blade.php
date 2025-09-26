@@ -1,4 +1,4 @@
-<x-deals.item
+<x-tools.item
     name="Cloudways"
     headline="Easily deploy PHP web apps"
     cta="Start free"
@@ -9,4 +9,4 @@
     <x-slot:subheadline>
 PHP 8, scalability, Cloudflare, caching, 24/7 support, and more with Cloudways.
     </x-slot:subheadline>
-</x-deals.item>
+</x-tools.item>

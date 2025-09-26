@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             CommentSeeder::class,
             ReportSeeder::class,
             LinkSeeder::class,
+            CompanySeeder::class,
+            ListingSeeder::class,
             ShortUrlSeeder::class,
         ]);
     }

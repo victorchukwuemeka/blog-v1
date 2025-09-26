@@ -1,4 +1,4 @@
-<x-deals.item
+<x-tools.item
     name="Mailcoach"
     headline="Send emails to your users"
     subheadline="Self-hosted email marketing built for Laravel developers, by Laravel developers."

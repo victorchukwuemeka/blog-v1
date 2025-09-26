@@ -5,7 +5,7 @@
             ->merge([
                 'href' => route('redirect-to-advertiser', [
                     'slug' => 'coderabbit',
-                    'utm_source' => 'deals',
+                    'utm_source' => 'tools',
                 ]),
                 'name' => 'coderabbit',
                 'svgLogo' => 'icon-coderabbit',

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Listing;
 use App\Models\Category;
 use Spatie\Sitemap\Sitemap;
 use Illuminate\Console\Command;
@@ -37,6 +38,12 @@ class GenerateSitemapCommand extends Command
         Category::query()
             ->cursor()
             ->each(fn (Category $category) => $sitemap->add(route('categories.show', $category)));
+
+        $sitemap->add(route('links.index'));
+
+        Listing::query()
+            ->cursor()
+            ->each(fn (Listing $listing) => $sitemap->add(route('listings.show', $listing)));
 
         $sitemap->add(route('links.index'));
 

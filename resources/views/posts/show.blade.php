@@ -276,16 +276,16 @@
 
                 <section class="mt-24">
                     <x-heading>
-                        Great deals for developers
+                        Great tools for developers
                     </x-heading>
 
                     <div class="grid gap-4 mt-8">
-                        <x-deals.tower />
-                        <x-deals.fathom-analytics />
-                        <x-deals.cloudways />
-                        <x-deals.mailcoach />
-                        <x-deals.wincher />
-                        <x-deals.uptimia />
+                        <x-tools.tower />
+                        <x-tools.fathom-analytics />
+                        <x-tools.cloudways />
+                        <x-tools.mailcoach />
+                        <x-tools.wincher />
+                        <x-tools.uptimia />
                     </div>
                 </section>
             @endif
@@ -300,12 +300,12 @@
                 @endif
 
                 <a
-                    href="{{ route('deals') }}"
+                    href="{{ route('tools.index') }}"
                     class="hidden lg:block"
-                    data-pirsch-event="Clicked on deals in sidebar"
+                    data-pirsch-event="Clicked on tools in sidebar"
                 >
                     <p class="p-4 mt-4 leading-tight rounded-xl text-balance bg-gray-100/75">
-                        <strong class="font-medium">I have even more deals for developers.</strong> Services, apps, and all kinds of tools at a discount. <span class="font-medium underline">Check available deals →</span>
+                        <strong class="font-medium">I have even more tools for developers.</strong> Services, apps, and all kinds of tools at a discount. <span class="font-medium underline">Check available tools →</span>
                     </p>
                 </a>
 

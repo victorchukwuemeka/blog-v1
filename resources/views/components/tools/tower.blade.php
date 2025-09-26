@@ -1,4 +1,4 @@
-<x-deals.item
+<x-tools.item
     name="Tower"
     headline="Unlock the power of Git"
     subheadline="Tower is an easy-to-use and powerful Git client for Mac and Windows."

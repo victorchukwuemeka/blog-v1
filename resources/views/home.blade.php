@@ -44,16 +44,16 @@
     @endif
 
     <x-section
-        title="Great deals for developers"
+        title="Great tools for developers"
         class="mt-24 md:mt-32"
     >
         <div class="grid gap-8 mt-8 lg:grid-cols-2">
-            <x-deals.tower />
-            <x-deals.fathom-analytics />
-            <x-deals.cloudways />
-            <x-deals.mailcoach />
-            <x-deals.wincher />
-            <x-deals.uptimia />
+            <x-tools.tower />
+            <x-tools.fathom-analytics />
+            <x-tools.cloudways />
+            <x-tools.mailcoach />
+            <x-tools.wincher />
+            <x-tools.uptimia />
         </div>
     </x-section>
 

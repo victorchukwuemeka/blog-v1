@@ -1,4 +1,4 @@
-<x-deals.item
+<x-tools.item
     name="Fathom Analytics"
     headline="Know who visits your site"
     subheadline="Fathom Analytics is a simple, privacy-focused web analytics. No cookies, ads, or tracking."

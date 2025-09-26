@@ -1,16 +1,16 @@
 <x-app
     :hide-ad="true"
-    title="Unlock the best software deals for developers"
-    description="Browse the great deals I gathered from across the web. Services, apps, and all kinds of tools to help you do your job more efficiently."
+    title="Unlock the best tools for developers"
+    description="Browse the great tools I gathered from across the web. Services and apps of all kinds to help you do your job more efficiently."
 >
     <h1 class="px-4 font-medium tracking-tight text-center text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
-        Unlock the best software deals<br class="hidden md:inline" />
+        Discover the best tools<br class="hidden md:inline" />
         for developers
     </h1>
 
     <section class="mt-16 md:mt-24">
         <x-heading>
-            Featured deals
+            Featured tools
         </x-heading>
 
         <p class="px-4 mt-2 leading-tight text-center">These companies are sponsoring my blog.<br class="hidden md:inline" /> Big thanks to them and make sure to check them out!</p>
@@ -29,20 +29,20 @@
         </div>
     </section>
 
-    <x-section title="Latest deals" class="mt-16 md:mt-24">
+    <x-section title="Latest tools" class="mt-16 md:mt-24">
         <p class="px-4 -mt-6 leading-tight text-center">
-            Browse the great deals I gathered from across the web.<br class="hidden md:inline" />
-            Services, apps, and all kinds of tools to help you do your job more efficiently.
+            Browse the great tools I gathered from across the web.<br class="hidden md:inline" />
+            Services and apps of all kinds to help you do your job more efficiently.
         </p>
 
         <div class="grid gap-8 mt-8 md:grid-cols-2">
-            <x-deals.tower />
-            <x-deals.fathom-analytics />
-            <x-deals.cloudways />
-            <x-deals.mailcoach />
-            <x-deals.wincher />
-            <x-deals.uptimia />
-            <x-deals.digitalocean />
+            <x-tools.tower />
+            <x-tools.fathom-analytics />
+            <x-tools.cloudways />
+            <x-tools.mailcoach />
+            <x-tools.wincher />
+            <x-tools.uptimia />
+            <x-tools.digitalocean />
         </div>
     </x-section>
 </x-app>

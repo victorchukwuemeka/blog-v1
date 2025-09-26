@@ -1,4 +1,4 @@
-<x-deals.item
+<x-tools.item
     name="DigitalOcean"
     headline="Host your web apps on a VPS"
     subheadline="DigitalOcean provides affordable, scalable, and reliable VPS hosting."
