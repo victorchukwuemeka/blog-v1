@@ -23,8 +23,12 @@ class Listing extends Model
     {
         return [
             'technologies' => 'array',
+            'locations' => 'array',
             'how_to_apply' => 'array',
-            'published_at' => 'date',
+            'perks' => 'array',
+            'interview_process' => 'array',
+            'equity' => 'boolean',
+            'published_on' => 'date',
         ];
     }
 

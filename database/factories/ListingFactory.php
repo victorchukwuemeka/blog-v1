@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Company;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,16 +23,21 @@ class ListingFactory extends Factory
             'source' => fake()->word(),
             'language' => fake()->languageCode(),
             'title' => fake()->sentence(),
-            'content' => fake()->paragraphs(random_int(3, 10), true),
             'description' => fake()->paragraph(),
             'technologies' => fake()->words(random_int(3, 10)),
-            'location' => fake()->city() . ', ' . fake()->country(),
-            'setting' => collect(['remote', 'hybrid', 'on-site'])->random(),
+            'locations' => Collection::times(
+                random_int(1, 2),
+                fn () => fake()->city() . ', ' . fake()->country(),
+            ),
+            'setting' => collect(['fully-remote', 'hybrid', 'on-site'])->random(),
             'min_salary' => $minSalary = fake()->numberBetween(10000, 100000),
             'max_salary' => fake()->numberBetween($minSalary, $minSalary * random_int(2, 4)),
             'currency' => fake()->currencyCode(),
+            'equity' => fake()->boolean(),
             'how_to_apply' => fake()->sentences(random_int(2, 5)),
-            'published_at' => fake()->dateTimeBetween('-1 month', 'now'),
+            'perks' => fake()->optional()->sentences(random_int(0, 4)) ?? [],
+            'interview_process' => fake()->optional()->sentences(random_int(0, 4)) ?? [],
+            'published_on' => fake()->dateTimeBetween('-1 month', 'now'),
         ];
     }
 }

@@ -16,16 +16,18 @@ return new class extends Migration
             $table->string('language');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('content');
             $table->text('description');
             $table->json('technologies');
-            $table->string('location')->nullable();
+            $table->json('locations');
             $table->string('setting');
             $table->unsignedBigInteger('min_salary')->nullable();
             $table->unsignedBigInteger('max_salary')->nullable();
             $table->string('currency')->nullable();
+            $table->boolean('equity')->default(false);
             $table->json('how_to_apply');
-            $table->timestamp('published_at');
+            $table->json('perks');
+            $table->json('interview_process');
+            $table->timestamp('published_on');
             $table->timestamps();
         });
     }

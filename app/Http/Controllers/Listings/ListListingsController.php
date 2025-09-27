@@ -12,7 +12,7 @@ class ListListingsController extends Controller
     {
         return view('listings.index', [
             'listings' => Listing::query()
-                ->latest('published_at')
+                ->latest('published_on')
                 ->paginate(12),
         ]);
     }

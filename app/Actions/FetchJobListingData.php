@@ -2,14 +2,20 @@
 
 namespace App\Actions;
 
+use Exception;
 use App\Models\Company;
 use App\Models\Listing;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Http;
 
 class FetchJobListingData
 {
     public function fetch(string $url) : Listing
     {
+        if (Http::head($url)->failed()) {
+            throw new Exception('The job listing could not be fetched properly.');
+        }
+
         $response = OpenAI::responses()->create([
             'model' => 'gpt-5',
             'input' => [
@@ -49,17 +55,12 @@ class FetchJobListingData
                             ],
                             'title' => [
                                 'type' => 'string',
-                                'description' => 'A title in the original language of the listing.',
-                                'minLength' => 1,
-                            ],
-                            'content' => [
-                                'type' => 'string',
-                                'description' => 'Strict description of the job responsibilities and core requirements in the original language of the listing. Must not omit the most important details. Use a 6th grade reading level.',
+                                'description' => 'A title in the original language of the listing. <title> at <company> in <locations (if provided)>.',
                                 'minLength' => 1,
                             ],
                             'description' => [
                                 'type' => 'string',
-                                'description' => 'A short description of the job responsibilities and core requirements in the original language of the listing. Use a 6th grade reading level.',
+                                'description' => 'An extensive description of the job in the original language of the listing and without omitting the most important details. Use a 6th grade reading level.',
                                 'minLength' => 1,
                             ],
                             'technologies' => [
@@ -78,27 +79,27 @@ class FetchJobListingData
                                     'minLength' => 1,
                                 ],
                             ],
-                            'location' => [
-                                'anyOf' => [
-                                    [
-                                        'type' => 'string',
-                                        'description' => 'City and/or country for the job.',
-                                        'minLength' => 1,
-                                    ],
-                                    [
-                                        'type' => 'null',
-                                        'description' => 'Null if location is not provided.',
-                                    ],
+                            'locations' => [
+                                'type' => 'array',
+                                'description' => 'Array of locations (city and/or country). Can be empty if none are provided.',
+                                'items' => [
+                                    'type' => 'string',
+                                    'minLength' => 1,
                                 ],
+                                'minItems' => 0,
                             ],
                             'setting' => [
                                 'type' => 'string',
-                                'description' => 'Work setting: remote, hybrid, or on-site.',
+                                'description' => 'Work setting: fully-remote, hybrid, or on-site.',
                                 'enum' => [
-                                    'remote',
+                                    'fully-remote',
                                     'hybrid',
                                     'on-site',
                                 ],
+                            ],
+                            'equity' => [
+                                'type' => 'boolean',
+                                'description' => 'Whether equity is offered for the role (true or false).',
                             ],
                             'min_salary' => [
                                 'anyOf' => [
@@ -141,8 +142,26 @@ class FetchJobListingData
                             ],
                             'published_on' => [
                                 'type' => 'string',
-                                'description' => 'Date the job was published, as an ISO 8601 calendar date (YYYY-MM-DD).',
+                                'description' => 'Date the job was published, as an ISO 8601 calendar date (YYYY-MM-DD). Use the JSON schema, meta tags, or any clues on the page to figure it out.',
                                 'pattern' => '^\d{4}-\d{2}-\d{2}$',
+                            ],
+                            'perks' => [
+                                'type' => 'array',
+                                'description' => 'Array of perks and benefits mentioned. Can be empty.',
+                                'items' => [
+                                    'type' => 'string',
+                                    'minLength' => 1,
+                                ],
+                                'minItems' => 0,
+                            ],
+                            'interview_process' => [
+                                'type' => 'array',
+                                'description' => 'Array describing the interview process steps. Can be empty.',
+                                'items' => [
+                                    'type' => 'string',
+                                    'minLength' => 1,
+                                ],
+                                'minItems' => 0,
                             ],
                             'company' => [
                                 '$ref' => '#/$defs/company',
@@ -157,16 +176,18 @@ class FetchJobListingData
                             'url',
                             'language',
                             'title',
-                            'content',
                             'description',
                             'technologies',
                             'how_to_apply',
-                            'location',
+                            'locations',
                             'setting',
+                            'equity',
                             'min_salary',
                             'max_salary',
                             'currency',
                             'published_on',
+                            'perks',
+                            'interview_process',
                             'company',
                             'source',
                         ],
@@ -247,7 +268,7 @@ class FetchJobListingData
 
         $json = json_decode($response->outputText ?? '', false);
 
-        $company = Company::query()->firstOrCreate([
+        $company = Company::query()->updateOrCreate([
             'name' => $json->company->name,
         ], [
             'url' => $json->company->url,
@@ -255,23 +276,25 @@ class FetchJobListingData
             'about' => $json->company->about,
         ]);
 
-        return Listing::query()->firstOrCreate([
+        return Listing::query()->updateOrCreate([
             'url' => $json->url,
         ], [
             'company_id' => $company->id,
             'source' => $json->source,
             'language' => $json->language,
             'title' => $json->title,
-            'content' => $json->content,
             'description' => $json->description,
             'technologies' => $json->technologies,
-            'location' => $json->location,
+            'perks' => $json->perks ?? [],
+            'locations' => $json->locations,
             'setting' => $json->setting,
             'min_salary' => $json->min_salary ?? 0,
             'max_salary' => $json->max_salary ?? 0,
             'currency' => $json->currency,
+            'equity' => (bool) ($json->equity ?? false),
+            'interview_process' => $json->interview_process ?? [],
             'how_to_apply' => $json->how_to_apply,
-            'published_at' => $json->published_on,
+            'published_on' => $json->published_on,
         ]);
     }
 }

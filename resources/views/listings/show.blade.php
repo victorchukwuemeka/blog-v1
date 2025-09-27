@@ -2,43 +2,92 @@
     title="$listing->title"
     description="$listing->description"
 >
-    <div class="container 2xl:max-w-(--breakpoint-xl) grid lg:grid-cols-12 gap-16 lg:gap-12">
-        <div class="lg:col-span-8 xl:col-span-9">
-            <article>
-                <h1 class="font-medium tracking-tight text-black text-balance text-3xl/none sm:text-4xl/none lg:text-5xl/none">
-                    {{ $listing->title }}
-                </h1>
+    <article class="container lg:max-w-(--breakpoint-md)">
+        <h1 class="font-medium tracking-tight text-black text-balance text-3xl/none sm:text-4xl/none lg:text-5xl/none">
+            {{ $listing->title }}
+        </h1>
 
-                <x-listings.details :$listing class="grid mt-8 lg:hidden sm:grid-cols-2" />
+        <x-prose class="mt-8">
+            <h2>About the job</h2>
 
-                <x-prose class="mt-8">
-                    <h2>About the job</h2>
+            <table>
+                <tr>
+                    <th>Company</th>
+                    <td>{{ $listing->company->name }}</td>
+                </tr>
 
-                    {!! Str::markdown($listing->content) !!}
+                <tr>
+                    <th>Salary</th>
+                    <td>{{ Number::currency($listing->min_salary, $listing->currency ?? 'USD') }}—{{ Number::currency($listing->max_salary, $listing->currency ?? 'USD') }}</td>
+                </tr>
 
-                    <h2>About {{ $listing->company->name }}</h2>
+                <tr>
+                    <th>Locations</th>
+                    <td>{{ collect($listing->locations)->join(', ') }}</td>
+                </tr>
 
-                    {!! Str::markdown($listing->company->about) !!}
-                </x-prose>
-            </article>
-        </div>
+                <tr>
+                    <th>Setting</th>
+                    <td>{{ ucfirst($listing->setting) }}</td>
+                </tr>
 
-        <div class="hidden lg:block lg:col-span-4 xl:col-span-3">
-            <x-heading class="text-left">Details</x-heading>
+                <tr>
+                    <th>Published on</th>
+                    <td>{{ $listing->published_on->diffForHumans() }}</td>
+                </tr>
+            </table>
 
-            <x-listings.details :$listing class="mt-4" />
+            {!! Str::markdown($listing->description) !!}
 
-            <x-heading class="mt-8 text-left">How to apply</x-heading>
+            <h2>Technologies</h2>
 
-            <ul class="grid gap-2 mt-4 ml-3 list-disc list-inside">
+            <ul>
+                @foreach ($listing->technologies as $technology)
+                    <li>
+                        {{ $technology }}
+                    </li>
+                @endforeach
+            </ul>
+
+            <h2>About {{ $listing->company->name }}</h2>
+
+            {!! Str::markdown($listing->company->about) !!}
+
+            <h2>How to apply</h2>
+
+            <ul>
                 @foreach ($listing->how_to_apply as $step)
                     <li>{{ $step }}</li>
                 @endforeach
             </ul>
 
-            <x-btn primary class="mt-6 w-full">
-                Apply now
-            </x-btn>
-        </div>
-    </div>
+            @if (!empty($listing->perks))
+                <h2>Perks and benefits</h2>
+
+                <ul>
+                    @foreach ($listing->perks as $perk)
+                        <li>{{ $perk }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+            @if (!empty($listing->interview_process))
+                <h2>Interview process</h2>
+
+                <ul>
+                    @foreach ($listing->interview_process as $step)
+                        <li>{{ $step }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+            <p class="mt-8"><strong>Equity:</strong> {{ $listing->equity ? 'Yes' : 'No' }}</p>
+
+            <div class="text-center not-prose">
+                <x-btn primary href="{{ $listing->url }}" target="_blank">
+                    Apply now
+                </x-btn>
+            </div>
+        </x-prose>
+    </article>
 </x-app>
