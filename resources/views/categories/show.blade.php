@@ -10,7 +10,7 @@
     >
         @if ($category->content)
             <x-prose class="mx-auto max-w-(--breakpoint-md)!">
-                {!! $category->content !!}
+                {!! Markdown::parse($category->content) !!}
             </x-prose>
         @endif
 
