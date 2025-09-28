@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Posts\Filters;
+namespace App\Filament\Resources\Posts;
 
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;

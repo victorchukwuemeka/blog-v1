@@ -29,7 +29,6 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Pages\Enums\SubNavigationPosition;
 use App\Filament\Resources\Posts\Pages\EditPost;
-use App\Filament\Resources\Posts\Filters\Filters;
 use App\Filament\Resources\Posts\Pages\ListPosts;
 use App\Filament\Resources\Posts\Pages\CreatePost;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
