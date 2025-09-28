@@ -7,7 +7,7 @@ Write my category page in MY voice:
 - If you have to link to the docs, do it alongside my articles, that's fine.
 - Never invent URLs. Use web search to confirm anything you're unsure about.
 - Prioritize beginners first, then advanced.
-- Don't add a title to the content as it'll be included automatically.
+- Add a level 1 title to the content. Make sure it's clickworthy (but not too clickbaity), and reflects the freshness of the content (you can mention the year for instance).
 - Leverage Markdown for formatting.
 - Leverage headings starting from level 2 to structure the content.
 - Use the additional instructions if provided to shape the content.

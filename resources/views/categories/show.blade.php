@@ -3,11 +3,18 @@
     description="Level up in {{ date('Y') }} as a web developer with this collection of articles I wrote about {{ $category->name }}."
 >
     <x-section
-        :title="$posts->currentPage() > 1
-            ? 'Page ' . $posts->currentPage()
-            : $category->name"
         :big-title="$posts->currentPage() === 1"
     >
+        <x-slot:title>
+            @if (! $category->content)
+                @if ($posts->currentPage() > 1)
+                    Page {{ $posts->currentPage() }}
+                @else
+                    {{ $category->name }}
+                @endif
+            @endif
+        </x-slot:title>
+
         @if ($category->content)
             <x-prose class="mx-auto max-w-(--breakpoint-md)!">
                 {!! Markdown::parse($category->content) !!}
