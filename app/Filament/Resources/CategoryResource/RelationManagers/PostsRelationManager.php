@@ -4,7 +4,7 @@ namespace App\Filament\Resources\CategoryResource\RelationManagers;
 
 use Filament\Tables\Table;
 use Filament\Schemas\Schema;
-use App\Filament\Resources\PostResource;
+use App\Filament\Resources\Posts\PostResource;
 use Filament\Resources\RelationManagers\RelationManager;
 
 class PostsRelationManager extends RelationManager

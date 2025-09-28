@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\PostResource\Pages;
+namespace App\Filament\Resources\Posts\Pages;
 
 use App\Models\Post;
 use Illuminate\Support\Js;
@@ -10,9 +10,9 @@ use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\ForceDeleteAction;
-use App\Filament\Resources\PostResource;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\Posts\PostResource;
 
 class EditPost extends EditRecord
 {

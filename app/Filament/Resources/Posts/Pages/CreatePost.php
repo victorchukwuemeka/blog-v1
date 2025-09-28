@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\PostResource\Pages;
+namespace App\Filament\Resources\Posts\Pages;
 
 use App\Jobs\RecommendPosts;
-use App\Filament\Resources\PostResource;
 use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\Posts\PostResource;
 
 class CreatePost extends CreateRecord
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\PostResource\Pages;
+namespace App\Filament\Resources\Posts\Pages;
 
 use Filament\Tables\Table;
 use Filament\Schemas\Schema;
-use App\Filament\Resources\PostResource;
 use Illuminate\Contracts\Support\Htmlable;
 use App\Filament\Resources\CommentResource;
+use App\Filament\Resources\Posts\PostResource;
 use Filament\Resources\Pages\ManageRelatedRecords;
 
 class ManagePostComments extends ManageRelatedRecords

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\PostResource\RelationManagers;
+namespace App\Filament\Resources\Posts\RelationManagers;
 
 use Filament\Tables\Table;
 use Filament\Schemas\Schema;

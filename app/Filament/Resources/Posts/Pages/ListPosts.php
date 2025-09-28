@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\PostResource\Pages;
+namespace App\Filament\Resources\Posts\Pages;
 
 use Filament\Actions\CreateAction;
-use App\Filament\Resources\PostResource;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Posts\PostResource;
 
 class ListPosts extends ListRecords
 {
