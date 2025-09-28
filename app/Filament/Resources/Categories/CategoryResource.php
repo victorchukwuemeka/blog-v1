@@ -6,10 +6,8 @@ use App\Models\Category;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Schemas\Schema;
-use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
@@ -20,6 +18,7 @@ use Filament\Schemas\Components\Utilities\Set;
 use App\Filament\Resources\Categories\Pages\EditCategory;
 use App\Filament\Resources\Categories\Pages\CreateCategory;
 use App\Filament\Resources\Categories\Pages\ListCategories;
+use App\Filament\Resources\Categories\Actions\RecordActions;
 use App\Filament\Resources\Categories\RelationManagers\PostsRelationManager;
 
 class CategoryResource extends Resource
@@ -70,10 +69,7 @@ class CategoryResource extends Resource
                     ->sortable(),
             ])
             ->recordActions([
-                ActionGroup::make([
-                    EditAction::make(),
-                    DeleteAction::make(),
-                ]),
+                ActionGroup::make(RecordActions::configure()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

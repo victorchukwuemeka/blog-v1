@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\Categories\Pages;
 
-use Filament\Actions\DeleteAction;
+use Filament\Actions\ActionGroup;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\Categories\CategoryResource;
+use App\Filament\Resources\Categories\Actions\RecordActions;
 
 class EditCategory extends EditRecord
 {
@@ -13,7 +14,7 @@ class EditCategory extends EditRecord
     protected function getHeaderActions() : array
     {
         return [
-            DeleteAction::make(),
+            ActionGroup::make(RecordActions::configure()),
         ];
     }
 }
