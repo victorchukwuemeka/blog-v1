@@ -3,41 +3,25 @@
 namespace App\Filament\Resources\Posts;
 
 use App\Models\Post;
-use App\Jobs\ReviewPost;
 use Filament\Tables\Table;
-use Illuminate\Support\Js;
 use Illuminate\Support\Str;
-use App\Jobs\RecommendPosts;
-use Filament\Actions\Action;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Number;
-use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\Page;
-use Filament\Actions\RestoreAction;
 use Illuminate\Support\Facades\Date;
 use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Schemas\Components\Group;
-use Filament\Actions\ForceDeleteAction;
-use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
-use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Filters\TernaryFilter;
-use Filament\Tables\Filters\TrashedFilter;
-use Filament\Actions\Action as TableAction;
-use Filament\Actions\ForceDeleteBulkAction;
 use App\Filament\Resources\CategoryResource;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
@@ -45,9 +29,12 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Pages\Enums\SubNavigationPosition;
 use App\Filament\Resources\Posts\Pages\EditPost;
+use App\Filament\Resources\Posts\Filters\Filters;
 use App\Filament\Resources\Posts\Pages\ListPosts;
 use App\Filament\Resources\Posts\Pages\CreatePost;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\Posts\Actions\BulkActions;
+use App\Filament\Resources\Posts\Actions\RecordActions;
 use App\Filament\Resources\Posts\Pages\ManagePostComments;
 
 class PostResource extends Resource
@@ -245,144 +232,12 @@ class PostResource extends Resource
                     ->label('Modification Date')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                TernaryFilter::make('image_path')
-                    ->nullable()
-                    ->label('Image')
-                    ->placeholder('Both')
-                    ->trueLabel('With image')
-                    ->falseLabel('Without image')
-                    ->queries(
-                        blank: fn (Builder $query) => $query,
-                        true: fn (Builder $query) => $query->whereNotNull('image_path'),
-                        false: fn (Builder $query) => $query->whereNull('image_path'),
-                    ),
-
-                SelectFilter::make('link_association')
-                    ->label('Link association')
-                    ->options([
-                        'with_link' => 'With link',
-                        'without_link' => 'Without link',
-                    ])
-                    ->query(fn (Builder $query, array $data) => match ($data['value']) {
-                        'with_link' => $query->whereHas('link'),
-                        'without_link' => $query->whereDoesntHave('link'),
-                        default => $query,
-                    }),
-
-                TernaryFilter::make('published_at')
-                    ->nullable()
-                    ->label('Published status')
-                    ->placeholder('Both')
-                    ->trueLabel('Published')
-                    ->falseLabel('Draft')
-                    ->queries(
-                        blank: fn (Builder $query) => $query,
-                        true: fn (Builder $query) => $query->whereNotNull('published_at'),
-                        false: fn (Builder $query) => $query->whereNull('published_at'),
-                    ),
-
-                TernaryFilter::make('updated_stale')
-                    ->nullable()
-                    ->label('Updated 1+ year ago')
-                    ->placeholder('Both')
-                    ->trueLabel('Yes')
-                    ->falseLabel('No')
-                    ->queries(
-                        blank: fn (Builder $query) => $query,
-                        true: fn (Builder $query) => $query->where(function (Builder $query) {
-                            $oneYearAgo = now()->subYear();
-
-                            $query
-                                ->whereDate('modified_at', '<=', $oneYearAgo)
-                                ->orWhere(
-                                    fn (Builder $query) => $query
-                                        ->whereNull('modified_at')
-                                        ->whereDate('published_at', '<=', $oneYearAgo)
-                                );
-                        }),
-                        false: fn (Builder $query) => $query->where(function (Builder $query) {
-                            $oneYearAgo = now()->subYear();
-
-                            $query->where(
-                                fn (Builder $query) => $query
-                                    ->whereNotNull('modified_at')
-                                    ->whereDate('modified_at', '>', $oneYearAgo)
-                            )->orWhere(
-                                fn (Builder $query) => $query
-                                    ->whereNull('modified_at')
-                                    ->whereDate('published_at', '>', $oneYearAgo)
-                            );
-                        }),
-                    ),
-
-                TrashedFilter::make(),
-            ])
+            ->filters(Filters::configure())
             ->recordActions([
-                ActionGroup::make([
-                    TableAction::make('open')
-                        ->label('Open')
-                        ->icon('heroicon-o-arrow-top-right-on-square')
-                        ->url(fn (Post $record) => route('posts.show', $record), shouldOpenInNewTab: true),
-
-                    TableAction::make('copy_url')
-                        ->label('Copy URL')
-                        ->icon('heroicon-o-link')
-                        ->alpineClickHandler(fn (Post $record) => 'window.navigator.clipboard.writeText(' . Js::from(route('posts.show', $record)) . ')'),
-
-                    Action::make('search_console')
-                        ->label('Check in GSC')
-                        ->icon('heroicon-o-chart-bar')
-                        ->url(function (Post $record) {
-                            $domain = preg_replace('/https?:\/\//', '', config('app.url'));
-
-                            return "https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3A$domain&breakdown=query&page=!" . rawurlencode(route('posts.show', $record));
-                        }, shouldOpenInNewTab: true),
-
-                    Action::make('Refresh recommendations')
-                        ->action(function (Post $record) {
-                            RecommendPosts::dispatch($record);
-
-                            Notification::make()
-                                ->title('A job has been queued to refresh the recommendations.')
-                                ->success()
-                                ->send();
-                        })
-                        ->icon('heroicon-o-arrow-path'),
-
-                    Action::make('Ask for editor review')
-                        ->schema([
-                            Textarea::make('additional_instructions')
-                                ->nullable(),
-                        ])
-                        ->modalSubmitActionLabel('Review')
-                        ->action(function (Post $record, array $data) {
-                            ReviewPost::dispatch($record, $data['additional_instructions']);
-
-                            Notification::make()
-                                ->title('The post has been queued for review.')
-                                ->success()
-                                ->send();
-                        })
-                        ->icon('heroicon-o-document-text'),
-
-                    EditAction::make()
-                        ->icon('heroicon-o-pencil-square'),
-
-                    DeleteAction::make()
-                        ->icon('heroicon-o-trash'),
-
-                    ForceDeleteAction::make(),
-
-                    RestoreAction::make(),
-                ]),
+                ActionGroup::make(RecordActions::configure()),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
+                BulkActionGroup::make(BulkActions::configure()),
             ]);
     }
 

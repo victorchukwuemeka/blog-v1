@@ -21,20 +21,6 @@ class ListPosts extends ListRecords
     protected function getTableQuery() : Builder
     {
         return parent::getTableQuery()
-            ->select([
-                'id',
-                'user_id',
-                'image_path',
-                'image_disk',
-                'title',
-                'slug',
-                'canonical_url',
-                'sessions_count',
-                'published_at',
-                'modified_at',
-                'is_commercial',
-                'deleted_at',
-            ])
             ->with([
                 'user:id,name',
                 'categories:id,name',
