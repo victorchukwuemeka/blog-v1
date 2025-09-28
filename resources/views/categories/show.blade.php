@@ -6,9 +6,7 @@
         :big-title="$posts->currentPage() === 1"
     >
         <x-slot:title>
-            @if ($category->content)
-                {{ $category->title }}
-            @else
+            @if (! $category->content)
                 @if ($posts->currentPage() > 1)
                     Page {{ $posts->currentPage() }}
                 @else
