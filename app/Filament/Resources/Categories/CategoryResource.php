@@ -6,12 +6,16 @@ use App\Models\Category;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Schemas\Schema;
+use Filament\Actions\BulkAction;
 use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
+use App\Jobs\GenerateCategoryPage;
+use Illuminate\Support\Collection;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Components\Utilities\Set;
@@ -73,6 +77,19 @@ class CategoryResource extends Resource
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
+                    BulkAction::make('Generate category page')
+                        ->action(function (Collection $records) {
+                            $records->each(function (Category $record) {
+                                GenerateCategoryPage::dispatch($record);
+                            });
+
+                            Notification::make()
+                                ->title('Jobs have been queued to generate the category pages.')
+                                ->success()
+                                ->send();
+                        })
+                        ->icon('heroicon-o-arrow-path'),
+
                     DeleteBulkAction::make(),
                 ]),
             ]);
