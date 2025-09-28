@@ -28,7 +28,7 @@
         @if ($posts->isNotEmpty())
             @if ($category->content)
                 <x-heading class="mt-16">
-                    Articles
+                    All articles about {{ $category->name }}
                 </x-heading>
             @endif
 
