@@ -7,7 +7,10 @@ Existing content: {{ $category->content }}
 @if ($category->posts->isNotEmpty())
 ---
 
-Existing posts: {{ $category->posts->pluck('title')->implode(', ') }}
+Existing posts:
+@foreach ($category->posts as $post)
+- [{{ $post->title }}]({{ route('posts.show', $post) }})
+@endforeach
 @endif
 
 @if ($additionalInstructions)
