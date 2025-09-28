@@ -22,7 +22,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\CategoryResource;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Components\Utilities\Get;
@@ -33,6 +32,7 @@ use App\Filament\Resources\Posts\Pages\ListPosts;
 use App\Filament\Resources\Posts\Pages\CreatePost;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Posts\Actions\BulkActions;
+use App\Filament\Resources\Categories\CategoryResource;
 use App\Filament\Resources\Posts\Actions\RecordActions;
 use App\Filament\Resources\Posts\Pages\ManagePostComments;
 
