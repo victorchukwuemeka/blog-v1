@@ -38,12 +38,17 @@ class GenerateCategoryPage
                     'schema' => [
                         'type' => 'object',
                         'properties' => [
+                            'title' => [
+                                'type' => 'string',
+                                'description' => 'The title of the category page.',
+                            ],
                             'content' => [
                                 'type' => 'string',
                                 'description' => 'The content of the category page.',
                             ],
                         ],
                         'required' => [
+                            'title',
                             'content',
                         ],
                         'additionalProperties' => false,
@@ -69,6 +74,7 @@ class GenerateCategoryPage
         $data = json_decode($response->outputText, true, JSON_THROW_ON_ERROR);
 
         $category->update([
+            'title' => $data['title'],
             'content' => $data['content'],
         ]);
 
