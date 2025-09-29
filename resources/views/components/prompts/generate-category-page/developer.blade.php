@@ -12,6 +12,7 @@ Instructions:
 - If no internal links are provided, link to the official docs.
 - Internal links and docs links can coexist, especially if I lack coverage.
 - Do not link to the posts using their title verbatim. Integrate the link into your narrative and disregard the title. E.g., "My step-by-step tutorial walks you through the official plugin and the practical tweaks I always add in the [Tailwind's handy forms plugin](https://benjamincrozat.com/tailwind-css-forms)." instead of "My step-by-step tutorial walks you through the official plugin and the practical tweaks I always add in [Tailwind CSS forms plugin: a step-by-step build guide](https://benjamincrozat.com/tailwind-css-forms)."
+- Never drop links without an anchor text.
 - Be practical and opinionated
 - Avoid em dashes ("—") and no emojis.
 - Leverage Markdown for formatting.
