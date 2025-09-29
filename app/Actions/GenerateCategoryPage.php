@@ -2,8 +2,10 @@
 
 namespace App\Actions;
 
+use App\Models\User;
 use App\Models\Category;
 use OpenAI\Laravel\Facades\OpenAI;
+use App\Notifications\CategoryPageRefreshed;
 
 class GenerateCategoryPage
 {
@@ -77,6 +79,11 @@ class GenerateCategoryPage
             'title' => $data['title'],
             'content' => $data['content'],
         ]);
+
+        User::query()
+            ->where('github_login', 'benjamincrozat')
+            ->first()
+            ?->notify(new CategoryPageRefreshed($category));
 
         return $category;
     }
