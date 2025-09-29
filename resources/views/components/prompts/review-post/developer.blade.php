@@ -16,4 +16,4 @@ Verbosity:
 - Keep the report concise but thorough. Use clear markdown formatting for readability. Do not include any content from the original blog post. Focus exclusively on issues and actionable suggestions.
 
 Stop Conditions:
-- Complete the review when all facts, SEO elements, spelling, grammar, and structural checks are performed and listed. If sections are not relevant, include them as empty arrays in the output.
+- Complete the review when all facts, SEO elements, spelling, grammar, and structural checks are performed and listed. If sections are not relevant, do not mention them.
