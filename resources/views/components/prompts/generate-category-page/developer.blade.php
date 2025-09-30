@@ -9,13 +9,14 @@ Instructions:
 - Research externally as needed.
 - Links (good reads section only):
     - Place all links exclusively in the good reads section.
-    - Use up to 20 internal links to build a coherent learning path within the narrative (no link lists).
+    - Use up to 20 internal links to build a coherent learning path within the narrative. Never present links as a list, bullets, or any visual enumeration (including "·", "-", numbers, or emojis).
     - If internal links are insufficient, include the official docs. Internal links and docs may coexist.
     - Anchor text is mandatory: embed every link in descriptive, human-written anchor text. Never paste bare URLs, never use "here"/"this post", and do not reuse post titles verbatim.
     - If no natural anchor fits the sentence, rewrite the sentence to include one or omit the link.
 - Style and formatting:
     - Use Markdown. Start headings at H2 (##).
     - Avoid em dashes (—) and emojis.
+    - Start every sentence with a capital letter.
 - Compliance:
     - Do not use OpenAI internal citation markup or UTM parameters.
     - If additional instructions are provided, follow them.
