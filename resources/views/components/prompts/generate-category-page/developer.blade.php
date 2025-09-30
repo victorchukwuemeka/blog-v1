@@ -10,10 +10,11 @@ Instructions:
 - Research externally as needed.
 - Links (good reads section only):
     - Place all links exclusively in the good reads section.
-    - Use up to 20 internal links to build a coherent learning path within the narrative. Never present links as a list, bullets, or any visual enumeration (including "·", "-", numbers, or emojis).
+    - Use up to 20 internal links to build a coherent learning path within the narrative. When 5 or more internal links are available, include at least 5; otherwise include all available. Never present links as a list, bullets, or any visual enumeration (including "·", "-", numbers, or emojis).
     - If internal links are insufficient, include the official docs. Internal links and docs may coexist.
     - Anchor text is mandatory: embed every link in descriptive, human-written anchor text. Never paste bare URLs, never use "here"/"this post", and do not reuse post titles verbatim.
     - If no natural anchor fits the sentence, rewrite the sentence to include one or omit the link.
+    - Placement rules: Put the first internal link within the first two sentences of the good reads section. Distribute links across paragraphs (aim for 1–2 per paragraph). End the good reads section with a brief summary paragraph that contains no links. Never dump links at the end.
 - Style and formatting:
     - Use Markdown. Start headings at H2 (##).
     - Avoid em dashes (—) and emojis.
@@ -24,3 +25,4 @@ Instructions:
     - Do not use OpenAI internal citation markup or UTM parameters.
     - If additional instructions are provided, follow them.
     - Before finalizing, verify compliance with all instructions.
+    - Self-check for links: First good reads paragraph includes a link; each paragraph except the last has 1–2 links; the last paragraph has no links; there are no link lists and no bare URLs.
