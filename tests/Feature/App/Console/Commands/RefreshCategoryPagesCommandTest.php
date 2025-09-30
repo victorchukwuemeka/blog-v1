@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Date;
 use App\Console\Commands\RefreshCategoryPagesCommand;
 
-it('queues generation jobs for categories not modified in a week', function () {
+it('queues generation jobs only for categories modified a week ago or earlier', function () {
     Bus::fake();
 
     Date::setTestNow(now());
@@ -17,7 +17,7 @@ it('queues generation jobs for categories not modified in a week', function () {
     // Should be queued: modified more than a week ago.
     $stale = Category::factory()->create(['modified_at' => now()->subWeeks(2)]);
 
-    // Should be queued: never modified.
+    // Should NOT be queued: never modified.
     $neverModified = Category::factory()->create(['modified_at' => null]);
 
     // Should NOT be queued: modified within the last week.
@@ -26,20 +26,20 @@ it('queues generation jobs for categories not modified in a week', function () {
     artisan(RefreshCategoryPagesCommand::class)
         ->assertSuccessful();
 
-    Bus::assertDispatchedTimes(GenerateCategoryPage::class, 2);
+    Bus::assertDispatchedTimes(GenerateCategoryPage::class, 1);
 
     Bus::assertDispatched(
         GenerateCategoryPage::class,
         fn (GenerateCategoryPage $job) => $job->category->is($stale)
     );
 
-    Bus::assertDispatched(
+    Bus::assertNotDispatched(
         GenerateCategoryPage::class,
-        fn (GenerateCategoryPage $job) => $job->category->is($neverModified)
+        fn (GenerateCategoryPage $job) => $job->category->is($fresh)
     );
 
     Bus::assertNotDispatched(
         GenerateCategoryPage::class,
-        fn (GenerateCategoryPage $job) => $job->category->is($fresh)
+        fn (GenerateCategoryPage $job) => $job->category->is($neverModified)
     );
 });
