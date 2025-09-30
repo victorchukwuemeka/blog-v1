@@ -103,8 +103,7 @@ class CategoryResource extends Resource
                 TextColumn::make('modified_at')
                     ->date()
                     ->sortable()
-                    ->label('Modification Date')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Modification Date'),
             ])
             ->recordActions([
                 ActionGroup::make(RecordActions::configure()),
