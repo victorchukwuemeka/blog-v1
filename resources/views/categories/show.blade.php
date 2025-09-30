@@ -54,9 +54,7 @@
             },
             "headline": "{{ $category->title }}",
             "datePublished": "{{ $category->created_at->toIso8601String() }}",
-            @if ($category->updated_at)
-            "dateModified": "{{ $category->updated_at->toIso8601String() }}"
-            @endif
+            "dateModified": "{{ ($category->modified_at ?? $category->created_at)->toIso8601String() }}"
         }
     </script>
 </x-app>

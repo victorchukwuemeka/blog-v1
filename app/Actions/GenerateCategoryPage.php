@@ -78,6 +78,7 @@ class GenerateCategoryPage
         $category->update([
             'title' => $data['title'],
             'content' => $data['content'],
+            'modified_at' => now(),
         ]);
 
         User::query()

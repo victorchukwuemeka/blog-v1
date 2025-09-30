@@ -11,12 +11,14 @@ use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
 use App\Jobs\GenerateCategoryPage;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Components\Utilities\Set;
 use App\Filament\Resources\Categories\Pages\EditCategory;
@@ -58,6 +60,27 @@ class CategoryResource extends Resource
 
                 MarkdownEditor::make('content')
                     ->columnSpanFull(),
+
+                DateTimePicker::make('modified_at')
+                    ->timezone('Europe/Paris')
+                    ->native(false)
+                    ->seconds(false)
+                    ->placeholder(now())
+                    ->defaultFocusedDate(now())
+                    ->closeOnDateSelection()
+                    ->reactive()
+                    ->afterStateUpdated(function (DateTimePicker $component, $state) {
+                        if (blank($state)) {
+                            return;
+                        }
+
+                        $now = now();
+
+                        $date = Date::parse($state)->setTime($now->hour, $now->minute, $now->second);
+
+                        $component->state($date);
+                    })
+                    ->label('Last Modification Date'),
             ]);
     }
 
