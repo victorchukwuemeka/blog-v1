@@ -101,7 +101,7 @@ class CategoryResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('modified_at')
-                    ->date()
+                    ->dateTime()
                     ->sortable()
                     ->label('Modification Date'),
             ])
