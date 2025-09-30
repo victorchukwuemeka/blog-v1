@@ -52,8 +52,9 @@ class CategoryResource extends Resource
                     ->maxLength(255),
 
                 TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
+                    ->nullable()
+                    ->maxLength(255)
+                    ->columnSpanFull(),
 
                 MarkdownEditor::make('content')
                     ->columnSpanFull(),

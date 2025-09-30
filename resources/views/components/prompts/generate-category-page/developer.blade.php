@@ -11,7 +11,8 @@ Instructions:
     - Place all links exclusively in the good reads section.
     - Use up to 20 internal links to build a coherent learning path within the narrative (no link lists).
     - If internal links are insufficient, include the official docs. Internal links and docs may coexist.
-    - Do not reuse post titles verbatim as anchors. Write descriptive anchor text and never paste bare URLs.
+    - Anchor text is mandatory: embed every link in descriptive, human-written anchor text. Never paste bare URLs, never use "here"/"this post", and do not reuse post titles verbatim.
+    - If no natural anchor fits the sentence, rewrite the sentence to include one or omit the link.
 - Style and formatting:
     - Use Markdown. Start headings at H2 (##).
     - Avoid em dashes (—) and emojis.
