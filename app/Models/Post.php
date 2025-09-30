@@ -11,8 +11,8 @@ use App\Models\Traits\PostSearchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Traits\PostTransformable;
-use App\Models\Traits\HasTableOfContents;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Traits\PostHasTableOfContents;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Post extends Model implements Feedable
 {
     /** @use HasFactory<PostFactory> */
-    use HasFactory, HasTableOfContents, PostFeedable, PostSearchable, PostSlugable, PostTransformable, SoftDeletes;
+    use HasFactory, PostFeedable, PostHasTableOfContents, PostSearchable, PostSlugable, PostTransformable, SoftDeletes;
 
     protected $withCount = ['comments'];
 

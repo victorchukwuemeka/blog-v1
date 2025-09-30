@@ -12,7 +12,12 @@
         @endif
 
         @if ($posts->isNotEmpty())
-            <x-heading tag="h2">All articles about {{ $category->name }}</x-heading>
+            <x-heading
+                tag="h2"
+                id="all-articles-about-{{ strtolower($category->name) }}"
+            >
+                All articles about {{ $category->name }}
+            </x-heading>
 
             <div class="container">
                 <x-posts-grid :$posts class="mt-10" />

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Markdown\TableOfContents;
+use Illuminate\Support\HtmlString;
 use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,5 +26,18 @@ class Category extends Model
             ->published()
             ->orderBy('sessions_count', 'desc')
             ->limit(5);
+    }
+
+    public function toTableOfContents() : HtmlString
+    {
+        return new HtmlString(
+            view('components.table-of-contents.index', [
+                'items' => new TableOfContents(<<< MD
+$this->content
+
+## All articles about $this->name
+MD)->toArray(),
+            ])->render()
+        );
     }
 }

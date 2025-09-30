@@ -8,7 +8,7 @@ use Illuminate\Support\HtmlString;
 /**
  * @mixin \Illuminate\Database\Eloquent\Model
  */
-trait HasTableOfContents
+trait PostHasTableOfContents
 {
     public function toTableOfContents() : HtmlString
     {
