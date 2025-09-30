@@ -99,6 +99,12 @@ class CategoryResource extends Resource
                     ->label('Posts')
                     ->counts('posts')
                     ->sortable(),
+
+                TextColumn::make('modified_at')
+                    ->date()
+                    ->sortable()
+                    ->label('Modification Date')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->recordActions([
                 ActionGroup::make(RecordActions::configure()),
