@@ -25,6 +25,6 @@ class CategoryPageRefreshed extends Notification
         return (new MailMessage)
             ->subject('A category page was just refreshed')
             ->line("Your AI-powered writer revised the content for \"{$this->category->name}\".")
-            ->action('Check Category Page', route('filament.admin.resources.categories.edit', $this->category));
+            ->action('Check Category Page', route('categories.show', $this->category));
     }
 }
