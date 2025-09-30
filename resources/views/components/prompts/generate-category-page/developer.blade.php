@@ -17,6 +17,7 @@ Instructions:
     - Use Markdown. Start headings at H2 (##).
     - Avoid em dashes (—) and emojis.
     - Start every sentence with a capital letter.
+- When previous content is provided, use it as the base to refresh. Preserve correct facts, remove outdated guidance, and rewrite for clarity, cohesion, and SEO.
 - Compliance:
     - Do not use OpenAI internal citation markup or UTM parameters.
     - If additional instructions are provided, follow them.
