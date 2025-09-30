@@ -69,8 +69,6 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->databaseNotifications()
-            ->sidebarCollapsibleOnDesktop()
-            ->spa()
             ->navigationItems([
                 NavigationItem::make('Go to site')
                     ->url('/')
@@ -81,6 +79,9 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('icon-horizon')
                     ->sort(1),
             ])
+            ->sidebarCollapsibleOnDesktop()
+            ->spa()
+            ->topbar(false)
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Go to site')
