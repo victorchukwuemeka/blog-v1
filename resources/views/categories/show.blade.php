@@ -4,15 +4,18 @@
 >
     <article>
         @if ($category->content && $posts->currentPage() === 1)
-            <p class="text-sm font-normal tracking-widest text-center uppercase md:text-base">
-                {{ trans_choice(':count minute|:count minutes', $category->read_time) }}
-                read
-            </p>
+            <div class="container">
+                <p class="text-sm font-normal tracking-widest text-center uppercase md:text-base">
+                    {{ trans_choice(':count minute|:count minutes', $category->read_time) }}
+                    read
+                </p>
 
-            <h1 class="mt-2 font-medium tracking-tight text-center text-black text-balance text-3xl/none sm:text-4xl/none lg:text-5xl/none">
-                {{ $category->title }}
-            </h1>
-            <x-prose class="mb-16 container mt-8 max-w-(--breakpoint-md)!">
+                <h1 class="mt-2 font-medium tracking-tight text-center text-black text-balance text-3xl/none sm:text-4xl/none lg:text-5xl/none">
+                    {{ $category->title }}
+                </h1>
+            </div>
+
+            <x-prose class="mb-16 container mt-8 lg:max-w-(--breakpoint-md)!">
                 <div class="not-prose">
                     {!! $category->toTableOfContents() !!}
                 </div>
