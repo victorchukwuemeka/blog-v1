@@ -41,6 +41,16 @@ class LinkResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    public static function getNavigationBadge() : ?string
+    {
+        return static::getModel()::query()->pending()->count();
+    }
+
+    public static function getNavigationBadgeTooltip() : ?string
+    {
+        return 'Links waiting for approval.';
+    }
+
     public static function form(Schema $schema) : Schema
     {
         return $schema
