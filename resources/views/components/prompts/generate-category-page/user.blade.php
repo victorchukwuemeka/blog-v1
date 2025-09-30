@@ -2,11 +2,9 @@ Category: {{ $category->name }}
 
 ---
 
-Existing content on the category page:
+Existing title on the category page: {{ $category->title }}
 
-{{ $category->title }}
-
-{{ $category->content }}
+Existing content on the category page: {{ $category->content }}
 
 @if ($category->posts->isNotEmpty())
 ---
