@@ -73,6 +73,7 @@ return [
         'oh-dear' => 'https://ohdear.app/?via=benjamincrozat',
         'pirsch-analytics' => 'https://pirsch.io/ref/Z0E1Nqogb5',
         'ploi' => 'https://ploi.io/register?referrer=eJAat2H4YE45BjmIwzBl',
+        'rosehosting' => 'https://secure.rosehosting.com/clientarea/?affid=2695&campaign=dedicated-hosting',
         'savvycal' => 'https://savvycal.com/?via=benjamincrozat',
         'semrush' => 'https://semrush.sjv.io/benjamincrozat',
         'setapp' => 'https://setapp.sjv.io/c/3801334/344537/5114',
