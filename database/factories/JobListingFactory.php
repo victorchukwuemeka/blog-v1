@@ -37,7 +37,6 @@ class JobListingFactory extends Factory
             'how_to_apply' => fake()->sentences(random_int(2, 5)),
             'perks' => fake()->optional()->sentences(random_int(0, 4)) ?? [],
             'interview_process' => fake()->optional()->sentences(random_int(0, 4)) ?? [],
-            'published_on' => fake()->dateTimeBetween('-1 month', 'now'),
         ];
     }
 }

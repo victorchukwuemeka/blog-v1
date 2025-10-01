@@ -28,7 +28,6 @@ class JobListing extends Model
             'perks' => 'array',
             'interview_process' => 'array',
             'equity' => 'boolean',
-            'published_on' => 'date',
         ];
     }
 

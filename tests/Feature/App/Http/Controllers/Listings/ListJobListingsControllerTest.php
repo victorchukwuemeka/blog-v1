@@ -13,9 +13,9 @@ it('lists listings', function () {
         ->assertViewHas('jobListings', fn (LengthAwarePaginator $listings) => true);
 });
 
-it('orders listings by published_on desc', function () {
-    $older = JobListing::factory()->create(['published_on' => now()->subDays(2)]);
-    $newer = JobListing::factory()->create(['published_on' => now()->subDay()]);
+it('orders listings the most recent first', function () {
+    $older = JobListing::factory()->create(['created_at' => now()->subDays(2)]);
+    $newer = JobListing::factory()->create(['created_at' => now()->subDay()]);
 
     $response = get(route('job-listings.index'))
         ->assertOk();

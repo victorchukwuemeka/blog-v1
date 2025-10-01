@@ -2,7 +2,6 @@
 
 use App\Models\Company;
 use App\Models\JobListing;
-use Carbon\CarbonImmutable;
 
 it('generates a slug on create from title and company name', function () {
     $company = Company::factory()->create(['name' => 'Acme Inc']);
@@ -22,8 +21,7 @@ it('casts attributes correctly', function () {
         ->and($listing->how_to_apply)->toBeArray()
         ->and($listing->perks)->toBeArray()
         ->and($listing->interview_process)->toBeArray()
-        ->and($listing->equity)->toBeBool()
-        ->and($listing->published_on)->toBeInstanceOf(CarbonImmutable::class);
+        ->and($listing->equity)->toBeBool();
 });
 
 it('belongs to a company', function () {

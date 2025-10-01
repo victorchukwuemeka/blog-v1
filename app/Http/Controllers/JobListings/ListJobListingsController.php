@@ -12,7 +12,7 @@ class ListJobListingsController extends Controller
     {
         return view('job-listings.index', [
             'jobListings' => JobListing::query()
-                ->latest('published_on')
+                ->latest()
                 ->paginate(12),
         ]);
     }

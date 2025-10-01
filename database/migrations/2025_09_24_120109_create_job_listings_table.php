@@ -27,7 +27,6 @@ return new class extends Migration
             $table->json('how_to_apply');
             $table->json('perks');
             $table->json('interview_process');
-            $table->timestamp('published_on');
             $table->timestamps();
         });
     }

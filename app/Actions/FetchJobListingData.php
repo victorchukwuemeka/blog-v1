@@ -3,10 +3,12 @@
 namespace App\Actions;
 
 use Exception;
+use App\Models\User;
 use App\Models\Company;
 use App\Models\JobListing;
 use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Http;
+use App\Notifications\JobListingFetched;
 
 class FetchJobListingData
 {
@@ -270,7 +272,7 @@ class FetchJobListingData
             'about' => $json->company->about,
         ]);
 
-        return JobListing::query()->updateOrCreate([
+        $jobListing = JobListing::query()->updateOrCreate([
             'url' => $json->url,
         ], [
             'company_id' => $company->id,
@@ -288,7 +290,13 @@ class FetchJobListingData
             'equity' => (bool) ($json->equity ?? false),
             'interview_process' => $json->interview_process ?? [],
             'how_to_apply' => $json->how_to_apply,
-            'published_on' => $json->published_on,
         ]);
+
+        User::query()
+            ->where('github_login', 'benjamincrozat')
+            ->first()
+            ?->notify(new JobListingFetched($jobListing));
+
+        return $jobListing;
     }
 }

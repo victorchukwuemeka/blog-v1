@@ -19,7 +19,7 @@
                                 </p>
 
                                 <p class="flex-none text-gray-500">
-                                    {{ $jobListing->published_on->diffForHumans() }}
+                                    {{ $jobListing->created_at->diffForHumans() }}
                                 </p>
                             </div>
 

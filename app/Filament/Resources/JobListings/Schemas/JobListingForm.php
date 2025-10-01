@@ -7,7 +7,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\DateTimePicker;
 
 class JobListingForm
 {
@@ -50,8 +49,6 @@ class JobListingForm
                 TextInput::make('perks')
                     ->required(),
                 TextInput::make('interview_process')
-                    ->required(),
-                DateTimePicker::make('published_on')
                     ->required(),
             ]);
     }
