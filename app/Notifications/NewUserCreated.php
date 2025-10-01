@@ -5,9 +5,10 @@ namespace App\Notifications;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewUserCreated extends Notification
+class NewUserCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 

@@ -5,9 +5,10 @@ namespace App\Notifications;
 use App\Models\Revision;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewRevision extends Notification
+class NewRevision extends Notification implements ShouldQueue
 {
     use Queueable;
 

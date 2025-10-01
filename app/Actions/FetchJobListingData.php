@@ -3,16 +3,13 @@
 namespace App\Actions;
 
 use Exception;
-use App\Models\User;
-use App\Models\Company;
-use App\Models\JobListing;
+use App\Jobs\CreateJobListing;
 use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Http;
-use App\Notifications\JobListingFetched;
 
 class FetchJobListingData
 {
-    public function fetch(string $url) : JobListing
+    public function fetch(string $url) : void
     {
         if (Http::head($url)->failed()) {
             throw new Exception('The job listing could not be fetched properly.');
@@ -262,41 +259,8 @@ class FetchJobListingData
             ],
         ]);
 
-        $json = json_decode($response->outputText ?? '', false);
+        $data = json_decode($response->outputText ?? '', associative: false);
 
-        $company = Company::query()->updateOrCreate([
-            'name' => $json->company->name,
-        ], [
-            'url' => $json->company->url,
-            'logo' => $json->company->logo,
-            'about' => $json->company->about,
-        ]);
-
-        $jobListing = JobListing::query()->updateOrCreate([
-            'url' => $json->url,
-        ], [
-            'company_id' => $company->id,
-            'source' => $json->source,
-            'language' => $json->language,
-            'title' => $json->title,
-            'description' => $json->description,
-            'technologies' => $json->technologies,
-            'perks' => $json->perks ?? [],
-            'locations' => $json->locations,
-            'setting' => $json->setting,
-            'min_salary' => $json->min_salary ?? 0,
-            'max_salary' => $json->max_salary ?? 0,
-            'currency' => $json->currency,
-            'equity' => (bool) ($json->equity ?? false),
-            'interview_process' => $json->interview_process ?? [],
-            'how_to_apply' => $json->how_to_apply,
-        ]);
-
-        User::query()
-            ->where('github_login', 'benjamincrozat')
-            ->first()
-            ?->notify(new JobListingFetched($jobListing));
-
-        return $jobListing;
+        CreateJobListing::dispatch($data);
     }
 }

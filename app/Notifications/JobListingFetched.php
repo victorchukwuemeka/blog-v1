@@ -5,9 +5,10 @@ namespace App\Notifications;
 use App\Models\JobListing;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class JobListingFetched extends Notification
+class JobListingFetched extends Notification implements ShouldQueue
 {
     use Queueable;
 

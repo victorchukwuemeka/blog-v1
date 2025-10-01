@@ -5,9 +5,10 @@ namespace App\Notifications;
 use App\Models\Category;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class CategoryPageRefreshed extends Notification
+class CategoryPageRefreshed extends Notification implements ShouldQueue
 {
     use Queueable;
 
