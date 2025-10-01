@@ -58,7 +58,9 @@
                     <div class="p-3 text-center bg-gray-50 rounded-lg">
                         <x-heroicon-o-calendar class="mx-auto mb-2 opacity-75 size-6" />
 
-                        @if ($post->modified_at)
+                        @if ($post->link)
+                            Shared
+                        @elseif ($post->modified_at)
                             Modified
                         @elseif ($post->published_at)
                             Published
