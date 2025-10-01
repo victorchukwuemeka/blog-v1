@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Notifications\Welcome;
 use App\Http\Controllers\Controller;
+use App\Notifications\NewUserCreated;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -29,6 +30,11 @@ class GithubAuthCallbackController extends Controller
 
         if ($user->wasRecentlyCreated) {
             $user->notify(new Welcome);
+
+            User::query()
+                ->where('github_login', 'benjamincrozat')
+                ->first()
+                ?->notify(new NewUserCreated($user));
         }
 
         return redirect()->intended()->with('status', 'You have been logged in.');

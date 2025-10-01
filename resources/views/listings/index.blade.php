@@ -59,6 +59,10 @@
                     </a>
                 @endforeach
             </div>
+        @else
+            <p class="text-center text-gray-500">
+                There is no job offers at the moment.
+            </p>
         @endif
 
         <x-pagination
