@@ -1,12 +1,20 @@
 <x-app
     title="The latest job offers for developers"
 >
+    <x-section title="Job offers from all of these companies">
+        <div class="flex -mt-2 justify-center items-center gap-8">
+            @foreach ($companyLogos as $companyLogo)
+                <img src="{{ $companyLogo }}" class="max-w-[200px] max-h-16" />
+            @endforeach
+        </div>
+    </x-section>
+
     <x-section
         :title="$jobListings->currentPage() > 1
             ? 'Page ' . $jobListings->currentPage()
             : 'Latest'"
         :big-title="$jobListings->currentPage() === 1"
-        class="lg:max-w-(--breakpoint-md)"
+        class="lg:max-w-(--breakpoint-md) mt-16"
     >
         @if ($jobListings->isNotEmpty())
             <div class="grid gap-4">

@@ -7,6 +7,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 
 class CompaniesTable
 {
@@ -14,6 +15,10 @@ class CompaniesTable
     {
         return $table
             ->columns([
+                ImageColumn::make('logo')
+                    ->imageWidth(80)
+                    ->imageHeight(80),
+
                 TextColumn::make('name')
                     ->searchable(),
 

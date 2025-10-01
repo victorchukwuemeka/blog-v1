@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\Companies\Schemas;
 
 use Filament\Schemas\Schema;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Group;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\MarkdownEditor;
 
 class CompanyForm
 {
@@ -12,20 +14,36 @@ class CompanyForm
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required(),
+                Group::make([
+                    TextInput::make('name')
+                        ->required(),
 
-                TextInput::make('slug')
-                    ->required(),
+                    MarkdownEditor::make('about')
+                        ->columnSpanFull(),
+                ])
+                    ->columnSpan([
+                        'default' => 12,
+                        'lg' => 8,
+                    ]),
 
-                TextInput::make('url')
-                    ->url()
-                    ->label('URL'),
+                Group::make([
+                    TextInput::make('slug')
+                        ->required(),
 
-                TextInput::make('logo'),
+                    TextInput::make('url')
+                        ->url()
+                        ->label('URL'),
 
-                Textarea::make('about')
-                    ->columnSpanFull(),
-            ]);
+                    TextInput::make('logo'),
+
+                    Toggle::make('is_highlighted')
+                        ->label('Highlighted'),
+                ])
+                    ->columnSpan([
+                        'default' => 12,
+                        'lg' => 4,
+                    ]),
+            ])
+            ->columns(12);
     }
 }
