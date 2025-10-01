@@ -7,9 +7,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Listing>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobListing>
  */
-class ListingFactory extends Factory
+class JobListingFactory extends Factory
 {
     /**
      * @return array<string, mixed>

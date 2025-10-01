@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Listing;
 use App\Models\Category;
+use App\Models\JobListing;
 use Spatie\Sitemap\Sitemap;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -41,9 +41,9 @@ class GenerateSitemapCommand extends Command
 
         $sitemap->add(route('links.index'));
 
-        Listing::query()
+        JobListing::query()
             ->cursor()
-            ->each(fn (Listing $listing) => $sitemap->add(route('listings.show', $listing)));
+            ->each(fn (JobListing $listing) => $sitemap->add(route('job-listings.show', $listing)));
 
         $sitemap->add(route('links.index'));
 

@@ -55,17 +55,17 @@ class FetchJobListingData
                             ],
                             'title' => [
                                 'type' => 'string',
-                                'description' => 'A title in the original language of the listing. <title> at <company> in <locations (if provided)>.',
+                                'description' => 'The title of the job listing.',
                                 'minLength' => 1,
                             ],
                             'description' => [
                                 'type' => 'string',
-                                'description' => 'An extensive description of the job in the original language of the listing and without omitting the most important details. Use a 6th grade reading level.',
+                                'description' => 'The description of the job listing.',
                                 'minLength' => 1,
                             ],
                             'technologies' => [
                                 'type' => 'array',
-                                'description' => 'Array of languages and frameworks required, spelled according to official branding guidelines (e.g. JavaScript, React, Node.js).',
+                                'description' => 'The technologies required for the job listing.',
                                 'items' => [
                                     'type' => 'string',
                                     'minLength' => 1,
@@ -140,11 +140,6 @@ class FetchJobListingData
                                     ],
                                 ],
                             ],
-                            'published_on' => [
-                                'type' => 'string',
-                                'description' => 'Date the job was published, as an ISO 8601 calendar date (YYYY-MM-DD). Use the JSON schema, meta tags, or any clues on the page to figure it out.',
-                                'pattern' => '^\d{4}-\d{2}-\d{2}$',
-                            ],
                             'perks' => [
                                 'type' => 'array',
                                 'description' => 'Array of perks and benefits mentioned. Can be empty.',
@@ -185,7 +180,6 @@ class FetchJobListingData
                             'min_salary',
                             'max_salary',
                             'currency',
-                            'published_on',
                             'perks',
                             'interview_process',
                             'company',
@@ -276,7 +270,7 @@ class FetchJobListingData
             'about' => $json->company->about,
         ]);
 
-        return Listing::query()->updateOrCreate([
+        return JobListing::query()->updateOrCreate([
             'url' => $json->url,
         ], [
             'company_id' => $company->id,

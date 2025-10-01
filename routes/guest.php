@@ -7,13 +7,13 @@ use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
 use App\Http\Controllers\Authors\ShowAuthorController;
-use App\Http\Controllers\Listings\ShowListingController;
-use App\Http\Controllers\Listings\ListListingsController;
 use App\Http\Controllers\Checkout\StartCheckoutController;
 use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
 use App\Http\Controllers\Checkout\CompletedCheckoutController;
+use App\Http\Controllers\JobListings\ShowJobListingController;
+use App\Http\Controllers\JobListings\ListJobListingsController;
 use App\Http\Controllers\Advertising\RedirectToAdvertiserController;
 
 Route::get('/', HomeController::class)
@@ -41,11 +41,11 @@ Route::get('/links', ListLinksController::class)
 Route::view('/tools', 'tools.index')
     ->name('tools.index');
 
-Route::get('/listings', ListListingsController::class)
-    ->name('listings.index');
+Route::get('/job-listings', ListJobListingsController::class)
+    ->name('job-listings.index');
 
-Route::get('/listings/{listing:slug}', ShowListingController::class)
-    ->name('listings.show');
+Route::get('/job-listings/{jobListing:slug}', ShowJobListingController::class)
+    ->name('job-listings.show');
 
 Route::get('/advertise', App\Http\Controllers\Advertising\ShowAdvertisingLandingPageController::class)
     ->name('advertise');

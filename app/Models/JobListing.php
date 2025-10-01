@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Listing extends Model
+class JobListing extends Model
 {
-    /** @use HasFactory<\Database\Factories\ListingFactory> */
+    /** @use HasFactory<\Database\Factories\JobListingFactory> */
     use HasFactory;
 
     protected static function booted() : void

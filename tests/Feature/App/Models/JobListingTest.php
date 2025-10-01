@@ -1,13 +1,13 @@
 <?php
 
 use App\Models\Company;
-use App\Models\Listing;
+use App\Models\JobListing;
 use Carbon\CarbonImmutable;
 
 it('generates a slug on create from title and company name', function () {
     $company = Company::factory()->create(['name' => 'Acme Inc']);
 
-    $listing = Listing::factory()->for($company)->create([
+    $listing = JobListing::factory()->for($company)->create([
         'title' => 'Senior PHP Developer',
     ]);
 
@@ -15,7 +15,7 @@ it('generates a slug on create from title and company name', function () {
 });
 
 it('casts attributes correctly', function () {
-    $listing = Listing::factory()->create();
+    $listing = JobListing::factory()->create();
 
     expect($listing->technologies)->toBeArray()
         ->and($listing->locations)->toBeIterable()
@@ -27,7 +27,7 @@ it('casts attributes correctly', function () {
 });
 
 it('belongs to a company', function () {
-    $listing = Listing::factory()->create();
+    $listing = JobListing::factory()->create();
 
     expect($listing->company)->toBeInstanceOf(Company::class);
 });
