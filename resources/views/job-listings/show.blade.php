@@ -57,14 +57,6 @@
 
             {!! Str::markdown($jobListing->company->about) !!}
 
-            <h2>How to apply</h2>
-
-            <ul>
-                @foreach ($jobListing->how_to_apply as $step)
-                    <li>{{ $step }}</li>
-                @endforeach
-            </ul>
-
             @if (!empty($jobListing->perks))
                 <h2>Perks and benefits</h2>
 
@@ -84,6 +76,14 @@
                     @endforeach
                 </ul>
             @endif
+
+            <h2>How to apply</h2>
+
+            <ul>
+                @foreach ($jobListing->how_to_apply as $step)
+                    <li>{{ $step }}</li>
+                @endforeach
+            </ul>
 
             <div class="text-center not-prose">
                 <x-btn primary href="{{ $jobListing->url }}" target="_blank">

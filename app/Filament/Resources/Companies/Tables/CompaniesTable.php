@@ -15,9 +15,7 @@ class CompaniesTable
     {
         return $table
             ->columns([
-                ImageColumn::make('logo')
-                    ->imageWidth(80)
-                    ->imageHeight(80),
+                ImageColumn::make('logo'),
 
                 TextColumn::make('name')
                     ->searchable(),
