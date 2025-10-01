@@ -36,6 +36,7 @@
         </p>
 
         <div class="grid gap-8 mt-8 md:grid-cols-2">
+            <x-tools.tinkerwell />
             <x-tools.tower />
             <x-tools.fathom-analytics />
             <x-tools.cloudways />
