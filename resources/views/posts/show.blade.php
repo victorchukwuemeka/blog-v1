@@ -280,6 +280,7 @@
                     </x-heading>
 
                     <div class="grid gap-4 mt-8">
+                        <x-tools.tinkerwell />
                         <x-tools.tower />
                         <x-tools.fathom-analytics />
                         <x-tools.cloudways />

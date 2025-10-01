@@ -48,6 +48,7 @@
         class="mt-24 md:mt-32"
     >
         <div class="grid gap-8 mt-8 lg:grid-cols-2">
+            <x-tools.tinkerwell />
             <x-tools.tower />
             <x-tools.fathom-analytics />
             <x-tools.cloudways />
