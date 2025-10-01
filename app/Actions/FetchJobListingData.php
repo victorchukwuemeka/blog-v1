@@ -4,13 +4,13 @@ namespace App\Actions;
 
 use Exception;
 use App\Models\Company;
-use App\Models\Listing;
+use App\Models\JobListing;
 use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Http;
 
 class FetchJobListingData
 {
-    public function fetch(string $url) : Listing
+    public function fetch(string $url) : JobListing
     {
         if (Http::head($url)->failed()) {
             throw new Exception('The job listing could not be fetched properly.');
