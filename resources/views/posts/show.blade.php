@@ -33,13 +33,25 @@
                     @endif
                 </x-categories>
 
-                <p class="text-sm font-normal tracking-widest text-center uppercase md:text-base">
-                    {{ trans_choice(':count minute|:count minutes', $post->read_time) }}
-                    read
-                </p>
+                @if ($post->link)
+                    <p class="text-sm font-normal tracking-widest text-center uppercase md:text-base">
+                        {{ $post->link->domain }}
+                    </p>
+                @else
+                    <p class="text-sm font-normal tracking-widest text-center uppercase md:text-base">
+                        {{ trans_choice(':count minute|:count minutes', $post->read_time) }}
+                        read
+                    </p>
+                @endif
 
                 <h1 class="mt-2 font-medium tracking-tight text-center text-black text-balance text-3xl/none sm:text-4xl/none lg:text-5xl/none">
-                    {{ $post->title }}
+                    @if ($post->link)
+                        <a href="{{ $post->link->url }}" target="_blank" class="underline">
+                            {{ $post->title }}&nbsp;→
+                        </a>
+                    @else
+                        {{ $post->title }}
+                    @endif
                 </h1>
 
                 <div class="grid grid-cols-2 gap-4 mt-12 text-sm leading-tight md:mt-16 md:grid-flow-col md:grid-cols-none md:auto-cols-fr">
