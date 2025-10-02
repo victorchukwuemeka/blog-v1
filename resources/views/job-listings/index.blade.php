@@ -1,8 +1,27 @@
 <x-app
     title="The latest job offers for developers"
 >
-    <x-section title="Job offers from all of these companies">
-        <div class="flex -mt-2 justify-center items-center gap-8">
+    <div class="text-center">
+        <div class="font-medium tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
+            Dozens of new job offers each week
+        </div>
+
+        <div class="mt-4 tracking-tight text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight">
+            I gather job offers across the web and you apply. Deal?
+        </div>
+
+        <x-btn
+            primary
+            size="md"
+            href="#listings"
+            class="mt-7 md:mt-11"
+        >
+            Start applying
+        </x-btn>
+    </div>
+
+    <x-section title="Currently hiring" class="mt-16">
+        <div class="flex justify-center items-center gap-8">
             @foreach ($companyLogos as $companyLogo)
                 <img src="{{ $companyLogo }}" class="max-w-[200px] max-h-16" />
             @endforeach
@@ -12,9 +31,10 @@
     <x-section
         :title="$jobListings->currentPage() > 1
             ? 'Page ' . $jobListings->currentPage()
-            : 'Latest'"
+            : 'Latest job offers'"
         :big-title="$jobListings->currentPage() === 1"
-        class="lg:max-w-(--breakpoint-md) mt-16"
+        id="listings"
+        class="lg:max-w-(--breakpoint-md) mt-24"
     >
         @if ($jobListings->isNotEmpty())
             <div class="grid gap-4">
