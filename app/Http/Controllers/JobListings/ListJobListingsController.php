@@ -14,13 +14,13 @@ class ListJobListingsController extends Controller
         return view('job-listings.index', [
             'companyLogos' => Company::query()
                 ->inRandomOrder()
+                ->where('is_highlighted', true)
                 ->limit(10)
                 ->get()
                 ->map(fn (Company $company) => $company->logo),
 
             'jobListings' => JobListing::query()
                 ->latest()
-                ->whereTrue('is_highlighted')
                 ->paginate(12),
         ]);
     }
