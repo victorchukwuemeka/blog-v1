@@ -57,14 +57,14 @@
 
             <h2>About {{ $job->company->name }}</h2>
 
-            {!! Str::markdown($job->company->about) !!}
+            {!! Markdown::parse($job->company->about) !!}
 
             @if (!empty($job->perks))
                 <h2>Perks and benefits</h2>
 
                 <ul>
                     @foreach ($job->perks as $perk)
-                        <li>{{ $perk }}</li>
+                        <li>{{ Markdown::parse($perk) }}</li>
                     @endforeach
                 </ul>
             @endif
@@ -74,7 +74,7 @@
 
                 <ul>
                     @foreach ($job->interview_process as $step)
-                        <li>{{ $step }}</li>
+                        <li>{{ Markdown::parse($step) }}</li>
                     @endforeach
                 </ul>
             @endif
@@ -83,7 +83,7 @@
 
             <ul>
                 @foreach ($job->how_to_apply as $step)
-                    <li>{{ $step }}</li>
+                    <li>{{ Markdown::parse($step) }}</li>
                 @endforeach
             </ul>
 
