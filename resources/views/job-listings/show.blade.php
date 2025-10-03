@@ -105,15 +105,17 @@
 
             {!! Str::markdown($jobListing->description) !!}
 
-            <h2>Technologies</h2>
+            @if (! empty($jobListing->technologies))
+                <h2>Technologies</h2>
 
-            <ul>
-                @foreach ($jobListing->technologies as $technology)
-                    <li>
-                        {{ $technology }}
-                    </li>
-                @endforeach
-            </ul>
+                <ul>
+                    @foreach ($jobListing->technologies as $technology)
+                        <li>
+                            {{ $technology }}
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
 
             <h2>About {{ $jobListing->company->name }}</h2>
 

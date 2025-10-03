@@ -73,14 +73,16 @@
                                 @endif
                             </p>
 
-                            <ul class="flex flex-wrap gap-y-1 gap-x-5 items-center mt-4">
-                                @foreach ($jobListing->technologies as $technology)
-                                    <li class="flex gap-2 items-center">
-                                        <x-heroicon-o-tag class="text-gray-500 size-4" />
-                                        {{ $technology }}
-                                    </li>
-                                @endforeach
-                            </ul>
+                            @if (! empty($jobListing->technologies))
+                                <ul class="flex flex-wrap gap-y-1 gap-x-5 items-center mt-4">
+                                    @foreach ($jobListing->technologies as $technology)
+                                        <li class="flex gap-2 items-center">
+                                            <x-heroicon-o-tag class="text-gray-500 size-4" />
+                                            {{ $technology }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
 
                             <p class="mt-4">
                                 <span class="text-gray-400">Source:</span> {{ $jobListing->source }}
