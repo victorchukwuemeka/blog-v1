@@ -57,11 +57,11 @@
                                 {{ $jobListing->title }}
                             </h1>
 
-                            <p class="flex flex-wrap gap-2 items-center mt-4 leading-none">
-                                @if (!empty($jobListing->locations))
+                            @if (!empty($jobListing->locations))
+                                <p class="flex flex-wrap gap-2 items-center mt-4 leading-none">
                                     {!! collect($jobListing->locations)->join(' <span class="opacity-50 text-xs/none">/</span> ') !!}
-                                @endif
-                            </p>
+                                </p>
+                            @endif
 
                             <p class="flex flex-wrap gap-2 items-center mt-3 leading-none">
                                 {{ ucfirst($jobListing->setting) }}
