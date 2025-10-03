@@ -1,6 +1,6 @@
 <div x-data="{ open: false }">
     <button @click="open = !open">
-        <x-heroicon-o-question-mark-circle class="size-[1em] translate-y-[.1rem] opacity-75" />
+        <x-heroicon-o-question-mark-circle class="size-[1em] translate-y-[.125rem] opacity-75" />
         <span class="sr-only">What is this?</span>
     </button>
 
