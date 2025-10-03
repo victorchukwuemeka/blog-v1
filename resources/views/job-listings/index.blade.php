@@ -20,13 +20,15 @@
         </x-btn>
     </div>
 
-    <x-section title="Currently hiring" class="mt-16">
-        <div class="flex justify-center items-center gap-8">
+    <div class="mt-24">
+        <x-heading>Currently hiring</x-heading>
+
+        <div class="flex justify-center items-center gap-16 mt-8">
             @foreach ($companies as $company)
-                <img src="{{ $company->logo }}" class="max-w-[200px] max-h-16" {{ $company->extra_attributes }} />
+                <img src="{{ $company->logo }}" class="max-w-[200px] max-h-16" {!! $company->extra_attributes !!} />
             @endforeach
         </div>
-    </x-section>
+    </div>
 
     <x-section
         :title="$jobListings->currentPage() > 1
