@@ -7,7 +7,7 @@ use App\Notifications\JobFetched;
 use Illuminate\Support\Facades\Notification;
 use App\Actions\CreateJob as CreateJobAction;
 
-it('creates or updates company and job listing and notifies admin', function () {
+it('creates or updates company and job and notifies admin', function () {
     Notification::fake();
 
     $admin = User::factory()->create([
@@ -16,19 +16,19 @@ it('creates or updates company and job listing and notifies admin', function () 
 
     $data = (object) defaultJobPayload();
 
-    $listing = app(CreateJobAction::class)->create($data);
+    $job = app(CreateJobAction::class)->create($data);
 
-    expect($listing)->toBeInstanceOf(Job::class)
-        ->and($listing->url)->toBe($data->url)
-        ->and($listing->company->name)->toBe('Acme Inc')
-        ->and($listing->technologies)->toMatchArray(['PHP', 'Laravel', 'MySQL'])
-        ->and($listing->perks)->toMatchArray(['Remote stipend', 'Wellness budget'])
-        ->and($listing->equity)->toBeTrue();
+    expect($job)->toBeInstanceOf(Job::class)
+        ->and($job->url)->toBe($data->url)
+        ->and($job->company->name)->toBe('Acme Inc')
+        ->and($job->technologies)->toMatchArray(['PHP', 'Laravel', 'MySQL'])
+        ->and($job->perks)->toMatchArray(['Remote stipend', 'Wellness budget'])
+        ->and($job->equity)->toBeTrue();
 
     Notification::assertSentToTimes($admin, JobFetched::class, 1);
 });
 
-it('updates existing company and listing when matching identifiers', function () {
+it('updates existing company and job when matching identifiers', function () {
     Notification::fake();
 
     $company = Company::factory()->create([
@@ -42,7 +42,7 @@ it('updates existing company and listing when matching identifiers', function ()
     ]);
 
     $data = (object) array_merge(defaultJobPayload(), [
-        'url' => 'https://example.com/jobs/dup', // triggers update for listing
+        'url' => 'https://example.com/jobs/dup', // triggers update for job
         'source' => 'ExampleBoard',
         'title' => 'New title',
         'description' => 'New description',
@@ -98,9 +98,9 @@ it('does not error if admin user is missing', function () {
         ],
     ]);
 
-    $listing = app(CreateJobAction::class)->create($data);
+    $job = app(CreateJobAction::class)->create($data);
 
-    expect($listing)->toBeInstanceOf(Job::class);
+    expect($job)->toBeInstanceOf(Job::class);
     Notification::assertNothingSent();
 });
 

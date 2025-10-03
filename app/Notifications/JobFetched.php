@@ -24,8 +24,8 @@ class JobFetched extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('A new job listing was just fetched')
-            ->line("A new job listing, \"{$this->job->title}\", was just fetched.")
-            ->action('Check Job Listing', route('jobs.show', $this->job));
+            ->subject('A new job was just fetched')
+            ->line("A new job, \"{$this->job->title}\", was just fetched.")
+            ->action('Check Job', route('jobs.show', $this->job));
     }
 }

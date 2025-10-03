@@ -45,7 +45,7 @@ it('dispatches CreateJob with parsed data from OpenAI', function () {
             'text' => [
                 'format' => [
                     'type' => 'json_schema',
-                    'name' => 'job_listing',
+                    'name' => 'job',
                     'strict' => true,
                     'schema' => [
                         'type' => 'object',

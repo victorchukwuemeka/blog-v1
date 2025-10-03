@@ -17,8 +17,8 @@ class Job extends Model
 
     protected static function booted(): void
     {
-        static::creating(function (self $listing) {
-            $listing->slug = Str::slug($listing->title . ' ' . $listing->company->name);
+        static::creating(function (self $job) {
+            $job->slug = Str::slug($job->title . ' ' . $job->company->name);
         });
     }
 

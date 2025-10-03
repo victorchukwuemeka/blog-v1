@@ -43,7 +43,7 @@ class GenerateSitemapCommand extends Command
 
         Job::query()
             ->cursor()
-            ->each(fn(Job $listing) => $sitemap->add(route('jobs.show', $listing)));
+            ->each(fn(Job $job) => $sitemap->add(route('jobs.show', $job)));
 
         $sitemap->add(route('links.index'));
 

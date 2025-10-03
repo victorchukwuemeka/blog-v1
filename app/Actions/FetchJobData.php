@@ -38,7 +38,7 @@ class FetchJobData
             'text' => [
                 'format' => [
                     'type' => 'json_schema',
-                    'name' => 'job_listing',
+                    'name' => 'job',
                     'strict' => true,
                     'schema' => [
                         'type' => 'object',
@@ -56,17 +56,17 @@ class FetchJobData
                             ],
                             'title' => [
                                 'type' => 'string',
-                                'description' => 'The title of the job listing.',
+                                'description' => 'The title of the job.',
                                 'minLength' => 1,
                             ],
                             'description' => [
                                 'type' => 'string',
-                                'description' => 'The description of the job listing.',
+                                'description' => 'The description of the job.',
                                 'minLength' => 1,
                             ],
                             'technologies' => [
                                 'type' => 'array',
-                                'description' => 'The technologies required for the job listing.',
+                                'description' => 'The technologies required for the job.',
                                 'items' => [
                                     'type' => 'string',
                                     'minLength' => 1,

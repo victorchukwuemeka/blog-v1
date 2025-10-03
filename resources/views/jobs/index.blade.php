@@ -13,7 +13,7 @@
         <x-btn
             primary
             size="md"
-            href="#listings"
+            href="#jobs"
             class="mt-7 md:mt-11"
         >
             Start applying
@@ -37,7 +37,7 @@
             ? 'Page ' . $jobs->currentPage()
             : 'Latest job offers'"
         :big-title="$jobs->currentPage() === 1"
-        id="listings"
+        id="jobs"
         class="lg:max-w-(--breakpoint-md) mt-24"
     >
         @if ($jobs->isNotEmpty())

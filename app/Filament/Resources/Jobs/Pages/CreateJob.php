@@ -38,8 +38,8 @@ class CreateJob extends CreateRecord
         FetchJobData::dispatch($data['url']);
 
         Notification::make()
-            ->title('Fetching the job listing…')
-            ->body('The job listing is being fetched in the background. This may take a while.')
+            ->title('Fetching the job')
+            ->body('The job is being fetched in the background. This may take a while.')
             ->success()
             ->send();
 

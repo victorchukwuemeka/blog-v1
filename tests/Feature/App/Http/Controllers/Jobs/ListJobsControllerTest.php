@@ -6,14 +6,14 @@ use function Pest\Laravel\get;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
-it('lists listings', function () {
+it('lists jobs', function () {
     get(route('jobs.index'))
         ->assertOk()
         ->assertViewIs('jobs.index')
-        ->assertViewHas('jobs', fn(LengthAwarePaginator $listings) => true);
+        ->assertViewHas('jobs', fn(LengthAwarePaginator $jobs) => true);
 });
 
-it('orders listings the most recent first', function () {
+it('orders jobs the most recent first', function () {
     $older = Job::factory()->create(['created_at' => now()->subDays(2)]);
     $newer = Job::factory()->create(['created_at' => now()->subDay()]);
 
@@ -28,7 +28,7 @@ it('orders listings the most recent first', function () {
     });
 });
 
-it('paginates 12 listings per page', function () {
+it('paginates 12 jobs per page', function () {
     Job::factory(25)->create();
 
     get(route('jobs.index'))

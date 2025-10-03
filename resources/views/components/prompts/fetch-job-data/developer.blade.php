@@ -10,9 +10,9 @@ Instructions:
 
 1. Analyze the target job page content. Ignore unrelated navigation, ads, sidebars, or links not directly tied to the posting.
 
-2. Title: in the original language of the listing. "<title> at <company> in <locations>" or "Fully-remote <title> at <company>".
+2. Title: in the original language of the job. "<title> at <company> in <locations>" or "Fully-remote <title> at <company>".
 
-3. Description: An extensive description of the job in the original language of the listing and without omitting the most important details. Use a 6th grade reading level.
+3. Description: An extensive description of the job in the original language of the job and without omitting the most important details. Use a 6th grade reading level.
 
 4. Technologies: Array of languages and frameworks required, spelled according to official branding guidelines (e.g. JavaScript, React, Node.js).
 
