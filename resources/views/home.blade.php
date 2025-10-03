@@ -31,7 +31,14 @@
     <div class="grid container lg:grid-cols-12 gap-16 mt-24 md:mt-32">
         @if ($popular->isNotEmpty())
             <section id="popular" class="lg:col-span-6">
-                <x-heading class="text-left! mb-[.35rem]">Popular posts</x-heading>
+                <x-heading class="text-left! mb-[.35rem] flex items-center gap-2">
+                    Popular articles
+
+                    <x-help-btn>
+                        The most popular articles people click on.<br />
+                        They are mostly driven by search engines.
+                    </x-help-btn>
+                </x-heading>
 
                 <div class="h-px bg-gradient-to-r from-gray-300 to-transparent"></div>
 
@@ -50,7 +57,13 @@
             </section>
 
             <section id="jobs" class="lg:col-span-6">
-                <x-heading class="text-left! mb-[.35rem]">Latest jobs ({{ $recentJobsCount }})</x-heading>
+                <x-heading class="text-left! mb-[.35rem] flex items-center gap-2">
+                    Latest jobs ({{ $recentJobsCount }})
+
+                    <x-help-btn>
+                        The counter shows the number of jobs posted in the last 30 days.
+                    </x-help-btn>
+                </x-heading>
 
                 <div class="h-px bg-gradient-to-r from-gray-300 to-transparent"></div>
 

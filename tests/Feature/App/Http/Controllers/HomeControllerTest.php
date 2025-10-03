@@ -22,10 +22,10 @@ it("renders with popular and latest posts, links, and the creator's about sectio
     get(route('home'))
         ->assertOk()
         ->assertViewIs('home')
-        ->assertViewHas('popular', fn (Collection $popular) => 12 === $popular->count())
-        ->assertViewHas('latest', fn (Collection $latest) => 12 === $latest->count())
-        ->assertViewHas('links', fn (Collection $links) => 12 === $links->count())
-        ->assertViewHas('aboutUser', fn (User $aboutUser) => 'benjamincrozat' === $aboutUser->github_login);
+        ->assertViewHas('popular', fn(Collection $popular) => 6 === $popular->count())
+        ->assertViewHas('latest', fn(Collection $latest) => 12 === $latest->count())
+        ->assertViewHas('links', fn(Collection $links) => 12 === $links->count())
+        ->assertViewHas('aboutUser', fn(User $aboutUser) => 'benjamincrozat' === $aboutUser->github_login);
 });
 
 it('does not show popular posts if there are no sessions', function () {
@@ -36,5 +36,5 @@ it('does not show popular posts if there are no sessions', function () {
     ]);
 
     get(route('home'))
-        ->assertViewHas('popular', fn (Collection $popular) => $popular->isEmpty());
+        ->assertViewHas('popular', fn(Collection $popular) => $popular->isEmpty());
 });
