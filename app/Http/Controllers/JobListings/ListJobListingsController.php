@@ -12,12 +12,11 @@ class ListJobListingsController extends Controller
     public function __invoke() : View
     {
         return view('job-listings.index', [
-            'companyLogos' => Company::query()
+            'companies' => Company::query()
                 ->inRandomOrder()
                 ->where('is_highlighted', true)
                 ->limit(10)
-                ->get()
-                ->map(fn (Company $company) => $company->logo),
+                ->get(),
 
             'jobListings' => JobListing::query()
                 ->latest()

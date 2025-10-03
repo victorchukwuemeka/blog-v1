@@ -34,7 +34,11 @@ class CompanyForm
                         ->url()
                         ->label('URL'),
 
-                    TextInput::make('logo'),
+                    TextInput::make('logo')
+                        ->nullable(),
+
+                    TextInput::make('extra_attributes')
+                        ->nullable(),
 
                     Toggle::make('is_highlighted')
                         ->label('Highlighted'),

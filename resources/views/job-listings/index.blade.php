@@ -22,8 +22,8 @@
 
     <x-section title="Currently hiring" class="mt-16">
         <div class="flex justify-center items-center gap-8">
-            @foreach ($companyLogos as $companyLogo)
-                <img src="{{ $companyLogo }}" class="max-w-[200px] max-h-16" />
+            @foreach ($companies as $company)
+                <img src="{{ $company->logo }}" class="max-w-[200px] max-h-16" {{ $company->extra_attributes }} />
             @endforeach
         </div>
     </x-section>
