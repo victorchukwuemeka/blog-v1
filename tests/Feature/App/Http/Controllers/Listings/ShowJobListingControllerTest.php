@@ -26,6 +26,6 @@ it('renders JobPosting JSON-LD on the job detail page', function () {
     $response->assertOk();
 
     $response->assertSee('<script type="application/ld+json">', false);
-    $response->assertSee('"@type":"JobPosting"', false);
-    $response->assertSee('"title":' . json_encode($listing->title), false);
+    $response->assertSee('"@type": "JobPosting"', false);
+    $response->assertSee('"title": ' . json_encode($listing->title), false);
 });

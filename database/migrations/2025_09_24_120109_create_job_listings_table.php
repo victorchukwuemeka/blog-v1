@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    public function up() : void
+    public function up(): void
     {
         Schema::create('job_listings', function (Blueprint $table) {
             $table->id();
@@ -31,7 +31,7 @@ return new class extends Migration
         });
     }
 
-    public function down() : void
+    public function down(): void
     {
         Schema::dropIfExists('job_listings');
     }

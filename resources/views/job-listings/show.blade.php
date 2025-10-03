@@ -96,40 +96,40 @@
     </article>
 
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org/",
-        "@type": "JobPosting",
-        "title": @json($jobListing->title),
-        "description": @json($jobListing->description),
-        "identifier": {
-            "@type": "PropertyValue",
-            "name": @json($jobListing->company->name),
-            "value": @json((string) $jobListing->id)
-        },
-        "datePosted": @json(optional($jobListing->created_at)->toIso8601String()),
-        "employmentType": "FULL_TIME",
-        "hiringOrganization": {
-            "@type": "Organization",
-            "name": @json($jobListing->company->name)@if ($jobListing->company->url),
-            "sameAs": @json($jobListing->company->url)@endif@if ($jobListing->company->logo),
-            "logo": @json($jobListing->company->logo)@endif
-        }@if ($jobListing->setting === 'fully-remote'),
-        "jobLocationType": "TELECOMMUTE"@endif@if ($jobListing->min_salary && $jobListing->max_salary),
-        "baseSalary": {
-            "@type": "MonetaryAmount",
-            "currency": @json($jobListing->currency ?? 'USD'),
-            "value": {
-                "@type": "QuantitativeValue",
-                "minValue": {{ (int) $jobListing->min_salary }},
-                "maxValue": {{ (int) $jobListing->max_salary }},
-                "unitText": "YEAR"
-            }
-        }@endif@if (!empty($jobListing->locations) && $jobListing->setting !== 'fully-remote'),
-        "jobLocation": {
-            "@type": "Place",
-            "name": @json(collect($jobListing->locations)->first())
-        }@endif,
-        "directApply": false
-    }
+        {
+            "@@context": "https://schema.org/",
+            "@@type": "JobPosting",
+            "title": @json($jobListing->title),
+            "description": @json($jobListing->description),
+            "identifier": {
+                "@@type": "PropertyValue",
+                "name": @json($jobListing->company->name),
+                "value": @json((string) $jobListing->id)
+            },
+            "datePosted": @json(optional($jobListing->created_at)->toIso8601String()),
+            "employmentType": "FULL_TIME",
+            "hiringOrganization": {
+                "@@type": "Organization",
+                "name": @json($jobListing->company->name),
+                "sameAs": @json($jobListing->company->url),
+                "logo": @json($jobListing->company->logo)
+            },
+            "jobLocationType": @json($jobListing->setting === 'fully-remote' ? 'TELECOMMUTE' : null),
+            "jobLocation": {
+                "@@type": "Place",
+                "name": @json(collect($jobListing->locations)->first())
+            },
+            "baseSalary": {
+                "@@type": "MonetaryAmount",
+                "currency": @json($jobListing->currency ?? 'USD'),
+                "value": {
+                    "@@type": "QuantitativeValue",
+                    "minValue": @json($jobListing->min_salary),
+                    "maxValue": @json($jobListing->max_salary),
+                    "unitText": "YEAR"
+                }
+            },
+            "directApply": false
+        }
     </script>
 </x-app>

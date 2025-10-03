@@ -2,13 +2,21 @@
 
 namespace App\Actions;
 
+use Exception;
 use App\Jobs\CreateJobListing;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Http;
 
 class FetchJobListingData
 {
-    public function fetch(string $url) : void
+    public function fetch(string $url): void
     {
+        $head = Http::get($url);
+
+        if (! $head->successful()) {
+            throw new Exception('The provided job URL cannot be reached.');
+        }
+
         $response = OpenAI::responses()->create([
             'model' => 'gpt-5',
             'input' => [
