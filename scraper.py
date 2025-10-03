@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Build Camoufox options and only include proxy settings when valid
     camoufox_options = {
         "geoip": True,
-        "headless": False,
+        "headless": True,
         "humanize": True,
     }
 
