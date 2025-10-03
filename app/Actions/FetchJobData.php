@@ -2,21 +2,14 @@
 
 namespace App\Actions;
 
-use Exception;
 use App\Jobs\CreateJob;
+use App\Scraper\Webpage;
 use OpenAI\Laravel\Facades\OpenAI;
-use Illuminate\Support\Facades\Http;
 
 class FetchJobData
 {
-    public function fetch(string $url): void
+    public function fetch(Webpage $webpage) : void
     {
-        $head = Http::get($url);
-
-        if (! $head->successful()) {
-            throw new Exception('The provided job URL cannot be reached.');
-        }
-
         $response = OpenAI::responses()->create([
             'model' => 'gpt-5',
             'input' => [
@@ -31,7 +24,7 @@ class FetchJobData
                     'role' => 'user',
                     'content' => [[
                         'type' => 'input_text',
-                        'text' => view('components.prompts.fetch-job-data.user', compact('url'))->render(),
+                        'text' => view('components.prompts.fetch-job-data.user', compact('webpage'))->render(),
                     ]],
                 ],
             ],

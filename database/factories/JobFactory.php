@@ -14,7 +14,7 @@ class JobFactory extends Factory
     /**
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition() : array
     {
 
         return [
@@ -27,7 +27,7 @@ class JobFactory extends Factory
             'technologies' => fake()->words(random_int(3, 10)),
             'locations' => Collection::times(
                 random_int(1, 2),
-                fn() => fake()->city() . ', ' . fake()->country(),
+                fn () => fake()->city() . ', ' . fake()->country(),
             ),
             'setting' => collect(['fully-remote', 'hybrid', 'on-site'])->random(),
             'min_salary' => $minSalary = fake()->numberBetween(10000, 100000),

@@ -58,4 +58,9 @@ return [
         'token' => env('CLOUDFLARE_API_TOKEN'),
     ],
 
+    'smartproxy' => [
+        'proxy_username' => env('SMARTPROXY_PROXY_USERNAME'),
+        'proxy_password' => env('SMARTPROXY_PROXY_PASSWORD'),
+    ],
+
 ];

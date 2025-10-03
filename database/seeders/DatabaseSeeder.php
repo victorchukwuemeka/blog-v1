@@ -9,7 +9,7 @@ use App\Console\Commands\SyncVisitorsCommand;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run(): void
+    public function run() : void
     {
         Storage::disk('public')->deleteDirectory('images/posts');
 

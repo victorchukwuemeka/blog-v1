@@ -2,15 +2,15 @@
 
 namespace App\Actions;
 
+use App\Models\Job;
 use App\Models\User;
 use App\Models\Company;
-use App\Models\Job;
-use Illuminate\Support\Facades\DB;
 use App\Notifications\JobFetched;
+use Illuminate\Support\Facades\DB;
 
 class CreateJob
 {
-    public function create(object $data): Job
+    public function create(object $data) : Job
     {
         return DB::transaction(function () use ($data) {
             $company = Company::query()->updateOrCreate([

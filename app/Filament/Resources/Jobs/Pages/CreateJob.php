@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Jobs\Pages;
 
-use Filament\Schemas\Schema;
 use App\Jobs\FetchJobData;
+use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
@@ -13,7 +13,7 @@ class CreateJob extends CreateRecord
 {
     protected static string $resource = JobResource::class;
 
-    public function form(Schema $schema): Schema
+    public function form(Schema $schema) : Schema
     {
         return $schema->components([
             TextInput::make('url')
@@ -24,12 +24,12 @@ class CreateJob extends CreateRecord
         ]);
     }
 
-    protected function getSubmitFormLivewireMethodName(): string
+    protected function getSubmitFormLivewireMethodName() : string
     {
         return 'fetch';
     }
 
-    public function fetch(): void
+    public function fetch() : void
     {
         $this->validate();
 

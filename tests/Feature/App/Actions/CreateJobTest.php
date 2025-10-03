@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Job;
 use App\Models\User;
 use App\Models\Company;
-use App\Models\Job;
 use App\Notifications\JobFetched;
 use Illuminate\Support\Facades\Notification;
 use App\Actions\CreateJob as CreateJobAction;
@@ -104,7 +104,7 @@ it('does not error if admin user is missing', function () {
     Notification::assertNothingSent();
 });
 
-function defaultJobPayload(): array
+function defaultJobPayload() : array
 {
     return [
         'url' => 'https://example.com/jobs/123',

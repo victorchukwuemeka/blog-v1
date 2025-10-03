@@ -26,17 +26,17 @@ class JobResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    public static function form(Schema $schema): Schema
+    public static function form(Schema $schema) : Schema
     {
         return JobForm::configure($schema);
     }
 
-    public static function table(Table $table): Table
+    public static function table(Table $table) : Table
     {
         return JobsTable::configure($table);
     }
 
-    public static function getPages(): array
+    public static function getPages() : array
     {
         return [
             'index' => ListJobs::route('/'),

@@ -1,8 +1,8 @@
 <?php
 
 use App\Jobs\CreateJob;
+use App\Scraper\Webpage;
 use OpenAI\Laravel\Facades\OpenAI;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
 use OpenAI\Responses\Responses\CreateResponse;
 use App\Actions\FetchJobData as FetchJobDataAction;
@@ -10,14 +10,15 @@ use App\Actions\FetchJobData as FetchJobDataAction;
 it('dispatches CreateJob with parsed data from OpenAI', function () {
     Queue::fake();
 
-    $url = 'https://example.com/job/123';
-
-    Http::fake([
-        $url => Http::response('', 200),
-    ]);
+    $webpage = new Webpage(
+        url: 'https://example.com/job/123',
+        imageUrl: null,
+        title: 'Senior PHP Developer',
+        content: 'Build and maintain Laravel apps.',
+    );
 
     $payload = json_encode([
-        'url' => $url,
+        'url' => $webpage->url,
         'language' => 'en',
         'title' => 'Senior PHP Developer',
         'description' => 'Build and maintain Laravel apps.',
@@ -75,24 +76,9 @@ it('dispatches CreateJob with parsed data from OpenAI', function () {
         ]),
     ]);
 
-    app(FetchJobDataAction::class)->fetch($url);
+    app(FetchJobDataAction::class)->fetch($webpage);
 
-    Queue::assertPushed(CreateJob::class, function ($job) use ($url) {
-        return isset($job->data) && is_object($job->data) && $job->data->url === $url;
+    Queue::assertPushed(CreateJob::class, function ($job) use ($webpage) {
+        return isset($job->data) && is_object($job->data) && $job->data->url === $webpage->url;
     });
-});
-
-it('throws when the URL cannot be reached', function () {
-    Queue::fake();
-
-    $url = 'https://example.com/job/404';
-
-    Http::fake([
-        $url => Http::response('', 404),
-    ]);
-
-    expect(fn() => app(FetchJobDataAction::class)->fetch($url))
-        ->toThrow(Exception::class);
-
-    Queue::assertNothingPushed();
 });

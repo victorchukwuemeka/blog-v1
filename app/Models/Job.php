@@ -15,14 +15,14 @@ class Job extends Model
     // Avoid conflict with the already existing jobs table.
     protected $table = 'job_listings';
 
-    protected static function booted(): void
+    protected static function booted() : void
     {
         static::creating(function (self $job) {
             $job->slug = Str::slug($job->title . ' ' . $job->company->name);
         });
     }
 
-    protected function casts(): array
+    protected function casts() : array
     {
         return [
             'technologies' => 'array',
@@ -34,7 +34,7 @@ class Job extends Model
         ];
     }
 
-    public function company(): BelongsTo
+    public function company() : BelongsTo
     {
         return $this->belongsTo(Company::class);
     }

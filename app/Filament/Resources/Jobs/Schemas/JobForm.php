@@ -10,7 +10,7 @@ use Filament\Forms\Components\TextInput;
 
 class JobForm
 {
-    public static function configure(Schema $schema): Schema
+    public static function configure(Schema $schema) : Schema
     {
         return $schema
             ->components([

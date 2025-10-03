@@ -13,7 +13,7 @@ class CreateJob implements ShouldQueue
         public object $data,
     ) {}
 
-    public function handle(): void
+    public function handle() : void
     {
         app(\App\Actions\CreateJob::class)->create($this->data);
     }

@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Job;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
-use App\Models\Job;
 use Spatie\Sitemap\Sitemap;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 )]
 class GenerateSitemapCommand extends Command
 {
-    public function handle(): void
+    public function handle() : void
     {
         $sitemap = Sitemap::create(config('app.url'));
 
@@ -27,23 +27,23 @@ class GenerateSitemapCommand extends Command
         Post::query()
             ->published()
             ->cursor()
-            ->each(fn(Post $post) => $sitemap->add(route('posts.show', $post)));
+            ->each(fn (Post $post) => $sitemap->add(route('posts.show', $post)));
 
         User::query()
             ->cursor()
-            ->each(fn(User $user) => $sitemap->add(route('authors.show', $user)));
+            ->each(fn (User $user) => $sitemap->add(route('authors.show', $user)));
 
         $sitemap->add(route('categories.index'));
 
         Category::query()
             ->cursor()
-            ->each(fn(Category $category) => $sitemap->add(route('categories.show', $category)));
+            ->each(fn (Category $category) => $sitemap->add(route('categories.show', $category)));
 
         $sitemap->add(route('links.index'));
 
         Job::query()
             ->cursor()
-            ->each(fn(Job $job) => $sitemap->add(route('jobs.show', $job)));
+            ->each(fn (Job $job) => $sitemap->add(route('jobs.show', $job)));
 
         $sitemap->add(route('links.index'));
 

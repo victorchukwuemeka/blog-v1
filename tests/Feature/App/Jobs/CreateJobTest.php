@@ -1,6 +1,6 @@
 <?php
 
-use App\Jobs\CreateJob as CreateJob;
+use App\Jobs\CreateJob;
 use Facades\App\Actions\CreateJob as CreateJobAction;
 
 it('invokes the action with provided data', function () {

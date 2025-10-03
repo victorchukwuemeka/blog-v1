@@ -16,12 +16,12 @@ class JobFetched extends Notification implements ShouldQueue
         public Job $job
     ) {}
 
-    public function via(object $notifiable): array
+    public function via(object $notifiable) : array
     {
         return ['mail'];
     }
 
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $notifiable) : MailMessage
     {
         return (new MailMessage)
             ->subject('A new job was just fetched')

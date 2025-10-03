@@ -10,7 +10,7 @@ class EditJob extends EditRecord
 {
     protected static string $resource = JobResource::class;
 
-    protected function getHeaderActions(): array
+    protected function getHeaderActions() : array
     {
         return [
             DeleteAction::make(),

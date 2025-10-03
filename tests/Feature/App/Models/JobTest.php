@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Company;
 use App\Models\Job;
+use App\Models\Company;
 
 it('generates a slug on create from title and company name', function () {
     $company = Company::factory()->create(['name' => 'Acme Inc']);

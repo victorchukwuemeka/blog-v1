@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Jobs;
 
+use App\Models\Job;
 use App\Models\Company;
 use Illuminate\View\View;
-use App\Models\Job;
 use App\Http\Controllers\Controller;
 
 class ListJobsController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke() : View
     {
         return view('jobs.index', [
             'companies' => Company::query()

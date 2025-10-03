@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class JobSeeder extends Seeder
 {
-    public function run(): void
+    public function run() : void
     {
         Job::factory(50)
             ->recycle(Company::all())

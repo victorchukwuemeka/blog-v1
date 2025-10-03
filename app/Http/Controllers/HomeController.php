@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Models\Link;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\View\View;
-use App\Models\Job;
 
 class HomeController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke() : View
     {
         // Fetch popular and latest posts separately…
         $popular = Post::query()

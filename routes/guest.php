@@ -65,7 +65,7 @@ Route::feeds();
 Route::get('/checkout/completed', CompletedCheckoutController::class)->name('checkout.completed');
 Route::get('/checkout/{product}', StartCheckoutController::class)->name('checkout.start');
 
-Route::get('/up', fn() => 'OK');
+Route::get('/up', fn () => 'OK');
 
 // This route needs to be the last one so all others take precedence.
 Route::get('/{slug}', ShowPostController::class)
