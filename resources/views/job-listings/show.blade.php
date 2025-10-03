@@ -2,68 +2,6 @@
     :title="$jobListing->title"
     :description="$jobListing->description"
 >
-    @push('head')
-        @php
-            $jobPosting = [
-                '@context' => 'https://schema.org/',
-                '@type' => 'JobPosting',
-                'title' => $jobListing->title,
-                'description' => strip_tags(Str::markdown($jobListing->description)),
-                'identifier' => [
-                    '@type' => 'PropertyValue',
-                    'name' => $jobListing->company->name,
-                    'value' => (string) $jobListing->id,
-                ],
-                'datePosted' => optional($jobListing->created_at)->toIso8601String(),
-                'employmentType' => 'FULL_TIME',
-                'hiringOrganization' => array_filter([
-                    '@type' => 'Organization',
-                    'name' => $jobListing->company->name,
-                    'sameAs' => $jobListing->company->url,
-                    'logo' => $jobListing->company->logo,
-                ]),
-                'directApply' => true,
-            ];
-
-            if ($jobListing->updated_at) {
-                $jobPosting['dateModified'] = $jobListing->updated_at->toIso8601String();
-            }
-
-            if ($jobListing->min_salary && $jobListing->max_salary) {
-                $jobPosting['baseSalary'] = [
-                    '@type' => 'MonetaryAmount',
-                    'currency' => $jobListing->currency ?? 'USD',
-                    'value' => [
-                        '@type' => 'QuantitativeValue',
-                        'minValue' => (int) $jobListing->min_salary,
-                        'maxValue' => (int) $jobListing->max_salary,
-                        'unitText' => 'YEAR',
-                    ],
-                ];
-            }
-
-            if (! empty($jobListing->locations)) {
-                $jobPosting['jobLocation'] = collect($jobListing->locations)
-                    ->map(function (string $loc) {
-                        return [
-                            '@type' => 'Place',
-                            'address' => [
-                                '@type' => 'PostalAddress',
-                                'addressLocality' => Str::of($loc)->before(',')->trim()->value(),
-                                'addressCountry' => Str::of($loc)->after(',')->trim()->value(),
-                            ],
-                        ];
-                    })
-                    ->values()
-                    ->all();
-            }
-
-            if ($jobListing->setting === 'fully-remote') {
-                $jobPosting['jobLocationType'] = 'TELECOMMUTE';
-            }
-        @endphp
-        <script type="application/ld+json">{!! json_encode($jobPosting, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
-    @endpush
     <article class="container lg:max-w-(--breakpoint-md)">
         <h1 class="font-medium tracking-tight text-black text-balance text-3xl/none sm:text-4xl/none lg:text-5xl/none">
             {{ $jobListing->title }}
@@ -156,4 +94,42 @@
             </div>
         </x-prose>
     </article>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "JobPosting",
+        "title": @json($jobListing->title),
+        "description": @json($jobListing->description),
+        "identifier": {
+            "@type": "PropertyValue",
+            "name": @json($jobListing->company->name),
+            "value": @json((string) $jobListing->id)
+        },
+        "datePosted": @json(optional($jobListing->created_at)->toIso8601String()),
+        "employmentType": "FULL_TIME",
+        "hiringOrganization": {
+            "@type": "Organization",
+            "name": @json($jobListing->company->name)@if ($jobListing->company->url),
+            "sameAs": @json($jobListing->company->url)@endif@if ($jobListing->company->logo),
+            "logo": @json($jobListing->company->logo)@endif
+        }@if ($jobListing->setting === 'fully-remote'),
+        "jobLocationType": "TELECOMMUTE"@endif@if ($jobListing->min_salary && $jobListing->max_salary),
+        "baseSalary": {
+            "@type": "MonetaryAmount",
+            "currency": @json($jobListing->currency ?? 'USD'),
+            "value": {
+                "@type": "QuantitativeValue",
+                "minValue": {{ (int) $jobListing->min_salary }},
+                "maxValue": {{ (int) $jobListing->max_salary }},
+                "unitText": "YEAR"
+            }
+        }@endif@if (!empty($jobListing->locations) && $jobListing->setting !== 'fully-remote'),
+        "jobLocation": {
+            "@type": "Place",
+            "name": @json(collect($jobListing->locations)->first())
+        }@endif,
+        "directApply": false
+    }
+    </script>
 </x-app>

@@ -11,7 +11,7 @@ use Filament\Tables\Columns\ImageColumn;
 
 class CompaniesTable
 {
-    public static function configure(Table $table): Table
+    public static function configure(Table $table) : Table
     {
         return $table
             ->defaultSort('id', 'desc')

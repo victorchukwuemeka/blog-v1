@@ -55,8 +55,6 @@
         <link rel="canonical" href="{{ $canonical }}" />
 
         <x-feed-links />
-
-        @stack('head')
     </head>
     <body {{ $attributes->class('font-light text-gray-600') }}>
         <div class="flex flex-col min-h-screen">
