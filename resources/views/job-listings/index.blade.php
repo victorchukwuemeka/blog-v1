@@ -25,7 +25,9 @@
 
         <div class="flex justify-center items-center gap-16 mt-8">
             @foreach ($companies as $company)
-                <img src="{{ $company->logo }}" class="max-w-[200px] max-h-16" {!! $company->extra_attributes !!} />
+                <a href="{{ $company->url }}" target="_blank" class="max-w-[200px] max-h-16">
+                    <img src="{{ $company->logo }}" {!! $company->extra_attributes !!} />
+                </a>
             @endforeach
         </div>
     </div>
