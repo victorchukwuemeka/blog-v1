@@ -8,7 +8,7 @@
     <div>
         <a
             wire:navigate
-            href="{{ route('job-listings.show', $job->slug) }}"
+            href="{{ route('jobs.show', $job->slug) }}"
             class="font-bold transition-colors hover:text-blue-600"
             data-pirsch-event="Clicked job"
             data-pirsch-meta-title="{{ $job->title }}"

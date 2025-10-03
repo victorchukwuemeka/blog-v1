@@ -72,7 +72,7 @@
                 <div class="mt-7">
                     <a
                         wire:navigate
-                        href="{{ route('job-listings.index') }}"
+                        href="{{ route('jobs.index') }}"
                         class="underline font-medium hover:text-blue-600 transition-colors"
                         data-pirsch-event='Clicked "browse all jobs"'
                     >

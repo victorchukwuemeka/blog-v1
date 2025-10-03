@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Filament\Resources\Jobs\Pages;
+
+use Filament\Schemas\Schema;
+use App\Jobs\FetchJobData;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\Jobs\JobResource;
+
+class CreateJob extends CreateRecord
+{
+    protected static string $resource = JobResource::class;
+
+    public function form(Schema $schema): Schema
+    {
+        return $schema->components([
+            TextInput::make('url')
+                ->required()
+                ->rules(['url'])
+                ->label('URL')
+                ->columnSpanFull(),
+        ]);
+    }
+
+    protected function getSubmitFormLivewireMethodName(): string
+    {
+        return 'fetch';
+    }
+
+    public function fetch(): void
+    {
+        $this->validate();
+
+        $data = $this->form->getState();
+
+        FetchJobData::dispatch($data['url']);
+
+        Notification::make()
+            ->title('Fetching the job listing…')
+            ->body('The job listing is being fetched in the background. This may take a while.')
+            ->success()
+            ->send();
+
+        $this->redirect($this->getResourceUrl());
+    }
+}

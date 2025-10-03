@@ -6,7 +6,7 @@ use App\Models\Link;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\View\View;
-use App\Models\JobListing;
+use App\Models\Job;
 
 class HomeController extends Controller
 {
@@ -21,11 +21,11 @@ class HomeController extends Controller
             ->limit(6)
             ->get();
 
-        $jobs = JobListing::query()
+        $jobs = Job::query()
             ->latest()
             ->paginate(6);
 
-        $recentJobsCount = JobListing::query()
+        $recentJobsCount = Job::query()
             ->where('created_at', '>=', now()->subDays(30))
             ->count();
 

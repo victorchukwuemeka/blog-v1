@@ -38,7 +38,7 @@
         <x-nav.item
             active-icon="heroicon-s-briefcase"
             icon="heroicon-o-briefcase"
-            href="{{ route('job-listings.index') }}"
+            href="{{ route('jobs.index') }}"
         >
             Jobs
         </x-nav.item>

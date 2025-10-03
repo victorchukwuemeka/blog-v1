@@ -9,7 +9,7 @@ use App\Console\Commands\SyncVisitorsCommand;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run() : void
+    public function run(): void
     {
         Storage::disk('public')->deleteDirectory('images/posts');
 
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             ReportSeeder::class,
             LinkSeeder::class,
             CompanySeeder::class,
-            ListingSeeder::class,
+            JobSeeder::class,
             ShortUrlSeeder::class,
         ]);
     }

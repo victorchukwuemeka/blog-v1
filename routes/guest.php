@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\LinkWizard\LinkWizard;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Jobs\ShowJobController;
+use App\Http\Controllers\Jobs\ListJobsController;
 use App\Http\Controllers\Posts\ShowPostController;
 use App\Http\Controllers\Links\ListLinksController;
 use App\Http\Controllers\Posts\ListPostsController;
@@ -12,9 +14,8 @@ use App\Http\Controllers\Merchants\ShowMerchantController;
 use App\Http\Controllers\Categories\ShowCategoryController;
 use App\Http\Controllers\Categories\ListCategoriesController;
 use App\Http\Controllers\Checkout\CompletedCheckoutController;
-use App\Http\Controllers\JobListings\ShowJobListingController;
-use App\Http\Controllers\JobListings\ListJobListingsController;
 use App\Http\Controllers\Advertising\RedirectToAdvertiserController;
+use App\Http\Controllers\Advertising\ShowAdvertisingLandingPageController;
 
 Route::get('/', HomeController::class)
     ->name('home');
@@ -41,13 +42,13 @@ Route::get('/links', ListLinksController::class)
 Route::view('/tools', 'tools.index')
     ->name('tools.index');
 
-Route::get('/job-listings', ListJobListingsController::class)
-    ->name('job-listings.index');
+Route::get('/jobs', ListJobsController::class)
+    ->name('jobs.index');
 
-Route::get('/job-listings/{jobListing:slug}', ShowJobListingController::class)
-    ->name('job-listings.show');
+Route::get('/jobs/{job:slug}', ShowJobController::class)
+    ->name('jobs.show');
 
-Route::get('/advertise', App\Http\Controllers\Advertising\ShowAdvertisingLandingPageController::class)
+Route::get('/advertise', ShowAdvertisingLandingPageController::class)
     ->name('advertise');
 
 Route::view('/advertise/guidelines', 'guidelines')
@@ -64,7 +65,7 @@ Route::feeds();
 Route::get('/checkout/completed', CompletedCheckoutController::class)->name('checkout.completed');
 Route::get('/checkout/{product}', StartCheckoutController::class)->name('checkout.start');
 
-Route::get('/up', fn () => 'OK');
+Route::get('/up', fn() => 'OK');
 
 // This route needs to be the last one so all others take precedence.
 Route::get('/{slug}', ShowPostController::class)
