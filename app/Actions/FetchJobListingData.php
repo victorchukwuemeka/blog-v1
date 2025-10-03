@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 
 class FetchJobListingData
 {
-    public function fetch(string $url): void
+    public function fetch(string $url) : void
     {
         $head = Http::get($url);
 

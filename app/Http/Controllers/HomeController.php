@@ -6,10 +6,11 @@ use App\Models\Link;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\View\View;
+use App\Models\JobListing;
 
 class HomeController extends Controller
 {
-    public function __invoke() : View
+    public function __invoke(): View
     {
         // Fetch popular and latest posts separately…
         $popular = Post::query()
@@ -17,8 +18,16 @@ class HomeController extends Controller
             ->whereDoesntHave('link')
             ->where('sessions_count', '>', 0)
             ->orderBy('sessions_count', 'desc')
-            ->limit(12)
+            ->limit(6)
             ->get();
+
+        $jobs = JobListing::query()
+            ->latest()
+            ->paginate(6);
+
+        $recentJobsCount = JobListing::query()
+            ->where('created_at', '>=', now()->subDays(30))
+            ->count();
 
         $latest = Post::query()
             ->published()
@@ -43,6 +52,6 @@ class HomeController extends Controller
             ->where('github_login', 'benjamincrozat')
             ->first();
 
-        return view('home', compact('popular', 'latest', 'links', 'aboutUser'));
+        return view('home', compact('popular', 'jobs', 'recentJobsCount', 'latest', 'links', 'aboutUser'));
     }
 }

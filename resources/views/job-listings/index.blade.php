@@ -23,9 +23,9 @@
     <div class="mt-24">
         <x-heading>Currently hiring</x-heading>
 
-        <div class="flex justify-center items-center gap-16 mt-8">
+        <div class="flex md:justify-center px-4 overflow-x-auto snap-mandatory snap-x items-center gap-16 mt-8">
             @foreach ($companies as $company)
-                <a href="{{ $company->url }}" target="_blank" class="max-w-[200px] max-h-16">
+                <a href="{{ $company->url }}" target="_blank" class="scroll-ml-4 max-w-[200px] flex-none snap-start max-h-16">
                     <img src="{{ $company->logo }}" {!! $company->extra_attributes !!} />
                 </a>
             @endforeach
@@ -44,51 +44,57 @@
             <div class="grid gap-4">
                 @foreach ($jobListings as $jobListing)
                     <a wire:navigate href="{{ route('job-listings.show', $jobListing) }}" target="_blank">
-                        <article class="p-6 rounded-xl ring-1 shadow-md ring-black/10">
-                            <div class="flex gap-16 justify-between items-start">
-                                <p class="text-sm tracking-widest uppercase">
-                                    {{ $jobListing->company->name }}
-                                </p>
-
-                                <p class="flex-none text-gray-500">
-                                    {{ $jobListing->created_at->diffForHumans() }}
-                                </p>
+                        <article class="p-6 flex items-start gap-6 rounded-xl ring-1 shadow-md ring-black/10">
+                            <div class="flex-none size-12 rounded-full ring-1 ring-black/10 grid place-items-center">
+                                <x-heroicon-o-building-office class="text-gray-500 size-6" />
                             </div>
 
-                            <h1 class="mt-2 font-medium tracking-tight max-w-2/3 text-xl/tight">
-                                {{ $jobListing->title }}
-                            </h1>
+                            <div>
+                                <div class="flex gap-16 justify-between items-start">
+                                    <p class="text-sm tracking-widest uppercase">
+                                        {{ $jobListing->company->name }}
+                                    </p>
 
-                            @if (!empty($jobListing->locations))
-                                <p class="flex flex-wrap gap-2 items-center mt-4 leading-none">
-                                    {!! collect($jobListing->locations)->join(' <span class="opacity-50 text-xs/none">/</span> ') !!}
-                                </p>
-                            @endif
+                                    <p class="flex-none text-gray-500">
+                                        {{ $jobListing->created_at->diffForHumans() }}
+                                    </p>
+                                </div>
 
-                            <p class="flex flex-wrap gap-2 items-center mt-3 leading-none">
-                                {{ ucfirst($jobListing->setting) }}
+                                <h1 class="mt-2 font-medium tracking-tight max-w-2/3 text-xl/tight">
+                                    {{ $jobListing->title }}
+                                </h1>
 
-                                @if ($jobListing->min_salary && $jobListing->max_salary)
-                                    <span class="opacity-50 text-xs/none">/</span>
-
-                                    {{ Number::currency($jobListing->min_salary, $jobListing->currency ?? 'USD') }}—{{ Number::currency($jobListing->max_salary, $jobListing->currency ?? 'USD') }}
+                                @if (!empty($jobListing->locations))
+                                    <p class="flex flex-wrap gap-2 items-center mt-4 leading-none">
+                                        {!! collect($jobListing->locations)->join(' <span class="opacity-50 text-xs/none">/</span> ') !!}
+                                    </p>
                                 @endif
-                            </p>
 
-                            @if (! empty($jobListing->technologies))
-                                <ul class="flex flex-wrap gap-y-1 gap-x-5 items-center mt-4">
-                                    @foreach ($jobListing->technologies as $technology)
-                                        <li class="flex gap-2 items-center">
-                                            <x-heroicon-o-tag class="text-gray-500 size-4" />
-                                            {{ $technology }}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
+                                <p class="flex flex-wrap gap-2 items-center mt-3 leading-none">
+                                    {{ ucfirst($jobListing->setting) }}
 
-                            <p class="mt-4">
-                                <span class="text-gray-400">Source:</span> {{ $jobListing->source }}
-                            </p>
+                                    @if ($jobListing->min_salary && $jobListing->max_salary)
+                                        <span class="opacity-50 text-xs/none">/</span>
+
+                                        {{ Number::currency($jobListing->min_salary, $jobListing->currency ?? 'USD') }}—{{ Number::currency($jobListing->max_salary, $jobListing->currency ?? 'USD') }}
+                                    @endif
+                                </p>
+
+                                @if (! empty($jobListing->technologies))
+                                    <ul class="flex flex-wrap gap-y-1 gap-x-5 items-center mt-4">
+                                        @foreach ($jobListing->technologies as $technology)
+                                            <li class="flex gap-2 items-center">
+                                                <x-heroicon-o-tag class="text-gray-500 size-4" />
+                                                {{ $technology }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+
+                                <p class="mt-4">
+                                    <span class="text-gray-400">Source:</span> {{ $jobListing->source }}
+                                </p>
+                            </div>
                         </article>
                     </a>
                 @endforeach

@@ -28,20 +28,47 @@
         </div>
     </div>
 
-    @if ($popular->isNotEmpty())
-        <x-section title="Popular posts" id="popular" class="mt-24 md:mt-32">
-            <x-posts-grid :posts="$popular" />
+    <div class="grid container lg:grid-cols-12 gap-16 mt-24 md:mt-32">
+        @if ($popular->isNotEmpty())
+            <section id="popular" class="lg:col-span-6">
+                <x-heading class="text-left! mb-[.35rem]">Popular posts</x-heading>
 
-            <x-btn
-                primary
-                wire:navigate
-                href="{{ route('posts.index') }}"
-                class="table mx-auto mt-16"
-            >
-                Browse all articles
-            </x-btn>
-        </x-section>
-    @endif
+                <div class="h-px bg-gradient-to-r from-gray-300 to-transparent"></div>
+
+                <x-posts-list :posts="$popular" class="mt-8" />
+
+                <div class="mt-7">
+                    <a
+                        wire:navigate
+                        href="{{ route('posts.index') }}"
+                        class="underline font-medium hover:text-blue-600 transition-colors"
+                        data-pirsch-event='Clicked "browse all articles"'
+                    >
+                        Browse all articles →
+                    </a>
+                </div>
+            </section>
+
+            <section id="jobs" class="lg:col-span-6">
+                <x-heading class="text-left! mb-[.35rem]">Latest jobs ({{ $recentJobsCount }})</x-heading>
+
+                <div class="h-px bg-gradient-to-r from-gray-300 to-transparent"></div>
+
+                <x-jobs-list :jobs="$jobs" class="mt-8" />
+
+                <div class="mt-7">
+                    <a
+                        wire:navigate
+                        href="{{ route('job-listings.index') }}"
+                        class="underline font-medium hover:text-blue-600 transition-colors"
+                        data-pirsch-event='Clicked "browse all jobs"'
+                    >
+                        Browse all jobs →
+                    </a>
+                </div>
+            </section>
+        @endif
+    </div>
 
     <x-section
         title="Great tools for developers"
