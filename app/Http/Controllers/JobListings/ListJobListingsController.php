@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class ListJobListingsController extends Controller
 {
-    public function __invoke() : View
+    public function __invoke(): View
     {
         return view('job-listings.index', [
             'companies' => Company::query()
@@ -21,6 +21,10 @@ class ListJobListingsController extends Controller
             'jobListings' => JobListing::query()
                 ->latest()
                 ->paginate(12),
+
+            'recentJobListingsCount' => JobListing::query()
+                ->where('created_at', '>=', now()->subDays(30))
+                ->count(),
         ]);
     }
 }

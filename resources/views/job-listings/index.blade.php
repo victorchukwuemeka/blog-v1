@@ -1,12 +1,12 @@
 <x-app
     title="The latest job offers for developers"
 >
-    <div class="text-center">
+    <div class="container text-center">
         <div class="font-medium tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
-            Dozens of new job offers each week
+            <span class="text-blue-600">{{ trans_choice(':count new job|:count new jobs', $recentJobListingsCount) }}</span> in the last 30 days
         </div>
 
-        <div class="mt-4 tracking-tight text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight">
+        <div class="mt-4 text-balance tracking-tight text-black/75 text-lg/tight sm:text-xl/tight md:text-2xl/tight">
             I gather job offers across the web and you apply. Deal?
         </div>
 

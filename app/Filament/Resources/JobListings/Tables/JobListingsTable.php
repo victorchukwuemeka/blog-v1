@@ -11,9 +11,10 @@ use Filament\Tables\Columns\TextColumn;
 
 class JobListingsTable
 {
-    public static function configure(Table $table) : Table
+    public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('company.name')
                     ->searchable(),
