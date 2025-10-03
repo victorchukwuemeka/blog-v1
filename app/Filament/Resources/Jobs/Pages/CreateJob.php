@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Jobs\Pages;
 
+use App\Jobs\ScrapeJob;
 use App\Jobs\FetchJobData;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
@@ -13,7 +14,7 @@ class CreateJob extends CreateRecord
 {
     protected static string $resource = JobResource::class;
 
-    public function form(Schema $schema) : Schema
+    public function form(Schema $schema): Schema
     {
         return $schema->components([
             TextInput::make('url')
@@ -24,18 +25,18 @@ class CreateJob extends CreateRecord
         ]);
     }
 
-    protected function getSubmitFormLivewireMethodName() : string
+    protected function getSubmitFormLivewireMethodName(): string
     {
         return 'fetch';
     }
 
-    public function fetch() : void
+    public function fetch(): void
     {
         $this->validate();
 
         $data = $this->form->getState();
 
-        FetchJobData::dispatch($data['url']);
+        ScrapeJob::dispatch($data['url']);
 
         Notification::make()
             ->title('Fetching the job')
