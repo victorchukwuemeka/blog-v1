@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\PostsStats;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
@@ -25,16 +26,16 @@ use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
 class AdminPanelProvider extends PanelProvider
 {
-    public function boot() : void
+    public function boot(): void
     {
-        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateDisplayFormat('Y/m/d'));
+        DateTimePicker::configureUsing(fn(DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateDisplayFormat('Y/m/d'));
 
-        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeDisplayFormat('Y/m/d H:i'));
+        DateTimePicker::configureUsing(fn(DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeDisplayFormat('Y/m/d H:i'));
 
-        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeWithSecondsDisplayFormat('Y/m/d H:i:s'));
+        DateTimePicker::configureUsing(fn(DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeWithSecondsDisplayFormat('Y/m/d H:i:s'));
     }
 
-    public function panel(Panel $panel) : Panel
+    public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
@@ -48,11 +49,10 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
                 VisitorStats::class,
+                PostsStats::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -69,27 +69,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->databaseNotifications()
-            ->navigationItems([
-                NavigationItem::make('Go to site')
-                    ->url('/')
-                    ->icon('heroicon-o-arrow-right-circle')
-                    ->sort(0),
-                NavigationItem::make('Horizon')
-                    ->url('/horizon')
-                    ->icon('icon-horizon')
-                    ->sort(1),
-            ])
             ->sidebarCollapsibleOnDesktop()
-            ->spa()
-            ->userMenuItems([
-                MenuItem::make()
-                    ->label('Go to site')
-                    ->url('/')
-                    ->icon('heroicon-o-arrow-right-circle'),
-                MenuItem::make()
-                    ->label('Horizon')
-                    ->url('/horizon')
-                    ->icon('icon-horizon'),
-            ]);
+            ->spa();
     }
 }
