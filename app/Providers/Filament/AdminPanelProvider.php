@@ -2,16 +2,13 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Widgets\PostsStats;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
-use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
+use App\Filament\Widgets\PostsStats;
 use App\Filament\Widgets\VisitorStats;
-use Filament\Navigation\NavigationItem;
-use Filament\Widgets\FilamentInfoWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Session\Middleware\StartSession;
@@ -26,16 +23,16 @@ use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
 class AdminPanelProvider extends PanelProvider
 {
-    public function boot(): void
+    public function boot() : void
     {
-        DateTimePicker::configureUsing(fn(DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateDisplayFormat('Y/m/d'));
+        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateDisplayFormat('Y/m/d'));
 
-        DateTimePicker::configureUsing(fn(DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeDisplayFormat('Y/m/d H:i'));
+        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeDisplayFormat('Y/m/d H:i'));
 
-        DateTimePicker::configureUsing(fn(DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeWithSecondsDisplayFormat('Y/m/d H:i:s'));
+        DateTimePicker::configureUsing(fn (DateTimePicker $dateTimePicker) => $dateTimePicker->defaultDateTimeWithSecondsDisplayFormat('Y/m/d H:i:s'));
     }
 
-    public function panel(Panel $panel): Panel
+    public function panel(Panel $panel) : Panel
     {
         return $panel
             ->default()

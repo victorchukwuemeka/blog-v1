@@ -2,8 +2,8 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Metric;
 use App\Models\Post;
+use App\Models\Metric;
 use Illuminate\Support\Number;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -12,7 +12,7 @@ class PostsStats extends StatsOverviewWidget
 {
     protected ?string $heading = 'Posts stats';
 
-    protected function getStats(): array
+    protected function getStats() : array
     {
         $visitors = Number::format(
             Metric::query()
