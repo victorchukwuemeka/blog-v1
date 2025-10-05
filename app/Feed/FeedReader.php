@@ -11,13 +11,13 @@ final class FeedReader
     /**
      * @return array<FeedItem>
      */
-    public function read(string $xml, string $baseUrl): array
+    public function read(string $xml, string $baseUrl) : array
     {
-        $dom = new DOMDocument('1.0', 'UTF-8');
-        $dom->preserveWhiteSpace = false;
-        @$dom->loadXML($xml, LIBXML_NOWARNING | LIBXML_NOERROR | LIBXML_NONET);
+        $document = new DOMDocument('1.0', 'UTF-8');
+        $document->preserveWhiteSpace = false;
+        @$document->loadXML($xml, LIBXML_NOWARNING | LIBXML_NOERROR | LIBXML_NONET);
 
-        $xpath = new DOMXPath($dom);
+        $xpath = new DOMXPath($document);
         $xpath->registerNamespace('atom', 'http://www.w3.org/2005/Atom');
         $xpath->registerNamespace('content', 'http://purl.org/rss/1.0/modules/content/');
         $xpath->registerNamespace('dc', 'http://purl.org/dc/elements/1.1/');
@@ -25,8 +25,7 @@ final class FeedReader
         $items = [];
 
         // Try Atom first.
-        $entries = $xpath->query('//atom:entry');
-        if ($entries && $entries->length > 0) {
+        if (($entries = $xpath->query('//atom:entry')) && $entries->length > 0) {
             foreach ($entries as $entry) {
                 $titleNode = $xpath->query('./atom:title', $entry)?->item(0);
                 $title = trim(html_entity_decode($titleNode?->textContent ?? ''));
@@ -50,28 +49,38 @@ final class FeedReader
         }
 
         // Fallback to RSS 2.0.
-        $rssItems = $xpath->query('//channel/item');
-        if ($rssItems) {
-            foreach ($rssItems as $node) {
-                $titleNode = $xpath->query('./title', $node)?->item(0);
+        if ($rssItems = $xpath->query('//channel/item')) {
+            foreach ($rssItems as $rssItemNode) {
+                $titleNode = $xpath->query('./title', $rssItemNode)?->item(0);
                 $title = trim(html_entity_decode($titleNode?->textContent ?? ''));
 
-                $link = trim($xpath->query('./link', $node)?->item(0)?->textContent ?? '');
+                $link = trim($xpath->query('./link', $rssItemNode)?->item(0)?->textContent ?? '');
+
                 if ('' === $link) {
-                    $guid = $xpath->query('./guid[not(@isPermaLink="false")]', $node)?->item(0)?->textContent ?? '';
+                    $guid = $xpath->query('./guid[not(@isPermaLink="false")]', $rssItemNode)?->item(0)?->textContent ?? '';
                     $link = trim($guid);
                 }
+
                 if ('' === $link) {
-                    // Last resort: first anchor in content:encoded
-                    $href = $this->firstAttr($xpath, './content:encoded//a[1]/@href', $node);
-                    $link = $href ? trim($href) : '';
+                    // Last resort: try to extract first anchor href from content:encoded CDATA.
+                    $contentNode = $xpath->query('./content:encoded', $rssItemNode)?->item(0);
+
+                    if ($contentNode) {
+                        $contentHtml = (string) $contentNode->textContent;
+
+                        if (preg_match('/href\s*=\s*\"([^\"]+)/i', $contentHtml, $match) ||
+                            preg_match("/href\s*=\s*\'([^\']+)/i", $contentHtml, $match)
+                        ) {
+                            $link = trim($match[1] ?? '');
+                        }
+                    }
                 }
 
-                $pubDate = trim($xpath->query('./pubDate', $node)?->item(0)?->textContent ?? '')
-                    ?: trim($xpath->query('./dc:date', $node)?->item(0)?->textContent ?? '');
+                $publishedDateRaw = trim($xpath->query('./pubDate', $rssItemNode)?->item(0)?->textContent ?? '')
+                    ?: trim($xpath->query('./dc:date', $rssItemNode)?->item(0)?->textContent ?? '');
 
                 $url = $this->normalizeUrl($link, $baseUrl);
-                $publishedAt = $this->parseDate($pubDate);
+                $publishedAt = $this->parseDate($publishedDateRaw);
 
                 if (null !== $url && '' !== $title) {
                     $items[] = new FeedItem($url, $publishedAt, $title);
@@ -82,23 +91,27 @@ final class FeedReader
         return $items;
     }
 
-    private function firstAttr(DOMXPath $xpath, string $query, \DOMNode $ctx): ?string
+    private function firstAttr(DOMXPath $xpath, string $query, \DOMNode $contextNode) : ?string
     {
-        $n = $xpath->query($query, $ctx);
-        if (! $n || 0 === $n->length) {
+        $nodes = $xpath->query($query, $contextNode);
+
+        if (! $nodes || 0 === $nodes->length) {
             return null;
         }
-        $val = trim($n->item(0)?->nodeValue ?? '');
 
-        return '' !== $val ? $val : null;
+        $value = trim($nodes->item(0)?->nodeValue ?? '');
+
+        return '' !== $value ? $value : null;
     }
 
-    private function parseDate(?string $value): ?CarbonImmutable
+    private function parseDate(?string $value) : ?CarbonImmutable
     {
         $value = trim((string) ($value ?? ''));
+
         if ('' === $value) {
             return null;
         }
+
         try {
             return new CarbonImmutable($value);
         } catch (\Throwable) {
@@ -110,7 +123,7 @@ final class FeedReader
         }
     }
 
-    private function normalizeUrl(?string $url, string $baseUrl): ?string
+    private function normalizeUrl(?string $url, string $baseUrl) : ?string
     {
         $url = trim((string) ($url ?? ''));
         if ('' === $url) {
@@ -123,44 +136,47 @@ final class FeedReader
         }
 
         // Strip fragment.
-        $parts = parse_url($url);
-        if (false === $parts) {
+        $urlParts = parse_url($url);
+        if (false === $urlParts) {
             return null;
         }
-        unset($parts['fragment']);
+        unset($urlParts['fragment']);
 
         // Optionally strip common tracking params like utm_*.
-        if (isset($parts['query'])) {
-            parse_str($parts['query'], $q);
-            $q = array_filter($q, fn($k) => ! preg_match('/^utm_/i', (string) $k), ARRAY_FILTER_USE_KEY);
-            $parts['query'] = http_build_query($q);
-            if ('' === $parts['query']) {
-                unset($parts['query']);
+        if (isset($urlParts['query'])) {
+            parse_str($urlParts['query'], $queryParameters);
+            $queryParameters = array_filter($queryParameters, fn ($parameterKey) => ! preg_match('/^utm_/i', (string) $parameterKey), ARRAY_FILTER_USE_KEY);
+            $urlParts['query'] = http_build_query($queryParameters);
+            if ('' === $urlParts['query']) {
+                unset($urlParts['query']);
             }
         }
 
-        $rebuilt = $this->buildUrl($parts);
+        $rebuilt = $this->buildUrl($urlParts);
 
         return '' !== $rebuilt ? $rebuilt : null;
     }
 
-    private function resolveRelativeUrl(string $relative, string $base): string
+    private function resolveRelativeUrl(string $relative, string $base) : string
     {
         // Very small resolver; good enough for typical feed links.
-        $bp = parse_url($base) ?: [];
+        $baseUrlParts = parse_url($base) ?: [];
+
         if (str_starts_with($relative, '//')) {
-            return ($bp['scheme'] ?? 'https') . ':' . $relative;
+            return ($baseUrlParts['scheme'] ?? 'https') . ':' . $relative;
         }
+
         if (str_starts_with($relative, '/')) {
-            return ($bp['scheme'] ?? 'https') . '://' . ($bp['host'] ?? '') . $relative;
+            return ($baseUrlParts['scheme'] ?? 'https') . '://' . ($baseUrlParts['host'] ?? '') . $relative;
         }
-        $path = $bp['path'] ?? '/';
+
+        $path = $baseUrlParts['path'] ?? '/';
         $path = preg_replace('~[^/]+$~', '', $path) ?: '/';
 
-        return ($bp['scheme'] ?? 'https') . '://' . ($bp['host'] ?? '') . $path . $relative;
+        return ($baseUrlParts['scheme'] ?? 'https') . '://' . ($baseUrlParts['host'] ?? '') . $path . $relative;
     }
 
-    private function buildUrl(array $parts): string
+    private function buildUrl(array $parts) : string
     {
         $scheme = isset($parts['scheme']) ? $parts['scheme'] . '://' : '';
         $host = $parts['host'] ?? '';

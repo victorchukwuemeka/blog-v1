@@ -1,11 +1,8 @@
 <?php
 
-use GuzzleHttp\Client;
 use App\Feed\FeedReader;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use App\Actions\DiscoverFeedItems;
-use GuzzleHttp\Handler\MockHandler;
+use Illuminate\Support\Facades\Http;
 
 it('extracts url, publishedAt and title from LaraJobs RSS', function () {
     $xml = <<<'XML'
@@ -54,14 +51,12 @@ it('extracts url, publishedAt and title from LaraJobs RSS', function () {
 </rss>
 XML;
 
-    $mock = new MockHandler([
-        new Response(200, ['Content-Type' => 'application/rss+xml'], $xml),
+    Http::fake([
+        'https://larajobs.com/feed' => Http::response($xml, 200, ['Content-Type' => 'application/rss+xml']),
     ]);
-    $stack = HandlerStack::create($mock);
-    $http = new Client(['handler' => $stack]);
 
     $reader = new FeedReader;
-    $action = new DiscoverFeedItems($http, $reader);
+    $action = new DiscoverFeedItems($reader);
 
     $items = $action->discover('https://larajobs.com/feed');
 
@@ -70,4 +65,98 @@ XML;
     expect($item->url)->toBe('https://larajobs.com/job/3720');
     expect($item->title)->toBe('Laravel Software Engineer');
     expect($item->publishedAt)->not->toBeNull();
+});
+
+it('extracts from Atom with rel="alternate" and published/updated', function () {
+    $xml = <<<'XML'
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Example Feed</title>
+  <link href="https://example.com/feed" rel="self" />
+  <updated>2025-10-01T01:49:18Z</updated>
+  <entry>
+    <title>Item A</title>
+    <link href="/posts/a" rel="alternate" type="text/html" />
+    <id>tag:example.com,2025:/posts/a</id>
+    <published>2025-10-01T00:00:00Z</published>
+  </entry>
+  <entry>
+    <title>Item B</title>
+    <link href="/posts/b" />
+    <id>https://example.com/posts/b</id>
+    <updated>2025-10-01T02:00:00Z</updated>
+  </entry>
+  <entry>
+    <title></title>
+    <link href="/no-title" rel="alternate" />
+  </entry>
+  <entry>
+    <title>No link</title>
+  </entry>
+</feed>
+XML;
+
+    Http::fake([
+        'https://example.com/feed' => Http::response($xml, 200, ['Content-Type' => 'application/atom+xml']),
+    ]);
+
+    $reader = new FeedReader;
+    $action = new DiscoverFeedItems($reader);
+
+    $items = $action->discover('https://example.com/feed');
+
+    expect($items)->toHaveCount(2);
+    expect($items[0]->url)->toBe('https://example.com/posts/a');
+    expect($items[0]->title)->toBe('Item A');
+    expect($items[0]->publishedAt)->not->toBeNull();
+    expect($items[1]->url)->toBe('https://example.com/posts/b');
+    expect($items[1]->title)->toBe('Item B');
+    expect($items[1]->publishedAt)->not->toBeNull();
+});
+
+it('falls back to GUID or first anchor in content:encoded for RSS', function () {
+    $xml = <<<'XML'
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Fallbacks</title>
+    <item>
+      <title>Guid Link</title>
+      <guid>https://example.com/guid-only</guid>
+      <pubDate>Wed, 01 Oct 2025 01:49:18 +0000</pubDate>
+    </item>
+    <item>
+      <title>Encoded Anchor</title>
+      <content:encoded><![CDATA[<p>See <a href="https://example.com/encoded">here</a></p>]]></content:encoded>
+      <pubDate>Wed, 01 Oct 2025 01:49:18 +0000</pubDate>
+    </item>
+  </channel>
+</rss>
+XML;
+
+    Http::fake([
+        'https://example.com/feed' => Http::response($xml, 200, ['Content-Type' => 'application/rss+xml']),
+    ]);
+
+    $reader = new FeedReader;
+    $action = new DiscoverFeedItems($reader);
+
+    $items = $action->discover('https://example.com/feed');
+
+    expect($items)->toHaveCount(2);
+    expect($items[0]->url)->toBe('https://example.com/guid-only');
+    expect($items[1]->url)->toBe('https://example.com/encoded');
+});
+
+it('returns empty collection on non-2xx responses', function () {
+    Http::fake([
+        'https://example.com/feed' => Http::response('error', 500, ['Content-Type' => 'text/plain']),
+    ]);
+
+    $reader = new FeedReader;
+    $action = new DiscoverFeedItems($reader);
+
+    $items = $action->discover('https://example.com/feed');
+
+    expect($items)->toHaveCount(0);
 });
