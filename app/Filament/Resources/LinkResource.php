@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Illuminate\Support\Collection;
+use App\Notifications\LinkDeclined;
 use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\Select;
 use Filament\Actions\DeleteBulkAction;
@@ -221,7 +222,21 @@ class LinkResource extends Resource
                         ->label('Approve'),
 
                     Action::make('decline')
-                        ->action(fn (Link $record) => $record->decline())
+                        ->schema([
+                            Textarea::make('reason')
+                            ->nullable(),
+                        ])
+                        ->action(function (Link $record, array $data) {
+                            $record->decline($data['reason']);
+
+                            $record->user->notify(new LinkDeclined($record, $data['reason']));
+
+                            Notification::make()
+                                ->title('The link has been declined.')
+                                ->success()
+                                ->send();
+                        })
+                        ->modalSubmitActionLabel('Decline')
                         ->hidden(fn (Link $record) => $record->isDeclined())
                         ->color('danger')
                         ->icon('heroicon-o-x-circle'),
