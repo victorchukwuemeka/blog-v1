@@ -16,12 +16,12 @@ class NewUserCreated extends Notification implements ShouldQueue
         public User $user
     ) {}
 
-    public function via(object $notifiable): array
+    public function via(object $notifiable) : array
     {
         return ['mail'];
     }
 
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $notifiable) : MailMessage
     {
         return (new MailMessage)
             ->subject('A new user was just created')
