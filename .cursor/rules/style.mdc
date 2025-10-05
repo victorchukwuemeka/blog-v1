@@ -4,9 +4,12 @@ globs:
 alwaysApply: true
 ---
 
+- Always import namespaces.
 - Take inspiration from the codebase.
+- Avoid one letter or ambiguous variable names.
 - Don't create a variable if it's used only once.
 - Comments start with a capital letter and end with a period.
+- I like to not feel claustrophobic in my code. Use space between control structures.
 - Run `php vendor/bin/pint --parallel` to format the code whenever you make a change.
 - Prefer generating code through Artisan commands to stay up to date with the latest changes.
 - In tests, fake OpenAI calls using OpenAI::fake() with Responses CreateResponse::fake(), not facade mocking.
