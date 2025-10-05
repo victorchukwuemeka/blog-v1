@@ -11,6 +11,8 @@ class ScrapeJob implements ShouldQueue
 {
     use Queueable;
 
+    public string $queue = 'scraping';
+
     public function __construct(
         public string $url,
     ) {}
