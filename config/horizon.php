@@ -226,7 +226,8 @@ return [
                 'maxProcesses' => 10,
             ],
             'supervisor-2' => [
-                'maxProcesses' => 10,
+                'maxProcesses' => 2,
+                'timeout' => 60,
             ],
         ],
     ],
