@@ -12,7 +12,8 @@ Schedule::command(GenerateSitemapCommand::class)
     ->thenPing('https://heartbeats.laravel.com/01k6k3d1ddxcz9abxwfmwpjr1b/ping');
 
 Schedule::command(IngestJobFeedsCommand::class)
-    ->hourly()
+    ->daily()
+    ->at('01:00')
     ->withoutOverlapping();
 
 Schedule::command(RefreshCategoryPagesCommand::class)
