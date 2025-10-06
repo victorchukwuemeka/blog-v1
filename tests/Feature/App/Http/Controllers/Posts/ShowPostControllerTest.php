@@ -13,7 +13,10 @@ it('shows a post', function () {
         ->assertOk()
         ->assertViewIs('posts.show')
         ->assertViewHas('post', $post)
-        ->assertViewHas('latestComment', $post->comments()->latest()->first())
+        ->assertViewHas('latestComment', $post->comments()
+            ->whereRelation('user', 'github_login', '!=', 'benjamincrozat')
+            ->latest()
+            ->first())
         ->assertSee("<title>{$post->serp_title}</title>", escape: false)
         ->assertSee("<meta name=\"description\" content=\"{$post->description}\" />", escape: false);
 });
@@ -32,6 +35,13 @@ it('throws a 404 if the post does not exist', function () {
 
 it('throws a 404 to guests if the post is not published', function () {
     $post = Post::factory()->create(['published_at' => null]);
+
+    get(route('posts.show', $post))
+        ->assertNotFound();
+});
+
+it('throws a 404 to guests if the post is scheduled', function () {
+    $post = Post::factory()->create(['published_at' => now()->addDay()]);
 
     get(route('posts.show', $post))
         ->assertNotFound();
