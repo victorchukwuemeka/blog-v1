@@ -10,6 +10,7 @@ use Illuminate\Support\Number;
 use Filament\Resources\Resource;
 use Filament\Actions\ActionGroup;
 use Filament\Resources\Pages\Page;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Filament\Actions\BulkActionGroup;
 use Filament\Forms\Components\Select;
@@ -81,11 +82,37 @@ class PostResource extends Resource
                 Group::make([
                     FileUpload::make('image_path')
                         ->image()
-                        ->disk(fn (Post $record) => $record->image_disk ?? 'cloudflare-images')
+                        ->disk(fn (Get $get, ?Post $record) => $get('image_disk') ?? $record?->image_disk ?? 'cloudflare-images')
                         ->directory('images/posts')
                         ->columnSpanFull()
                         ->label('Image')
-                        ->helperText('Resizing and compression are applied automatically.'),
+                        ->helperText('Resizing and compression are applied automatically.')
+                        ->afterStateUpdated(function (Get $get, Set $set, $state) {
+                            if (blank($state)) {
+                                return;
+                            }
+
+                            if (blank($get('image_disk'))) {
+                                $set('image_disk', 'cloudflare-images');
+                            }
+                        }),
+
+                    Select::make('image_disk')
+                        ->label('Image Disk')
+                        ->options(fn () => collect(config('filesystems.disks'))
+                            ->mapWithKeys(fn (array $diskConfig, string $diskName) => [
+                                $diskName => Str::headline($diskName),
+                            ])
+                            ->all())
+                        ->default('cloudflare-images')
+                        ->afterStateHydrated(function (Get $get, Set $set, $state) {
+                            if (blank($state)) {
+                                $set('image_disk', 'cloudflare-images');
+                            }
+                        })
+                        ->live()
+                        ->native(false)
+                        ->searchable(),
 
                     TextInput::make('slug')
                         ->required()
@@ -95,7 +122,7 @@ class PostResource extends Resource
                     Select::make('user_id')
                         ->relationship('user', 'name')
                         ->required()
-                        ->default(auth()->id())
+                        ->default(fn () => Auth::id())
                         ->searchable()
                         ->label('Author'),
 
