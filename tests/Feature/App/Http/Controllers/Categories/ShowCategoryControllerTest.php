@@ -123,12 +123,3 @@ it('paginates 24 posts per page and hides intro after page 1', function () {
         ->assertViewHas('posts', fn (LengthAwarePaginator $p) => 2 === $p->currentPage() && 6 === $p->count())
         ->assertDontSee('not-prose');
 });
-
-it('does not render the posts section when there are no posts', function () {
-    $category = Category::factory()->create();
-
-    get(route('categories.show', $category))
-        ->assertOk()
-        // Ensure the posts section heading is not rendered.
-        ->assertDontSee('id="all-articles-about-' . strtolower($category->name) . '"', escape: false);
-});

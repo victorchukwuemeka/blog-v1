@@ -16,7 +16,7 @@
             ])->random();
             @endphp
 
-            <div class="{{ $bgColors }} mt-1 shadow-md ring-1 ring-black/5 rounded aspect-square shadow-black/5"></div>
+            <div class="{{ $bgColors }} shadow-md ring-1 ring-black/5 rounded aspect-square shadow-black/5"></div>
         @endif
     </a>
 

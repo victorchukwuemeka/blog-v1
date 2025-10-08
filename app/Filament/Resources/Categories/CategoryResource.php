@@ -52,35 +52,6 @@ class CategoryResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-
-                TextInput::make('title')
-                    ->nullable()
-                    ->maxLength(255)
-                    ->columnSpanFull(),
-
-                MarkdownEditor::make('content')
-                    ->columnSpanFull(),
-
-                DateTimePicker::make('modified_at')
-                    ->timezone('Europe/Paris')
-                    ->native(false)
-                    ->seconds(false)
-                    ->placeholder(now())
-                    ->defaultFocusedDate(now())
-                    ->closeOnDateSelection()
-                    ->reactive()
-                    ->afterStateUpdated(function (DateTimePicker $component, $state) {
-                        if (blank($state)) {
-                            return;
-                        }
-
-                        $now = now();
-
-                        $date = Date::parse($state)->setTime($now->hour, $now->minute, $now->second);
-
-                        $component->state($date);
-                    })
-                    ->label('Last Modification Date'),
             ]);
     }
 
@@ -99,30 +70,12 @@ class CategoryResource extends Resource
                     ->label('Posts')
                     ->counts('posts')
                     ->sortable(),
-
-                TextColumn::make('modified_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->label('Modification Date'),
             ])
             ->recordActions([
                 ActionGroup::make(RecordActions::configure()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    BulkAction::make('Generate category page')
-                        ->action(function (Collection $records) {
-                            $records->each(function (Category $record) {
-                                GenerateCategoryPage::dispatch($record);
-                            });
-
-                            Notification::make()
-                                ->title('Jobs have been queued to generate the category pages.')
-                                ->success()
-                                ->send();
-                        })
-                        ->icon('heroicon-o-arrow-path'),
-
                     DeleteBulkAction::make(),
                 ]),
             ]);

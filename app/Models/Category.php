@@ -42,17 +42,4 @@ class Category extends Model
             fn () => ceil(str_word_count($this->content) / 200),
         )->shouldCache();
     }
-
-    public function toTableOfContents() : HtmlString
-    {
-        return new HtmlString(
-            view('components.table-of-contents.index', [
-                'items' => new TableOfContents(<<< MD
-$this->content
-
-## All articles about $this->name
-MD)->toArray(),
-            ])->render()
-        );
-    }
 }
