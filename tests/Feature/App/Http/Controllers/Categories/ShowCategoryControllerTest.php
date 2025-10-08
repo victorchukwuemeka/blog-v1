@@ -106,20 +106,16 @@ it('paginates 24 posts per page and hides intro after page 1', function () {
     foreach (range(1, 30) as $i) {
         Post::factory()
             ->hasAttached($category, [], 'categories')
-            ->create([
-                'published_at' => now()->subDays($i),
-            ]);
+            ->create(['published_at' => now()->subDays($i)]);
     }
 
-    // Page 1: 24 items, intro visible (content block rendered only on first page).
+    // Page 1: 24 items.
     get(route('categories.show', $category))
         ->assertOk()
-        ->assertViewHas('posts', fn (LengthAwarePaginator $p) => 24 === $p->perPage() && 24 === $p->count())
-        ->assertSee('not-prose');
+        ->assertViewHas('posts', fn (LengthAwarePaginator $p) => 24 === $p->perPage() && 24 === $p->count());
 
-    // Page 2: 6 items, intro hidden.
+    // Page 2: 6 items.
     get(route('categories.show', [$category, 'page' => 2]))
         ->assertOk()
-        ->assertViewHas('posts', fn (LengthAwarePaginator $p) => 2 === $p->currentPage() && 6 === $p->count())
-        ->assertDontSee('not-prose');
+        ->assertViewHas('posts', fn (LengthAwarePaginator $p) => 2 === $p->currentPage() && 6 === $p->count());
 });

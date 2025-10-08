@@ -35,7 +35,7 @@ XML;
         'https://example.com/feed' => Http::response($xml, 200, ['Content-Type' => 'application/rss+xml']),
     ]);
 
-    // Configure feeds with a limit of 1 to test limit.
+    // Configure feed and ensure only new items are queued.
     config()->set('job_feeds', [[
         'name' => 'TestFeed',
         'url' => 'https://example.com/feed',
@@ -83,7 +83,7 @@ it('skips disabled feeds and handles 500 responses gracefully', function () {
     Bus::assertNotDispatched(ScrapeJob::class);
 });
 
-it('filters by feed argument and supports dry-run and limit override', function () {
+it('filters by feed argument and supports dry-run', function () {
     // Two feeds in config, we will filter to the second by name.
     config()->set('job_feeds', [
         [
@@ -121,8 +121,8 @@ XML;
 
     Bus::fake();
 
-    // Dry-run with limit override and filter; should not dispatch any jobs.
-    $this->artisan('app:ingest-job-feeds', ['feed' => 'SecondFeed', '--limit' => 1, '--dry-run' => true])
+    // Dry-run with filter; should not dispatch any jobs.
+    $this->artisan('app:ingest-job-feeds', ['feed' => 'SecondFeed', '--dry-run' => true])
         ->assertExitCode(0);
 
     Bus::assertNotDispatched(ScrapeJob::class);
@@ -132,8 +132,8 @@ XML;
         'https://second.example.com/feed' => Http::response($xml, 200, ['Content-Type' => 'application/rss+xml']),
     ]);
 
-    // Real run with limit 1 should dispatch once.
-    $this->artisan('app:ingest-job-feeds', ['feed' => 'SecondFeed', '--limit' => 1])
+    // Real run should dispatch once.
+    $this->artisan('app:ingest-job-feeds', ['feed' => 'SecondFeed'])
         ->assertExitCode(0);
 
     Bus::assertDispatchedTimes(ScrapeJob::class, 1);

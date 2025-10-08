@@ -3,7 +3,7 @@
     description="Level up in {{ date('Y') }} as a web developer with this collection of articles I wrote about {{ $category->name }}."
 >
     <article class="container">
-        @if ($category->content && $posts->currentPage() === 1)
+        @if ($posts->currentPage() === 1)
             <x-heading>
                 Articles in the {{ $category->name }} category
             </x-heading>
