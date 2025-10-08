@@ -7,7 +7,7 @@ use App\Feed\FeedReader;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
-final class DiscoverFeedItems
+class DiscoverFeedItems
 {
     public function __construct(
         private FeedReader $reader,

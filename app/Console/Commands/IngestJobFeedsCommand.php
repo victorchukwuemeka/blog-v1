@@ -7,7 +7,6 @@ use App\Feed\FeedItem;
 use App\Jobs\ScrapeJob;
 use Illuminate\Console\Command;
 use App\Actions\DiscoverFeedItems;
-use Illuminate\Support\Collection;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(
@@ -16,17 +15,16 @@ use Symfony\Component\Console\Attribute\AsCommand;
 )]
 class IngestJobFeedsCommand extends Command
 {
-    protected $signature = 'app:ingest-job-feeds {feed? : Only ingest the feed with this name or URL} {--limit= : Override max items per run} {--dry-run : Do not dispatch jobs, only print what would be queued}';
+    protected $signature = 'app:ingest-job-feeds {feed? : Only ingest the feed with this name or URL} {--dry-run : Do not dispatch jobs, only print what would be queued}';
 
     public function handle() : void
     {
         $feeds = (array) (config('job_feeds') ?? []);
 
         $feedFilter = (string) ($this->argument('feed') ?? '');
-        $overrideLimit = $this->option('limit');
         $isDryRun = (bool) $this->option('dry-run');
 
-        collect($feeds)
+        $eligibleFeeds = collect($feeds)
             ->filter(fn (array $feed) => (bool) ($feed['enabled'] ?? false))
             ->filter(function (array $feed) use ($feedFilter) {
                 $name = (string) ($feed['name'] ?? 'unknown');
@@ -44,34 +42,73 @@ class IngestJobFeedsCommand extends Command
 
                 return $this->matchesFilter($name, $url, $feedFilter);
             })
-            ->each(function (array $feed) use ($overrideLimit, $isDryRun) {
-                $name = (string) ($feed['name'] ?? 'unknown');
-                $feedUrl = (string) ($feed['url'] ?? '');
+            ->shuffle()
+            ->values();
 
-                $limit = is_numeric($overrideLimit)
-                    ? (int) $overrideLimit
-                    : (int) ($feed['max_items_per_run'] ?? 20);
+        $globalLimit = 10;
+        $perSourceLimit = 2;
 
-                $this->info("Discovering items from '$name'…");
+        $queuedItems = collect();
+        $queuedByFeed = [];
+        $queuedUrls = [];
 
-                $items = app(DiscoverFeedItems::class)->discover($feedUrl);
+        foreach ($eligibleFeeds as $feed) {
+            if ($queuedItems->count() >= $globalLimit) {
+                break;
+            }
 
-                $toQueue = $items
-                    ->reject(fn (FeedItem $item) => Job::query()->where('url', $item->url)->exists())
-                    ->when($limit > 0, fn (Collection $collection) => $collection->take($limit));
+            $name = (string) ($feed['name'] ?? 'unknown');
+            $feedUrl = (string) ($feed['url'] ?? '');
 
-                if ($isDryRun) {
-                    $toQueue->each(
-                        fn (FeedItem $item) => $this->line("Would queue: {$item->url}")
-                    );
-                } else {
-                    $toQueue->each(
-                        fn (FeedItem $item) => ScrapeJob::dispatch($item->url)
-                    );
-                }
+            $this->info("Discovering items from '$name'…");
 
-                $this->info('Queued ' . $toQueue->count() . " new item(s) from '$name'.");
+            $items = app(DiscoverFeedItems::class)->discover($feedUrl);
+
+            $remainingForRun = $globalLimit - $queuedItems->count();
+            $maxFromThisFeed = min($perSourceLimit, $remainingForRun);
+
+            if ($maxFromThisFeed <= 0) {
+                break;
+            }
+
+            $selectedFromFeed = $items
+                ->reject(function (FeedItem $item) use (&$queuedUrls) {
+                    return in_array($item->url, $queuedUrls, true) || Job::query()->where('url', $item->url)->exists();
+                })
+                ->take($maxFromThisFeed)
+                ->values();
+
+            if ($selectedFromFeed->isEmpty()) {
+                $this->info("Queued 0 new item(s) from '$name'.");
+
+                continue;
+            }
+
+            $selectedFromFeed->each(function (FeedItem $item) use (&$queuedItems, &$queuedUrls) {
+                $queuedItems->push($item);
+                $queuedUrls[] = $item->url;
             });
+
+            $queuedByFeed[$name] = ($queuedByFeed[$name] ?? 0) + $selectedFromFeed->count();
+
+            if ($queuedItems->count() >= $globalLimit) {
+                break;
+            }
+        }
+
+        if ($isDryRun) {
+            $queuedItems->each(
+                fn (FeedItem $item) => $this->line("Would queue: {$item->url}")
+            );
+        } else {
+            $queuedItems->each(
+                fn (FeedItem $item) => ScrapeJob::dispatch($item->url)
+            );
+        }
+
+        foreach ($queuedByFeed as $feedName => $count) {
+            $this->info('Queued ' . $count . " new item(s) from '$feedName'.");
+        }
     }
 
     private function matchesFilter(string $name, string $url, string $filter) : bool

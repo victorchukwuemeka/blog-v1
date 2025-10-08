@@ -6,7 +6,7 @@ use DOMXPath;
 use DOMDocument;
 use Carbon\CarbonImmutable;
 
-final class FeedReader
+class FeedReader
 {
     /**
      * @return array<FeedItem>
