@@ -5,14 +5,15 @@ namespace App\Actions;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\Company;
+use App\Scraper\Webpage;
 use App\Notifications\JobFetched;
 use Illuminate\Support\Facades\DB;
 
 class CreateJob
 {
-    public function create(object $data) : Job
+    public function create(Webpage $webpage, object $data) : Job
     {
-        return DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($webpage, $data) {
             $company = Company::query()->updateOrCreate([
                 'name' => $data->company->name,
             ], [
@@ -24,6 +25,7 @@ class CreateJob
             $job = Job::query()->updateOrCreate([
                 'url' => $data->url,
             ], [
+                'html' => $webpage->content,
                 'company_id' => $company->id,
                 'source' => $data->source,
                 'language' => $data->language,

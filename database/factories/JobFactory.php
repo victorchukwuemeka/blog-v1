@@ -20,6 +20,7 @@ class JobFactory extends Factory
         return [
             'company_id' => Company::factory(),
             'url' => fake()->url(),
+            'html' => fake()->randomHtml(),
             'source' => fake()->word(),
             'language' => fake()->languageCode(),
             'title' => fake()->sentence(),

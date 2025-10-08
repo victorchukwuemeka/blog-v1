@@ -2,7 +2,6 @@
 
 use App\Models\Post;
 use App\Models\Category;
-use Carbon\CarbonImmutable;
 
 it('belongs to many posts', function () {
     $category = Category::factory()

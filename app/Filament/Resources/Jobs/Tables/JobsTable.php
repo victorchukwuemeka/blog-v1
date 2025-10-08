@@ -2,12 +2,17 @@
 
 namespace App\Filament\Resources\Jobs\Tables;
 
+use App\Models\Job;
+use App\Jobs\ReviseJob;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Notifications\Notification;
 
 class JobsTable
 {
@@ -66,11 +71,28 @@ class JobsTable
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Modification Date'),
             ])
-            ->filters([
-                //
-            ])
             ->recordActions([
-                EditAction::make(),
+                Action::make('revise')
+                    ->schema([
+                        Textarea::make('additional_instructions')
+                            ->nullable(),
+                    ])
+                    ->modalSubmitActionLabel('Revise')
+                    ->action(function (Job $record, array $data) {
+                        ReviseJob::dispatch($record, $data['additional_instructions']);
+
+                        Notification::make()
+                            ->title('The job has been queued for revision.')
+                            ->success()
+                            ->send();
+                    })
+                    ->icon('heroicon-o-arrow-path'),
+
+                EditAction::make()
+                    ->icon('heroicon-o-pencil-square'),
+
+                DeleteAction::make()
+                    ->icon('heroicon-o-trash'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

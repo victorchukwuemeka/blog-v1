@@ -3,6 +3,7 @@
 use App\Models\Job;
 use App\Models\User;
 use App\Models\Company;
+use App\Scraper\Webpage;
 use App\Notifications\JobFetched;
 use Illuminate\Support\Facades\Notification;
 use App\Actions\CreateJob as CreateJobAction;
@@ -14,9 +15,16 @@ it('creates or updates company and job and notifies admin', function () {
         'github_login' => 'benjamincrozat',
     ]);
 
+    $webpage = new Webpage(
+        'https://example.com/job',
+        'https://example.com/image.jpg',
+        'Title',
+        '<html><body><h1>Title</h1><p>Content</p></body></html>'
+    );
+
     $data = (object) defaultJobPayload();
 
-    $job = app(CreateJobAction::class)->create($data);
+    $job = app(CreateJobAction::class)->create($webpage, $data);
 
     expect($job)->toBeInstanceOf(Job::class)
         ->and($job->url)->toBe($data->url)
@@ -41,6 +49,13 @@ it('updates existing company and job when matching identifiers', function () {
         'min_salary' => 1,
     ]);
 
+    $webpage = new Webpage(
+        'https://example.com/job',
+        'https://example.com/image.jpg',
+        'Title',
+        '<html><body><h1>Title</h1><p>Content</p></body></html>'
+    );
+
     $data = (object) array_merge(defaultJobPayload(), [
         'url' => 'https://example.com/jobs/dup', // triggers update for job
         'source' => 'ExampleBoard',
@@ -60,7 +75,7 @@ it('updates existing company and job when matching identifiers', function () {
         ],
     ]);
 
-    $updated = app(CreateJobAction::class)->create($data)->refresh();
+    $updated = app(CreateJobAction::class)->create($webpage, $data)->refresh();
 
     expect($updated->id)->toBe($existing->id)
         ->and($updated->title)->toBe('New title')
@@ -76,6 +91,13 @@ it('updates existing company and job when matching identifiers', function () {
 
 it('does not error if admin user is missing', function () {
     Notification::fake();
+
+    $webpage = new Webpage(
+        'https://example.com/job',
+        'https://example.com/image.jpg',
+        'Title',
+        '<html><body><h1>Title</h1><p>Content</p></body></html>'
+    );
 
     $data = (object) array_merge(defaultJobPayload(), [
         'url' => 'https://example.com/jobs/456',
@@ -98,7 +120,7 @@ it('does not error if admin user is missing', function () {
         ],
     ]);
 
-    $job = app(CreateJobAction::class)->create($data);
+    $job = app(CreateJobAction::class)->create($webpage, $data);
 
     expect($job)->toBeInstanceOf(Job::class);
     Notification::assertNothingSent();

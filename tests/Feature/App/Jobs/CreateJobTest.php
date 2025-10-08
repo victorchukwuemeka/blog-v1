@@ -1,9 +1,17 @@
 <?php
 
 use App\Jobs\CreateJob;
+use App\Scraper\Webpage;
 use Facades\App\Actions\CreateJob as CreateJobAction;
 
 it('invokes the action with provided data', function () {
+    $webpage = new Webpage(
+        'https://example.com/jobs/789',
+        'https://example.com/jobs/789/logo.png',
+        'Title',
+        '<html><body><h1>Title</h1><p>Content</p></body></html>'
+    );
+
     $data = (object) [
         'url' => 'https://example.com/jobs/789',
         'source' => 'Board',
@@ -30,7 +38,7 @@ it('invokes the action with provided data', function () {
 
     CreateJobAction::shouldReceive('create')
         ->once()
-        ->with($data);
+        ->with($webpage, $data);
 
-    (new CreateJob($data))->handle();
+    (new CreateJob($webpage, $data))->handle();
 });

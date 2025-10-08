@@ -2,29 +2,35 @@
 
 namespace App\Actions;
 
-use App\Jobs\CreateJob;
-use App\Scraper\Webpage;
+use Exception;
+use App\Models\Job;
 use OpenAI\Laravel\Facades\OpenAI;
 
-class FetchJobData
+// The reason for this action to exist is to allow me to revise existing
+// jobs. The prompts used below will evolve and so should the jobs.
+class ReviseJob
 {
-    public function fetch(Webpage $webpage) : void
+    public function revise(Job $job, ?string $additionalInstructions = null) : Job
     {
+        if (! $job->html) {
+            throw new Exception('The job cannot be revised because it has no HTML content.');
+        }
+
         $response = OpenAI::responses()->create([
-            'model' => 'gpt-5',
+            'model' => 'gpt-5-mini',
             'input' => [
                 [
                     'role' => 'developer',
                     'content' => [[
                         'type' => 'input_text',
-                        'text' => view('components.prompts.fetch-job-data.developer')->render(),
+                        'text' => view('components.prompts.revise-job.developer')->render(),
                     ]],
                 ],
                 [
                     'role' => 'user',
                     'content' => [[
                         'type' => 'input_text',
-                        'text' => view('components.prompts.fetch-job-data.user', compact('webpage'))->render(),
+                        'text' => view('components.prompts.revise-job.user', compact('job', 'additionalInstructions'))->render(),
                     ]],
                 ],
             ],
@@ -36,14 +42,9 @@ class FetchJobData
                     'schema' => [
                         'type' => 'object',
                         'properties' => [
-                            'url' => [
-                                'type' => 'string',
-                                'description' => 'Direct link to the job posting.',
-                                'minLength' => 1,
-                            ],
                             'language' => [
                                 'type' => 'string',
-                                'description' => "Language code of the original job posting in ISO 639 format, for example 'en', 'fr', or 'de'.",
+                                'description' => "Language code of the job in ISO 639 format, for example 'en', 'fr', or 'de'.",
                                 'pattern' => '^[a-zA-Z]{2,3}(-[a-zA-Z]{2,3})?$',
                                 'minLength' => 2,
                             ],
@@ -152,17 +153,8 @@ class FetchJobData
                                 ],
                                 'minItems' => 0,
                             ],
-                            'company' => [
-                                '$ref' => '#/$defs/company',
-                            ],
-                            'source' => [
-                                'type' => 'string',
-                                'description' => 'Name of the website or source where this job was found.',
-                                'minLength' => 1,
-                            ],
                         ],
                         'required' => [
-                            'url',
                             'language',
                             'title',
                             'description',
@@ -176,72 +168,19 @@ class FetchJobData
                             'currency',
                             'perks',
                             'interview_process',
-                            'company',
-                            'source',
                         ],
                         'additionalProperties' => false,
-                        '$defs' => [
-                            'company' => [
-                                'type' => 'object',
-                                'description' => 'Information about the company offering the job',
-                                'properties' => [
-                                    'name' => [
-                                        'type' => 'string',
-                                        'description' => 'Exact name of the company.',
-                                        'minLength' => 1,
-                                    ],
-                                    'url' => [
-                                        'anyOf' => [
-                                            [
-                                                'type' => 'string',
-                                                'description' => 'Official company website or profile.',
-                                                'minLength' => 1,
-                                            ],
-                                            [
-                                                'type' => 'null',
-                                                'description' => 'Null if no company URL is provided.',
-                                            ],
-                                        ],
-                                    ],
-                                    'logo' => [
-                                        'anyOf' => [
-                                            [
-                                                'type' => 'string',
-                                                'description' => 'An URL to the company logo image.',
-                                                'minLength' => 1,
-                                            ],
-                                            [
-                                                'type' => 'null',
-                                                'description' => 'Null if no company logo is provided.',
-                                            ],
-                                        ],
-                                    ],
-                                    'about' => [
-                                        'type' => 'string',
-                                        'description' => 'What the company is about, based on web research. Include founding year, domain, notable products, and mission. Whatever you can find.',
-                                        'minLength' => 1,
-                                    ],
-                                ],
-                                'required' => [
-                                    'name',
-                                    'url',
-                                    'logo',
-                                    'about',
-                                ],
-                                'additionalProperties' => false,
-                            ],
-                        ],
                     ],
                 ],
-                'verbosity' => 'high',
+                'verbosity' => 'medium',
             ],
             'reasoning' => [
-                'effort' => 'high',
+                'effort' => 'medium',
                 'summary' => 'auto',
             ],
             'tools' => [[
                 'type' => 'web_search_preview',
-                'search_context_size' => 'high',
+                'search_context_size' => 'medium',
                 'user_location' => [
                     'type' => 'approximate',
                     'country' => 'US',
@@ -256,6 +195,23 @@ class FetchJobData
 
         $data = json_decode($response->outputText ?? '', associative: false);
 
-        CreateJob::dispatch($webpage, $data);
+        return Job::query()->updateOrCreate([
+            'url' => $data->url,
+        ], [
+            'source' => $data->source,
+            'language' => $data->language,
+            'title' => $data->title,
+            'description' => $data->description,
+            'technologies' => $data->technologies,
+            'perks' => $data->perks ?? [],
+            'locations' => $data->locations,
+            'setting' => $data->setting,
+            'min_salary' => $data->min_salary ?? 0,
+            'max_salary' => $data->max_salary ?? 0,
+            'currency' => $data->currency,
+            'equity' => (bool) ($data->equity ?? false),
+            'interview_process' => $data->interview_process ?? [],
+            'how_to_apply' => $data->how_to_apply,
+        ]);
     }
 }
