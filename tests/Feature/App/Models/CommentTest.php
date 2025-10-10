@@ -43,11 +43,13 @@ it('has many children comments', function () {
 
 it('has a truncated attribute that truncates if the content is longer than 100 characters', function () {
     $comment = Comment::factory()->create([
-        'content' => fake()->text(200),
+        'content' => str_repeat('a', 150),
     ]);
 
-    expect($comment->truncated)->toEndWith('…');
-})->skip();
+    expect($comment->truncated)
+        ->toBe(str_repeat('a', 100) . '…')
+        ->and(mb_strlen($comment->truncated))->toBe(101);
+});
 
 it("has a truncated attribute that doesn't truncate if the content is less than 100 characters", function () {
     $comment = Comment::factory()->create([

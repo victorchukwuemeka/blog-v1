@@ -4,15 +4,20 @@ namespace App\Filament\Resources\Jobs\Tables;
 
 use App\Models\Job;
 use App\Jobs\ReviseJob;
+use App\Jobs\ScrapeJob;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
+use Illuminate\Support\Number;
 use Filament\Actions\EditAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Textarea;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 
 class JobsTable
 {
@@ -21,78 +26,80 @@ class JobsTable
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('company.name')
-                    ->searchable(),
+                Split::make([
+                    Stack::make([
+                        TextColumn::make('title')
+                            ->state(fn (Job $record) => "<strong>$record->title</strong>")
+                            ->html(),
 
-                TextColumn::make('url')
-                    ->searchable()
-                    ->label('URL'),
+                        TextColumn::make('setting')
+                            ->state(fn (Job $record) => ucfirst($record->setting)),
 
-                TextColumn::make('source')
-                    ->searchable(),
+                        TextColumn::make('salary')
+                            ->state(function (Job $record) {
+                                if ($record->min_salary && $record->max_salary) {
+                                    return Number::currency($record->min_salary, $record->currency) . '—' . Number::currency($record->max_salary, $record->currency);
+                                }
+                            }),
 
-                TextColumn::make('language')
-                    ->searchable(),
+                        TextColumn::make('equity')
+                            ->state(fn (Job $record) => 'Equity: ' . ($record->equity ? '<strong>Yes</strong>' : 'No'))
+                            ->html(),
+                    ]),
 
-                TextColumn::make('title')
-                    ->searchable(),
+                    TextColumn::make('source'),
 
-                TextColumn::make('slug')
-                    ->searchable(),
-
-                TextColumn::make('setting')
-                    ->searchable(),
-
-                TextColumn::make('min_salary')
-                    ->numeric()
-                    ->sortable()
-                    ->label('Minimum Salary'),
-
-                TextColumn::make('max_salary')
-                    ->numeric()
-                    ->sortable()
-                    ->label('Maximum Salary'),
-
-                TextColumn::make('currency')
-                    ->searchable(),
-
-                IconColumn::make('equity')
-                    ->boolean(),
-
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Creation Date'),
-
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Modification Date'),
+                    TextColumn::make('created_at')
+                        ->dateTime(),
+                ]),
             ])
             ->recordActions([
-                Action::make('revise')
-                    ->schema([
-                        Textarea::make('additional_instructions')
-                            ->nullable(),
-                    ])
-                    ->modalSubmitActionLabel('Revise')
-                    ->action(function (Job $record, array $data) {
-                        ReviseJob::dispatch($record, $data['additional_instructions']);
+                ActionGroup::make([
+                    Action::make('open')
+                        ->url(fn (Job $record) => route('jobs.show', $record), shouldOpenInNewTab: true)
+                        ->label('Open')
+                        ->icon('heroicon-o-arrow-top-right-on-square'),
 
-                        Notification::make()
-                            ->title('The job has been queued for revision.')
-                            ->success()
-                            ->send();
-                    })
-                    ->icon('heroicon-o-arrow-path'),
+                    Action::make('open')
+                        ->url(fn (Job $record) => $record->url, shouldOpenInNewTab: true)
+                        ->label('Open the original website')
+                        ->hidden(fn (Job $record) => ! $record->url)
+                        ->icon('heroicon-o-arrow-right-end-on-rectangle'),
 
-                EditAction::make()
-                    ->icon('heroicon-o-pencil-square'),
+                    Action::make('scrape')
+                        ->action(function (Job $record) {
+                            ScrapeJob::dispatch($record->url);
 
-                DeleteAction::make()
-                    ->icon('heroicon-o-trash'),
+                            Notification::make()
+                                ->title('The job has been queued for scraping.')
+                                ->success()
+                                ->send();
+                        })
+                        ->hidden(fn (Job $record) => ! $record->url)
+                        ->label('Scrape the job again')
+                        ->icon('heroicon-o-arrow-down-tray'),
+
+                    Action::make('revise')
+                        ->schema([
+                            Textarea::make('additional_instructions')
+                                ->nullable(),
+                        ])
+                        ->modalSubmitActionLabel('Revise')
+                        ->action(function (Job $record, array $data) {
+                            ReviseJob::dispatch($record, $data['additional_instructions']);
+
+                            Notification::make()
+                                ->title('The job has been queued for revision.')
+                                ->success()
+                                ->send();
+                        })
+                        ->hidden(fn (Job $record) => ! $record->html)
+                        ->icon('heroicon-o-arrow-path'),
+
+                    EditAction::make(),
+
+                    DeleteAction::make(),
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

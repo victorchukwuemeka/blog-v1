@@ -4,6 +4,59 @@ use App\Actions\TrackEvent;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
 
+it('posts event to Pirsch with retries and expected payload', function () {
+    config(['services.pirsch.access_key' => 'pirsch-test-key']);
+
+    Http::fake([
+        'api.pirsch.io/api/v1/event' => Http::sequence()
+            ->pushStatus(500)
+            ->pushStatus(500)
+            ->push([], 200),
+    ]);
+
+    $action = new TrackEvent;
+
+    $action->track(
+        'signup',
+        ['plan' => 'pro'],
+        'https://example.com/pricing',
+        '203.0.113.10',
+        'UA',
+        'en-US',
+        'https://google.com'
+    );
+
+    Http::assertSentCount(3);
+    Http::assertSent(function (Illuminate\Http\Client\Request $request) {
+        return $request->hasHeader('Authorization', 'Bearer pirsch-test-key')
+            && 'https://api.pirsch.io/api/v1/event' === $request->url()
+            && 'POST' === $request->method()
+            && 'signup' === $request['event_name']
+            && $request['event_meta'] === ['plan' => 'pro']
+            && 'https://example.com/pricing' === $request['url']
+            && '203.0.113.10' === $request['ip']
+            && 'UA' === $request['user_agent']
+            && 'en-US' === $request['accept_language']
+            && 'https://google.com' === $request['referrer'];
+    });
+});
+
+it('throws when Pirsch returns errors after retries', function () {
+    config(['services.pirsch.access_key' => 'pirsch-test-key']);
+
+    Http::fake([
+        'api.pirsch.io/api/v1/event' => Http::sequence()
+            ->pushStatus(500)
+            ->pushStatus(500)
+            ->pushStatus(500),
+    ]);
+
+    $action = new TrackEvent;
+
+    expect(fn () => $action->track('name', [], 'https://example.com', '1.1.1.1', 'UA', 'en'))
+        ->toThrow(RequestException::class);
+});
+
 beforeEach(fn () => Http::allowStrayRequests());
 
 it("successfully makes a call to Pirsch's API with valid parameters", function () {

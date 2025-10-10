@@ -5,8 +5,10 @@ namespace App\Filament\Resources\Jobs\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Group;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\CodeEditor;
 
 class JobForm
 {
@@ -14,58 +16,109 @@ class JobForm
     {
         return $schema
             ->components([
-                Select::make('company_id')
-                    ->relationship('company', 'name')
-                    ->required(),
+                Group::make([
+                    TextInput::make('title')
+                        ->required(),
 
-                TextInput::make('url')
-                    ->url()
-                    ->required(),
+                    CodeEditor::make('locations')
+                        ->json()
+                        ->nullable()
+                        ->formatStateUsing(function ($state) {
+                            return is_array($state)
+                                ? json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+                                : (is_string($state) ? $state : null);
+                        }),
 
-                TextInput::make('source')
-                    ->required(),
+                    CodeEditor::make('technologies')
+                        ->json()
+                        ->nullable()
+                        ->formatStateUsing(function ($state) {
+                            return is_array($state)
+                                ? json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+                                : (is_string($state) ? $state : null);
+                        }),
 
-                TextInput::make('language')
-                    ->required(),
+                    Textarea::make('description')
+                        ->required()
+                        ->columnSpanFull(),
 
-                TextInput::make('title')
-                    ->required(),
+                    CodeEditor::make('how_to_apply')
+                        ->json()
+                        ->nullable()
+                        ->formatStateUsing(function ($state) {
+                            return is_array($state)
+                                ? json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+                                : (is_string($state) ? $state : null);
+                        }),
 
-                TextInput::make('slug')
-                    ->required(),
+                    CodeEditor::make('perks')
+                        ->json()
+                        ->nullable()
+                        ->formatStateUsing(function ($state) {
+                            return is_array($state)
+                                ? json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+                                : (is_string($state) ? $state : null);
+                        }),
 
-                Textarea::make('description')
-                    ->required()
-                    ->columnSpanFull(),
+                    CodeEditor::make('interview_process')
+                        ->json()
+                        ->nullable()
+                        ->formatStateUsing(function ($state) {
+                            return is_array($state)
+                                ? json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+                                : (is_string($state) ? $state : null);
+                        }),
+                ])
+                    ->columnSpan([
+                        'default' => 12,
+                        'lg' => 8,
+                    ]),
 
-                TextInput::make('technologies')
-                    ->nullable(),
+                Group::make([
+                    Select::make('company_id')
+                        ->relationship('company', 'name')
+                        ->required()
+                        ->searchable(),
 
-                TextInput::make('locations')
-                    ->nullable(),
+                    TextInput::make('url')
+                        ->url()
+                        ->required()
+                        ->label('URL'),
 
-                TextInput::make('setting')
-                    ->required(),
+                    TextInput::make('source')
+                        ->required(),
 
-                TextInput::make('min_salary')
-                    ->numeric(),
+                    TextInput::make('language')
+                        ->required(),
 
-                TextInput::make('max_salary')
-                    ->numeric(),
+                    TextInput::make('slug')
+                        ->required(),
 
-                TextInput::make('currency'),
+                    Select::make('setting')
+                        ->options([
+                            'fully-remote' => 'Fully-remote',
+                            'hybrid' => 'Hybrid',
+                            'on-site' => 'On-site',
+                        ])
+                        ->required(),
 
-                Toggle::make('equity')
-                    ->required(),
+                    TextInput::make('min_salary')
+                        ->numeric()
+                        ->label('Minimum Salary'),
 
-                TextInput::make('how_to_apply')
-                    ->nullable(),
+                    TextInput::make('max_salary')
+                        ->numeric()
+                        ->label('Maximum Salary'),
 
-                TextInput::make('perks')
-                    ->nullable(),
+                    TextInput::make('currency'),
 
-                TextInput::make('interview_process')
-                    ->nullable(),
-            ]);
+                    Toggle::make('equity')
+                        ->required(),
+                ])->columnSpan([
+                    'default' => 12,
+                    'lg' => 4,
+                ]),
+            ])
+            ->columns(12);
     }
 }
