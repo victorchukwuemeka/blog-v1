@@ -8,4 +8,5 @@ alwaysApply: true
 - Tests are written using Pest.
 - This is a blog made with Laravel.
 - It generates money through affiliate links.
+- I use Model::unguard() because I'd rather rely on validation.
 - Visits are tracked in the backend to bypass ad blockers using Pirsch Analytics' API.
