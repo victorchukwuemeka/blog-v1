@@ -72,6 +72,15 @@ return [
             'after_commit' => false,
         ],
 
+        'failover' => [
+            'driver' => 'failover',
+            'connections' => [
+                'redis',
+                'database',
+                'sync',
+            ],
+        ],
+
     ],
 
     /*
