@@ -28,7 +28,7 @@
             : 'Latest job offers'"
         :big-title="$jobs->currentPage() === 1"
         id="jobs"
-        class="lg:max-w-(--breakpoint-md)"
+        class="xl:max-w-(--breakpoint-lg)"
     >
         @if ($jobs->isNotEmpty())
             <div class="grid gap-4">
