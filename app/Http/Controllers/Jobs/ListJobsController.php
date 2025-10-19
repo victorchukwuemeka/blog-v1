@@ -12,12 +12,6 @@ class ListJobsController extends Controller
     public function __invoke() : View
     {
         return view('jobs.index', [
-            'companies' => Company::query()
-                ->inRandomOrder()
-                ->where('is_highlighted', true)
-                ->limit(10)
-                ->get(),
-
             'jobs' => Job::query()
                 ->latest()
                 ->paginate(12),

@@ -2,7 +2,7 @@
     title="The latest job offers for developers"
 >
     @if ($jobs->currentPage() === 1)
-        <div class="container text-center">
+        <div class="container text-center mb-24">
             <div class="font-medium tracking-tight text-black text-4xl/none md:text-5xl lg:text-7xl text-balance">
                 <span class="text-blue-600">{{ trans_choice(':count new job|:count new jobs', $recentJobsCount) }}</span> in the last 30 days
             </div>
@@ -19,18 +19,6 @@
             >
                 Start applying
             </x-btn>
-        </div>
-
-        <div class="my-24">
-            <x-heading>Currently hiring</x-heading>
-
-            <div class="flex md:justify-center px-4 overflow-x-auto snap-mandatory snap-x items-center gap-16 mt-8">
-                @foreach ($companies as $company)
-                    <a href="{{ $company->url }}" target="_blank" class="scroll-ml-4 max-w-[200px] flex-none snap-start max-h-16">
-                        <img src="{{ $company->logo }}" {!! $company->extra_attributes !!} />
-                    </a>
-                @endforeach
-            </div>
         </div>
     @endif
 
