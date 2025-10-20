@@ -1,7 +1,3 @@
-Got it ✅ — here’s a **serious, professional** rewrite that clearly states you’re using Benjamin Crozat’s project as a base for *your own real blog*, not just for learning.
-
----
-
 # Victor Chukwuemeka’s Blog
 
 This project is **based on [Benjamin Crozat’s open-source blog](https://github.com/benjamincrozat/blog-v5)** — a Laravel-powered blogging platform built with modern tools and best practices.
