@@ -14,8 +14,9 @@ trait PostHasTableOfContents
     {
         return new HtmlString(
             view('components.table-of-contents.index', [
-                'items' => new TableOfContents($this->content)->toArray(),
-            ])->render()
+                'items' => (new TableOfContents($this->content))->toArray()
+            ])
+            ->render()
         );
     }
 }
