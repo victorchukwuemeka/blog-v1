@@ -20,6 +20,7 @@ use App\Http\Controllers\Advertising\ShowAdvertisingLandingPageController;
 Route::get('/', HomeController::class)
     ->name('home');
 
+    
 Route::get('/blog', ListPostsController::class)
     ->name('posts.index');
 

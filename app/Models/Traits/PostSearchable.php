@@ -10,6 +10,7 @@ use Laravel\Scout\Searchable;
 trait PostSearchable
 {
     use Searchable;
+    
 
     public function toSearchableArray() : array
     {

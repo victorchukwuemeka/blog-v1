@@ -14,7 +14,7 @@
         </div>
 
         <span class="text-base font-bold tracking-widest uppercase">
-            benjamincrozat.com
+            viktr.xyz
         </span>
     </a>
 
@@ -34,7 +34,8 @@
         >
             Links
         </x-nav.item>
-
+        
+        {{--
         <x-nav.item
             active-icon="heroicon-s-briefcase"
             icon="heroicon-o-briefcase"
@@ -50,6 +51,7 @@
         >
             Tools
         </x-nav.item>
+        --}}
 
         @auth
             <x-dropdown>
@@ -137,7 +139,9 @@
                 />
                 More
             </x-slot>
-
+            <x-slot:items></x-slot:items>
+            
+            {{--
             <x-slot:items>
                 <x-dropdown.divider>
                     More
@@ -224,7 +228,7 @@
 
                 <x-dropdown.item
                     icon="iconoir-linkedin"
-                    href="https://www.linkedin.com/in/benjamincrozat"
+                    href="https://www.linkedin.com/in/benjamincroza"
                     target="_blank"
                 >
                     LinkedIn
@@ -232,12 +236,14 @@
 
                 <x-dropdown.item
                     icon="iconoir-x"
-                    href="https://x.com/benjamincrozat"
+                    href="https://x.com/viktr_sol"
                     target="_blank"
                 >
                     X
                 </x-dropdown.item>
+                
             </x-slot>
+            --}}
         </x-dropdown>
     </div>
 </nav>

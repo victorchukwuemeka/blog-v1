@@ -6,6 +6,7 @@ use App\Models\Link;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+
 class CreatePostForLink implements ShouldQueue
 {
     use Queueable;

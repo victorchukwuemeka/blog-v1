@@ -5,6 +5,7 @@
     'title',
 ])
 
+
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" class="scroll-smooth">
     <head>
@@ -79,7 +80,8 @@
                     </p>
                 </div>
             @endif
-
+            
+            {{--
             @empty($hideAd)
                 @if (random_int(0, 1))
                     <x-ads.top.sevalla />
@@ -87,6 +89,7 @@
                     <x-ads.top.coderabbit />
                 @endif
             @endempty
+            --}}
 
             @empty($hideNavigation)
                 <header class="container mt-4 xl:max-w-(--breakpoint-lg)">
